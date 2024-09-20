@@ -17,6 +17,7 @@ public class IntakeStateControl {
 
     public void takeIn() {
         intakeMotorControl.motor(StateSwitch.downOn);
+        servoControl.setServoSpeed(0,1);
         servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
     }
 
@@ -29,6 +30,7 @@ public class IntakeStateControl {
 
     public void pushOut() {
         intakeMotorControl.motor(StateSwitch.upOn);
+        servoControl.setServoSpeed(0,0);
         servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
     }
 
