@@ -7,7 +7,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.apriltag.AprilTagPose;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 @TeleOp(name = "AprilTag Detection Example", group = "Concept")
-public class AprilTagDetectionExample extends LinearOpMode {
+public class AprilTagDetector extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -55,10 +54,10 @@ public class AprilTagDetectionExample extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();
+            ArrayList<org.openftc.apriltag.AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();
 
             if (!detections.isEmpty()) {
-                for (AprilTagDetection detection : detections) {
+                for (org.openftc.apriltag.AprilTagDetection detection : detections) {
                     AprilTagDetectionPipeline.Pose pose = aprilTagPoseToOpenCvPose(detection.pose);
 
                     double[] eulerAngles = pose.getEulerAngles();
