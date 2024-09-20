@@ -291,18 +291,38 @@ public class AprilTagDetectionPipeline extends OpenCvPipeline {
      * A simple container to hold both rotation and translation
      * vectors, which together form a 6DOF pose.
      */
-    class Pose {
-        Mat rvec;
-        Mat tvec;
+    public static class Pose {
+        public Mat rvec; // Rotation vector
+        public Mat tvec; // Translation vector
 
         public Pose() {
             rvec = new Mat(3, 1, CvType.CV_32F);
             tvec = new Mat(3, 1, CvType.CV_32F);
         }
 
-        public Pose(Mat rvec, Mat tvec) {
-            this.rvec = rvec;
-            this.tvec = tvec;
+        public double[] getEulerAngles() {
+            Mat rotationMatrix = new Mat();
+            Calib3d.Rodrigues(rvec, rotationMatrix);
+
+            double sy = Math.sqrt(rotationMatrix.get(0, 0)[0] * rotationMatrix.get(0, 0)[0] +
+                    rotationMatrix.get(1, 0)[0] * rotationMatrix.get(1, 0)[0]);
+
+            boolean singular = sy < 1e-6; // Singular check
+
+            double x, y, z;
+            if (!singular) {
+                x = Math.atan2(rotationMatrix.get(2, 1)[0], rotationMatrix.get(2, 2)[0]);
+                y = Math.atan2(-rotationMatrix.get(2, 0)[0], sy);
+                z = Math.atan2(rotationMatrix.get(1, 0)[0], rotationMatrix.get(0, 0)[0]);
+            } else {
+                x = Math.atan2(-rotationMatrix.get(1, 2)[0], rotationMatrix.get(1, 1)[0]);
+                y = Math.atan2(-rotationMatrix.get(2, 0)[0], sy);
+                z = 0;
+            }
+
+            return new double[]{Math.toDegrees(x), Math.toDegrees(y), Math.toDegrees(z)};
         }
     }
+
 }
+
