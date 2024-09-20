@@ -24,7 +24,7 @@ public class AprilTagDetectionExample extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(
-                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+                hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
 
         // Camera calibration values
         double tagsize = 0.166;  // Tag size in meters
