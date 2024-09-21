@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.apriltag.AprilTagPose;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -18,11 +19,14 @@ import java.util.Locale;
 @TeleOp(name = "AprilTag Detection Example", group = "Concept")
 public class AprilTagDetector extends LinearOpMode {
 
+    private OpenCvCamera webcam;
+    private AprilTagDetectionPipeline aprilTagDetectionPipeline;
+
     @Override
     public void runOpMode() {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(
                 hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
 
         // Camera calibration values
@@ -32,7 +36,7 @@ public class AprilTagDetector extends LinearOpMode {
         double cx = 402.145;     // Optical center x (pixels)
         double cy = 221.506;     // Optical center y (pixels)
 
-        AprilTagDetectionPipeline aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+        aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         webcam.setPipeline(aprilTagDetectionPipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -54,10 +58,10 @@ public class AprilTagDetector extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            ArrayList<org.openftc.apriltag.AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();
+            ArrayList<AprilTagDetection> detections = getDetections();
 
             if (!detections.isEmpty()) {
-                for (org.openftc.apriltag.AprilTagDetection detection : detections) {
+                for (AprilTagDetection detection : detections) {
                     AprilTagDetectionPipeline.Pose pose = aprilTagPoseToOpenCvPose(detection.pose);
 
                     double[] eulerAngles = pose.getEulerAngles();
@@ -78,6 +82,10 @@ public class AprilTagDetector extends LinearOpMode {
         }
 
         webcam.stopStreaming();
+    }
+
+    public ArrayList<AprilTagDetection> getDetections() {
+        return aprilTagDetectionPipeline.getLatestDetections();
     }
 
     private AprilTagDetectionPipeline.Pose aprilTagPoseToOpenCvPose(AprilTagPose aprilTagPose) {
