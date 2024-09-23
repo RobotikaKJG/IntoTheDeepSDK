@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.CvType;
@@ -14,24 +16,27 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 @TeleOp(name = "AprilTag Detection Test", group = "Concept")
 public class AprilTagDetector extends LinearOpMode {
 
     OpenCvCamera webcam;
     private AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    Telemetry telemetry2;
+    HardwareMap hardwareMap2;
 
     @Override
     public void runOpMode() {
-        initializeAprilTagDetector();
+        initializeAprilTagDetector(telemetry, hardwareMap);
     }
 
-    public void initializeAprilTagDetector() {
+    public void initializeAprilTagDetector(Telemetry telemetry, HardwareMap hardwareMap) {
+        telemetry2 = telemetry;
+        hardwareMap2 = hardwareMap;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "cameraMonitorViewId", "id", hardwareMap2.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(
-                hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
+                hardwareMap2.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
 
         // Camera calibration values
         double tagsize = 0.166;  // Tag size in meters
@@ -52,15 +57,15 @@ public class AprilTagDetector extends LinearOpMode {
             @Override
             public void onError(int errorCode) {
                 if (opModeIsActive()) {
-                    telemetry.addLine("Camera failed to open!");
-                    telemetry.update();
+                    telemetry2.addLine("Camera failed to open!");
+                    telemetry2.update();
                 }
             }
         });
 
         if (opModeIsActive()) {
-            telemetry.addLine("Waiting for start");
-            telemetry.update();
+            telemetry2.addLine("Waiting for start");
+            telemetry2.update();
         }
     }
 
@@ -68,8 +73,8 @@ public class AprilTagDetector extends LinearOpMode {
         // Ensure the pipeline is initialized before calling getLatestDetections()
         if (aprilTagDetectionPipeline == null) {
             if (opModeIsActive()) {
-                telemetry.addLine("AprilTag Detection Pipeline is not initialized");
-                telemetry.update();
+                telemetry2.addLine("AprilTag Detection Pipeline is not initialized");
+                telemetry2.update();
             }
             return new ArrayList<>();  // Return an empty list to avoid null pointer exceptions
         }

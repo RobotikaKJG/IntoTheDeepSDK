@@ -15,7 +15,7 @@ public class RobotPositionCalculator extends LinearOpMode {
     public void runOpMode() {
         // Initialize the AprilTagDetector
         aprilTagDetector = new AprilTagDetector();
-        aprilTagDetector.initializeAprilTagDetector();
+        aprilTagDetector.initializeAprilTagDetector(telemetry,hardwareMap);
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
