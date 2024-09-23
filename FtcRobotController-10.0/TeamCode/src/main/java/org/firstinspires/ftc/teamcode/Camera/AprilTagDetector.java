@@ -60,7 +60,7 @@ public class AprilTagDetector extends LinearOpMode {
         while (opModeIsActive()) {
             ArrayList<AprilTagDetection> detections = getDetections();
 
-            if (!detections.isEmpty()) {
+            if (detections != null && !detections.isEmpty()) {
                 for (AprilTagDetection detection : detections) {
                     AprilTagDetectionPipeline.Pose pose = aprilTagPoseToOpenCvPose(detection.pose);
 
@@ -85,6 +85,13 @@ public class AprilTagDetector extends LinearOpMode {
     }
 
     public ArrayList<AprilTagDetection> getDetections() {
+        // Ensure the pipeline is initialized before calling getLatestDetections()
+        if (aprilTagDetectionPipeline == null) {
+            telemetry.addLine("AprilTag Detection Pipeline is not initialized");
+            telemetry.update();
+            return new ArrayList<>();  // Return an empty list to avoid null pointer exceptions
+        }
+
         return aprilTagDetectionPipeline.getLatestDetections();
     }
 
