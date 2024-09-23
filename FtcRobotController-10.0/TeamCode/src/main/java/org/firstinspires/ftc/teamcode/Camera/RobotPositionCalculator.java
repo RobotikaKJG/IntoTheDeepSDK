@@ -63,7 +63,7 @@ public class RobotPositionCalculator extends LinearOpMode {
             case 1:
                 return new double[]{0.0, 0.0}; // Example coordinates for tag ID 1 (X, Z)
             case 4:
-                return new double[]{4.0, 1.0}; // Example coordinates for tag ID 2 (X, Z)
+                return new double[]{4.0, 1.0}; // Example coordinates for tag ID 4 (X, Z)
             // Add cases for other tag IDs as needed
             default:
                 return null; // Unknown tag ID
