@@ -15,7 +15,7 @@ public class RobotPositionCalculator extends LinearOpMode {
     public void runOpMode() {
         // Initialize the AprilTagDetector
         aprilTagDetector = new AprilTagDetector();
-        aprilTagDetector.initializeAprilTagDetector(telemetry,hardwareMap);
+        aprilTagDetector.initializeAprilTagDetector(telemetry, hardwareMap);
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -32,35 +32,29 @@ public class RobotPositionCalculator extends LinearOpMode {
                     double[] fieldTagPosition = getFieldTagPosition(detection.id);
 
                     if (fieldTagPosition != null) {
-                        // Calculate the robot's position relative to the field based on the tag's position
-                        double robotX = fieldTagPosition[0] - detection.pose.x; // X coordinate on the field
-                        double robotZ = fieldTagPosition[1] - detection.pose.z; // Z coordinate on the field
-                        double robotY = detection.pose.y;  // Y is the vertical position (height)
+                        // Convert meters to inches (1 meter = 39.3701 inches)
+                        double robotX = (fieldTagPosition[0] - detection.pose.x) * 39.3701; // X coordinate in inches
+                        double robotZ = (fieldTagPosition[1] - detection.pose.z) * 39.3701; // Z coordinate in inches
+                        double robotY = detection.pose.y * 39.3701;  // Y is the vertical position in inches
 
-                        // Only update telemetry while the OpMode is active
-                        if (opModeIsActive()) {
-                            telemetry.addLine(String.format(Locale.US, "Detected tag ID=%d", detection.id));
-                            telemetry.addLine(String.format(Locale.US, "Robot X: %.2f meters", robotX));
-                            telemetry.addLine(String.format(Locale.US, "Robot Y: %.2f meters (Height)", robotY));
-                            telemetry.addLine(String.format(Locale.US, "Robot Z: %.2f meters", robotZ));
-                        }
+                        // Calculate the angle from the AprilTag to the robot's camera
+                        double angleToTag = Math.toDegrees(Math.atan2(detection.pose.y, detection.pose.z)); // Angle in degrees
+
+                        // Print the robot's 3D coordinates (X, Y, Z) and angle to telemetry
+                        telemetry.addLine(String.format(Locale.US, "Detected tag ID=%d", detection.id));
+                        telemetry.addLine(String.format(Locale.US, "Robot X: %.2f inches", robotX));
+                        telemetry.addLine(String.format(Locale.US, "Robot Y: %.2f inches (Height)", robotY));
+                        telemetry.addLine(String.format(Locale.US, "Robot Z: %.2f inches", robotZ));
+                        telemetry.addLine(String.format(Locale.US, "Angle to Tag: %.2f degrees", angleToTag));
                     } else {
-                        if (opModeIsActive()) {
-                            telemetry.addLine("Tag ID not recognized for field positioning");
-                        }
+                        telemetry.addLine("Tag ID not recognized for field positioning");
                     }
                 }
             } else {
-                if (opModeIsActive()) {
-                    telemetry.addLine("No tags detected");
-                }
+                telemetry.addLine("No tags detected");
             }
 
-            // Update telemetry and sleep only while the OpMode is active
-            if (opModeIsActive()) {
-                telemetry.update();
-            }
-
+            telemetry.update();
             sleep(20);  // Small delay to avoid spamming telemetry
         }
 
@@ -76,7 +70,7 @@ public class RobotPositionCalculator extends LinearOpMode {
      */
     private double[] getFieldTagPosition(int tagID) {
         switch (tagID) {
-            case 1:
+            case 11:
                 return new double[]{0.0, 0.0}; // Example coordinates for tag ID 1 (X, Z)
             case 4:
                 return new double[]{4.0, 1.0}; // Example coordinates for tag ID 4 (X, Z)
