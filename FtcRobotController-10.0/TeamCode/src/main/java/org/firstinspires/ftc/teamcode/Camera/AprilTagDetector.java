@@ -16,14 +16,18 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 import java.util.Locale;
 
-@TeleOp(name = "AprilTag Detection Example", group = "Concept")
+@TeleOp(name = "AprilTag Detection Test", group = "Concept")
 public class AprilTagDetector extends LinearOpMode {
 
-    private OpenCvCamera webcam;
+    OpenCvCamera webcam;
     private AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
     @Override
     public void runOpMode() {
+        initializeAprilTagDetector();
+    }
+
+    public void initializeAprilTagDetector() {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(
@@ -47,48 +51,26 @@ public class AprilTagDetector extends LinearOpMode {
 
             @Override
             public void onError(int errorCode) {
-                telemetry.addLine("Camera failed to open!");
-                telemetry.update();
+                if (opModeIsActive()) {
+                    telemetry.addLine("Camera failed to open!");
+                    telemetry.update();
+                }
             }
         });
 
-        telemetry.addLine("Waiting for start");
-        telemetry.update();
-
-        waitForStart();
-
-        while (opModeIsActive()) {
-            ArrayList<AprilTagDetection> detections = getDetections();
-
-            if (detections != null && !detections.isEmpty()) {
-                for (AprilTagDetection detection : detections) {
-                    AprilTagDetectionPipeline.Pose pose = aprilTagPoseToOpenCvPose(detection.pose);
-
-                    double[] eulerAngles = pose.getEulerAngles();
-                    telemetry.addLine(String.format(Locale.US, "\nDetected tag ID=%d", detection.id));
-                    telemetry.addLine(String.format(Locale.US, "Translation X: %.2f meters", detection.pose.x));
-                    telemetry.addLine(String.format(Locale.US, "Translation Y: %.2f meters", detection.pose.y));
-                    telemetry.addLine(String.format(Locale.US, "Translation Z: %.2f meters", detection.pose.z));
-                    telemetry.addLine(String.format(Locale.US, "Rotation Yaw: %.2f degrees", eulerAngles[0]));
-                    telemetry.addLine(String.format(Locale.US, "Rotation Pitch: %.2f degrees", eulerAngles[1]));
-                    telemetry.addLine(String.format(Locale.US, "Rotation Roll: %.2f degrees", eulerAngles[2]));
-                }
-            } else {
-                telemetry.addLine("No tags detected");
-            }
-
+        if (opModeIsActive()) {
+            telemetry.addLine("Waiting for start");
             telemetry.update();
-            sleep(20); // Small delay to avoid spamming telemetry
         }
-
-        webcam.stopStreaming();
     }
 
     public ArrayList<AprilTagDetection> getDetections() {
         // Ensure the pipeline is initialized before calling getLatestDetections()
         if (aprilTagDetectionPipeline == null) {
-            telemetry.addLine("AprilTag Detection Pipeline is not initialized");
-            telemetry.update();
+            if (opModeIsActive()) {
+                telemetry.addLine("AprilTag Detection Pipeline is not initialized");
+                telemetry.update();
+            }
             return new ArrayList<>();  // Return an empty list to avoid null pointer exceptions
         }
 

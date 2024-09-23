@@ -13,8 +13,9 @@ public class RobotPositionCalculator extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // Instantiate the AprilTagDetector class
+        // Initialize the AprilTagDetector
         aprilTagDetector = new AprilTagDetector();
+        aprilTagDetector.initializeAprilTagDetector();
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -25,7 +26,7 @@ public class RobotPositionCalculator extends LinearOpMode {
             // Retrieve the latest AprilTag detections
             ArrayList<AprilTagDetection> detections = aprilTagDetector.getDetections();
 
-            if (!detections.isEmpty()) {
+            if (detections != null && !detections.isEmpty()) {
                 for (AprilTagDetection detection : detections) {
                     // Retrieve the known field position of the detected AprilTag
                     double[] fieldTagPosition = getFieldTagPosition(detection.id);
@@ -36,21 +37,36 @@ public class RobotPositionCalculator extends LinearOpMode {
                         double robotZ = fieldTagPosition[1] - detection.pose.z; // Z coordinate on the field
                         double robotY = detection.pose.y;  // Y is the vertical position (height)
 
-                        // Print the robot's 3D coordinates (X, Y, Z) to telemetry
-                        telemetry.addLine(String.format(Locale.US, "Detected tag ID=%d", detection.id));
-                        telemetry.addLine(String.format(Locale.US, "Robot X: %.2f meters", robotX));
-                        telemetry.addLine(String.format(Locale.US, "Robot Y: %.2f meters (Height)", robotY));
-                        telemetry.addLine(String.format(Locale.US, "Robot Z: %.2f meters", robotZ));
+                        // Only update telemetry while the OpMode is active
+                        if (opModeIsActive()) {
+                            telemetry.addLine(String.format(Locale.US, "Detected tag ID=%d", detection.id));
+                            telemetry.addLine(String.format(Locale.US, "Robot X: %.2f meters", robotX));
+                            telemetry.addLine(String.format(Locale.US, "Robot Y: %.2f meters (Height)", robotY));
+                            telemetry.addLine(String.format(Locale.US, "Robot Z: %.2f meters", robotZ));
+                        }
                     } else {
-                        telemetry.addLine("Tag ID not recognized for field positioning");
+                        if (opModeIsActive()) {
+                            telemetry.addLine("Tag ID not recognized for field positioning");
+                        }
                     }
                 }
             } else {
-                telemetry.addLine("No tags detected");
+                if (opModeIsActive()) {
+                    telemetry.addLine("No tags detected");
+                }
             }
 
-            telemetry.update();
-            sleep(20); // Small delay to avoid spamming telemetry
+            // Update telemetry and sleep only while the OpMode is active
+            if (opModeIsActive()) {
+                telemetry.update();
+            }
+
+            sleep(20);  // Small delay to avoid spamming telemetry
+        }
+
+        // Ensure the camera stops streaming after the OpMode ends
+        if (aprilTagDetector.webcam != null) {
+            aprilTagDetector.webcam.stopStreaming();
         }
     }
 
