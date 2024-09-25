@@ -32,7 +32,7 @@ public class RobotPositionCalculator extends LinearOpMode {
 
             if (detections != null && !detections.isEmpty()) {
                 for (AprilTagDetection detection : detections) {
-
+                    // Retrieve the known field position of the detected AprilTag
                     double[] fieldTagPosition = getFieldTagPosition(detection.id);
 
                     if (fieldTagPosition != null) {
@@ -41,14 +41,21 @@ public class RobotPositionCalculator extends LinearOpMode {
                         double robotZ = (fieldTagPosition[1] - detection.pose.z) * 39.3701; // Z coordinate in inches
                         double robotY = detection.pose.y * 39.3701;  // Y is the vertical position in inches
 
+                        // Adjust the Z coordinate by adding 2 inches based on the condition
+                        if (detection.pose.z > 0) {
+                            robotZ += 2; // Adjust forwards
+                        } else {
+                            robotZ -= 2; // Adjust backwards
+                        }
 
+                        // Extract the rotation matrix from detection.pose.R
                         MatrixF rotationMatrix = detection.pose.R;
 
-
+                        // Extract yaw, pitch, and roll from the rotation matrix
                         double sy = Math.sqrt(rotationMatrix.get(0, 0) * rotationMatrix.get(0, 0) +
                                 rotationMatrix.get(1, 0) * rotationMatrix.get(1, 0));
 
-                        boolean singular = sy < 1e-6;
+                        boolean singular = sy < 1e-6; // If sy is close to zero, singularity exists
 
                         double yaw, pitch, roll;
                         if (!singular) {
@@ -61,7 +68,7 @@ public class RobotPositionCalculator extends LinearOpMode {
                             roll = 0;
                         }
 
-
+                        // Convert to degrees
                         yaw = Math.toDegrees(yaw);
                         pitch = Math.toDegrees(pitch);
                         roll = Math.toDegrees(roll);
