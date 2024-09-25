@@ -2,9 +2,13 @@ package org.firstinspires.ftc.teamcode.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 import org.openftc.apriltag.AprilTagDetection;
 import java.util.ArrayList;
 import java.util.Locale;
+import org.openftc.easyopencv.OpenCvPipeline;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp(name = "Robot Position Calculator 3D", group = "Concept")
 public class RobotPositionCalculator extends LinearOpMode {
@@ -28,7 +32,7 @@ public class RobotPositionCalculator extends LinearOpMode {
 
             if (detections != null && !detections.isEmpty()) {
                 for (AprilTagDetection detection : detections) {
-                    // Retrieve the known field position of the detected AprilTag
+
                     double[] fieldTagPosition = getFieldTagPosition(detection.id);
 
                     if (fieldTagPosition != null) {
@@ -37,15 +41,39 @@ public class RobotPositionCalculator extends LinearOpMode {
                         double robotZ = (fieldTagPosition[1] - detection.pose.z) * 39.3701; // Z coordinate in inches
                         double robotY = detection.pose.y * 39.3701;  // Y is the vertical position in inches
 
-                        // Calculate the angle from the AprilTag to the robot's camera
-                        double angleToTag = Math.toDegrees(Math.atan2(detection.pose.y, detection.pose.z)); // Angle in degrees
 
-                        // Print the robot's 3D coordinates (X, Y, Z) and angle to telemetry
+                        MatrixF rotationMatrix = detection.pose.R;
+
+
+                        double sy = Math.sqrt(rotationMatrix.get(0, 0) * rotationMatrix.get(0, 0) +
+                                rotationMatrix.get(1, 0) * rotationMatrix.get(1, 0));
+
+                        boolean singular = sy < 1e-6;
+
+                        double yaw, pitch, roll;
+                        if (!singular) {
+                            yaw = Math.atan2(rotationMatrix.get(2, 1), rotationMatrix.get(2, 2));
+                            pitch = Math.atan2(-rotationMatrix.get(2, 0), sy);
+                            roll = Math.atan2(rotationMatrix.get(1, 0), rotationMatrix.get(0, 0));
+                        } else {
+                            yaw = Math.atan2(-rotationMatrix.get(1, 2), rotationMatrix.get(1, 1));
+                            pitch = Math.atan2(-rotationMatrix.get(2, 0), sy);
+                            roll = 0;
+                        }
+
+
+                        yaw = Math.toDegrees(yaw);
+                        pitch = Math.toDegrees(pitch);
+                        roll = Math.toDegrees(roll);
+
+                        // Print the robot's 3D coordinates (X, Y, Z) and angles to telemetry
                         telemetry.addLine(String.format(Locale.US, "Detected tag ID=%d", detection.id));
                         telemetry.addLine(String.format(Locale.US, "Robot X: %.2f inches", robotX));
                         telemetry.addLine(String.format(Locale.US, "Robot Y: %.2f inches (Height)", robotY));
                         telemetry.addLine(String.format(Locale.US, "Robot Z: %.2f inches", robotZ));
-                        telemetry.addLine(String.format(Locale.US, "Angle to Tag: %.2f degrees", angleToTag));
+                        telemetry.addLine(String.format(Locale.US, "Yaw: %.2f degrees", yaw));
+                        telemetry.addLine(String.format(Locale.US, "Pitch: %.2f degrees", pitch));
+                        telemetry.addLine(String.format(Locale.US, "Roll: %.2f degrees", roll));
                     } else {
                         telemetry.addLine("Tag ID not recognized for field positioning");
                     }
