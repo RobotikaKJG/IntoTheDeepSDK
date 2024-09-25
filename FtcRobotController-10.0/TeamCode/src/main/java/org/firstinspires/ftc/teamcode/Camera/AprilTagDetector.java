@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Camera;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,6 +18,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
+@Config
 @TeleOp(name = "AprilTag Detection Test", group = "Concept")
 public class AprilTagDetector extends LinearOpMode {
 
@@ -24,6 +26,10 @@ public class AprilTagDetector extends LinearOpMode {
     private AprilTagDetectionPipeline aprilTagDetectionPipeline;
     Telemetry telemetry2;
     HardwareMap hardwareMap2;
+    static double fx = 578.272;     // Focal length in x direction (pixels)
+    static double fy = 578.272;     // Focal length in y direction (pixels)
+    static double cx = 402.145;     // Optical center x (pixels)
+    static double cy = 221.506;     // Optical center y (pixels)
 
     @Override
     public void runOpMode() {
@@ -39,11 +45,8 @@ public class AprilTagDetector extends LinearOpMode {
                 hardwareMap2.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
 
         // Camera calibration values
-        double tagsize = 0.166;  // Tag size in meters
-        double fx = 578.272;     // Focal length in x direction (pixels)
-        double fy = 578.272;     // Focal length in y direction (pixels)
-        double cx = 402.145;     // Optical center x (pixels)
-        double cy = 221.506;     // Optical center y (pixels)
+        double tagsize = 0.1016;  // Tag size in meters
+
 
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         webcam.setPipeline(aprilTagDetectionPipeline);
