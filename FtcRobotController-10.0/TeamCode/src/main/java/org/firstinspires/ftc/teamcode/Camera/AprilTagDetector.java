@@ -1,5 +1,10 @@
 package org.firstinspires.ftc.teamcode.Camera;
 
+import static org.firstinspires.ftc.teamcode.Camera.AprilTagConstants.cx;
+import static org.firstinspires.ftc.teamcode.Camera.AprilTagConstants.cy;
+import static org.firstinspires.ftc.teamcode.Camera.AprilTagConstants.fx;
+import static org.firstinspires.ftc.teamcode.Camera.AprilTagConstants.fy;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -26,10 +31,6 @@ public class AprilTagDetector extends LinearOpMode {
     private AprilTagDetectionPipeline aprilTagDetectionPipeline;
     Telemetry telemetry2;
     HardwareMap hardwareMap2;
-    static double fx = 578.272;     // Focal length in x direction (pixels)
-    static double fy = 578.272;     // Focal length in y direction (pixels)
-    static double cx = 402.145;     // Optical center x (pixels)
-    static double cy = 221.506;     // Optical center y (pixels)
 
     @Override
     public void runOpMode() {
