@@ -17,7 +17,7 @@ public class AprilTagDetectionOpMode extends LinearOpMode {  // Use your custom 
     // Constants
     private static final double TAG_SIZE = 0.1016;  // AprilTag size in meters (10.16 cm)
     private static final double METERS_TO_INCHES = 39.3701;
-    private static final double SCALING_FACTOR = 1.238;  // Scaling factor for distance
+    private static final double SCALING_FACTOR = 1.276;  // Scaling factor for distance
 
     // OpenCV variables
     OpenCvCamera webcam;
