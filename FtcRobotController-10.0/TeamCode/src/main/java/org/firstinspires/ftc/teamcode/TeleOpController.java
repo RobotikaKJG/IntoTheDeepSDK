@@ -31,15 +31,16 @@ public class TeleOpController extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
         waitForStart();
@@ -68,8 +69,8 @@ public class TeleOpController extends LinearOpMode {
     }
 
     private void drive(IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
-        double ly = -gamepad1.left_stick_y;
-        double lx = gamepad1.left_stick_x * 1.1;
+        double y = -gamepad1.left_stick_y; // Y stick value is reversed
+        double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
 
 
@@ -79,12 +80,12 @@ public class TeleOpController extends LinearOpMode {
 
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        double rotX = lx * Math.cos(-botHeading) - ly * Math.sin(-botHeading);
-        double rotY = lx * Math.sin(-botHeading) + ly * Math.cos(-botHeading);
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
         rotX = rotX * 1.1;  // Counteract imperfect strafing
 
-        // Denominator is the largest motor power (absolute value) or 1
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
