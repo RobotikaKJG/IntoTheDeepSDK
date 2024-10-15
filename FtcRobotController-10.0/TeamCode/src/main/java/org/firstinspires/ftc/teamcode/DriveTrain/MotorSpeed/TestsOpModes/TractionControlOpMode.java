@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.MotorSpeed.TestsOpModes;
+package org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TestsOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.IntakeController;
 import org.firstinspires.ftc.teamcode.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 
-import org.firstinspires.ftc.teamcode.MotorSpeed.TractionControl;
+import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
 
 @TeleOp
 public class DriveBase extends LinearOpMode {
