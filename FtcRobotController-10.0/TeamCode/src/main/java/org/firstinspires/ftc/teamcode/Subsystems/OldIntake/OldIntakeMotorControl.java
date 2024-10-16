@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.OldIntake;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.Enums.StateSwitch;
 
-public class IntakeMotorControl {
+public class OldIntakeMotorControl {
     private final MotorControl motorControl;
 
-    public IntakeMotorControl(MotorControl motorControl) {
+    public OldIntakeMotorControl(MotorControl motorControl) {
         this.motorControl = motorControl;
     }
 
     public void motor(StateSwitch stateSwitch) {
-        motor(stateSwitch,IntakeConstants.intakeSpeed);
+        motor(stateSwitch, OldIntakeConstants.intakeSpeed);
     }
 
     public void motor(StateSwitch stateSwitch, double speed) {

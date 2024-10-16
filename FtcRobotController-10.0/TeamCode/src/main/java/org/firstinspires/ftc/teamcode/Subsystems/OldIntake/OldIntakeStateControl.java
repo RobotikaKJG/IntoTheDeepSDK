@@ -1,22 +1,22 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.OldIntake;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.Enums.StateSwitch;
 
-public class IntakeStateControl {
+public class OldIntakeStateControl {
 
     private final ServoControl servoControl;
-    private final IntakeMotorControl intakeMotorControl;
+    private final OldIntakeMotorControl oldIntakeMotorControl;
 
-    public IntakeStateControl(MotorControl motorControl, ServoControl servoControl) {
+    public OldIntakeStateControl(MotorControl motorControl, ServoControl servoControl) {
         this.servoControl = servoControl;
-        intakeMotorControl = new IntakeMotorControl(motorControl);
+        oldIntakeMotorControl = new OldIntakeMotorControl(motorControl);
     }
 
     public void takeIn() {
-        intakeMotorControl.motor(StateSwitch.downOn);
+        oldIntakeMotorControl.motor(StateSwitch.downOn);
         servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
     }
 
@@ -28,17 +28,17 @@ public class IntakeStateControl {
     }
 
     public void pushOut() {
-        intakeMotorControl.motor(StateSwitch.upOn);
+        oldIntakeMotorControl.motor(StateSwitch.upOn);
         servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
     }
 
     public void pushOut(double speed) {
-        intakeMotorControl.motor(StateSwitch.upOn,speed);
+        oldIntakeMotorControl.motor(StateSwitch.upOn,speed);
         servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
     }
 
     public void stop() {
-        intakeMotorControl.motor(StateSwitch.noOn);
+        oldIntakeMotorControl.motor(StateSwitch.noOn);
     }
 
     public void moveDown(){

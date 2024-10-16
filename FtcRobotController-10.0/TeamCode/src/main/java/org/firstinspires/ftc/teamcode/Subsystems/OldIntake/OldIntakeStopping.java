@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.OldIntake;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -6,14 +6,14 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.Enums.IntakeStoppingState;
 
-public class IntakeStopping {
-    private final IntakeStateControl intakeStateControl;
+public class OldIntakeStopping {
+    private final OldIntakeStateControl intakeStateControl;
     private IntakeStoppingState intakeStoppingState = IntakeStoppingState.Start;
     private final ElapsedTime runtime;
     private final ServoControl servoControl;
     private double currentWait;
 
-    public IntakeStopping(ElapsedTime runtime, IntakeStateControl intakeStateControl, ServoControl servoControl) {
+    public OldIntakeStopping(ElapsedTime runtime, OldIntakeStateControl intakeStateControl, ServoControl servoControl) {
         this.runtime = runtime;
         this.intakeStateControl = intakeStateControl;
         this.servoControl = servoControl;
@@ -44,7 +44,7 @@ public class IntakeStopping {
         servoControl.increasePos(ServoConstants.release1);
         servoControl.increasePos(ServoConstants.release2);
         intakeStoppingState = IntakeStoppingState.CloseServos;
-        addWaitTime(IntakeConstants.intakeStopServoCloseWait);
+        addWaitTime(OldIntakeConstants.intakeStopServoCloseWait);
     }
 
     public void closeServos() {
@@ -52,7 +52,7 @@ public class IntakeStopping {
 
         intakeStoppingState = IntakeStoppingState.PushOut;
         intakeStateControl.pushOut();
-        addWaitTime(IntakeConstants.intakeStopPushoutWait);
+        addWaitTime(OldIntakeConstants.intakeStopPushoutWait);
     }
 
     public void pushOut() {

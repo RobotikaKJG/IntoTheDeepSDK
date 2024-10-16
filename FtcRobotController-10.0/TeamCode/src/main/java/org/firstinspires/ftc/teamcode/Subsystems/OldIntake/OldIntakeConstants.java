@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.OldIntake;
 
-public class IntakeConstants{
+public class OldIntakeConstants {
     public static final double intakeServoIncrement = 0.05;     // amount to slew servo each cycle
     public static final double intakeServoMaxPos = 0.60;     // Maximum rotational position
     public static final double intakeServoMinPos = 0.37;    // Minimum rotational position, starting position
