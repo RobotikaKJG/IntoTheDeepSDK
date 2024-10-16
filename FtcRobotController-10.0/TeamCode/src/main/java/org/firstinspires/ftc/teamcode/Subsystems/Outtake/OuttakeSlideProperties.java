@@ -34,9 +34,4 @@ public class OuttakeSlideProperties implements SlideProperties {
         //hold controller active below this encoder distance to target
         return 75;
     }
-
-    @Override
-    public int getSlideEncoderMaxSeparation() {
-        return 100;
-    }
 }
