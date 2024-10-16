@@ -6,5 +6,4 @@ public interface SlideProperties {
     int getSlideMaxExtension();
     double getSlideMovementMaxSpeed();
     int getSlideHoldThreshold();
-    int getSlideEncoderMaxSeparation();
 }

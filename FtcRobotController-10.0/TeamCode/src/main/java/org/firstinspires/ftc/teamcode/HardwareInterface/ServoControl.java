@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 
@@ -44,9 +44,9 @@ public class ServoControl {
 
     private void setServoStartPos() {
         if(isAutonomous)
-            setServoPos(ServoConstants.intake, IntakeConstants.intakeServoAutonStartPos);
+            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoAutonStartPos);
         else
-            setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
+            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoMinPos);
         setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos);
         setServoPos(ServoConstants.release1, OuttakeConstants.releaseServoMinPos);
         setServoPos(ServoConstants.release2, OuttakeConstants.releaseServoMinPos);

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoConstants {
@@ -13,7 +13,7 @@ public class ServoConstants {
     public static final int drone = 4;
     public static final double[] servoMinPos =
             {
-                    IntakeConstants.intakeServoMinPos,
+                    OldIntakeConstants.intakeServoMinPos,
                     OuttakeConstants.outtakeServoMinPos,
                     OuttakeConstants.releaseServoMinPos,
                     OuttakeConstants.releaseServoMinPos,
@@ -21,7 +21,7 @@ public class ServoConstants {
             };
     public static final double[] servoMaxPos =
             {
-                    IntakeConstants.intakeServoMaxPos,
+                    OldIntakeConstants.intakeServoMaxPos,
                     OuttakeConstants.outtakeServoMaxPos,
                     OuttakeConstants.releaseServoMaxPos,
                     OuttakeConstants.releaseServoMaxPos,
@@ -29,7 +29,7 @@ public class ServoConstants {
             };
     public static final double[] servoIncrement =
             {
-                    IntakeConstants.intakeServoIncrement,
+                    OldIntakeConstants.intakeServoIncrement,
                     OuttakeConstants.outtakeServoIncrement,
                     OuttakeConstants.releaseServoIncrement,
                     OuttakeConstants.releaseServoIncrement,

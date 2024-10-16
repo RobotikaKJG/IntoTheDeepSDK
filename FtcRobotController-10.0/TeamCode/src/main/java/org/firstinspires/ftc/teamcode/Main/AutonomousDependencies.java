@@ -18,15 +18,15 @@ public class AutonomousDependencies extends Dependencies {
         cameraInterface = new CameraInterface(hardwareMap, telemetry);
     }
 
-    public AudienceSideAuton createAudienceSideAuton() {
-        return new AudienceSideAuton(drive, createIntakeStateControl(), createOuttakeController(), cameraInterface.getAprilTagCamera());
-    }
-
-    public BacksideAuton createBacksideAuton() {
-        return new BacksideAuton(drive, createIntakeStateControl(), outtakeDependencies);
-    }
-
-    public AutonomousControl createAutonomousControl() {
-        return new AutonomousControl(motorControl,createAudienceSideAuton(),createBacksideAuton());
-    }
+//    public AudienceSideAuton createAudienceSideAuton() {
+//        return new AudienceSideAuton(drive, createIntakeStateControl(), createOuttakeController(), cameraInterface.getAprilTagCamera());
+//    }
+//
+//    public BacksideAuton createBacksideAuton() {
+//        return new BacksideAuton(drive, createIntakeStateControl(), outtakeDependencies);
+//    }
+//
+//    public AutonomousControl createAutonomousControl() {
+//        return new AutonomousControl(motorControl,createAudienceSideAuton(),createBacksideAuton());
+//    }
 }
