@@ -8,7 +8,7 @@ public class MotorConstants {
     public static final int intake = 4;
     public static final int slideLeft = 5;
     public static final int slideRight = 6;
-    public static final int hang = 7;
+    public static final int extendo = 7;
     public static final int[][] motorConfig = {
             //separate motors
             {frontLeft},
@@ -18,7 +18,7 @@ public class MotorConstants {
             {intake},
             {slideLeft},
             {slideRight},
-            {hang},
+            {extendo},
             //various combinations
             {frontLeft, backLeft, frontRight, backRight},
             {frontLeft, backLeft},
@@ -26,8 +26,8 @@ public class MotorConstants {
             {frontLeft, backRight},
             {backLeft, frontRight},
             {slideLeft, slideRight},
-            {frontLeft, backLeft, frontRight, backRight, intake, slideLeft, slideRight, hang},
-            {intake, slideLeft, slideRight, hang}
+            {frontLeft, backLeft, frontRight, backRight, intake, slideLeft, slideRight, extendo},
+            {intake, slideLeft, slideRight, extendo}
     };
     // motorConfig combined value names
     public static final int allDrive = 8;

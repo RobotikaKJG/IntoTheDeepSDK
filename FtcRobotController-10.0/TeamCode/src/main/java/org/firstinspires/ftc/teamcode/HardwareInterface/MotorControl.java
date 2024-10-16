@@ -14,7 +14,7 @@ public class MotorControl {
         public static final String intake = "intakeMotor";
         public static final String slideLeft = "slideLeftMotor";
         public static final String slideRight = "slideRightMotor";
-        public static final String suspending = "suspendingMotor";
+        public static final String extendo = "extendoMotor";
     }
 
     private final HardwareMap hardwareMap;
@@ -38,7 +38,7 @@ public class MotorControl {
                 hardwareMap.dcMotor.get(MotorNames.intake),
                 hardwareMap.dcMotor.get(MotorNames.slideLeft),
                 hardwareMap.dcMotor.get(MotorNames.slideRight),
-                hardwareMap.dcMotor.get(MotorNames.suspending),
+                hardwareMap.dcMotor.get(MotorNames.extendo),
         };
 
         motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);

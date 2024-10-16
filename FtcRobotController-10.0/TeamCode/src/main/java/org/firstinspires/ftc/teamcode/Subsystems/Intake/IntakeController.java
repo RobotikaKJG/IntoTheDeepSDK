@@ -1,25 +1,27 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
 public class IntakeController implements RobotSubsystemController {
+    private final IntakeMotorTrigger intakeMotorTrigger = new IntakeMotorTrigger();
+    private final IntakeExtendoTrigger intakeExtendoTrigger = new IntakeExtendoTrigger();
     private final EdgeDetection edgeDetection;
-    private final IntakeTrigger intakeTrigger = new IntakeTrigger();
-    private final IntakeStateControl intakeStateControl;
-    private final IntakeStopping intakeStopping;
+    private final MotorControl motorControl;
+    private final SlideLogic slideLogic;
     private SubsystemState intakeState = SubsystemState.Idle;
+    private boolean extended = false;
+    private boolean intaking = false;
 
-    public IntakeController(IntakeStateControl intakeStateControl, ServoControl servoControl, EdgeDetection edgeDetection, ElapsedTime elapsedTime) {
+    public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic) {
         this.edgeDetection = edgeDetection;
-        this.intakeStateControl = intakeStateControl;
-        intakeStopping = new IntakeStopping(elapsedTime, intakeStateControl, servoControl);
+        this.motorControl = motorControl;
+        this.slideLogic = slideLogic;
     }
-
     @Override
     public void updateState() {
         switch (intakeState) {
@@ -40,30 +42,70 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        intakeStateControl.openAndTakeIn();
+        if(intaking)
+            motorControl.setMotorSpeed(MotorConstants.intake, 1);
+        if(extended)
+            slideLogic.setSlideExtensionTarget(IntakeConstants.slideExtensionStep);
         intakeState = SubsystemState.Run;
     }
 
     @Override
     public void run() {
-        if (!edgeDetection.rising(intakeTrigger.getTrigger())) return;
+        gamepadActions();
+
+        slideLogic.updateSlides();
+
+        if (!shouldBeStopping()) return;
+
+        initialiseStop();
+    }
+
+    private void gamepadActions() {
+        if (edgeDetection.rising(IntakeConstants.motorButton))
+            toggleMotor();
+
+        if (edgeDetection.rising(IntakeConstants.forwardButton))
+            slideLogic.addSlideExtension(IntakeConstants.slideExtensionStep);
+
+        else if (edgeDetection.rising(IntakeConstants.backButton))
+            slideLogic.addSlideExtension(-IntakeConstants.slideExtensionStep);
+    }
+    private void toggleMotor()
+    {
+        intaking = !intaking;
+        if(intaking)
+            motorControl.setMotorSpeed(MotorConstants.intake, 1);
+        else
+            motorControl.setMotorSpeed(MotorConstants.intake, 0);
+    }
+
+    private boolean shouldBeStopping()
+    {
+        return (!intaking && !extended) || edgeDetection.rising(IntakeConstants.closeButton);
+    }
+
+    private void initialiseStop()
+    {
+        slideLogic.setSlideExtensionTarget(0);
+        motorControl.setMotorSpeed(MotorConstants.intake, 0);
+        extended = false;
+        intaking = false;
         intakeState = SubsystemState.Stop;
     }
 
     @Override
     public void stop() {
-        if (!intakeStopping.isIdle()) return;
         intakeState = SubsystemState.Idle;
     }
 
     @Override
     public void idle() {
-        if (!edgeDetection.rising(intakeTrigger.getTrigger())) return;
+        if (edgeDetection.rising(intakeMotorTrigger.getTrigger()))
+            intaking = true;
+        if (edgeDetection.rising(intakeExtendoTrigger.getTrigger()))
+            extended = true;
 
-        intakeState = SubsystemState.Start;
-    }
-
-    public SubsystemState getIntakeState() {
-        return intakeState;
+        if(intaking || extended)
+            intakeState = SubsystemState.Start;
     }
 }

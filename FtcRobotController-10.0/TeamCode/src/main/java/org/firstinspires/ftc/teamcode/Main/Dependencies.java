@@ -9,12 +9,16 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeController;
 
@@ -60,5 +64,17 @@ public class Dependencies {
 
     public DrivebaseController createDrivebaseController() {
         return new DrivebaseController(createDrivebase(), edgeDetection);
+    }
+
+    public IntakeController createIntakeController() {
+        return new IntakeController(motorControl, edgeDetection, createIntakeSlideLogic());
+    }
+
+    private SlideLogic createIntakeSlideLogic() {
+        return new SlideLogic(createIntakeSlideControl(), motorControl, sensorControl, new IntakeSlideProperties());
+    }
+
+    private SlideControl createIntakeSlideControl() {
+        return new IntakeSlideControl(motorControl);
     }
 }

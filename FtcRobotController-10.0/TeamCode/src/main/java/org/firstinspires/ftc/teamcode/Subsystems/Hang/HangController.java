@@ -2,17 +2,17 @@ package org.firstinspires.ftc.teamcode.Subsystems.Hang;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
 public class HangController implements RobotSubsystemController {
 
     private final HangTrigger hangTrigger = new HangTrigger();
     private final EdgeDetection edgeDetection;
-    private final SlideControl slideControl;
+    private final SlideLogic slideControl;
     private SubsystemState hangState = SubsystemState.Idle;
 
-    public HangController(SlideControl slideControl, EdgeDetection edgeDetection) {
+    public HangController(SlideLogic slideControl, EdgeDetection edgeDetection) {
         this.edgeDetection = edgeDetection;
         this.slideControl = slideControl;
     }

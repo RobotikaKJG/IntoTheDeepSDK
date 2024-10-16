@@ -9,11 +9,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneController;
 import org.firstinspires.ftc.teamcode.Subsystems.Hang.HangController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeController;
 
 public class IterativeController {
-    IntakeController intakeController;
-    OuttakeController outtakeController;
+    OldIntakeController oldIntakeController;
     HangController hangController;
     DroneController droneController;
     private final MotorControl motorControl;
@@ -22,13 +21,15 @@ public class IterativeController {
     private final Gamepad prevGamepad1 = new Gamepad();
     private final EdgeDetection edgeDetection;
     private final DrivebaseController drivebaseController;
+    private IntakeController intakeController;
 
     public IterativeController(Dependencies dependencies) {
-        intakeController = dependencies.createIntakeController();
-        outtakeController = dependencies.createOuttakeController();
-        hangController = dependencies.createHangController();
+        //oldIntakeController = dependencies.createIntakeController();
+//        outtakeController = dependencies.createOuttakeController();
+//        hangController = dependencies.createHangController();
         droneController = dependencies.createDroneController();
         drivebaseController = dependencies.createDrivebaseController();
+        intakeController = dependencies.createIntakeController();
 
         gamepad1 = dependencies.gamepad1;
         edgeDetection = dependencies.edgeDetection;
@@ -40,30 +41,32 @@ public class IterativeController {
     public void TeleOp() {
         updateCommonValues();
         //intake and outtake need to be mutually exclusive to prevent breaking
-        if (intakeCanRun())
-            intakeController.updateState();
+//        if (intakeCanRun())
+//            oldIntakeController.updateState();
+//
+//        if (outtakeCanRun())
+//            outtakeController.updateState();
+//
+//        if(hangCanRun())
+//            hangController.updateState();
+        intakeController.updateState();
 
-        if (outtakeCanRun())
-            outtakeController.updateState();
-
-        if(hangCanRun())
-            hangController.updateState();
 
         //Drone can run with anything else, as it is isolated
-        droneController.updateState();
-        drivebaseController.updateState(outtakeController.getOuttakeState());
+//        droneController.updateState();
+        drivebaseController.updateState(SubsystemState.Idle);
     }
 
-    private boolean intakeCanRun() {
-        return outtakeController.getOuttakeState() == SubsystemState.Idle && hangController.getHangState() == SubsystemState.Idle;
-    }
+//    private boolean intakeCanRun() {
+//        return outtakeController.getOuttakeState() == SubsystemState.Idle && hangController.getHangState() == SubsystemState.Idle;
+//    }
 
     private boolean outtakeCanRun() {
-        return intakeController.getIntakeState() == SubsystemState.Idle;// && hangController.getHangState() == SubsystemState.Idle;
+        return oldIntakeController.getIntakeState() == SubsystemState.Idle;// && hangController.getHangState() == SubsystemState.Idle;
     }
 
     private boolean hangCanRun() {
-        return intakeController.getIntakeState() == SubsystemState.Idle;// && outtakeController.getOuttakeState() == SubsystemState.Idle;
+        return oldIntakeController.getIntakeState() == SubsystemState.Idle;// && outtakeController.getOuttakeState() == SubsystemState.Idle;
     }
 
     private void updateCommonValues() {
