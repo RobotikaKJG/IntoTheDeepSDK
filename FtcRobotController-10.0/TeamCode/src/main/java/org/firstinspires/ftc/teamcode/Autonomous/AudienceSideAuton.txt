@@ -13,11 +13,11 @@ import org.firstinspires.ftc.teamcode.Enums.ReleaseServoState;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStateControl;
+import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeDependencies;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 
 public class AudienceSideAuton implements Auton {
 
@@ -27,16 +27,16 @@ public class AudienceSideAuton implements Auton {
     private boolean wasIfCalled = false;
     private boolean wasPositionDetected = false;
     private final ElapsedTime elapsedTime = new ElapsedTime();
-    private final IntakeStateControl intakeStateControl;
-    private final SlideControl slideControl;
+    private final OldIntakeStateControl oldIntakeStateControl;
+    private final SlideLogic slideControl;
     private double currentWait;
     private final OuttakeServoControl outtakeServoControl;
     private final OuttakeController outtakeController;
     private final AprilTagCameraControl aprilTagCameraControl;
 
-    public AudienceSideAuton(SampleMecanumDrive drive, IntakeStateControl intakeStateControl, OuttakeController outtakeController, AprilTagCameraControl aprilTagCameraControl) {
+    public AudienceSideAuton(SampleMecanumDrive drive, OldIntakeStateControl oldIntakeStateControl, OuttakeController outtakeController, AprilTagCameraControl aprilTagCameraControl) {
         this.drive = drive;
-        this.intakeStateControl = intakeStateControl;
+        this.oldIntakeStateControl = oldIntakeStateControl;
         OuttakeDependencies outtakeDependencies = outtakeController.getOuttakeDependencies();
         this.slideControl = outtakeDependencies.slideControl;
         this.outtakeServoControl = outtakeDependencies.outtakeServoControl;
@@ -126,7 +126,7 @@ public class AudienceSideAuton implements Auton {
     }
 
     private void goToProp() {
-        intakeStateControl.moveDown();
+        oldIntakeStateControl.moveDown();
         addWaitTime(AutonomousConstants.propPixelPlaceWait());
         audienceSideAutonState = AudienceSideAutonState.placePropPixel;
     }
@@ -134,7 +134,7 @@ public class AudienceSideAuton implements Auton {
     private void placePropPixel() {
         if (currentWait > elapsedTime.seconds()) return;
 
-        intakeStateControl.pushOut(-0.5);
+        oldIntakeStateControl.pushOut(-0.5);
 
 
         audienceSideAutonState = AudienceSideAutonState.goToPixelStack;
@@ -146,7 +146,7 @@ public class AudienceSideAuton implements Auton {
 
         if (!wasIfCalled) {
             outtakeServoControl.releaseServoControl(ReleaseServoState.openSecond);
-            intakeStateControl.takeIn();
+            oldIntakeStateControl.takeIn();
             wasIfCalled = true;
         }
 
@@ -162,7 +162,7 @@ public class AudienceSideAuton implements Auton {
 
         addWaitTime(AutonomousConstants.pixelStackPushoutWait);
         outtakeServoControl.releaseServoControl(ReleaseServoState.closeBoth);
-        intakeStateControl.pushOut();
+        oldIntakeStateControl.pushOut();
         audienceSideAutonState = AudienceSideAutonState.pushOutExtraPixels;
 
     }
@@ -170,7 +170,7 @@ public class AudienceSideAuton implements Auton {
     private void pushOutExtraPixels() {
         if (currentWait > elapsedTime.seconds()) return;
 
-        intakeStateControl.stop();
+        oldIntakeStateControl.stop();
         audienceSideAutonState = AudienceSideAutonState.goBackstage;
         drive.followTrajectorySequenceAsync(trajectories.goBackstage());
         addWaitTime(AutonomousConstants.slideOpenWait);
@@ -277,19 +277,19 @@ public class AudienceSideAuton implements Auton {
 
     private void takeWhitePixels() {
         if (currentWait > elapsedTime.seconds()) return;
-        intakeStateControl.takeIn();
+        oldIntakeStateControl.takeIn();
 
         if (drive.isBusy()) return;
         addWaitTime(AutonomousConstants.pixelStackPushoutWait);
         outtakeServoControl.releaseServoControl(ReleaseServoState.closeBoth);
-        intakeStateControl.pushOut();
+        oldIntakeStateControl.pushOut();
         audienceSideAutonState = AudienceSideAutonState.pushOutExtraPixels2;
     }
 
     private void pushOutExtraPixels2() {
         if (currentWait > elapsedTime.seconds()) return;
 
-        intakeStateControl.stop();
+        oldIntakeStateControl.stop();
         audienceSideAutonState = AudienceSideAutonState.goBackToBackstage;
         drive.followTrajectorySequenceAsync(trajectories.goBackToBackstage());
         addWaitTime(AutonomousConstants.slideOpenWait);

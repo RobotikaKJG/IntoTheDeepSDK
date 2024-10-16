@@ -9,11 +9,11 @@ import org.firstinspires.ftc.teamcode.Enums.BacksideAutonState;
 import org.firstinspires.ftc.teamcode.Enums.ReleaseServoState;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStateControl;
+import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeDependencies;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 
 public class BacksideAuton implements Auton {
 
@@ -22,14 +22,14 @@ public class BacksideAuton implements Auton {
     private BacksideTrajectories trajectories;
     private boolean wasIfCalled = false;
     private final ElapsedTime elapsedTime = new ElapsedTime();
-    private final IntakeStateControl intakeStateControl;
-    private final SlideControl slideControl;
+    private final OldIntakeStateControl oldIntakeStateControl;
+    private final SlideLogic slideControl;
     private final OuttakeServoControl outtakeServoControl;
     private double currentWait;
 
-    public BacksideAuton(SampleMecanumDrive drive, IntakeStateControl intakeStateControl, OuttakeDependencies outtakeDependencies) {
+    public BacksideAuton(SampleMecanumDrive drive, OldIntakeStateControl oldIntakeStateControl, OuttakeDependencies outtakeDependencies) {
         this.drive = drive;
-        this.intakeStateControl = intakeStateControl;
+        this.oldIntakeStateControl = oldIntakeStateControl;
         this.slideControl = outtakeDependencies.slideControl;
         this.outtakeServoControl = outtakeDependencies.outtakeServoControl;
     }
@@ -84,14 +84,14 @@ public class BacksideAuton implements Auton {
 
         backsideAutonState = BacksideAutonState.placePropPixel;
         //addWaitTime(AutonomousConstants.propPixelPlaceWait);
-        intakeStateControl.pushOut();
+        oldIntakeStateControl.pushOut();
     }
 
     private void placePropPixel() {
         // may need to be replaced upon hardware modifications, currently ejects the pixel from the intake
         if (currentWait > elapsedTime.seconds()) return;
 
-        intakeStateControl.stop();
+        oldIntakeStateControl.stop();
         backsideAutonState = BacksideAutonState.goToYellowPixelPlacement;
         slideControl.setSlideExtensionTarget(OuttakeConstants.slideCurrentMinExtension);
         drive.followTrajectorySequenceAsync(trajectories.goToYellowPixelPlacement());
