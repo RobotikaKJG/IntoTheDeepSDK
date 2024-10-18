@@ -22,6 +22,8 @@ public class SlideLogic {
         this.sensorControl = sensorControl;
         this.slideControl = slideControl;
         this.slideProperties = slideProperties;
+        setSlideProperties();
+        resetEncoders();
     }
 
     public void setSlideProperties()
@@ -46,7 +48,7 @@ public class SlideLogic {
         if (currentMotorPositionAvg <= slideMaxExtension)
             return false;
 
-        motorControl.setMotorSpeed(MotorConstants.bothSlides, 0);
+        motorControl.setMotorSpeed(MotorConstants.bothSlides, -control);
         slideExtensionTarget = slideMaxExtension;
         return true;
     }
@@ -80,7 +82,7 @@ public class SlideLogic {
         } else {
             holdSlidesControl(targetPPR);
         }
-        slideControl.limitSpeed(slideProperties.getSlideMovementMaxSpeed()); // separate call as it is dynamic
+        slideControl.limitSpeed(slideProperties.getSlideMovementMaxSpeed()); // separate slideProperties call as the value is dynamic
     }
 
     private void moveSlides(int targetPos) //slide movement proportional using extension avg
@@ -119,7 +121,15 @@ public class SlideLogic {
         return currentMotorPositionAvg;
     }
 
+    public void resetEncoders() {
+        slideControl.resetEncoders();
+    }
+
     public double getSpeed() {
         return control;
+    }
+
+    public void setMaxSpeed(double maxSpeed){
+        slideProperties.setSlideMaxSpeed(maxSpeed);
     }
 }

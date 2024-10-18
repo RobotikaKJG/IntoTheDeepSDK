@@ -4,4 +4,5 @@ public interface SlideControl {
     int getSlidePosition();
     void setSlides(double power);
     void limitSpeed(double power);
+    void resetEncoders();
 }

@@ -46,6 +46,7 @@ public class IntakeController implements RobotSubsystemController {
             motorControl.setMotorSpeed(MotorConstants.intake, 1);
         if(extended)
             slideLogic.setSlideExtensionTarget(IntakeConstants.slideExtensionStep);
+        slideLogic.setMaxSpeed(1);
         intakeState = SubsystemState.Run;
     }
 
@@ -87,6 +88,7 @@ public class IntakeController implements RobotSubsystemController {
     private void initialiseStop()
     {
         slideLogic.setSlideExtensionTarget(0);
+        slideLogic.setMaxSpeed(0.7);
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
         extended = false;
         intaking = false;
@@ -95,14 +97,16 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void stop() {
-        intakeState = SubsystemState.Idle;
+        slideLogic.updateSlides();
+        if(slideLogic.slidesBottomReached())
+            intakeState = SubsystemState.Idle;
     }
 
     @Override
     public void idle() {
         if (edgeDetection.rising(intakeMotorTrigger.getTrigger()))
             intaking = true;
-        if (edgeDetection.rising(intakeExtendoTrigger.getTrigger()))
+        else if (edgeDetection.rising(intakeExtendoTrigger.getTrigger()))
             extended = true;
 
         if(intaking || extended)

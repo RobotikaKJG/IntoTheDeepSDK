@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SubsystemTrigger;
 
 public class IntakeMotorTrigger implements SubsystemTrigger{
 
-    private static final GamepadIndexValues trigger = GamepadIndexValues.rightBumper;
+    private static final GamepadIndexValues trigger = GamepadIndexValues.leftTrigger;
 
     @Override
     public GamepadIndexValues getTrigger() {

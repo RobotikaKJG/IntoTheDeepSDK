@@ -19,20 +19,21 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 900;
+        return 3710;
     }
 
     @Override
     public double getSlideMovementMaxSpeed() {
-        return 0;
+        return slideMaxSpeed;
     }
 
     @Override
     public int getSlideHoldThreshold() {
         //hold controller active below this encoder distance to target
-        return 75;
+        return 100;
     }
 
+    @Override
     public void setSlideMaxSpeed(double slideMaxSpeed) {
         this.slideMaxSpeed = slideMaxSpeed;
     }

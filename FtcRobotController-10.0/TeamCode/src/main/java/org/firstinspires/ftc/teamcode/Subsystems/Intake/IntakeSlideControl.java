@@ -24,4 +24,9 @@ public class IntakeSlideControl implements SlideControl {
     public void limitSpeed(double power) {
         motorControl.limitSpeed(MotorConstants.extendo, power);
     }
+
+    @Override
+    public void resetEncoders() {
+        motorControl.resetMotorEncoders(MotorConstants.extendo);
+    }
 }
