@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 
 @TeleOp
@@ -33,6 +34,7 @@ public class GeneralTeleOp extends LinearOpMode {
                 break;
             calculateLoopTime(dependencies.elapsedTime);
             telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
+            telemetry.addData("Slide Rotation: ", dependencies.motorControl.getMotorPosition(MotorConstants.extendo));
             telemetry.update();
         }
     }
