@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
+//import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.SelectStartVariables;
 //import org.firstinspires.ftc.teamcode.Camera.AprilTagCameraControl;
 import org.firstinspires.ftc.teamcode.Camera.PropCameraControl;
@@ -17,7 +17,7 @@ public class GeneralAutonomous extends LinearOpMode {
 
     private CameraInterface cameraInterface;
     private SampleMecanumDrive drive;
-    private AutonomousControl autonomousControl;
+//    private AutonomousControl autonomousControl;
     private PropCameraControl propCameraControl;
     //private AprilTagCameraControl aprilTagCameraControl;
 
@@ -38,7 +38,7 @@ public class GeneralAutonomous extends LinearOpMode {
             //Emergency stop
             if (gamepad1.triangle)
                 break;
-            autonomousControl.runAutonomous();
+//            autonomousControl.runAutonomous();
             drive.update();
             //telemetry.update();
         }
@@ -52,12 +52,12 @@ public class GeneralAutonomous extends LinearOpMode {
         GlobalVariables.wasAutonomous = false;
         GlobalVariables.isAutonomous = true;
 
-        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1, telemetry);
-
-        drive = dependencies.drive;
-//        autonomousControl = dependencies.createAutonomousControl();
-
-        cameraInterface = dependencies.cameraInterface;
+//        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1, telemetry);
+//
+//        drive = dependencies.drive;
+////        autonomousControl = dependencies.createAutonomousControl();
+//
+//        cameraInterface = dependencies.cameraInterface;
 
         propCameraControl = cameraInterface.getPropCamera();
         propCameraControl.startCamera();
@@ -79,7 +79,7 @@ public class GeneralAutonomous extends LinearOpMode {
     private void begin() {
         //Camera can be stopped as it is no longer needed
         cameraInterface.stopCamera(CameraConstants.propCamera);
-        autonomousControl.startAutonomous();
+//        autonomousControl.startAutonomous();
 
         //Update variable that autonomous happened for the driver oriented rotation after it
         GlobalVariables.wasAutonomous = true;
