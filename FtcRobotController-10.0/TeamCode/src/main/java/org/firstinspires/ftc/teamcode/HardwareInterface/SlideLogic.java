@@ -64,7 +64,6 @@ public class SlideLogic {
         //getMotorPos();
         if (prevSlideExtensionTarget != slideExtensionTarget)
             slideControl.setSlides(slideExtensionTarget);
-        motorControl.setMotors(MotorConstants.extendo);
         //moveSlidesTarget(slideExtensionTarget);
         prevSlideExtensionTarget = slideExtensionTarget;
     }
