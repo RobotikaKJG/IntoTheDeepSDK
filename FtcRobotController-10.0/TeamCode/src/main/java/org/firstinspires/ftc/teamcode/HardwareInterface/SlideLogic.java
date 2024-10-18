@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface;
 
-import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-
 public class SlideLogic {
 
 
     private final MotorControl motorControl;
     private final SensorControl sensorControl;
     private final SlideControl slideControl;
-    private int slideExtensionTarget;
+    private int slideExtensionTarget = 0;
+    private int prevSlideExtensionTarget = 0;
     private int currentMotorPositionAvg;
     private final SlideProperties slideProperties;
     private double control;
@@ -62,8 +61,12 @@ public class SlideLogic {
     }
 
     public void updateSlides() {
-        getMotorPos();
-        moveSlidesTarget(slideExtensionTarget);
+        //getMotorPos();
+        if (prevSlideExtensionTarget != slideExtensionTarget)
+            slideControl.setSlides(slideExtensionTarget);
+        motorControl.setMotors(MotorConstants.extendo);
+        //moveSlidesTarget(slideExtensionTarget);
+        prevSlideExtensionTarget = slideExtensionTarget;
     }
 
     public void moveSlidesTarget(int targetPPR) {

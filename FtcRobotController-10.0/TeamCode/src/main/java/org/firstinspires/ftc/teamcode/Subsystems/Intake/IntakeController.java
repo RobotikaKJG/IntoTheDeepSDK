@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
@@ -21,6 +23,7 @@ public class IntakeController implements RobotSubsystemController {
         this.edgeDetection = edgeDetection;
         this.motorControl = motorControl;
         this.slideLogic = slideLogic;
+        this.motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
     }
     @Override
     public void updateState() {

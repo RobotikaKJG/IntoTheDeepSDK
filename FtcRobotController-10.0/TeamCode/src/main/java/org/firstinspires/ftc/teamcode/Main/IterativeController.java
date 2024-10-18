@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
@@ -73,6 +74,6 @@ public class IterativeController {
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
         edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
-        motorControl.setMotors();
+        motorControl.setMotors(MotorConstants.notSlide);
     }
 }

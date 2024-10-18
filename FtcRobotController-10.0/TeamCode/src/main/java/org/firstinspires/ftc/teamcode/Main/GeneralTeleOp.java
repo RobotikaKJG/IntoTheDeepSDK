@@ -35,6 +35,7 @@ public class GeneralTeleOp extends LinearOpMode {
             calculateLoopTime(dependencies.elapsedTime);
             telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
             telemetry.addData("Slide Rotation: ", dependencies.motorControl.getMotorPosition(MotorConstants.extendo));
+            telemetry.addData("Slide Target Rotation: ", dependencies.slideLogic.getSlideExtensionTarget());
             telemetry.update();
         }
     }

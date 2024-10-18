@@ -33,6 +33,7 @@ public class Dependencies {
     public EdgeDetection edgeDetection = new EdgeDetection();
     public SampleMecanumDrive drive;
     public ElapsedTime elapsedTime = new ElapsedTime();
+    public SlideLogic slideLogic;
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Telemetry telemetry) {
 
@@ -44,6 +45,7 @@ public class Dependencies {
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, gamepad1, localizer);
         servoControl = new ServoControl(hardwareMap);
+        slideLogic = createIntakeSlideLogic();
     }
 
     public OldIntakeStateControl createIntakeStateControl() {
@@ -67,7 +69,7 @@ public class Dependencies {
     }
 
     public IntakeController createIntakeController() {
-        return new IntakeController(motorControl, edgeDetection, createIntakeSlideLogic());
+        return new IntakeController(motorControl, edgeDetection, slideLogic);
     }
 
     private SlideLogic createIntakeSlideLogic() {

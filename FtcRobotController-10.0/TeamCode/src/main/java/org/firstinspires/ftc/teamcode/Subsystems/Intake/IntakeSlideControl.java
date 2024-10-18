@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
@@ -17,7 +19,10 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public void setSlides(double power) {
-        motorControl.setMotorSpeed(MotorConstants.extendo, power);
+        //motorControl.setMotorSpeed(MotorConstants.extendo, power);
+        motorControl.setMotorPos(MotorConstants.extendo, (int) power);
+        motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     @Override

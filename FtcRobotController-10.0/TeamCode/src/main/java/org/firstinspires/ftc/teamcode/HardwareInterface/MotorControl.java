@@ -86,6 +86,17 @@ public class MotorControl {
             }
     }
 
+    public void setMotorMode(int index, DcMotor.RunMode mode)
+    {
+        for (int i = 0; i < Utilities.configLength(index); i++)
+            motors[Utilities.motorIndex(index, i)].setMode(mode);
+    }
+
+    public void setMotorPos(int index, int position){
+        for (int i = 0; i < Utilities.configLength(index); i++)
+            motors[Utilities.motorIndex(index, i)].setTargetPosition(position);
+    }
+
     /**
      * @noinspection unused
      */
