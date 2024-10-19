@@ -17,9 +17,8 @@ import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
 @TeleOp(name = "Drive Base")
 public class DriveBase extends LinearOpMode {
 
-    // Create a boolean flag to enable or disable traction control
-    private boolean tcEnabled = true;  // Start with traction control enabled
-    private boolean previousButtonState = false;  // To keep track of the last button state
+    private boolean tcEnabled = true;
+    private boolean previousButtonState = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -62,16 +61,14 @@ public class DriveBase extends LinearOpMode {
 
             // Toggle traction control when the "O" (circle) button is pressed
             if (gamepad1.circle && !previousButtonState) {
-                tcEnabled = !tcEnabled;  // Toggle the traction control state
+                tcEnabled = !tcEnabled;
             }
-            previousButtonState = gamepad1.circle;  // Store the previous state of the button
+            previousButtonState = gamepad1.circle;
 
-            // Call the drive function with or without traction control
             drive(tractionControl, imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
             intakeController.updateState();
 
-            // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             telemetry.addData("Loop time:", loopTime);
             telemetry.addData("Traction Control Enabled:", tcEnabled ? "Yes" : "No");
@@ -80,7 +77,7 @@ public class DriveBase extends LinearOpMode {
     }
 
     /**
-     * Drive function with optional traction control (TC).
+     * Drive function with traction control (TC).
      */
     private void drive(TractionControl tractionControl, IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
         double y = -gamepad1.left_stick_y; // Y stick value is reversed
