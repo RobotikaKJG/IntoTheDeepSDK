@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-@TeleOp(name = "Expansion Arm with Encoder and Limits")
+@TeleOp(name = "Expansion Arm with Encoder Limits")
 public class IntakeTest extends LinearOpMode {
 
     // Define the encoder limits
-    private static final int MAX_EXTENSION_POSITION = 5000;  // Adjust based on your robot's needs
-    private static final int MIN_EXTENSION_POSITION = 0;
+    private static final int MAX_EXTENSION_POSITION = 2000;  // Upper limit of the arm
+    private static final int MIN_EXTENSION_POSITION = 0;     // Lower limit (fully retracted)
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,9 +31,9 @@ public class IntakeTest extends LinearOpMode {
             int currentPosition = expansionArm.getCurrentPosition();  // Get the current encoder position
 
             // Control the expansion arm motor with limits
-            if (gamepad1.right_bumper && currentPosition < MAX_EXTENSION_POSITION) {  // R1 is the right bumper
+            if (gamepad1.right_bumper && currentPosition < MAX_EXTENSION_POSITION) {  // R1 is pressed and arm is below the maximum limit
                 expansionArm.setPower(1.0);  // Move the motor forward at 100% power
-            } else if (gamepad1.right_trigger > 0.1 && currentPosition > MIN_EXTENSION_POSITION) {  // R2 is the right trigger
+            } else if (gamepad1.right_trigger > 0.1 && currentPosition > MIN_EXTENSION_POSITION) {  // R2 is pressed and arm is above the minimum limit
                 expansionArm.setPower(-1.0);  // Move the motor backward at 100% power
             } else {
                 expansionArm.setPower(0.0);  // Stop the motor if it reaches the limits or no buttons pressed
