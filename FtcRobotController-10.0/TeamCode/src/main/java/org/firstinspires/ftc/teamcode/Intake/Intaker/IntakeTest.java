@@ -2,10 +2,11 @@ package org.firstinspires.ftc.teamcode.Intake.Intaker;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Expansion Arm and Servo Control")
+@TeleOp(name = "Expansion Arm and CRServo Control")
 public class IntakeTest extends LinearOpMode {
 
     @Override
@@ -13,37 +14,34 @@ public class IntakeTest extends LinearOpMode {
         // Define the expansion arm motor
         DcMotor expansionArm = hardwareMap.dcMotor.get("expansionArm");
 
-        // Define the intake servo
-        Servo intakeServo = hardwareMap.servo.get("intakeServo");
+        // Define the CRServo for intake
+        CRServo intakeServo = hardwareMap.crservo.get("intakeServo");
 
         // Set the motor to stop when no power is applied
         expansionArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Set initial position for the servo
-        intakeServo.setPosition(0.5);  // Middle position (adjust as necessary for your robot)
-
         waitForStart();
 
         while (opModeIsActive()) {
-            // Control the expansion arm motor
+            // Control the expansion arm motor with R1 for testing
             if (gamepad1.right_bumper) {  // R1 maps to right_bumper
                 expansionArm.setPower(0.2);  // Move the motor forward slowly
-            } else if (gamepad1.right_trigger > 0.1) {  // R2 is the right trigger
-                expansionArm.setPower(-0.2);  // Move the motor backward slowly
             } else {
-                expansionArm.setPower(0.0);  // Stop the motor
+                expansionArm.setPower(0.0);  // Stop the motor when R1 is not pressed
             }
 
-            // Control the intake servo
+            // Control the intake CRServo
             if (gamepad1.left_bumper) {  // L1 maps to left_bumper
-                intakeServo.setPosition(1.0);  // Rotate in one direction
+                intakeServo.setPower(1.0);  // Rotate the CRServo in one direction
             } else if (gamepad1.left_trigger > 0.1) {  // L2 is the left trigger
-                intakeServo.setPosition(0.0);  // Rotate in the opposite direction
+                intakeServo.setPower(-1.0);  // Rotate the CRServo in the opposite direction
+            } else {
+                intakeServo.setPower(0.0);  // Stop the CRServo when neither L1 nor L2 is pressed
             }
 
             // Telemetry to monitor motor and servo power
             telemetry.addData("Expansion Arm Power", expansionArm.getPower());
-            telemetry.addData("Servo Position", intakeServo.getPosition());
+            telemetry.addData("CRServo Power", intakeServo.getPower());
             telemetry.update();
         }
     }
