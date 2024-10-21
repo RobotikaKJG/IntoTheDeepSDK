@@ -34,7 +34,7 @@ public class TractionControl {
         }
 
         // Use the LinearOpMode's sleep method to introduce the delay
-        opMode.sleep(50);  // Delay between increments
+        opMode.sleep(5);  // Delay between increments
 
         return currentSpeed;
     }
