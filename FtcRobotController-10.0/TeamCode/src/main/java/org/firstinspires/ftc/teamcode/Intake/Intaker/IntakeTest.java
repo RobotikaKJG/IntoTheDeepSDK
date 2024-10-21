@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-@TeleOp(name = "Expansion Arm with Encoder Limits")
+@TeleOp(name = "Expansion Arm and Servo with Encoder Limits")
 public class IntakeTest extends LinearOpMode {
 
     // Define the encoder limits
