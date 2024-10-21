@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Intake.ExpansionArm;
+package org.firstinspires.ftc.teamcode.IntakeSystem.ExpansionArm;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

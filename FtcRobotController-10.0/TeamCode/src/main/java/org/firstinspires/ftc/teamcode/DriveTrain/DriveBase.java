@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 
 import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
 
-@TeleOp(name = "Drive Base")
+@TeleOp(name = "Drive Base with Traction Control")
 public class DriveBase extends LinearOpMode {
 
     private boolean tcEnabled = true;

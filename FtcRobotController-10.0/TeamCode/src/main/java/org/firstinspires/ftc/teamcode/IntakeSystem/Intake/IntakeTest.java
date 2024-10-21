@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Intake.Intaker;
+package org.firstinspires.ftc.teamcode.IntakeSystem.Intake;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 public class IntakeTest extends LinearOpMode {
 
     // Define the encoder limits
-    private static final int MAX_EXTENSION_POSITION = 2000;  // Upper limit of the arm
+    private static final int MAX_EXTENSION_POSITION = 2950;  // Upper limit of the arm
     private static final int MIN_EXTENSION_POSITION = 0;     // Lower limit (fully retracted)
 
     @Override
