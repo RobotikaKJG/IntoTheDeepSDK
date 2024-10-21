@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 
 import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
 
-@TeleOp(name = "Drive Base with Traction Control")
+@TeleOp(name = "Drive Base with Adjustable Traction Control")
 public class DriveBase extends LinearOpMode {
 
     private boolean tcEnabled = true;
@@ -65,6 +65,13 @@ public class DriveBase extends LinearOpMode {
             }
             previousButtonState = gamepad1.circle;
 
+            // Adjust the acceleration rate using D-pad
+            if (gamepad1.dpad_up) {
+                tractionControl.adjustAccelerationRate(true);  // Increase acceleration rate
+            } else if (gamepad1.dpad_down) {
+                tractionControl.adjustAccelerationRate(false);  // Decrease acceleration rate
+            }
+
             drive(tractionControl, imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
             intakeController.updateState();
@@ -72,6 +79,7 @@ public class DriveBase extends LinearOpMode {
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             telemetry.addData("Loop time:", loopTime);
             telemetry.addData("Traction Control Enabled:", tcEnabled ? "Yes" : "No");
+            telemetry.addData("Current Acceleration Rate:", tractionControl.getAccelerationRate());
             telemetry.update();
         }
     }

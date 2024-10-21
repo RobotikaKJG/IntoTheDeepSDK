@@ -4,9 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class TractionControl {
 
-    // Configuration for the traction control system
-    private static final double ACCELERATION_RATE = 0.05;  // Rate at which to increase speed
-    private static final long ACCELERATION_DELAY = 5;  // Time between increments in milliseconds
+    // Default acceleration rate, adjustable with D-pad
+    private double accelerationRate = 0.05;
 
     /**
      * Gradually adjusts the current speed towards the target speed.
@@ -25,18 +24,34 @@ public class TractionControl {
 
         // Gradually increase the speed towards the target
         if (currentSpeed < targetSpeed) {
-            currentSpeed += ACCELERATION_RATE;
+            currentSpeed += accelerationRate;
             currentSpeed = Math.min(currentSpeed, targetSpeed);  // Ensure it does not exceed the target
         }
         // Gradually decrease the speed towards the target
         else if (currentSpeed > targetSpeed) {
-            currentSpeed -= ACCELERATION_RATE;
+            currentSpeed -= accelerationRate;
             currentSpeed = Math.max(currentSpeed, targetSpeed);  // Ensure it does not drop below the target
         }
 
         // Use the LinearOpMode's sleep method to introduce the delay
-        opMode.sleep(ACCELERATION_DELAY);
+        opMode.sleep(50);  // Delay between increments
 
         return currentSpeed;
+    }
+
+    /**
+     * Adjust the acceleration rate.
+     * @param increase True to increase, False to decrease.
+     */
+    public void adjustAccelerationRate(boolean increase) {
+        if (increase) {
+            accelerationRate = Math.min(accelerationRate + 0.01, 0.1);  // Increase up to 0.1
+        } else {
+            accelerationRate = Math.max(accelerationRate - 0.01, 0.01);  // Decrease down to 0.01
+        }
+    }
+
+    public double getAccelerationRate() {
+        return accelerationRate;
     }
 }
