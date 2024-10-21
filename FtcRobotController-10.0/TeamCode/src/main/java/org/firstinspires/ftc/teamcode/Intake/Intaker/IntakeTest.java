@@ -2,32 +2,41 @@ package org.firstinspires.ftc.teamcode.Intake.Intaker;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
-@TeleOp(name = "Expansion Arm and CRServo Control")
+@TeleOp(name = "Expansion Arm with Encoder and Limits")
 public class IntakeTest extends LinearOpMode {
+
+    // Define the encoder limits
+    private static final int MAX_EXTENSION_POSITION = 5000;  // Adjust based on your robot's needs
+    private static final int MIN_EXTENSION_POSITION = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // Define the expansion arm motor
+        // Define the expansion arm motor with encoder
         DcMotor expansionArm = hardwareMap.dcMotor.get("expansionArm");
 
         // Define the CRServo for intake
         CRServo intakeServo = hardwareMap.crservo.get("intakeServo");
 
-        // Set the motor to stop when no power is applied
+        // Set the motor to stop when no power is applied and use an encoder
         expansionArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        expansionArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        expansionArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
 
         while (opModeIsActive()) {
-            // Control the expansion arm motor with R1 for testing
-            if (gamepad1.right_bumper) {  // R1 maps to right_bumper
-                expansionArm.setPower(0.2);  // Move the motor forward slowly
+            int currentPosition = expansionArm.getCurrentPosition();  // Get the current encoder position
+
+            // Control the expansion arm motor with limits
+            if (gamepad1.right_bumper && currentPosition < MAX_EXTENSION_POSITION) {  // R1 is the right bumper
+                expansionArm.setPower(1.0);  // Move the motor forward at 100% power
+            } else if (gamepad1.right_trigger > 0.1 && currentPosition > MIN_EXTENSION_POSITION) {  // R2 is the right trigger
+                expansionArm.setPower(-1.0);  // Move the motor backward at 100% power
             } else {
-                expansionArm.setPower(0.0);  // Stop the motor when R1 is not pressed
+                expansionArm.setPower(0.0);  // Stop the motor if it reaches the limits or no buttons pressed
             }
 
             // Control the intake CRServo
@@ -39,8 +48,9 @@ public class IntakeTest extends LinearOpMode {
                 intakeServo.setPower(0.0);  // Stop the CRServo when neither L1 nor L2 is pressed
             }
 
-            // Telemetry to monitor motor and servo power
+            // Telemetry to monitor motor and CRServo power
             telemetry.addData("Expansion Arm Power", expansionArm.getPower());
+            telemetry.addData("Expansion Arm Position", currentPosition);  // Show encoder position
             telemetry.addData("CRServo Power", intakeServo.getPower());
             telemetry.update();
         }
