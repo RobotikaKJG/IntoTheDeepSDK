@@ -43,6 +43,13 @@ public class MotorControl {
 
         motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        setZeroPowerBehavior();
+        setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    private void setZeroPowerBehavior() {
+        for (DcMotor i : motors)
+            i.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void setMotorSpeed(int index, double speed) {
