@@ -69,7 +69,7 @@ public class Dependencies {
     }
 
     public IntakeController createIntakeController() {
-        return new IntakeController(motorControl, edgeDetection, slideLogic);
+        return new IntakeController(motorControl, edgeDetection, slideLogic, sensorControl, elapsedTime,servoControl);
     }
 
     private SlideLogic createIntakeSlideLogic() {
