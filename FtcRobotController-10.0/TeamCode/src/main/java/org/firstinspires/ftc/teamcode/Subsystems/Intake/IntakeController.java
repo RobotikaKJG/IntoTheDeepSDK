@@ -24,6 +24,7 @@ public class IntakeController implements RobotSubsystemController {
         this.motorControl = motorControl;
         this.slideLogic = slideLogic;
         this.motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
+        //this.motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
     }
     @Override
     public void updateState() {
