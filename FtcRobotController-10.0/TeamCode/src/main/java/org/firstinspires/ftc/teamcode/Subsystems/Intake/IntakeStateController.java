@@ -10,9 +10,8 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.AutoClose;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.CloseButton;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.ExtendedEject;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.IntakeStateChange;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.RetractedEject;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.IntakeStateChange;
 
 public class IntakeStateController implements IntakeStateChange {
     private final IntakeStateChange[] intakeStates;
@@ -21,7 +20,11 @@ public class IntakeStateController implements IntakeStateChange {
 
     public IntakeStateController(MotorControl motorControl, ServoControl servoControl, SensorControl sensorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime) {
         intakeStates = new IntakeStateChange[]
-                {new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl), new ExtendedEject(), new RetractedEject(), new CloseButton()};
+                {
+                        new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl),
+                        new RetractedEject(sensorControl, slideLogic,intakeController,elapsedTime,servoControl,motorControl),
+                        new CloseButton(slideLogic,intakeController,elapsedTime,motorControl,edgeDetection)
+                };
     }
 
     @Override
