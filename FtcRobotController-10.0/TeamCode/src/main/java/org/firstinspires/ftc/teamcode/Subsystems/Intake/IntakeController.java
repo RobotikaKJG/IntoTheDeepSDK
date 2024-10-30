@@ -25,6 +25,7 @@ public class IntakeController implements RobotSubsystemController {
     private boolean intaking = false;
     private double currentWait;
     private final ElapsedTime elapsedTime;
+    private final IntakeStateController intakeStateController;
 
     public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, SensorControl sensorControl, ElapsedTime elapsedtime, ServoControl servoControl) {
         this.edgeDetection = edgeDetection;
@@ -33,6 +34,7 @@ public class IntakeController implements RobotSubsystemController {
         this.sensorControl = sensorControl;
         this.elapsedTime = elapsedtime;
         this.servoControl = servoControl;
+        this.intakeStateController = new IntakeStateController(motorControl, servoControl, sensorControl, edgeDetection, slideLogic, this, elapsedTime);
         //this.motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
     }
     @Override
@@ -56,7 +58,7 @@ public class IntakeController implements RobotSubsystemController {
     @Override
     public void start() {
         if(intaking) {
-            motorControl.setMotorSpeed(MotorConstants.intake, -1);
+            motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
             servoControl.setServoSpeed(0, 1);
         }
         if(extended)
@@ -90,36 +92,37 @@ public class IntakeController implements RobotSubsystemController {
     {
         intaking = !intaking;
         if(intaking)
-            motorControl.setMotorSpeed(MotorConstants.intake, -1);
+            motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
         else
             motorControl.setMotorSpeed(MotorConstants.intake, 0);
     }
 
     private boolean shouldBeStopping()
     {
-        return (!intaking && !extended) || edgeDetection.rising(IntakeConstants.closeButton)||sensorControl.isColorMatch(IntakeConstants.targetColor, IntakeConstants.threshold);
-
+        //return (!intaking && !extended) || edgeDetection.rising(IntakeConstants.closeButton)||sensorControl.isColorMatch(IntakeConstants.targetColor, IntakeConstants.threshold);
+        return intakeStateController.shouldBeStopping();
     }
 
     private void initialiseStop()
     {
-        slideLogic.setSlideExtensionTarget(0);
-        slideLogic.setMaxSpeed(0.7);
-        motorControl.setMotorSpeed(MotorConstants.intake, 1);
-        servoControl.setServoSpeed(0, 0);
+//        slideLogic.setSlideExtensionTarget(0);
+//        motorControl.setMotorSpeed(MotorConstants.intake, 1);
+//        servoControl.setServoSpeed(0, 0);
+        intakeStateController.initialiseStop();
         extended = false;
         intaking = false;
-        addWaitTime(IntakeConstants.intakePushoutTime);
+//        addWaitTime(IntakeConstants.intakePushoutTime);
         intakeState = SubsystemState.Stop;
     }
 
     @Override
     public void stop() {
         slideLogic.updateSlides();
-        if(!(/*slideLogic.slidesBottomReached() &&*/ currentWait < elapsedTime.seconds()))
-            return;
-        motorControl.setMotorSpeed(MotorConstants.intake, 0);
-        intakeState = SubsystemState.Idle;
+//        if(!(/*slideLogic.slidesBottomReached() &&*/ currentWait < elapsedTime.seconds()))
+//            return;
+//        motorControl.setMotorSpeed(MotorConstants.intake, 0);
+//        intakeState = SubsystemState.Idle;
+        intakeStateController.stop();
     }
 
     @Override
@@ -135,7 +138,13 @@ public class IntakeController implements RobotSubsystemController {
     private void addWaitTime(double waitTime) {
         currentWait = elapsedTime.seconds() + waitTime;
     }
-    void setIntakeState(SubsystemState intakeState) {
+    public void setIntakeState(SubsystemState intakeState) {
         this.intakeState = intakeState;
+    }
+    void setExtended(boolean extended) {
+        this.extended = extended;
+    }
+    void setIntaking(boolean intaking) {
+        this.intaking = intaking;
     }
 }
