@@ -17,24 +17,18 @@ public class IntakeController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
     private final MotorControl motorControl;
     private final SlideLogic slideLogic;
-    private final SensorControl sensorControl;
     private final ServoControl servoControl;
     private SubsystemState intakeState = SubsystemState.Idle;
     private boolean extended = false;
     private boolean intaking = false;
-    private double currentWait;
-    private final ElapsedTime elapsedTime;
     private final IntakeStateController intakeStateController;
 
     public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, SensorControl sensorControl, ElapsedTime elapsedtime, ServoControl servoControl) {
         this.edgeDetection = edgeDetection;
         this.motorControl = motorControl;
         this.slideLogic = slideLogic;
-        this.sensorControl = sensorControl;
-        this.elapsedTime = elapsedtime;
         this.servoControl = servoControl;
-        this.intakeStateController = new IntakeStateController(motorControl, servoControl, sensorControl, edgeDetection, slideLogic, this, elapsedTime);
-        //this.motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
+        this.intakeStateController = new IntakeStateController(motorControl, servoControl, sensorControl, edgeDetection, slideLogic, this, elapsedtime);
     }
     @Override
     public void updateState() {
@@ -96,19 +90,14 @@ public class IntakeController implements RobotSubsystemController {
 
     private boolean shouldBeStopping()
     {
-        //return (!intaking && !extended) || edgeDetection.rising(IntakeConstants.closeButton)||sensorControl.isColorMatch(IntakeConstants.targetColor, IntakeConstants.threshold);
         return intakeStateController.shouldBeStopping();
     }
 
     private void initialiseStop()
     {
-//        slideLogic.setSlideExtensionTarget(0);
-//        motorControl.setMotorSpeed(MotorConstants.intake, 1);
-//        servoControl.setServoSpeed(0, 0);
         intakeStateController.initialiseStop();
         extended = false;
         intaking = false;
-//        addWaitTime(IntakeConstants.intakePushoutTime);
         intakeState = SubsystemState.Stop;
     }
 
@@ -127,17 +116,8 @@ public class IntakeController implements RobotSubsystemController {
         if(intaking || extended)
             intakeState = SubsystemState.Start;
     }
-    private void addWaitTime(double waitTime) {
-        currentWait = elapsedTime.seconds() + waitTime;
-    }
     public void setIntakeState(SubsystemState intakeState) {
         this.intakeState = intakeState;
-    }
-    void setExtended(boolean extended) {
-        this.extended = extended;
-    }
-    void setIntaking(boolean intaking) {
-        this.intaking = intaking;
     }
     public boolean getIntaking()
     {
