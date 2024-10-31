@@ -5,7 +5,6 @@ import android.graphics.Color;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 
 public class IntakeConstants {
-    public static final int slideExtensionStep = 370;
     public static final int targetColor = Color.rgb(40, 48, 45);
     public static final int threshold = 20;
     public static final double intakeSpeed = 0.6;

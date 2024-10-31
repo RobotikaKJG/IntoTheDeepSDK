@@ -62,7 +62,7 @@ public class IntakeController implements RobotSubsystemController {
             servoControl.setServoSpeed(0, IntakeConstants.servoSpeed);
         }
         if(extended)
-            slideLogic.setSlideExtensionTarget(IntakeConstants.slideExtensionStep);
+            slideLogic.stepUp();
         slideLogic.setMaxSpeed(1);
         intakeState = SubsystemState.Run;
     }
@@ -83,10 +83,10 @@ public class IntakeController implements RobotSubsystemController {
             toggleMotor();
 
         if (edgeDetection.rising(IntakeConstants.forwardButton))
-            slideLogic.addSlideExtension(IntakeConstants.slideExtensionStep);
+            slideLogic.stepUp();
 
         else if (edgeDetection.rising(IntakeConstants.backButton))
-            slideLogic.addSlideExtension(-IntakeConstants.slideExtensionStep);
+            slideLogic.stepDown();
     }
     private void toggleMotor()
     {

@@ -15,6 +15,7 @@ public class SlideLogic {
     private double slideHoldKP;
     private int slideMaxExtension;
     private int slideHoldThreshold;
+    private int slideExtensionStep;
 
     public SlideLogic(SlideControl slideControl, MotorControl motorControl, SensorControl sensorControl, SlideProperties slideProperties) {
         this.motorControl = motorControl;
@@ -31,6 +32,7 @@ public class SlideLogic {
         this.slideHoldKP = slideProperties.getSlideHoldKP();
         this.slideMaxExtension = slideProperties.getSlideMaxExtension();
         this.slideHoldThreshold = slideProperties.getSlideHoldThreshold();
+        this.slideExtensionStep = slideProperties.getSlideExtensionStep();
     }
 
     public void getMotorPos()
@@ -113,6 +115,15 @@ public class SlideLogic {
     public void addSlideExtension(int addSlideExtension) {
         if (isExtensionTargetNotInBounds(slideExtensionTarget + addSlideExtension)) return;
         slideExtensionTarget += addSlideExtension;
+    }
+    public void stepUp()
+    {
+        addSlideExtension(slideExtensionStep);
+    }
+
+    public void stepDown()
+    {
+        addSlideExtension(-slideExtensionStep);
     }
 
     public boolean isExtensionTargetNotInBounds(int slideExtensionTarget) {

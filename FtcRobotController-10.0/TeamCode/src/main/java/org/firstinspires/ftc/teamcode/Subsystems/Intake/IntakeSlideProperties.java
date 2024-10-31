@@ -34,6 +34,11 @@ public class IntakeSlideProperties implements SlideProperties {
     }
 
     @Override
+    public int getSlideExtensionStep() {
+        return 370;
+    }
+
+    @Override
     public void setSlideMaxSpeed(double slideMaxSpeed) {
         this.slideMaxSpeed = slideMaxSpeed;
     }
