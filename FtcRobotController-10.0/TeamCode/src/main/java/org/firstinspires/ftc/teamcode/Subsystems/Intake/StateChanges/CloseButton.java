@@ -40,7 +40,8 @@ public class CloseButton implements IntakeStateChange {
     @Override
     public void initialiseStop() {
         slideLogic.setSlideExtensionTarget(0);
-        motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.intakeSpeed);
+        if (intakeController.getIntaking())
+            motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.intakeSpeed);
         addWaitTime(IntakeConstants.intakePushoutTime);
     }
 
