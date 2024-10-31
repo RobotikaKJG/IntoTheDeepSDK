@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
 
 public class IntakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
+    private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
 
     public IntakeSlideControl(MotorControl motorControl) {
         this.motorControl = motorControl;
@@ -18,17 +19,16 @@ public class IntakeSlideControl implements SlideControl {
     }
 
     @Override
-    public void setSlides(double power) {
-        //motorControl.setMotorSpeed(MotorConstants.extendo, power);
-        motorControl.setMotorPos(MotorConstants.extendo, (int) power);
+    public void setSlidePosition(int position) {
+        motorControl.setMotorPos(MotorConstants.extendo, position);
         motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
-        motorControl.setMotorSpeed(MotorConstants.extendo, 1);
+        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotors(MotorConstants.extendo);
     }
 
     @Override
     public void limitSpeed(double power) {
-        motorControl.limitSpeed(MotorConstants.extendo, power);
+        motorControl.setMotorSpeed(MotorConstants.extendo, power);
     }
 
     @Override
