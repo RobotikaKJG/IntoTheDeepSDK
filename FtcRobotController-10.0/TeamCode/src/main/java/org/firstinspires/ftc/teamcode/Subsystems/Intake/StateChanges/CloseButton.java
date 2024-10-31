@@ -20,12 +20,14 @@ public class CloseButton implements IntakeStateChange {
     private final IntakeController intakeController;
     private final ElapsedTime elapsedTime;
     private final EdgeDetection edgeDetection;
+    private final ServoControl servoControl;
     private double currentWait = 0;
 
-    public CloseButton(SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, MotorControl motorControl, EdgeDetection edgeDetection) {
+    public CloseButton(SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, ServoControl servoControl, MotorControl motorControl, EdgeDetection edgeDetection) {
         this.slideLogic = slideLogic;
         this.intakeController = intakeController;
         this.elapsedTime = elapsedTime;
+        this.servoControl = servoControl;
         this.motorControl = motorControl;
         this.edgeDetection = edgeDetection;
     }
@@ -44,10 +46,10 @@ public class CloseButton implements IntakeStateChange {
 
     @Override
     public void stop() {
-        slideLogic.updateSlides();
         if(!slideLogic.slidesBottomReached() || (currentWait > elapsedTime.seconds())) return;
 
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
+        servoControl.setServoSpeed(0,0);
         intakeController.setIntakeState(SubsystemState.Idle);
     }
 
