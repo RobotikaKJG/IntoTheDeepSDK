@@ -37,7 +37,7 @@ public class HangController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        slideControl.updateSlides();
+        //slideControl.updateSlides();
 
         if (!edgeDetection.rising(hangTrigger.getTrigger())) return;
         slideControl.setSlideExtensionTarget(HangConstants.hangHeight);
@@ -46,7 +46,7 @@ public class HangController implements RobotSubsystemController {
 
     @Override
     public void run() {
-        slideControl.updateSlides();
+        //slideControl.updateSlides();
         if (!edgeDetection.rising(hangTrigger.getTrigger())) return;
         hangState = SubsystemState.Idle;
         //slideControl.setSlideExtensionTarget(HangConstants.hangStartHeight);
@@ -54,7 +54,7 @@ public class HangController implements RobotSubsystemController {
 
     @Override
     public void stop() {
-        slideControl.updateSlides();
+        //slideControl.updateSlides();
         if (!edgeDetection.rising(hangTrigger.getTrigger())) return;
         hangState = SubsystemState.Idle;
     }

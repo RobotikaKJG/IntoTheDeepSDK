@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
@@ -71,8 +70,6 @@ public class IntakeController implements RobotSubsystemController {
     public void run() {
         gamepadActions();
 
-        slideLogic.updateSlides();
-
         if (!shouldBeStopping()) return;
 
         initialiseStop();
@@ -117,11 +114,6 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void stop() {
-        slideLogic.updateSlides();
-//        if(!(/*slideLogic.slidesBottomReached() &&*/ currentWait < elapsedTime.seconds()))
-//            return;
-//        motorControl.setMotorSpeed(MotorConstants.intake, 0);
-//        intakeState = SubsystemState.Idle;
         intakeStateController.stop();
     }
 
