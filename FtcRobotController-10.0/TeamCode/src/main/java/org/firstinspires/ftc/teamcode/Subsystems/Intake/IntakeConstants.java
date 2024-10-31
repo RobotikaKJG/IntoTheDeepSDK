@@ -9,6 +9,7 @@ public class IntakeConstants {
     public static final int targetColor = Color.rgb(40, 51, 44);
     public static final int threshold = 8;
     public static final double intakeSpeed = 0.8;
+    public static final double servoSpeed = 0.4;
 
     public static final double secureSampleTime = 0;
     public static final double intakePushoutTime = 1;

@@ -59,7 +59,7 @@ public class IntakeController implements RobotSubsystemController {
     public void start() {
         if(intaking) {
             motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
-            servoControl.setServoSpeed(0, 1);
+            servoControl.setServoSpeed(0, IntakeConstants.servoSpeed);
         }
         if(extended)
             slideLogic.setSlideExtensionTarget(IntakeConstants.slideExtensionStep);

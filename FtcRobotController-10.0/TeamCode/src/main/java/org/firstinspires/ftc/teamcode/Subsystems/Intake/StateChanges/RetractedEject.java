@@ -38,7 +38,7 @@ public class RetractedEject implements IntakeStateChange {
     @Override
     public void initialiseStop() {
         motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.intakeSpeed);
-        servoControl.setServoSpeed(0,-1);
+        servoControl.setServoSpeed(0,-IntakeConstants.servoSpeed);
         addWaitTime(IntakeConstants.intakePushoutTime);
     }
 
