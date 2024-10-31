@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.HardwareInterface;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.OldOuttake.OldOuttakeConstants;
 
 public class ServoConstants {
     // Servo indexes
@@ -14,25 +14,25 @@ public class ServoConstants {
     public static final double[] servoMinPos =
             {
                     OldIntakeConstants.intakeServoMinPos,
-                    OuttakeConstants.outtakeServoMinPos,
-                    OuttakeConstants.releaseServoMinPos,
-                    OuttakeConstants.releaseServoMinPos,
+                    OldOuttakeConstants.outtakeServoMinPos,
+                    OldOuttakeConstants.releaseServoMinPos,
+                    OldOuttakeConstants.releaseServoMinPos,
                     DroneConstants.droneServoMinPos
             };
     public static final double[] servoMaxPos =
             {
                     OldIntakeConstants.intakeServoMaxPos,
-                    OuttakeConstants.outtakeServoMaxPos,
-                    OuttakeConstants.releaseServoMaxPos,
-                    OuttakeConstants.releaseServoMaxPos,
+                    OldOuttakeConstants.outtakeServoMaxPos,
+                    OldOuttakeConstants.releaseServoMaxPos,
+                    OldOuttakeConstants.releaseServoMaxPos,
                     DroneConstants.droneServoMaxPos
             };
     public static final double[] servoIncrement =
             {
                     OldIntakeConstants.intakeServoIncrement,
-                    OuttakeConstants.outtakeServoIncrement,
-                    OuttakeConstants.releaseServoIncrement,
-                    OuttakeConstants.releaseServoIncrement,
+                    OldOuttakeConstants.outtakeServoIncrement,
+                    OldOuttakeConstants.releaseServoIncrement,
+                    OldOuttakeConstants.releaseServoIncrement,
                     DroneConstants.droneServoIncrement
             };
 }
