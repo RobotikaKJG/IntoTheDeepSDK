@@ -37,7 +37,6 @@ public class AutoClose implements IntakeStateChange {
 
     @Override
     public void initialiseStop() {
-        slideLogic.setSlideExtensionTarget(0);
         addWaitTime(IntakeConstants.secureSampleTime);
         currentState = AutoCloseStopStates.secureGoodSample;
     }
@@ -67,6 +66,7 @@ public class AutoClose implements IntakeStateChange {
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
         currentState = AutoCloseStopStates.idle;
         intakeController.setIntakeState(SubsystemState.Idle);
+        slideLogic.setSlideExtensionTarget(0);
     }
 
     private void addWaitTime(double waitTime) {
