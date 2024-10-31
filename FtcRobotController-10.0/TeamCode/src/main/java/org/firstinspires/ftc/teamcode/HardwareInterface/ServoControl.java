@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.OldOuttake.OldOuttakeConstants;
 
 
 public class ServoControl {
@@ -24,7 +24,7 @@ public class ServoControl {
 
     private void servoInit() {
         getServos();
-        setServoStartPos();
+        //setServoStartPos();
     }
 
     private void getServos() {
@@ -42,16 +42,16 @@ public class ServoControl {
         };
     }
 
-    private void setServoStartPos() {
-        if(isAutonomous)
-            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoAutonStartPos);
-        else
-            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoMinPos);
-        setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos);
-        setServoPos(ServoConstants.release1, OuttakeConstants.releaseServoMinPos);
-        setServoPos(ServoConstants.release2, OuttakeConstants.releaseServoMinPos);
-        setServoPos(ServoConstants.drone, DroneConstants.droneServoMinPos);
-    }
+//    private void setServoStartPos() {
+//        if(isAutonomous)
+//            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoAutonStartPos);
+//        else
+//            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoMinPos);
+//        setServoPos(ServoConstants.outtake, OldOuttakeConstants.outtakeServoMaxPos);
+//        setServoPos(ServoConstants.release1, OldOuttakeConstants.releaseServoMinPos);
+//        setServoPos(ServoConstants.release2, OldOuttakeConstants.releaseServoMinPos);
+//        setServoPos(ServoConstants.drone, DroneConstants.droneServoMinPos);
+//    }
 
     public double getServoPos(int index) {
         return servos[index].getPosition();

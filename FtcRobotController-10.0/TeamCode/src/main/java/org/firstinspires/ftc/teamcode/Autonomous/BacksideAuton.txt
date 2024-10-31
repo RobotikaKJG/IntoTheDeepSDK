@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.Enums.ReleaseServoState;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OldOuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeDependencies;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OldOuttakeServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 
 public class BacksideAuton implements Auton {

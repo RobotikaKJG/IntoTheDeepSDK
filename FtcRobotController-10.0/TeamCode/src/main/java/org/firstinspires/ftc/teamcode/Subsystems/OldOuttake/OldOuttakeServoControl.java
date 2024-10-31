@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+package org.firstinspires.ftc.teamcode.Subsystems.OldOuttake;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.Enums.ReleaseServoState;
 import org.firstinspires.ftc.teamcode.Enums.StateSwitch;
 
-public class OuttakeServoControl {
+public class OldOuttakeServoControl {
     private final ServoControl servoControl;
     private ReleaseServoState releaseState = ReleaseServoState.openSecond; //start with both open
 
-    public OuttakeServoControl(ServoControl servoControl) {
+    public OldOuttakeServoControl(ServoControl servoControl) {
         this.servoControl = servoControl;
     }
 
@@ -75,11 +75,11 @@ public class OuttakeServoControl {
 
     private boolean areBothServosMaxPos()
     {
-        return servoControl.getServoPos(ServoConstants.release1) >= OuttakeConstants.releaseServoMaxPos &&  servoControl.getServoPos(ServoConstants.release2) >= OuttakeConstants.releaseServoMaxPos;
+        return servoControl.getServoPos(ServoConstants.release1) >= OldOuttakeConstants.releaseServoMaxPos &&  servoControl.getServoPos(ServoConstants.release2) >= OldOuttakeConstants.releaseServoMaxPos;
     }
 
     public boolean isServoOpen()
     {
-        return servoControl.getServoPos(ServoConstants.outtake) <= OuttakeConstants.outtakeServoMinPos;
+        return servoControl.getServoPos(ServoConstants.outtake) <= OldOuttakeConstants.outtakeServoMinPos;
     }
 }
