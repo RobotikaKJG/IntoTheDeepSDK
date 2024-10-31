@@ -71,7 +71,7 @@ public class IntakeController implements RobotSubsystemController {
 
     private void gamepadActions() {
         if (edgeDetection.rising(IntakeConstants.motorButton))
-            toggleMotor();
+            toggleIntakePower();
 
         if (edgeDetection.rising(IntakeConstants.forwardButton))
             slideLogic.stepUp();
@@ -79,13 +79,17 @@ public class IntakeController implements RobotSubsystemController {
         else if (edgeDetection.rising(IntakeConstants.backButton))
             slideLogic.stepDown();
     }
-    private void toggleMotor()
+    private void toggleIntakePower()
     {
         intaking = !intaking;
-        if(intaking)
+        if(intaking) {
             motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
-        else
+            servoControl.setServoSpeed(0, IntakeConstants.servoSpeed);
+        }
+        else {
             motorControl.setMotorSpeed(MotorConstants.intake, 0);
+            servoControl.setServoSpeed(0, 0);
+        }
     }
 
     private boolean shouldBeStopping()
