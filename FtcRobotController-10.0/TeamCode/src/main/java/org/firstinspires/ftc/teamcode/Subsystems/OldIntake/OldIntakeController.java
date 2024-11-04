@@ -63,7 +63,8 @@ public class OldIntakeController implements RobotSubsystemController {
         intakeState = SubsystemState.Start;
     }
 
-    public SubsystemState getIntakeState() {
+    @Override
+    public SubsystemState getState() {
         return intakeState;
     }
 }

@@ -120,6 +120,12 @@ public class IntakeController implements RobotSubsystemController {
         if(intaking || extended)
             intakeState = SubsystemState.Start;
     }
+
+    @Override
+    public SubsystemState getState() {
+        return intakeState;
+    }
+
     public void setIntakeState(SubsystemState intakeState) {
         this.intakeState = intakeState;
     }

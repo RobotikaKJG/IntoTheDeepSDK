@@ -109,7 +109,8 @@ public class OuttakeController implements RobotSubsystemController {
 
         outtakeState = SubsystemState.Start;
     }
-    public SubsystemState getOuttakeState() {
+    @Override
+    public SubsystemState getState() {
         return outtakeState;
     }
 

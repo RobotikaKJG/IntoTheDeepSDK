@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+
 public interface RobotSubsystemController {
     void updateState();
 
@@ -10,4 +12,6 @@ public interface RobotSubsystemController {
     void stop();
 
     void idle();
+
+    SubsystemState getState();
 }

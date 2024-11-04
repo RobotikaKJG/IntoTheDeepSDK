@@ -66,7 +66,8 @@ public class HangController implements RobotSubsystemController {
         slideControl.setSlideExtensionTarget(HangConstants.hangStartHeight);
     }
 
-    public SubsystemState getHangState() {
+    @Override
+    public SubsystemState getState() {
         return hangState;
     }
 }
