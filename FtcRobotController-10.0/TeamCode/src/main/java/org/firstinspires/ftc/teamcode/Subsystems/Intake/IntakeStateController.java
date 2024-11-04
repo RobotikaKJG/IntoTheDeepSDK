@@ -21,7 +21,7 @@ public class IntakeStateController implements IntakeStateChange {
     public IntakeStateController(MotorControl motorControl, ServoControl servoControl, SensorControl sensorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime) {
         intakeStates = new IntakeStateChange[]
                 {
-                        new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl),
+                        new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl,edgeDetection),
                         new RetractedEject(sensorControl, slideLogic,intakeController,elapsedTime,servoControl,motorControl),
                         new CloseButton(slideLogic,intakeController,elapsedTime,servoControl,motorControl,edgeDetection)
                 };

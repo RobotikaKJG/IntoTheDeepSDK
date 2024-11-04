@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
@@ -18,16 +19,18 @@ public class AutoClose implements IntakeStateChange {
     private final MotorControl motorControl;
     private final IntakeController intakeController;
     private final ElapsedTime elapsedTime;
+    private final EdgeDetection edgeDetection;
     private double currentWait = 0;
     private AutoCloseStopStates currentState = AutoCloseStopStates.idle;
 
-    public AutoClose(SensorControl sensorControl, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, ServoControl servoControl, MotorControl motorControl) {
+    public AutoClose(SensorControl sensorControl, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, ServoControl servoControl, MotorControl motorControl, EdgeDetection edgeDetection) {
         this.sensorControl = sensorControl;
         this.slideLogic = slideLogic;
         this.intakeController = intakeController;
         this.elapsedTime = elapsedTime;
         this.servoControl = servoControl;
         this.motorControl = motorControl;
+        this.edgeDetection = edgeDetection;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class AutoClose implements IntakeStateChange {
     @Override
     public void initialiseStop() {
         addWaitTime(IntakeConstants.secureSampleTime);
-        currentState = AutoCloseStopStates.secureGoodSample;
+        currentState = AutoCloseStopStates.waitForCommand;
     }
 
     @Override
@@ -49,6 +52,9 @@ public class AutoClose implements IntakeStateChange {
                 break;
             case ejectExtraSamples:
                 ejectExtraSamples();
+                break;
+            case waitForCommand:
+                waitForCommand();
                 break;
         }
 
@@ -64,12 +70,17 @@ public class AutoClose implements IntakeStateChange {
     private void ejectExtraSamples(){
         if(currentWait > elapsedTime.seconds()) return;
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
-        currentState = AutoCloseStopStates.idle;
+        currentState = AutoCloseStopStates.waitForCommand;
         intakeController.setIntakeState(SubsystemState.Idle);
-        slideLogic.setSlideExtensionTarget(0);
     }
 
     private void addWaitTime(double waitTime) {
         currentWait = elapsedTime.seconds() + waitTime;
+    }
+
+    private void waitForCommand() {
+        if (!edgeDetection.rising(IntakeConstants.closeButton)) return;
+        slideLogic.setSlideExtensionTarget(0);
+        currentState = AutoCloseStopStates.idle;
     }
 }
