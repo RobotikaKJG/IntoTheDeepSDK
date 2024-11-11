@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
 
 public class AutoClose implements IntakeStateChange {
     private final SensorControl sensorControl;
@@ -20,10 +22,11 @@ public class AutoClose implements IntakeStateChange {
     private final IntakeController intakeController;
     private final ElapsedTime elapsedTime;
     private final EdgeDetection edgeDetection;
+    private final OuttakeServoController outtakeServoController;
     private double currentWait = 0;
     private AutoCloseStopStates currentState = AutoCloseStopStates.idle;
 
-    public AutoClose(SensorControl sensorControl, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, ServoControl servoControl, MotorControl motorControl, EdgeDetection edgeDetection) {
+    public AutoClose(SensorControl sensorControl, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, ServoControl servoControl, MotorControl motorControl, EdgeDetection edgeDetection, OuttakeServoController outtakeServoController) {
         this.sensorControl = sensorControl;
         this.slideLogic = slideLogic;
         this.intakeController = intakeController;
@@ -31,6 +34,7 @@ public class AutoClose implements IntakeStateChange {
         this.servoControl = servoControl;
         this.motorControl = motorControl;
         this.edgeDetection = edgeDetection;
+        this.outtakeServoController = outtakeServoController;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class AutoClose implements IntakeStateChange {
     @Override
     public void initialiseStop() {
         addWaitTime(IntakeConstants.secureSampleTime);
-        currentState = AutoCloseStopStates.waitForCommand;
+        currentState = AutoCloseStopStates.secureGoodSample;
     }
 
     @Override
@@ -60,6 +64,15 @@ public class AutoClose implements IntakeStateChange {
                 break;
             case waitForCommand:
                 waitForCommand();
+                break;
+            case pushToBack:
+                pushToBack();
+                break;
+            case closeClaw:
+                closeClaw();
+                break;
+            case waitToClose:
+                waitToClose();
                 break;
         }
 
@@ -76,7 +89,6 @@ public class AutoClose implements IntakeStateChange {
         if(currentWait > elapsedTime.seconds()) return;
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
         currentState = AutoCloseStopStates.waitForCommand;
-        intakeController.setIntakeState(SubsystemState.Idle);
     }
 
     private void addWaitTime(double waitTime) {
@@ -84,8 +96,38 @@ public class AutoClose implements IntakeStateChange {
     }
 
     private void waitForCommand() {
-        if (!edgeDetection.rising(IntakeConstants.closeButton)) return;
+        if(edgeDetection.rising(IntakeConstants.motorButton))
+        {
+            currentState = AutoCloseStopStates.idle;
+            intakeController.toggleIntakePower();
+            intakeController.setIntaking(true);
+            intakeController.setExtended(true);
+            intakeController.setIntakeState(SubsystemState.Run);
+        }
+        if (!edgeDetection.rising(IntakeConstants.closeButton) && slideLogic.getSlidePosition() > 10) return;
         slideLogic.setSlideExtensionTarget(0);
-        currentState = AutoCloseStopStates.idle;
+        currentState = AutoCloseStopStates.pushToBack;
+        //currentState = AutoCloseStopStates.closeClaw;
+    }
+
+    //For now it just runs on time, limit switch could be implemented to help, disabled
+    private void pushToBack() {
+        if(slideLogic.getSlidePosition() > 2) return;
+        servoControl.setServoSpeed(0, IntakeConstants.servoSpeed/2);
+        addWaitTime(IntakeConstants.pushToEndTime);
+        currentState = AutoCloseStopStates.closeClaw;
+    }
+
+    private void closeClaw() {
+        if(currentWait > elapsedTime.seconds()) return;
+        servoControl.setServoSpeed(0, 0);
+        outtakeServoController.setServoState(OuttakeServoStates.downClose);
+        addWaitTime(IntakeConstants.clawCloseTime);
+        currentState = AutoCloseStopStates.waitToClose;
+    }
+
+    private void waitToClose(){
+        if(currentWait > elapsedTime.seconds()) return;
+        intakeController.setIntakeState(SubsystemState.Idle);
     }
 }

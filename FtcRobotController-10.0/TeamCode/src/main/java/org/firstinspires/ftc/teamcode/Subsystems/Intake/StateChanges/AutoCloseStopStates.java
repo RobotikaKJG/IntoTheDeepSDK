@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges;
 
 public enum AutoCloseStopStates {
-    waitForCommand,
     secureGoodSample,
     ejectExtraSamples,
+    waitForCommand,
+    pushToBack,
+    closeClaw,
+    waitToClose,
     idle
 }
