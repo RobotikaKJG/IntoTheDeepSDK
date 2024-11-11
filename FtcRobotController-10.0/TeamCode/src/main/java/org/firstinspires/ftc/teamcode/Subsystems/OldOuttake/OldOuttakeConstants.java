@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.OldOuttake;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 
 public class OldOuttakeConstants {
-    public static final int slideTeleOpMinExtension = 950; // minimum extension position, first snap pos for outtake macro
+    public static final int slideTeleOpMinExtension = 950; // minimum extension position, first snap pos for outtakeLeft macro
     public static final int slideExtensionStep = 270;
     public static final int outtakeServoOpenHeight = 200;
     public static final double outtakeServoIncrement = 0.57;     // amount to slew servo each cycle, VERY MUCH USED

@@ -17,24 +17,24 @@ public class OldIntakeStateControl {
 
     public void takeIn() {
         oldIntakeMotorControl.motor(StateSwitch.downOn);
-        servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
+        //servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
     }
 
     public void openAndTakeIn()
     {
-        servoControl.decreasePos(ServoConstants.release1);
-        servoControl.decreasePos(ServoConstants.release2);
+        servoControl.decreasePos(ServoConstants.outtakeRight);
+        servoControl.decreasePos(ServoConstants.release);
         takeIn();
     }
 
     public void pushOut() {
         oldIntakeMotorControl.motor(StateSwitch.upOn);
-        servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
+        //servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
     }
 
     public void pushOut(double speed) {
         oldIntakeMotorControl.motor(StateSwitch.upOn,speed);
-        servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
+        //servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMinPos[ServoConstants.intake]);
     }
 
     public void stop() {
@@ -42,6 +42,6 @@ public class OldIntakeStateControl {
     }
 
     public void moveDown(){
-        servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
+        //servoControl.setServoPos(ServoConstants.intake, ServoConstants.servoMaxPos[ServoConstants.intake]);
     }
 }

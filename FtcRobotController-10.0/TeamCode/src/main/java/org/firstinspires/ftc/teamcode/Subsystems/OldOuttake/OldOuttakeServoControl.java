@@ -17,12 +17,12 @@ public class OldOuttakeServoControl {
         switch (stateSwitch) {
             case downOn:
                 // Servo starts at max position, which is fully lowered
-                servoControl.increasePos(ServoConstants.outtake);
+                servoControl.increasePos(ServoConstants.outtakeLeft);
                 break;
 
             case upOn:
                 //decreasing the position raises the servo, as default state is maxPos
-                servoControl.decreasePos(ServoConstants.outtake);
+                servoControl.decreasePos(ServoConstants.outtakeLeft);
                 break;
         }
     }
@@ -54,16 +54,16 @@ public class OldOuttakeServoControl {
     public void releaseServoControl(ReleaseServoState state) {
         switch (state) {
             case openFirst: // closed, releases first one
-                servoControl.decreasePos(ServoConstants.release1);
+                servoControl.decreasePos(ServoConstants.outtakeRight);
                 break;
 
             case openSecond: // first one open, releases second one
-                servoControl.decreasePos(ServoConstants.release2);
+                servoControl.decreasePos(ServoConstants.release);
                 break;
 
             case closeBoth: // closes both
-                servoControl.increasePos(ServoConstants.release1);
-                servoControl.increasePos(ServoConstants.release2);
+                servoControl.increasePos(ServoConstants.outtakeRight);
+                servoControl.increasePos(ServoConstants.release);
                 break;
         }
     }
@@ -75,11 +75,11 @@ public class OldOuttakeServoControl {
 
     private boolean areBothServosMaxPos()
     {
-        return servoControl.getServoPos(ServoConstants.release1) >= OldOuttakeConstants.releaseServoMaxPos &&  servoControl.getServoPos(ServoConstants.release2) >= OldOuttakeConstants.releaseServoMaxPos;
+        return servoControl.getServoPos(ServoConstants.outtakeRight) >= OldOuttakeConstants.releaseServoMaxPos &&  servoControl.getServoPos(ServoConstants.release) >= OldOuttakeConstants.releaseServoMaxPos;
     }
 
     public boolean isServoOpen()
     {
-        return servoControl.getServoPos(ServoConstants.outtake) <= OldOuttakeConstants.outtakeServoMinPos;
+        return servoControl.getServoPos(ServoConstants.outtakeLeft) <= OldOuttakeConstants.outtakeServoMinPos;
     }
 }

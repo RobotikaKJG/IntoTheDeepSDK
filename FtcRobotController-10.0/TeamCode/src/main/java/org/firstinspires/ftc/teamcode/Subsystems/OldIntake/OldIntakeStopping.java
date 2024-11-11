@@ -41,8 +41,8 @@ public class OldIntakeStopping {
     }
 
     public void start() {
-        servoControl.increasePos(ServoConstants.release1);
-        servoControl.increasePos(ServoConstants.release2);
+        servoControl.increasePos(ServoConstants.outtakeRight);
+        servoControl.increasePos(ServoConstants.release);
         intakeStoppingState = IntakeStoppingState.CloseServos;
         addWaitTime(OldIntakeConstants.intakeStopServoCloseWait);
     }
