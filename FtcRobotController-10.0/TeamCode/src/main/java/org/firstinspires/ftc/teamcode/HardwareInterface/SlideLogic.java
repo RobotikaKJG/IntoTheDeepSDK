@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface;
 
+import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
+
 public class SlideLogic {
 
 
@@ -65,5 +67,8 @@ public class SlideLogic {
 
     public void setMaxSpeed(double maxSpeed){
         slideProperties.setSlideMaxSpeed(maxSpeed);
+    }
+    public int getSlidePosition() {
+        return slideControl.getSlidePosition();
     }
 }

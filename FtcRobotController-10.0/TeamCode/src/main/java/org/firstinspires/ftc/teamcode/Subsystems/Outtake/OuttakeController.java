@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
@@ -15,12 +14,16 @@ public class OuttakeController implements RobotSubsystemController {
     private final SlideLogic slideLogic;
     private SubsystemState outtakeState = SubsystemState.Idle;
     private final ElapsedTime elapsedTime = new ElapsedTime();
+    private final OuttakeServoController outtakeServoController;
     private double currentWait;
-    private boolean wasIfCalled = false;
+    private CloseButtonStates closeButtonStates = CloseButtonStates.flipArm;
+    private OuttakeCloseStates outtakeCloseStates = OuttakeCloseStates.retractArm;
+    private SlideStates slideStates = SlideStates.closed;
 
-    public OuttakeController(EdgeDetection edgeDetection, SlideLogic slideLogic) {
+    public OuttakeController(EdgeDetection edgeDetection, SlideLogic slideLogic, OuttakeServoController outtakeServoController) {
         this.edgeDetection = edgeDetection;
         this.slideLogic = slideLogic;
+        this.outtakeServoController = outtakeServoController;
     }
 
     @Override
@@ -43,8 +46,9 @@ public class OuttakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        slideLogic.stepUp();
-        //outtakeServoControl.checkReleaseServoPos();
+        slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
+        slideStates = SlideStates.lowBasket;
+        closeButtonStates = CloseButtonStates.flipArm;
         outtakeState = SubsystemState.Run;
     }
 
@@ -61,43 +65,107 @@ public class OuttakeController implements RobotSubsystemController {
     }
 
     private void gamepadActions() {
-        //if (edgeDetection.rising(OuttakeConstants.releaseButton))
+
+        if (edgeDetection.rising(OuttakeConstants.releaseButton))
+            closeButtonActions();
 
 
         if (edgeDetection.rising(OuttakeConstants.upButton))
-            slideLogic.stepUp();
+            stepUp();
 
         else if (edgeDetection.rising(OuttakeConstants.downButton))
-            slideLogic.stepDown();
+            stepDown();
     }
 
-//    public void openServo() {
-//        if (outtakeServoControl.isServoOpen())
-//            return;
-//        int motorPos = slideControl.getCurrentMotorPositionAvg();
-//        if (motorPos >= OuttakeConstants.outtakeServoOpenHeight)
-//            outtakeServoControl.turnServo(StateSwitch.upOn);
-//    }
+    public void stepUp()
+    {
+        switch (slideStates)
+        {
+            case closed:
+                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
+                slideStates = SlideStates.lowBasket;
+                break;
+            case lowBasket:
+                slideLogic.setSlideExtensionTarget(OuttakeConstants.highBasketPos);
+                slideStates = SlideStates.highBasket;
+                break;
+            case highBasket:
+                break;
+        }
+    }
+
+    private void stepDown()
+    {
+        switch (slideStates)
+        {
+            case highBasket:
+                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
+                slideStates = SlideStates.lowBasket;
+                break;
+            case lowBasket:
+                slideLogic.setSlideExtensionTarget(0);
+                slideStates = SlideStates.closed;
+                initialiseStop();
+                break;
+            case closed:
+                break;
+        }
+    }
+
+    public void closeButtonActions()
+    {
+        switch(closeButtonStates)
+        {
+            case flipArm:
+                outtakeServoController.setServoState(OuttakeServoStates.upClose);
+                closeButtonStates = CloseButtonStates.release;
+                addWaitTime(OuttakeConstants.outtakeServoWait);
+                break;
+            case release:
+                if (currentWait > elapsedTime.seconds()) return;
+                outtakeServoController.setServoState(OuttakeServoStates.upOpen);
+                closeButtonStates = CloseButtonStates.retract;
+                break;
+            case retract:
+                initialiseStop();
+                break;
+        }
+    }
 
     public void initialiseStop() {
         outtakeState = SubsystemState.Stop;
-        //outtakeServoControl.turnServo(StateSwitch.downOn);
-        addWaitTime(OuttakeConstants.outtakeServoCloseWait);
+        if(closeButtonStates == CloseButtonStates.retract) {
+            outtakeServoController.setServoState(OuttakeServoStates.upClose);
+            outtakeCloseStates = OuttakeCloseStates.retractArm;
+        }
+        else
+            outtakeCloseStates = OuttakeCloseStates.close;
+        addWaitTime(OuttakeConstants.releaseServoCloseWait);
     }
 
     @Override
     public void stop() {
         if (currentWait > elapsedTime.seconds()) return;
 
-        if(!wasIfCalled)
-          {
-          slideLogic.setSlideExtensionTarget(0);
-          wasIfCalled = true;
-          }
+        switch (outtakeCloseStates) {
+            case retractArm:
+                outtakeServoController.setServoState(OuttakeServoStates.downClose);
+                addWaitTime(OuttakeConstants.outtakeServoWait);
+                outtakeCloseStates = OuttakeCloseStates.close;
+                break;
+            case close:
+                if (currentWait > elapsedTime.seconds()) return;
+                outtakeServoController.setServoState(OuttakeServoStates.downOpen);
+                slideLogic.setSlideExtensionTarget(0);
+                outtakeCloseStates = OuttakeCloseStates.retractSlides;
 
-        if (!slideLogic.slidesBottomReached()) return;
-        wasIfCalled = false;
-        outtakeState = SubsystemState.Idle;
+                break;
+            case retractSlides:
+                if (slideLogic.getSlidePosition() > 10) return;
+
+                outtakeState = SubsystemState.Idle;
+                break;
+        }
     }
 
     @Override
@@ -105,6 +173,7 @@ public class OuttakeController implements RobotSubsystemController {
         if (!edgeDetection.rising(outtakeTrigger.getTrigger())) return;
 
         outtakeState = SubsystemState.Start;
+        //addWaitTime();
     }
     @Override
     public SubsystemState getState() {
