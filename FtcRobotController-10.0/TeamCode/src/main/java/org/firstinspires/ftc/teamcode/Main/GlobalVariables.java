@@ -6,8 +6,6 @@ import org.firstinspires.ftc.teamcode.Enums.StartPos;
 
 public class GlobalVariables {
     public static Alliance alliance;
-    public static PropPos propPos;
-    public static StartPos startPos = StartPos.AudienceSide;
     public static boolean wasAutonomous;
     public static boolean isAutonomous;
     public static boolean emergencyMode; //when something breaks, currently only used for slide encoder problems

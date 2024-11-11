@@ -24,7 +24,6 @@ public class SelectStartVariables {
         currentGamepad1.copy(this.gamepad1);
         edgeDetection = new EdgeDetection();
         selectAlliance();
-        //selectStartPos();
     }
 
     private void selectAlliance() {
@@ -39,19 +38,6 @@ public class SelectStartVariables {
                 GlobalVariables.alliance = Alliance.Blue;
 
         }
-    }
-
-    private void selectStartPos() {
-        do {
-            calculateGamepadValues();
-
-            telemetry.addLine("Press triangle for BACKSIDE, press square for AUDIENCE SIDE");
-            telemetry.update();
-            if (risingTriangleEdge)
-                GlobalVariables.startPos = StartPos.Backside;
-            if (risingSquareEdge)
-                GlobalVariables.startPos = StartPos.AudienceSide;
-        } while (!risingTriangleEdge && !risingSquareEdge);
     }
 
     private void calculateGamepadValues() {
