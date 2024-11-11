@@ -22,12 +22,6 @@ public class IntakeConstants {
     public static final double pushToEndTime = 0.6;
     public static final double clawCloseTime = 0.6;
 
-//    public static final int autoClose = 0;
-//    public static final int extendedEject = 1;
-//    public static final int retractedEject = 2;
-//    public static final int closeButton = 3;
-//    public static final int idle = 4;
-
     public static final GamepadIndexValues closeButton = GamepadIndexValues.leftBumper;
     public static final GamepadIndexValues forwardButton = GamepadIndexValues.rightBumper;
     public static final GamepadIndexValues backButton = GamepadIndexValues.rightTrigger;

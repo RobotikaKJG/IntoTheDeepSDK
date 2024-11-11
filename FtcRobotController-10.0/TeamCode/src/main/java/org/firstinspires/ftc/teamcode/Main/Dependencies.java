@@ -56,14 +56,6 @@ public class Dependencies {
         return new Drivebase(gamepad1, motorControl, sensorControl);
     }
 
-    public OldIntakeController createOldIntakeController() {
-        return new OldIntakeController(createIntakeStateControl(), servoControl, edgeDetection, elapsedTime);
-    }
-
-    public DroneController createDroneController() {
-        return new DroneController(servoControl, edgeDetection);
-    }
-
     public DrivebaseController createDrivebaseController() {
         return new DrivebaseController(createDrivebase(), edgeDetection);
     }

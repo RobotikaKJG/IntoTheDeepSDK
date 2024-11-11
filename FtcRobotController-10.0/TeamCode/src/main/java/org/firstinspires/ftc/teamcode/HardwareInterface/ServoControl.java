@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface;
 
-import static org.firstinspires.ftc.teamcode.Main.GlobalVariables.isAutonomous;
-
 import com.qualcomm.robotcore.hardware.CRServoImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;

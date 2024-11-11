@@ -52,9 +52,6 @@ public class OuttakeController implements RobotSubsystemController {
     public void run() {
         gamepadActions();
 
-        //needs to go after to receive position update
-        //openServo();
-
         if (!shouldBeStopping()) return;
         initialiseStop();
     }

@@ -3,18 +3,13 @@ package org.firstinspires.ftc.teamcode.HardwareInterface;
 public class SlideLogic {
 
 
-    private final MotorControl motorControl;
-    private final SensorControl sensorControl;
     private final SlideControl slideControl;
     private int slideExtensionTarget = 0;
-    private int prevSlideExtensionTarget = 0;
     private final SlideProperties slideProperties;
     private int slideMaxExtension;
     private int slideExtensionStep;
 
-    public SlideLogic(SlideControl slideControl, MotorControl motorControl, SensorControl sensorControl, SlideProperties slideProperties) {
-        this.motorControl = motorControl;
-        this.sensorControl = sensorControl;
+    public SlideLogic(SlideControl slideControl, SlideProperties slideProperties) {
         this.slideControl = slideControl;
         this.slideProperties = slideProperties;
         setSlideProperties();
@@ -28,10 +23,9 @@ public class SlideLogic {
     }
 
     public boolean slidesBottomReached() {
-        if (!sensorControl.isLimitSwitchPressed())
-            return false;
-        motorControl.setMotorSpeed(MotorConstants.bothSlides, 0);
-        motorControl.resetMotorEncoders(MotorConstants.bothSlides);
+        if (!slideControl.isLimitSwitchPressed()) return false;
+
+        slideControl.setSlideMode(RunMode.RUN_USING_ENCODER);
         return true;
     }
 
