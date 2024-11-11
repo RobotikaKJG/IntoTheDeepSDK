@@ -35,7 +35,12 @@ public class AutoClose implements IntakeStateChange {
 
     @Override
     public boolean shouldBeStopping() {
-        return sensorControl.isColorMatch(IntakeConstants.targetColor, IntakeConstants.threshold);
+        return isColorMatch();
+    }
+
+    private boolean isColorMatch()
+    {
+        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.threshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.threshold);
     }
 
     @Override

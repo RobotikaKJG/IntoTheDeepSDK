@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
 
 public class IterativeController {
@@ -35,11 +36,16 @@ public class IterativeController {
         intakeController.updateState();
 
         drivebaseController.updateState(SubsystemState.Idle); //either replace idle with outtake for an outtake speed reduction or remove it
+                return !isColorMatch();
     }
 
 //    private boolean intakeCanRun() {
 //        return outtakeController.getOuttakeState() == SubsystemState.Idle;
 //    }
+    private boolean isColorMatch()
+    {
+        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.threshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.threshold);
+    }
 
     private boolean outtakeCanRun() {
         return intakeController.getState() == SubsystemState.Idle;

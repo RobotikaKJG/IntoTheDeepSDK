@@ -6,8 +6,14 @@ import android.graphics.Color;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 
 public class IntakeConstants {
-    public static final int targetColor = Color.rgb(0, 0, 0);
-    public static final int threshold = 15;
+    public static final int yellow = Color.rgb(0, 0, 0);
+    @SuppressLint("Range")
+    public static final int red = Color.rgb(0, 0, 0);
+    public static final int blue = Color.rgb(0, 0, 0);
+    private static final boolean isRedAlliance = GlobalVariables.alliance == Alliance.Red;
+    public static final int allianceColor = isRedAlliance ? red:blue; //fancy ahh declaration
+    public static final int threshold = 5;
+
     public static final double intakeSpeed = 1;
     public static final double servoSpeed = 1;
 
