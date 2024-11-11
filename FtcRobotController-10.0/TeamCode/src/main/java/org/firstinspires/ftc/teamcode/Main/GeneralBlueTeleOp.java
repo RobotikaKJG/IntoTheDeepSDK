@@ -35,14 +35,7 @@ public class GeneralTeleOp extends LinearOpMode {
             if (gamepad1.y)
                 break;
             calculateLoopTime(dependencies.elapsedTime);
-            telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
-            telemetry.addData("Slide Rotation: ", dependencies.motorControl.getMotorPosition(MotorConstants.extendo));
-            telemetry.addData("Slide Target Rotation: ", dependencies.slideLogic.getSlideExtensionTarget());
-            int detectedColor = dependencies.sensorControl.colorSensor.argb();
-            telemetry.addData("Detected Color", detectedColor);
-            telemetry.addData("Red", Color.red(detectedColor));
-            telemetry.addData("Green", Color.green(detectedColor));
-            telemetry.addData("Blue", Color.blue(detectedColor));
+            //telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
             telemetry.update();
         }
     }

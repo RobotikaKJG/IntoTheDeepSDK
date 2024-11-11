@@ -35,16 +35,26 @@ public class IterativeController {
 
         intakeController.updateState();
 
-        drivebaseController.updateState(SubsystemState.Idle); //either replace idle with outtake for an outtake speed reduction or remove it
-                return !isColorMatch();
+        drivebaseController.updateState(outtakeController.getState()); //either replace idle with outtakeLeft for an outtakeLeft speed reduction or remove it
     }
 
-//    private boolean intakeCanRun() {
-//        return outtakeController.getOuttakeState() == SubsystemState.Idle;
-//    }
+    private boolean intakeCanRun() {
+        if (outtakeController.getState() == SubsystemState.Idle)
+            if(intakeController.getState() == SubsystemState.Idle && intakeRisingEdge())
+                return !isColorMatch();
+            else
+                return true;
+        return false;
+    }
+
     private boolean isColorMatch()
     {
         return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.threshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.threshold);
+    }
+
+    private boolean intakeRisingEdge()
+    {
+        return edgeDetection.rising(intakeMotorTrigger.getTrigger()) || edgeDetection.rising(intakeExtendoTrigger.getTrigger());
     }
 
     private boolean outtakeCanRun() {
