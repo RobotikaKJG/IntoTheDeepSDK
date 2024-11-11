@@ -5,10 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
+import org.firstinspires.ftc.teamcode.HardwareInterface.LimitSwitches;
+import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 
 @TeleOp
-public class GeneralBlueTeleOp extends LinearOpMode {
+public class GeneralRedTeleOp extends LinearOpMode {
 
     private double prevTime;
     /**
@@ -18,20 +20,21 @@ public class GeneralBlueTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
-        GlobalVariables.alliance = Alliance.Blue;
+        GlobalVariables.alliance = Alliance.Red;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
         StandardTrackingWheelLocalizer localizer = dependencies.localizer;
         IterativeController iterativeController = new IterativeController(dependencies);
 
         waitForStart();
 
+        dependencies.servoControl.setServoStartPos();
+
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
             iterativeController.TeleOp();
             localizer.update();
-            if (gamepad1.y)
-                break;
+            if (gamepad1.triangle) break;
             calculateLoopTime(dependencies.elapsedTime);
             //telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
             telemetry.update();
