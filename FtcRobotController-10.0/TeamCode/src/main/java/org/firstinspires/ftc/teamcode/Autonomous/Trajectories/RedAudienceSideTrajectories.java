@@ -185,14 +185,14 @@ public class RedAudienceSideTrajectories implements AudienceSideTrajectories {
     @Override
     public Pose2d adjustPosition()
     {
-        switch (GlobalVariables.propPos) {
-            case left:
-                return new Pose2d(51, -22.5,Math.toRadians(180));
-            case front:
-                return new Pose2d(52, -33.5,Math.toRadians(177.5));
-            case right:
-                return new Pose2d(53, -42.5,Math.toRadians(179));
-        }
+//        switch (GlobalVariables.propPos) {
+//            case left:
+//                return new Pose2d(51, -22.5,Math.toRadians(180));
+//            case front:
+//                return new Pose2d(52, -33.5,Math.toRadians(177.5));
+//            case right:
+//                return new Pose2d(53, -42.5,Math.toRadians(179));
+//        }
         return null;
     }
 }

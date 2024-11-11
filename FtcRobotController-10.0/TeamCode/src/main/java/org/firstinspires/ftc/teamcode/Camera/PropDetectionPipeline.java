@@ -87,12 +87,12 @@ public class PropDetectionPipeline extends OpenCvPipeline {
     }
 
     private void setPropPos(double maxSpot) {
-        if (maxSpot == leftSpotAvgF)
-            GlobalVariables.propPos = PropPos.left;
-        else if (maxSpot == frontSpotAvgF)
-            GlobalVariables.propPos = PropPos.front;
-        else
-            GlobalVariables.propPos = PropPos.right;
+//        if (maxSpot == leftSpotAvgF)
+//            GlobalVariables.propPos = PropPos.left;
+//        else if (maxSpot == frontSpotAvgF)
+//            GlobalVariables.propPos = PropPos.front;
+//        else
+//            GlobalVariables.propPos = PropPos.right;
     }
 
     private void releaseMats() {

@@ -96,9 +96,9 @@ public class PropCameraControl implements CameraControl {
 
         double leftValue = left.getPosStrength();
         double rightValue = right.getPosStrength();
-        if(leftValue > rightValue)
-            GlobalVariables.propPos = left.getPropPos();
-        else
-            GlobalVariables.propPos = right.getPropPos();
+//        if(leftValue > rightValue)
+//            GlobalVariables.propPos = left.getPropPos();
+//        else
+//            GlobalVariables.propPos = right.getPropPos();
     }
 }

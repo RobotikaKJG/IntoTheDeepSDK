@@ -189,14 +189,14 @@ public class BlueAudienceSideTrajectories implements AudienceSideTrajectories {
     @Override
     public Pose2d adjustPosition()
     {
-        switch (GlobalVariables.propPos) {
-            case left:
-                return new Pose2d(51, 46,Math.toRadians(183));
-            case front:
-                return new Pose2d(52, 38,Math.toRadians(178.5));//(-177.5));
-            case right:
-                return new Pose2d(53, 25,Math.toRadians(-179));
-        }
+//        switch (GlobalVariables.propPos) {
+//            case left:
+//                return new Pose2d(51, 46,Math.toRadians(183));
+//            case front:
+//                return new Pose2d(52, 38,Math.toRadians(178.5));//(-177.5));
+//            case right:
+//                return new Pose2d(53, 25,Math.toRadians(-179));
+//        }
         return null;
     }
 }
