@@ -1,0 +1,4 @@
+Vytenio patarimai:
+    Atskirti FSM control nuo actions
+    Dependency containers (klasės kai daug passini kartu)??
+    Subscriber pvz Autoclose
