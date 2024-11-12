@@ -73,7 +73,7 @@ public class MotorControl {
             motorSpeeds[Utilities.motorIndex(index, i)] /= divisor;
     }
 
-    public void setMotors() //throws InterruptedException 
+    public void setMotors()
     {
         setMotors(MotorConstants.all);
     }
