@@ -15,12 +15,15 @@ import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -33,7 +36,7 @@ public class Dependencies {
     public EdgeDetection edgeDetection = new EdgeDetection();
     public SampleMecanumDrive drive;
     public ElapsedTime elapsedTime = new ElapsedTime();
-    public SlideLogic slideLogic;
+    public OuttakeServoController outtakeServoController;
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Telemetry telemetry) {
 
@@ -45,7 +48,7 @@ public class Dependencies {
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, gamepad1, localizer);
         servoControl = new ServoControl(hardwareMap);
-        slideLogic = createIntakeSlideLogic();
+        outtakeServoController = new OuttakeServoController(servoControl);
     }
 
     public OldIntakeStateControl createIntakeStateControl() {
@@ -61,14 +64,25 @@ public class Dependencies {
     }
 
     public IntakeController createIntakeController() {
-        return new IntakeController(motorControl, edgeDetection, slideLogic, sensorControl, elapsedTime,servoControl);
+        return new IntakeController(motorControl, edgeDetection, createIntakeSlideLogic(), sensorControl, elapsedTime,servoControl,outtakeServoController);
     }
 
-    private SlideLogic createIntakeSlideLogic() {
-        return new SlideLogic(createIntakeSlideControl(), motorControl, sensorControl, new IntakeSlideProperties());
+    SlideLogic createIntakeSlideLogic() {
+        return new SlideLogic(createIntakeSlideControl(), new IntakeSlideProperties());
     }
 
-    private SlideControl createIntakeSlideControl() {
-        return new IntakeSlideControl(motorControl);
+    SlideControl createIntakeSlideControl() {
+        return new IntakeSlideControl(motorControl,sensorControl);
+    }
+
+    public OuttakeController createOuttakeController() {
+        return new OuttakeController(edgeDetection, createOuttakeSlideLogic(),outtakeServoController);
+    }
+    SlideLogic createOuttakeSlideLogic() {
+        return new SlideLogic(createOuttakeSlideControl(), new OuttakeSlideProperties());
+    }
+
+    SlideControl createOuttakeSlideControl() {
+        return new OuttakeSlideControl(motorControl,sensorControl);
     }
 }
