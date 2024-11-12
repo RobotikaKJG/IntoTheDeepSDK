@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
 public class IntakeController implements RobotSubsystemController {
@@ -24,12 +26,13 @@ public class IntakeController implements RobotSubsystemController {
     private boolean forward = true;
     private final IntakeStateController intakeStateController;
 
-    public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, SensorControl sensorControl, ElapsedTime elapsedtime, ServoControl servoControl) {
+    public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, SensorControl sensorControl, ElapsedTime elapsedtime, ServoControl servoControl, OuttakeServoController outtakeServoController) {
         this.edgeDetection = edgeDetection;
         this.motorControl = motorControl;
         this.slideLogic = slideLogic;
         this.servoControl = servoControl;
-        this.intakeStateController = new IntakeStateController(motorControl, servoControl, sensorControl, edgeDetection, slideLogic, this, elapsedtime);
+        outtakeServoController.setServoState(OuttakeServoStates.downOpen);
+        this.intakeStateController = new IntakeStateController(motorControl, servoControl, sensorControl, edgeDetection, slideLogic, this, elapsedtime,outtakeServoController);
     }
     @Override
     public void updateState() {
@@ -115,7 +118,7 @@ public class IntakeController implements RobotSubsystemController {
         return intakeStateController.shouldBeStopping();
     }
 
-    private void initialiseStop()
+    public void initialiseStop()
     {
         intakeStateController.initialiseStop();
         extended = false;
