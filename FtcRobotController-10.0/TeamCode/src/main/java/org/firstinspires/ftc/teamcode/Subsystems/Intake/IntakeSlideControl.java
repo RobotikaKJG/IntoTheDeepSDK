@@ -25,9 +25,14 @@ public class IntakeSlideControl implements SlideControl {
     @Override
     public void setSlidePosition(int position) {
         motorControl.setMotorPos(MotorConstants.extendo, position);
-        motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
+        setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
         limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotors(MotorConstants.extendo);
+    }
+
+    @Override
+    public void setSlideMode(DcMotor.RunMode mode) {
+        motorControl.setMotorMode(MotorConstants.extendo, mode);
     }
 
     @Override
