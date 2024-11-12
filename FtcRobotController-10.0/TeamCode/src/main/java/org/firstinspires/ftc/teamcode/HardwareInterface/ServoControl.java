@@ -15,12 +15,13 @@ public class ServoControl {
 
     public ServoControl(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
-        servoInit();
+        //servoInit();
+        getServos();
     }
 
     private void servoInit() {
         getServos();
-        //setServoStartPos();
+        setServoStartPos();
     }
 
     private void getServos() {
