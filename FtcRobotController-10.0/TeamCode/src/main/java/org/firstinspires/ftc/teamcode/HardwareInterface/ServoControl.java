@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.hardware.CRServoImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Drone.DroneConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.OldOuttake.OldOuttakeConstants;
-
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoControl {
 
@@ -28,11 +26,9 @@ public class ServoControl {
     private void getServos() {
 
         servos = new Servo[]{
-                hardwareMap.get(Servo.class, "intakeServo"),
-                hardwareMap.get(Servo.class, "outtakeServo"),
-                hardwareMap.get(Servo.class, "releaseServo1"),
-                hardwareMap.get(Servo.class, "releaseServo2"),
-                hardwareMap.get(Servo.class, "droneServo")
+                hardwareMap.get(Servo.class, "outtakeLeftServo"),
+                hardwareMap.get(Servo.class, "outtakeRightServo"),
+                hardwareMap.get(Servo.class, "releaseServo")
         };
 
         crServos = new CRServoImpl[]{
@@ -40,16 +36,14 @@ public class ServoControl {
         };
     }
 
-//    private void setServoStartPos() {
-//        if(isAutonomous)
-//            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoAutonStartPos);
-//        else
-//            setServoPos(ServoConstants.intake, OldIntakeConstants.intakeServoMinPos);
-//        setServoPos(ServoConstants.outtake, OldOuttakeConstants.outtakeServoMaxPos);
-//        setServoPos(ServoConstants.release1, OldOuttakeConstants.releaseServoMinPos);
-//        setServoPos(ServoConstants.release2, OldOuttakeConstants.releaseServoMinPos);
-//        setServoPos(ServoConstants.drone, DroneConstants.droneServoMinPos);
-//    }
+    public void setServoStartPos() {
+        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoIdlePos); //should be idlepos
+        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoIdlePos);
+        if (GlobalVariables.isAutonomous)
+            setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
+        else
+            setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
+    }
 
     public double getServoPos(int index) {
         return servos[index].getPosition();
