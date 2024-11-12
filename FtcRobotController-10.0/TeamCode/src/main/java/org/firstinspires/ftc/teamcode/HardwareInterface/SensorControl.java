@@ -15,15 +15,18 @@ import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
 
 public class SensorControl {
 
-    private final LimitSwitch limitSwitch;
+    private final LimitSwitch[] limitSwitches;
     private final Gamepad gamepad1;
     private final StandardTrackingWheelLocalizer localizer;
     public final ColorSensor colorSensor;
 
     public SensorControl(HardwareMap hardwareMap, Gamepad gamepad1, StandardTrackingWheelLocalizer localizer) {
         // Could be added to an array later if more limit switches are introduced
-        limitSwitch = hardwareMap.get(LimitSwitch.class, "limitSwitch");
-        limitSwitch.setMode(LimitSwitch.SwitchConfig.NC);
+        limitSwitches = new LimitSwitch[]{
+                hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
+        };
+        limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
         colorSensor = hardwareMap.get(ColorSensor.class, "ColorSensor");
         this.localizer = localizer;
 
@@ -53,8 +56,15 @@ public class SensorControl {
             localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
     }
 
-    public boolean isLimitSwitchPressed() {
-        return limitSwitch.getIsPressed();
+    public boolean isLimitSwitchPressed(LimitSwitches state) {
+        switch (state) {
+            case slide:
+                return limitSwitches[0].getIsPressed();
+            case extendo:
+                return limitSwitches[1].getIsPressed();
+            default:
+                return false; // Or throw an exception
+        }
     }
 
     public boolean isColorMatch(int targetColor, int threshold) {
