@@ -151,4 +151,12 @@ public class IntakeController implements RobotSubsystemController {
     {
         return intaking;
     }
+    public void setIntaking (boolean intaking)
+    {
+        this.intaking = intaking;
+    }
+    public void setExtended (boolean extended)
+    {
+        this.extended = extended;
+    }
 }
