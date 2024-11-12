@@ -8,7 +8,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 2200;
+        return 2400;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideExtensionStep() {
-        return 550;
+        return 2400;
     }
 
     @Override
