@@ -130,4 +130,27 @@ public class AutoClose implements IntakeStateChange {
         if(currentWait > elapsedTime.seconds()) return;
         intakeController.setIntakeState(SubsystemState.Idle);
     }
+
+
+    enum MovementState {
+        stop,
+        go,
+        turn
+    }
+
+    interface ISubscriber {
+        void subscribe();
+        void update(MovementState state);
+    }
+
+    private ISubscriber[] _subscribers;
+    private MovementState _state;
+
+    void setState(MovementState state)
+    {
+        _state = state;
+        for(int i = 0; i<_subscribers.length; i++){
+            _subscribers[i].update(state);
+        }
+    }
 }
