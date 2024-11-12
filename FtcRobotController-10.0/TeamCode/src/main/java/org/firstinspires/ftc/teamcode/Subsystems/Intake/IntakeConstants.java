@@ -28,6 +28,7 @@ public class IntakeConstants {
     public static final GamepadIndexValues forwardButton = GamepadIndexValues.rightBumper;
     public static final GamepadIndexValues backButton = GamepadIndexValues.rightTrigger;
     public static final GamepadIndexValues motorButton = GamepadIndexValues.leftTrigger;
+    public static final GamepadIndexValues reverseButton = GamepadIndexValues.dpadUp;
     @SuppressLint("Range")
     public static int wrongColor = Color.rgb(456,117,148);
 }

@@ -21,6 +21,7 @@ public class IntakeController implements RobotSubsystemController {
     private SubsystemState intakeState = SubsystemState.Idle;
     private boolean extended = false;
     private boolean intaking = false;
+    private boolean forward = true;
     private final IntakeStateController intakeStateController;
 
     public IntakeController(MotorControl motorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, SensorControl sensorControl, ElapsedTime elapsedtime, ServoControl servoControl) {
@@ -50,6 +51,7 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
+        forward = true;
         if(intaking) {
             motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
             servoControl.setServoSpeed(0, IntakeConstants.servoSpeed);
@@ -72,6 +74,8 @@ public class IntakeController implements RobotSubsystemController {
     private void gamepadActions() {
         if (edgeDetection.rising(IntakeConstants.motorButton))
             toggleIntakePower();
+        if(edgeDetection.rising(IntakeConstants.reverseButton))
+            toggleIntakeReverse();
 
         if (edgeDetection.rising(IntakeConstants.forwardButton))
             slideLogic.stepUp();
@@ -79,7 +83,21 @@ public class IntakeController implements RobotSubsystemController {
         else if (edgeDetection.rising(IntakeConstants.backButton))
             slideLogic.stepDown();
     }
-    private void toggleIntakePower()
+
+
+    public void toggleIntakeReverse() {
+        forward = !forward;
+        if(forward) {
+            motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.intakeSpeed);
+            servoControl.setServoSpeed(0, IntakeConstants.servoSpeed);
+        }
+        else {
+            motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.intakeSpeed);
+            servoControl.setServoSpeed(0, -IntakeConstants.servoSpeed);
+        }
+    }
+
+    public void toggleIntakePower()
     {
         intaking = !intaking;
         if(intaking) {
