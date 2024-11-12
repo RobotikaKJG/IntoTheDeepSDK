@@ -19,7 +19,7 @@ public class IntakeConstants {
     public static final double intakeSpeed = 1;
     public static final double servoSpeed = 1;
 
-    public static final double secureSampleTime = 0;
+    public static final double secureSampleTime = 0.15;
     public static final double intakePushoutTime = 1;
     public static final double pushToEndTime = 0.6;
     public static final double clawCloseTime = 0.6;
