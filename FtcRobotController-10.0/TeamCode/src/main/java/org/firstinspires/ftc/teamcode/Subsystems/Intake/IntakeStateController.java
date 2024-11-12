@@ -45,14 +45,11 @@ public class IntakeStateController implements IntakeStateChange {
             case autoClose:
                 intakeStates[0].initialiseStop();
                 break;
-            case extendedEject:
+            case retractedEject:
                 intakeStates[1].initialiseStop();
                 break;
-            case retractedEject:
-                intakeStates[2].initialiseStop();
-                break;
             case closeButton:
-                intakeStates[3].initialiseStop();
+                intakeStates[2].initialiseStop();
                 break;
             case idle://This should not be here, but just in case something breaks
                 break;//hopefully this won't cause debugging pain

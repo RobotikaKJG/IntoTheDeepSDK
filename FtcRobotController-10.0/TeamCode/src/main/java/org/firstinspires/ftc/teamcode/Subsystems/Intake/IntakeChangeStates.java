@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 public enum IntakeChangeStates {
     autoClose,
-    extendedEject,
     retractedEject,
     closeButton,
     idle
