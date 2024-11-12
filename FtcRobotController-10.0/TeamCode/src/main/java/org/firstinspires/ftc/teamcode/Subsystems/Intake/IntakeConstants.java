@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 
+import org.firstinspires.ftc.teamcode.Enums.Alliance;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeConstants {
     public static final int yellow = Color.rgb(0, 0, 0);
