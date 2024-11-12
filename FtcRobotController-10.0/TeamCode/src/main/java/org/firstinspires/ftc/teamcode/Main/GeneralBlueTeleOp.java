@@ -25,6 +25,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
 
         waitForStart();
 
+        dependencies.servoControl.setServoStartPos();
+
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
