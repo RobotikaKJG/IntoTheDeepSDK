@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.IntakeChangeStates;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
@@ -12,16 +11,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.AutoClose;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.CloseButton;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.RetractedEject;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.IntakeStateChange;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
 
 public class IntakeStateController implements IntakeStateChange {
     private final IntakeStateChange[] intakeStates;
     private IntakeChangeStates currentState;
     private final IntakeChangeStates[] states = IntakeChangeStates.values();
 
-    public IntakeStateController(MotorControl motorControl, ServoControl servoControl, SensorControl sensorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime) {
+    public IntakeStateController(MotorControl motorControl, ServoControl servoControl, SensorControl sensorControl, EdgeDetection edgeDetection, SlideLogic slideLogic, IntakeController intakeController, ElapsedTime elapsedTime, OuttakeServoController outtakeServoController) {
         intakeStates = new IntakeStateChange[]
                 {
-                        new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl,edgeDetection),
+                        new AutoClose(sensorControl, slideLogic, intakeController, elapsedTime,servoControl,motorControl,edgeDetection,outtakeServoController),
                         new RetractedEject(sensorControl, slideLogic,intakeController,elapsedTime,servoControl,motorControl),
                         new CloseButton(slideLogic,intakeController,elapsedTime,servoControl,motorControl,edgeDetection)
                 };
@@ -62,14 +62,11 @@ public class IntakeStateController implements IntakeStateChange {
             case autoClose:
                 intakeStates[0].stop();
                 break;
-            case extendedEject:
+            case retractedEject:
                 intakeStates[1].stop();
                 break;
-            case retractedEject:
-                intakeStates[2].stop();
-                break;
             case closeButton:
-                intakeStates[3].stop();
+                intakeStates[2].stop();
                 break;
             case idle: //same here
                 break;
