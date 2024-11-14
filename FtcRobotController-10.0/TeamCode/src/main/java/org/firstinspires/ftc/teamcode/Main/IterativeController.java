@@ -71,7 +71,7 @@ public class IterativeController {
 
     private boolean isColorMatch()
     {
-        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.threshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.threshold);
+        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.yellowThreshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.allianceThreshold);
     }
 
     private boolean intakeRisingEdge()

@@ -31,8 +31,8 @@ public class RetractedEject implements IntakeStateChange {
     }
 
     @Override
-    public boolean shouldBeStopping() {
-        return sensorControl.isColorMatch(IntakeConstants.wrongColor, IntakeConstants.threshold);
+    public boolean shouldBeStopping() { //THIS MAY CAUSE ISSUES, REMEMBER IF DEBUGGING
+        return sensorControl.isColorMatch(IntakeConstants.otherAllianceColor, IntakeConstants.otherAllianceThreshold) && !sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.yellowThreshold);
     }
 
     @Override

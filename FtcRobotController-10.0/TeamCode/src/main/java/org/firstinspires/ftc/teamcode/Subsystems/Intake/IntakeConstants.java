@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
@@ -8,18 +7,22 @@ import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeConstants {
-    public static final int yellow = Color.rgb(0, 0, 0);
-    @SuppressLint("Range")
-    public static final int red = Color.rgb(0, 0, 0);
-    public static final int blue = Color.rgb(0, 0, 0);
+    public static final int yellow = Color.rgb(165,120,69);
+    public static final int yellowThreshold = 60;
+    public static final int red = Color.rgb(120, 30, 40);
+    public static final int redThreshold = 60;
+    public static final int blue = Color.rgb(20,40,60);
+    public static final int blueThreshold = 20;
     private static final boolean isRedAlliance = GlobalVariables.alliance == Alliance.Red;
     public static final int allianceColor = isRedAlliance ? red:blue; //fancy ahh declaration
-    public static final int threshold = 5;
+    public static final int allianceThreshold = isRedAlliance ? redThreshold:blueThreshold;
+    public static final int otherAllianceColor = isRedAlliance ? blue:red;
+    public static final int otherAllianceThreshold = isRedAlliance ? blueThreshold:redThreshold;
 
     public static final double intakeSpeed = 1;
     public static final double servoSpeed = 1;
 
-    public static final double secureSampleTime = 0.15;
+    public static final double secureSampleTime = 0.4;
     public static final double intakePushoutTime = 1;
     public static final double pushToEndTime = 0.6;
     public static final double clawCloseTime = 0.6;
@@ -29,6 +32,4 @@ public class IntakeConstants {
     public static final GamepadIndexValues backButton = GamepadIndexValues.rightTrigger;
     public static final GamepadIndexValues motorButton = GamepadIndexValues.leftTrigger;
     public static final GamepadIndexValues reverseButton = GamepadIndexValues.dpadUp;
-    @SuppressLint("Range")
-    public static int wrongColor = Color.rgb(456,117,148);
 }
