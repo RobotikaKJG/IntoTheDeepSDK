@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class RetractedEject implements IntakeStateChange {
     private final SensorControl sensorControl;
@@ -48,7 +49,7 @@ public class RetractedEject implements IntakeStateChange {
 
         motorControl.setMotorSpeed(MotorConstants.intake, 0);
         servoControl.setServoSpeed(0,0);
-        intakeController.setIntakeState(SubsystemState.Start);
+        IntakeStates.setIntakeState(SubsystemState.Start);
     }
 
     private void addWaitTime(double waitTime) {

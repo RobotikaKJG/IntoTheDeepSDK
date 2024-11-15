@@ -20,7 +20,6 @@ public class IntakeController implements RobotSubsystemController {
     private final MotorControl motorControl;
     private final SlideLogic slideLogic;
     private final ServoControl servoControl;
-    private SubsystemState intakeState = SubsystemState.Idle;
     private boolean extended = false;
     private boolean intaking = false;
     private boolean forward = true;
@@ -36,7 +35,7 @@ public class IntakeController implements RobotSubsystemController {
     }
     @Override
     public void updateState() {
-        switch (intakeState) {
+        switch (IntakeStates.getIntakeState()) {
             case Start:
                 start();
                 break;
@@ -62,7 +61,7 @@ public class IntakeController implements RobotSubsystemController {
         if(extended)
             slideLogic.stepUp();
         slideLogic.setMaxSpeed(1);
-        intakeState = SubsystemState.Run;
+        IntakeStates.setIntakeState(SubsystemState.Run);
     }
 
     @Override
@@ -123,7 +122,7 @@ public class IntakeController implements RobotSubsystemController {
         intakeStateController.initialiseStop();
         extended = false;
         intaking = false;
-        intakeState = SubsystemState.Stop;
+        IntakeStates.setIntakeState(SubsystemState.Stop);
     }
 
     @Override
@@ -139,17 +138,14 @@ public class IntakeController implements RobotSubsystemController {
             extended = true;
 
         if(intaking || extended)
-            intakeState = SubsystemState.Start;
+            IntakeStates.setIntakeState(SubsystemState.Start);
     }
 
     @Override
     public SubsystemState getState() {
-        return intakeState;
+        return IntakeStates.getIntakeState();
     }
 
-    public void setIntakeState(SubsystemState intakeState) {
-        this.intakeState = intakeState;
-    }
     public boolean getIntaking()
     {
         return intaking;

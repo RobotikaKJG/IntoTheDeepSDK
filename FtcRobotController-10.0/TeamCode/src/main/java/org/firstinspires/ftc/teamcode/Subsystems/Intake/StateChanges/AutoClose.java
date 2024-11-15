@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
 
@@ -102,7 +103,7 @@ public class AutoClose implements IntakeStateChange {
             intakeController.toggleIntakePower();
             intakeController.setIntaking(true);
             intakeController.setExtended(true);
-            intakeController.setIntakeState(SubsystemState.Run);
+            IntakeStates.setIntakeState(SubsystemState.Run);
         }
         if (!edgeDetection.rising(IntakeConstants.closeButton) && slideLogic.getSlidePosition() > 10) return;
         slideLogic.setSlideExtensionTarget(0);
@@ -128,7 +129,7 @@ public class AutoClose implements IntakeStateChange {
 
     private void waitToClose(){
         if(currentWait > elapsedTime.seconds()) return;
-        intakeController.setIntakeState(SubsystemState.Idle);
+        IntakeStates.setIntakeState(SubsystemState.Idle);
     }
 
 
