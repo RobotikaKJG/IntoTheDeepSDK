@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-@TeleOp(name = "Intake Test")
+@TeleOp(name = "Intake Test - Continuous")
 public class IntakeTest extends LinearOpMode {
 
     private CRServo intakeServo;
@@ -21,11 +21,11 @@ public class IntakeTest extends LinearOpMode {
         while (opModeIsActive()) {
             // Control servo direction with R1 and L1 buttons
             if (gamepad1.right_bumper) {
-                intakeServo.setPower(1.0);  // Spin clockwise
+                intakeServo.setPower(1.0);  // Spin clockwise indefinitely
             } else if (gamepad1.left_bumper) {
-                intakeServo.setPower(-1.0); // Spin anti-clockwise
+                intakeServo.setPower(-1.0); // Spin anti-clockwise indefinitely
             } else {
-                intakeServo.setPower(0.0);  // Stop spinning
+                intakeServo.setPower(0.0);  // Stop spinning when no button is pressed
             }
 
             // Update telemetry for debugging
