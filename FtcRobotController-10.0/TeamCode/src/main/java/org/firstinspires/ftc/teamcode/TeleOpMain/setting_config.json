@@ -1,0 +1,101 @@
+{
+  "teamSettings": {
+    "teamName": "Rojus",
+    "robotName": "LitBotV2",
+    "robotSpeed": 1.0,
+    "fieldSide": "Blue",
+    "maxAcceleration": 1.5
+  },
+  "controllerSettings": {
+    "controller1": {
+      "leftStick": {
+        "function": "Drive",
+        "description": "Controls the forward/backward and strafing motion of the robot"
+      },
+      "rightStick": {
+        "function": "Turn",
+        "description": "Controls the turning of the robot"
+      },
+      "aButton": {
+        "function": "Toggle Speed",
+        "description": "Switches between normal and reduced speed"
+      },
+      "bButton": {
+        "function": "Stop Motors",
+        "description": "Stops all robot motion"
+      },
+      "xButton": {
+        "function": "Lift Up",
+        "description": "Raises the robot's lift mechanism"
+      },
+      "yButton": {
+        "function": "Lift Down",
+        "description": "Lowers the robot's lift mechanism"
+      },
+      "leftBumper": {
+        "function": "Grab",
+        "description": "Activates the grabber mechanism to pick up an object"
+      },
+      "rightBumper": {
+        "function": "Release",
+        "description": "Releases the grabber mechanism"
+      },
+      "dpadUp": {
+        "function": "Increase Speed",
+        "description": "Incrementally increases robot speed"
+      },
+      "dpadDown": {
+        "function": "Decrease Speed",
+        "description": "Incrementally decreases robot speed"
+      },
+      "dpadLeft": {
+        "function": "Rotate Left",
+        "description": "Rotates the robot left without translational motion"
+      },
+      "dpadRight": {
+        "function": "Rotate Right",
+        "description": "Rotates the robot right without translational motion"
+      }
+    },
+    "controller2": {
+      "leftStick": {
+        "function": "Arm Control",
+        "description": "Controls the arm's vertical movement"
+      },
+      "rightStick": {
+        "function": "Claw Control",
+        "description": "Controls the opening and closing of the claw"
+      },
+      "aButton": {
+        "function": "Arm Preset Position 1",
+        "description": "Moves the arm to a predefined position"
+      },
+      "bButton": {
+        "function": "Arm Preset Position 2",
+        "description": "Moves the arm to another predefined position"
+      },
+      "xButton": {
+        "function": "Extend Arm",
+        "description": "Extends the arm outward"
+      },
+      "yButton": {
+        "function": "Retract Arm",
+        "description": "Retracts the arm inward"
+      },
+      "leftBumper": {
+        "function": "Claw Open",
+        "description": "Opens the claw mechanism"
+      },
+      "rightBumper": {
+        "function": "Claw Close",
+        "description": "Closes the claw mechanism"
+      }
+    }
+  },
+  "robotSettings": {
+    "liftMotorPower": 0.8,
+    "clawServoPositionOpen": 0.9,
+    "clawServoPositionClosed": 0.2,
+    "armExtensionMotorPower": 0.7
+  }
+}
