@@ -1,11 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.DriveTrain;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.TrajectorySequence;
+import com.acmerobotics.roadrunner.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.drive.CustomMecanumDrive;
 
 @Autonomous(name = "Autonomous Path - Visualized")
 public class AutonomousPath extends LinearOpMode {
@@ -19,14 +18,29 @@ public class AutonomousPath extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35, -61, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 
-        // Build the trajectory sequence
-        TrajectorySequence trajectorySequence = drive.trajectorySequenceBuilder(startPose)
-                .splineToLinearHeading(new Pose2d(-48, -35, Math.toRadians(270)), Math.toRadians(90))
-                .back(15)
-                .splineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(-135)), Math.toRadians(240))
-                .setReversed(true)
-                .splineToLinearHeading(new Pose2d(35, -25, Math.toRadians(90)), Math.toRadians(90))
-                .setReversed(false)
+        // Build individual trajectories
+        Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(-48, -35), Math.toRadians(270))
+                .build();
+
+        // Get the end pose of trajectory1
+        Pose2d trajectory1EndPose = trajectory1.end();
+
+        Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1EndPose)
+                .lineToLinearHeading(new Pose2d(-50, -50, Math.toRadians(-135))) // Use lineToLinearHeading
+                .build();
+
+        // Get the end pose of trajectory2
+        Pose2d trajectory2EndPose = trajectory2.end();
+
+        Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2EndPose, true) // Reversed trajectory
+                .splineTo(new Vector2d(35, -25), Math.toRadians(90))
+                .build();
+
+        // Get the end pose of trajectory3
+        Pose2d trajectory3EndPose = trajectory3.end();
+
+        Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3EndPose)
                 .splineToConstantHeading(new Vector2d(48, -10), Math.toRadians(0))
                 .lineToConstantHeading(new Vector2d(48, -50))
                 .build();
@@ -37,8 +51,11 @@ public class AutonomousPath extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        // Follow the trajectory
-        drive.followTrajectorySequence(trajectorySequence);
+        // Follow the trajectories sequentially
+        drive.followTrajectory(trajectory1);
+        drive.followTrajectory(trajectory2);
+        drive.followTrajectory(trajectory3);
+        drive.followTrajectory(trajectory4);
 
         telemetry.addData("Status", "Trajectory Complete");
         telemetry.update();

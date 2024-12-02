@@ -52,7 +52,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
-public class MecanumDrive {
+public abstract class MecanumDrive {
+    public abstract void setDrivePower(Pose2d drivePower);
+
+    public abstract List<Double> getWheelPositions();
+
+    public abstract void followTrajectory(Trajectory trajectory);
+
     public static class Params {
         // IMU orientation
         // TODO: fill in these values based on
