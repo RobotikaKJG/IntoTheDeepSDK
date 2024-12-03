@@ -15,7 +15,7 @@ public class ArmExtension extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the motor
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        armMotor = hardwareMap.get(DcMotor.class, "expansionArm");
 
         // Set motor mode to track encoder counts
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

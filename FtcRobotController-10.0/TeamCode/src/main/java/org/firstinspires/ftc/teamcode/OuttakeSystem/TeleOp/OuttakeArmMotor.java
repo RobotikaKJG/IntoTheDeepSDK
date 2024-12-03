@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class OuttakeArmMotor extends LinearOpMode {
 
     private DcMotor armMotor;
+    private static final double MOTOR_POWER = 0.5; // 50% fixed power
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -23,21 +24,22 @@ public class OuttakeArmMotor extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            // Rotate clockwise if R2 is pressed
+            double power = 0.0;
+
+            // Rotate clockwise at 50% power if R2 is pressed
             if (gamepad1.right_trigger > 0.1) {
-                armMotor.setPower(gamepad1.right_trigger);
+                power = MOTOR_POWER;
             }
-            // Rotate counter-clockwise if L2 is pressed
+            // Rotate counter-clockwise at 50% power if L2 is pressed
             else if (gamepad1.left_trigger > 0.1) {
-                armMotor.setPower(-gamepad1.left_trigger);
-            }
-            // Stop the motor if neither trigger is pressed
-            else {
-                armMotor.setPower(0.0);
+                power = -MOTOR_POWER;
             }
 
+            // Set motor power
+            armMotor.setPower(power);
+
             // Update telemetry for debugging
-            telemetry.addData("Arm Motor Power", armMotor.getPower());
+            telemetry.addData("Arm Motor Power", power);
             telemetry.update();
         }
     }
