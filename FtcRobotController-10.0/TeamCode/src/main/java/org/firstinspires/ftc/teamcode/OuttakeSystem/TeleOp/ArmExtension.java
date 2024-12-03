@@ -15,7 +15,7 @@ public class ArmExtension extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the motor
-        armMotor = hardwareMap.get(DcMotor.class, "expansionArm");
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
         // Set motor mode to track encoder counts
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -33,10 +33,17 @@ public class ArmExtension extends LinearOpMode {
             // Rotate clockwise (extend) if R2 is pressed and within encoder limits
             if (gamepad1.right_trigger > 0.1 && currentPosition < MAX_ENCODER) {
                 power = MOTOR_POWER;
+                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             // Rotate counter-clockwise (retract) if L2 is pressed and within encoder limits
             else if (gamepad1.left_trigger > 0.1 && currentPosition > MIN_ENCODER) {
                 power = -MOTOR_POWER;
+                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            } else {
+                // Hold the motor's position by switching to RUN_TO_POSITION mode
+                armMotor.setTargetPosition(currentPosition);
+                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                power = 0.2; // Use a low power to hold the position
             }
 
             // Set motor power
@@ -45,6 +52,7 @@ public class ArmExtension extends LinearOpMode {
             // Update telemetry
             telemetry.addData("Arm Motor Power", power);
             telemetry.addData("Encoder Position", currentPosition);
+            telemetry.addData("Target Position", armMotor.getTargetPosition());
             telemetry.update();
         }
     }
