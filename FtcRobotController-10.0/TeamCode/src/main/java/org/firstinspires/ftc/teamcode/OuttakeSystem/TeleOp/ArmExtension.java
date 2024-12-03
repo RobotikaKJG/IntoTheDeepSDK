@@ -14,9 +14,8 @@ public class ArmExtension extends LinearOpMode {
         // Initialize the motor
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
-        // Set motor mode to track encoder counts
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Set motor mode
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Status", "Initialized and Waiting for Start");
         telemetry.update();
@@ -24,23 +23,21 @@ public class ArmExtension extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            double power = 0.0;
-
-            // Rotate clockwise at 50% power if R2 is pressed
+            // Rotate clockwise if R2 is pressed
             if (gamepad1.right_trigger > 0.1) {
-                power = 0.5;
+                armMotor.setPower(gamepad1.right_trigger);
             }
-            // Rotate counter-clockwise at 50% power if L2 is pressed
+            // Rotate counter-clockwise if L2 is pressed
             else if (gamepad1.left_trigger > 0.1) {
-                power = -0.5;
+                armMotor.setPower(-gamepad1.left_trigger);
+            }
+            // Stop the motor if neither trigger is pressed
+            else {
+                armMotor.setPower(0.0);
             }
 
-            // Set the motor power
-            armMotor.setPower(power);
-
-            // Update telemetry with motor power and encoder position
-            telemetry.addData("Arm Motor Power", power);
-            telemetry.addData("Encoder Position", armMotor.getCurrentPosition());
+            // Update telemetry for debugging
+            telemetry.addData("Arm Motor Power", armMotor.getPower());
             telemetry.update();
         }
     }
