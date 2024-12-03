@@ -8,14 +8,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class ArmExtension extends LinearOpMode {
 
     private DcMotor armMotor;
+    private static final int MAX_ENCODER = 0;
+    private static final int MIN_ENCODER = -240;
+    private static final double MOTOR_POWER = 0.7;
 
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the motor
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        armMotor = hardwareMap.get(DcMotor.class, "expansionArm");
 
-        // Set motor mode
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // Set motor mode to track encoder counts
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("Status", "Initialized and Waiting for Start");
         telemetry.update();
@@ -23,21 +27,24 @@ public class ArmExtension extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            // Rotate clockwise if R2 is pressed
-            if (gamepad1.right_trigger > 0.1) {
-                armMotor.setPower(gamepad1.right_trigger);
+            double power = 0.0;
+            int currentPosition = armMotor.getCurrentPosition();
+
+            // Rotate clockwise (extend) if R2 is pressed and within encoder limits
+            if (gamepad1.right_trigger > 0.1 && currentPosition < MAX_ENCODER) {
+                power = MOTOR_POWER;
             }
-            // Rotate counter-clockwise if L2 is pressed
-            else if (gamepad1.left_trigger > 0.1) {
-                armMotor.setPower(-gamepad1.left_trigger);
-            }
-            // Stop the motor if neither trigger is pressed
-            else {
-                armMotor.setPower(0.0);
+            // Rotate counter-clockwise (retract) if L2 is pressed and within encoder limits
+            else if (gamepad1.left_trigger > 0.1 && currentPosition > MIN_ENCODER) {
+                power = -MOTOR_POWER;
             }
 
-            // Update telemetry for debugging
-            telemetry.addData("Arm Motor Power", armMotor.getPower());
+            // Set motor power
+            armMotor.setPower(power);
+
+            // Update telemetry
+            telemetry.addData("Arm Motor Power", power);
+            telemetry.addData("Encoder Position", currentPosition);
             telemetry.update();
         }
     }
