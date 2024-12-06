@@ -65,9 +65,9 @@ public class DriveBase extends LinearOpMode {
      * Drive function for driver-oriented control based on IMU yaw.
      */
     private void drive(IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
-        double y = -gamepad1.left_stick_y; // Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double y = -gamepad1.left_stick_y; // Forward/backward
+        double x = gamepad1.left_stick_x;  // Left/right
+        double rx = gamepad1.right_stick_x; // Rotation
 
         if (gamepad1.options) {
             imu.resetYaw();
@@ -75,25 +75,27 @@ public class DriveBase extends LinearOpMode {
 
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        // Rotate the movement direction counter to the bot's rotation
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+        // Adjust input based on the driver's perspective
+        double adjustedX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+        double adjustedY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-        rotX = rotX * 1.1;  // Counteract imperfect strafing
+        // Counteract imperfect strafing
+        adjustedX *= 1.1;
 
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftTargetPower = (rotY + rotX + rx) / denominator;
-        double backLeftTargetPower = (rotY - rotX + rx) / denominator;
-        double frontRightTargetPower = (rotY - rotX - rx) / denominator;
-        double backRightTargetPower = (rotY + rotX - rx) / denominator;
+        double denominator = Math.max(Math.abs(adjustedY) + Math.abs(adjustedX) + Math.abs(rx), 1);
+        double frontLeftTargetPower = (adjustedY + adjustedX + rx) / denominator;
+        double backLeftTargetPower = (adjustedY - adjustedX + rx) / denominator;
+        double frontRightTargetPower = (adjustedY - adjustedX - rx) / denominator;
+        double backRightTargetPower = (adjustedY + adjustedX - rx) / denominator;
 
-        // Directly set the motor power
+        // Set motor power
         frontLeftMotor.setPower(frontLeftTargetPower);
         backLeftMotor.setPower(backLeftTargetPower);
         frontRightMotor.setPower(frontRightTargetPower);
         backRightMotor.setPower(backRightTargetPower);
 
         // Telemetry for debugging
+        telemetry.addData("Bot Heading (Radians)", botHeading);
         telemetry.addData("Front Left Power", frontLeftMotor.getPower());
         telemetry.addData("Back Left Power", backLeftMotor.getPower());
         telemetry.addData("Front Right Power", frontRightMotor.getPower());
