@@ -57,6 +57,13 @@ public class DriveBase extends LinearOpMode {
 
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             telemetry.addData("Loop time:", loopTime);
+
+            // Output the robot's current angle
+            double botHeadingRadians = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            double botHeadingDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            telemetry.addData("Robot Angle (Radians):", botHeadingRadians);
+            telemetry.addData("Robot Angle (Degrees):", botHeadingDegrees);
+
             telemetry.update();
         }
     }
@@ -95,7 +102,6 @@ public class DriveBase extends LinearOpMode {
         backRightMotor.setPower(backRightTargetPower);
 
         // Telemetry for debugging
-        telemetry.addData("Bot Heading (Radians)", botHeading);
         telemetry.addData("Front Left Power", frontLeftMotor.getPower());
         telemetry.addData("Back Left Power", backLeftMotor.getPower());
         telemetry.addData("Front Right Power", frontRightMotor.getPower());
