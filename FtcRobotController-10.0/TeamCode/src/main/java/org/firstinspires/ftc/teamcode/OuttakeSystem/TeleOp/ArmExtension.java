@@ -9,7 +9,7 @@ public class ArmExtension extends LinearOpMode {
 
     private DcMotor armMotor;
     private static final int MAX_ENCODER = 0;
-    private static final int MIN_ENCODER = -240;
+    private static final int MIN_ENCODER = -12240;
     private static final double MOTOR_POWER = 0.7;
 
     @Override

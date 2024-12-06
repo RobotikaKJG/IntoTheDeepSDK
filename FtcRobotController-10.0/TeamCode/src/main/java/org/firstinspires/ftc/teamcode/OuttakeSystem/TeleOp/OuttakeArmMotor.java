@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class OuttakeArmMotor extends LinearOpMode {
 
     private DcMotor armMotor;
-    private static final double MOTOR_POWER = 0.5; // 50% fixed power
+    private static final double MOTOR_POWER = 0.4; // 50% fixed power
 
     @Override
     public void runOpMode() throws InterruptedException {
