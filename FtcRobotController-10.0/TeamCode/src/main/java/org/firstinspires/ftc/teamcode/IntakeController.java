@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
+import org.firstinspires.ftc.teamcode.EdgeDetection;
 import org.firstinspires.ftc.teamcode.SubsystemState;
 import org.firstinspires.ftc.teamcode.ServoControl;
 import org.firstinspires.ftc.teamcode.RobotSubsystemController;
