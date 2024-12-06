@@ -10,15 +10,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.IntakeController;
 import org.firstinspires.ftc.teamcode.ServoControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-
-import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
+import org.firstinspires.ftc.teamcode.EdgeDetection;
 
 @TeleOp(name = "Drive Base")
 public class DriveBase extends LinearOpMode {
-
-    private boolean tcEnabled = true;
-    private boolean previousButtonState = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,9 +28,6 @@ public class DriveBase extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-
-        // Create an instance of TractionControl
-        TractionControl tractionControl = new TractionControl();
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -59,35 +51,20 @@ public class DriveBase extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
 
-            // Toggle traction control when the "O" (circle) button is pressed
-            if (gamepad1.circle && !previousButtonState) {
-                tcEnabled = !tcEnabled;
-            }
-            previousButtonState = gamepad1.circle;
-
-            // Adjust the acceleration rate using D-pad
-            if (gamepad1.dpad_up) {
-                tractionControl.adjustAccelerationRate(true);  // Increase acceleration rate
-            } else if (gamepad1.dpad_down) {
-                tractionControl.adjustAccelerationRate(false);  // Decrease acceleration rate
-            }
-
-            drive(tractionControl, imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+            drive(imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
             intakeController.updateState();
 
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             telemetry.addData("Loop time:", loopTime);
-            telemetry.addData("Traction Control Enabled:", tcEnabled ? "Yes" : "No");
-            telemetry.addData("Current Acceleration Rate:", tractionControl.getAccelerationRate());
             telemetry.update();
         }
     }
 
     /**
-     * Drive function with traction control (TC).
+     * Drive function for driver-oriented control based on IMU yaw.
      */
-    private void drive(TractionControl tractionControl, IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
+    private void drive(IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
         double y = -gamepad1.left_stick_y; // Y stick value is reversed
         double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
@@ -110,20 +87,11 @@ public class DriveBase extends LinearOpMode {
         double frontRightTargetPower = (rotY - rotX - rx) / denominator;
         double backRightTargetPower = (rotY + rotX - rx) / denominator;
 
-        // Apply the TC system based on the toggle state
-        if (tcEnabled) {
-            // Gradually adjust each motor's power to the target power with TC
-            frontLeftMotor.setPower(tractionControl.gradualAcceleration(frontLeftMotor.getPower(), frontLeftTargetPower, this));
-            backLeftMotor.setPower(tractionControl.gradualAcceleration(backLeftMotor.getPower(), backLeftTargetPower, this));
-            frontRightMotor.setPower(tractionControl.gradualAcceleration(frontRightMotor.getPower(), frontRightTargetPower, this));
-            backRightMotor.setPower(tractionControl.gradualAcceleration(backRightMotor.getPower(), backRightTargetPower, this));
-        } else {
-            // Directly set the motor power without TC
-            frontLeftMotor.setPower(frontLeftTargetPower);
-            backLeftMotor.setPower(backLeftTargetPower);
-            frontRightMotor.setPower(frontRightTargetPower);
-            backRightMotor.setPower(backRightTargetPower);
-        }
+        // Directly set the motor power
+        frontLeftMotor.setPower(frontLeftTargetPower);
+        backLeftMotor.setPower(backLeftTargetPower);
+        frontRightMotor.setPower(frontRightTargetPower);
+        backRightMotor.setPower(backRightTargetPower);
 
         // Telemetry for debugging
         telemetry.addData("Front Left Power", frontLeftMotor.getPower());
