@@ -44,11 +44,10 @@ public class SensorControl {
     private void setInitialLocalisationAngle() {
         if (!GlobalVariables.wasAutonomous)
             localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
-        else if (GlobalVariables.alliance == Alliance.Red)
-            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(90)));
-        else
-            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(-90)));
-        GlobalVariables.wasAutonomous = false;
+        else {
+            GlobalVariables.wasAutonomous = false;
+            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(-45)));
+        }
     }
 
     public double getLocalizerAngle() {
