@@ -1,13 +1,17 @@
-package org.firstinspires.ftc.teamcode.Enums;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 public enum SampleAutonState {
     goToBasket,
+    flipArm,
     placeSample,
     goToFirstSample,
     takeFirstSample,
+    retractFirstSample,
+    goToPlaceFirstSample,
+    flipArmForFirstSample,
     placeFirstSample,
-    goToSecondSample,
     takeSecondSample,
+    flipArmForSecondSample,
     placeSecondSample,
     goToThirdSample,
     takeThirdSample,
