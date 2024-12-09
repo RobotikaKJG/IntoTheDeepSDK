@@ -40,8 +40,8 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoIdlePos); //should be idlepos
-        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoIdlePos);
+        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos); //should be idlepos
+        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
         if (GlobalVariables.isAutonomous)
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
         else
