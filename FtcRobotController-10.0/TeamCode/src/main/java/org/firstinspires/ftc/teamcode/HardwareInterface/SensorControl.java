@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
+import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
@@ -16,11 +17,11 @@ import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
 public class SensorControl {
 
     private final LimitSwitch[] limitSwitches;
-    private final Gamepad gamepad1;
+    private final EdgeDetection edgeDetection;
     private final StandardTrackingWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
 
-    public SensorControl(HardwareMap hardwareMap, Gamepad gamepad1, StandardTrackingWheelLocalizer localizer) {
+    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
         // Could be added to an array later if more limit switches are introduced
         limitSwitches = new LimitSwitch[]{
                 hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
@@ -33,7 +34,7 @@ public class SensorControl {
 
         setInitialLocalisationAngle();
 
-        this.gamepad1 = gamepad1;
+        this.edgeDetection = edgeDetection;;
     }
 
     private void setInitialLocalisationAngle() {
@@ -53,7 +54,7 @@ public class SensorControl {
     }
 
     public void resetLocalizerAngle() {
-        if (gamepad1.options)
+        if (edgeDetection.rising(GamepadIndexValues.options))
             localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
     }
 
