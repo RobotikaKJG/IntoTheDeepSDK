@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Old;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -9,8 +9,10 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old.OuttakeServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
 public class IntakeController implements RobotSubsystemController {

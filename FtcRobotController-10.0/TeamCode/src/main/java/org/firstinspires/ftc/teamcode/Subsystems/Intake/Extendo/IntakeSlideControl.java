@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -47,6 +47,7 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        return sensorControl.isLimitSwitchPressed(LimitSwitches.extendo);
+        //return sensorControl.isLimitSwitchPressed(LimitSwitches.extendo);
+        return getSlidePosition() < 20; //while there is no limit switch, could add a couple ms of delay to a cycle, NOTE
     }
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideProperties;
 
@@ -8,7 +8,8 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 2400;
+        //return 2400; // could be 2650 in theory at least
+        return 2500;
     }
 
     @Override
@@ -18,7 +19,8 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideExtensionStep() {
-        return 2400;
+        //return 2400;
+        return 2500;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Old;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -7,11 +7,11 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.AutoClose;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.CloseButton;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.RetractedEject;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges.IntakeStateChange;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges.AutoClose;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges.CloseButton;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges.RetractedEject;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges.IntakeStateChange;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old.OuttakeServoController;
 
 public class IntakeStateController implements IntakeStateChange {
     private final IntakeStateChange[] intakeStates;
