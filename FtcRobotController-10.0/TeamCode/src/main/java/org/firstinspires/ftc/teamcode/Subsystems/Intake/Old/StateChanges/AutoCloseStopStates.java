@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges;
 
 public enum AutoCloseStopStates {
     secureGoodSample,

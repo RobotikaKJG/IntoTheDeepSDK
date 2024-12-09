@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.IntakeController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class RetractedEject implements IntakeStateChange {
@@ -33,7 +33,7 @@ public class RetractedEject implements IntakeStateChange {
 
     @Override
     public boolean shouldBeStopping() { //THIS MAY CAUSE ISSUES, REMEMBER IF DEBUGGING
-        return sensorControl.isColorMatch(IntakeConstants.otherAllianceColor, IntakeConstants.otherAllianceThreshold) && !sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.yellowThreshold);
+        return sensorControl.isOtherAllianceColor() && !sensorControl.isYellow();
     }
 
     @Override

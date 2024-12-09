@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.StateChanges;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.StateChanges;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -6,11 +6,10 @@ import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.IntakeController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class CloseButton implements IntakeStateChange {
