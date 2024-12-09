@@ -33,7 +33,7 @@ public class SensorControl {
         };
         limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
-        colorSensor.setGain(10);
+        colorSensor.setGain(2);
         this.localizer = localizer;
 
         setInitialLocalisationAngle();
@@ -94,5 +94,30 @@ public class SensorControl {
         int blueDiff = Math.abs(detectedBlue - targetBlue);
 
         return redDiff <= threshold && greenDiff <= threshold && blueDiff <= threshold;
+    }
+
+    public boolean isRed(){
+        if(currentGreen < 5 && currentRed >5) return true;
+        return false;
+    }
+    public boolean isYellow(){
+        if(currentGreen > 5) return true;
+        return  false;
+    }
+    public boolean isBlue(){
+        if(currentRed == 2 && currentBlue > 2 && currentGreen < 5) return true;
+        return false;
+    }
+
+    public boolean isAllianceColor(){
+        if(GlobalVariables.alliance == Alliance.Red)
+            return isRed();
+        return isBlue();
+    }
+
+    public boolean isOtherAllianceColor(){
+        if(GlobalVariables.alliance == Alliance.Red)
+            return isBlue();
+        return isRed();
     }
 }
