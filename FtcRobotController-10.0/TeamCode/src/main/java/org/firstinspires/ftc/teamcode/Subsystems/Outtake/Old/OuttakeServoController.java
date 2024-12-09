@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class OuttakeServoController {
     private final ServoControl servoControl;

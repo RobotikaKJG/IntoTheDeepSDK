@@ -1,10 +1,14 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Square.SquareStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.CloseActions.OuttakeButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 import org.firstinspires.ftc.teamcode.Subsystems.RobotSubsystemController;
 
 public class OuttakeController implements RobotSubsystemController {
@@ -16,9 +20,9 @@ public class OuttakeController implements RobotSubsystemController {
     private final ElapsedTime elapsedTime = new ElapsedTime();
     private final OuttakeServoController outtakeServoController;
     private double currentWait;
-    private CloseButtonStates closeButtonStates = CloseButtonStates.flipArm;
+    private SquareStates closeButtonStates = SquareStates.flipArm;
     private OuttakeCloseStates outtakeCloseStates = OuttakeCloseStates.retractArm;
-    private SlideStates slideStates = SlideStates.closed;
+    private VerticalSlideStates verticalSlideStates = VerticalSlideStates.closed;
 
     public OuttakeController(EdgeDetection edgeDetection, SlideLogic slideLogic, OuttakeServoController outtakeServoController) {
         this.edgeDetection = edgeDetection;
@@ -47,8 +51,8 @@ public class OuttakeController implements RobotSubsystemController {
     @Override
     public void start() {
         slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
-        slideStates = SlideStates.lowBasket;
-        closeButtonStates = CloseButtonStates.flipArm;
+        verticalSlideStates = VerticalSlideStates.lowBasket;
+        closeButtonStates = SquareStates.flipArm;
         outtakeState = SubsystemState.Run;
     }
 
@@ -79,15 +83,15 @@ public class OuttakeController implements RobotSubsystemController {
 
     public void stepUp()
     {
-        switch (slideStates)
+        switch (verticalSlideStates)
         {
             case closed:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
-                slideStates = SlideStates.lowBasket;
+                verticalSlideStates = VerticalSlideStates.lowBasket;
                 break;
             case lowBasket:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highBasketPos);
-                slideStates = SlideStates.highBasket;
+                verticalSlideStates = VerticalSlideStates.highBasket;
                 break;
             case highBasket:
                 break;
@@ -96,15 +100,15 @@ public class OuttakeController implements RobotSubsystemController {
 
     private void stepDown()
     {
-        switch (slideStates)
+        switch (verticalSlideStates)
         {
             case highBasket:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
-                slideStates = SlideStates.lowBasket;
+                verticalSlideStates = VerticalSlideStates.lowBasket;
                 break;
             case lowBasket:
                 slideLogic.setSlideExtensionTarget(0);
-                slideStates = SlideStates.closed;
+                verticalSlideStates = VerticalSlideStates.closed;
                 initialiseStop();
                 break;
             case closed:
@@ -118,13 +122,13 @@ public class OuttakeController implements RobotSubsystemController {
         {
             case flipArm:
                 outtakeServoController.setServoState(OuttakeServoStates.upClose);
-                closeButtonStates = CloseButtonStates.release;
+                closeButtonStates = SquareStates.release;
                 addWaitTime(OuttakeConstants.outtakeServoWait);
                 break;
             case release:
                 if (currentWait > elapsedTime.seconds()) return;
                 outtakeServoController.setServoState(OuttakeServoStates.upOpen);
-                closeButtonStates = CloseButtonStates.retract;
+                closeButtonStates = SquareStates.retract;
                 break;
             case retract:
                 initialiseStop();
@@ -134,7 +138,7 @@ public class OuttakeController implements RobotSubsystemController {
 
     public void initialiseStop() {
         outtakeState = SubsystemState.Stop;
-        if(closeButtonStates == CloseButtonStates.retract) {
+        if(closeButtonStates == SquareStates.retract) {
             outtakeServoController.setServoState(OuttakeServoStates.upClose);
             outtakeCloseStates = OuttakeCloseStates.retractArm;
         }
