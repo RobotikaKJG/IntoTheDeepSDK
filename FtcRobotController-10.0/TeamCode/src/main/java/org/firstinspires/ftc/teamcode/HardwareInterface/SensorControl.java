@@ -20,6 +20,10 @@ public class SensorControl {
     private final EdgeDetection edgeDetection;
     private final StandardTrackingWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
+    public int currentColor;
+    private int currentRed;
+    private int currentGreen;
+    private int currentBlue;
 
     public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
         // Could be added to an array later if more limit switches are introduced
@@ -69,14 +73,17 @@ public class SensorControl {
         }
     }
 
+    public void updateColor(){
+        currentColor = colorSensor.getNormalizedColors().toColor();
+        currentRed = Color.red(currentColor);
+        currentGreen = Color.green(currentColor);
+        currentBlue = Color.blue(currentColor);
+    }
+
     public boolean isColorMatch(int targetColor, int threshold) {
-
-        NormalizedRGBA currentColor = colorSensor.getNormalizedColors();
-        int convertedColor = currentColor.toColor();
-
-        int detectedRed = Color.red(convertedColor);
-        int detectedGreen = Color.green(convertedColor);
-        int detectedBlue = Color.blue(convertedColor);
+        int detectedRed = Color.red(currentColor);
+        int detectedGreen = Color.green(currentColor);
+        int detectedBlue = Color.blue(currentColor);
 
         int targetRed = Color.red(targetColor);
         int targetGreen = Color.green(targetColor);
