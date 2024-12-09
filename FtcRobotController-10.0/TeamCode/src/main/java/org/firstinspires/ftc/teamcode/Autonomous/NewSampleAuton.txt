@@ -1,0 +1,200 @@
+package org.firstinspires.ftc.teamcode.Autonomous;
+
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.NewSampleTrajectories;
+import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
+
+public class SampleAuton implements Auton{
+
+    private final SampleMecanumDrive drive;
+    private SampleAutonState sampleAutonState;
+    private final NewSampleTrajectories trajectories;
+    private final ElapsedTime elapsedTime;
+    private AutonomousControl autonomousControl;
+
+    private double currentWait;
+
+    public SampleAuton(SampleMecanumDrive drive, ElapsedTime elapsedTime, AutonomousControl autonomousControl) {
+        this.drive = drive;
+        this.elapsedTime = elapsedTime;
+        this.autonomousControl = autonomousControl;
+
+        trajectories = new NewSampleTrajectories(drive);
+    }
+
+    public void setAutonomousControl(AutonomousControl control){
+        autonomousControl = control;
+    }
+
+    @Override
+    public void start() {
+        drive.setPoseEstimate(trajectories.getStartPose());
+        drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
+        OuttakeStates.setClawState(ClawStates.closed);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        addWaitTime(AutonomousConstants.goToBasketWait);
+        sampleAutonState = SampleAutonState.goToBasket;
+    }
+
+    @Override
+    public void run() {
+        switch (sampleAutonState) {
+            case goToBasket:
+                goToBasket();
+                break;
+            case placeSample:
+                placeSample();
+                break;
+            case takeFirstSample:
+                takeFirstSample();
+                break;
+            case goToPlaceFirstSample:
+                goToPlaceFirstSample();
+                break;
+            case placeFirstSample:
+                placeFirstSample();
+                break;
+            case takeSecondSample:
+                break;
+            case goToPlaceSecondSample:
+                break;
+            case placeSecondSample:
+                break;
+            case takeThirdSample:
+                break;
+            case goToPlaceThirdSample:
+                break;
+            case placeThirdSample:
+                break;
+            case stop:
+                stop();
+                break;
+            case idle:
+                break;
+        }
+    }
+
+    private void goToBasket() {
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        addWaitTime(AutonomousConstants.sampleReleaseWait);
+        sampleAutonState = SampleAutonState.placeSample;
+    }
+
+    private void placeSample() {
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        IntakeStates.setMotorState(IntakeRotationStates.forward);
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        sampleAutonState = SampleAutonState.takeFirstSample;
+    }
+
+    private void takeFirstSample() {
+        if(drive.isBusy()) return;
+        //A loop, very very scary, NOTE
+        while(IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
+            autonomousControl.updateSubsystems();
+        }
+        drive.followTrajectorySequenceAsync(trajectories.firstSampleTrajectory());
+        addWaitTime(AutonomousConstants.goToBasketSecondWait);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        sampleAutonState = SampleAutonState.goToPlaceFirstSample;
+    }
+
+    private void goToPlaceFirstSample(){
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        addWaitTime(AutonomousConstants.sampleReleaseWait);
+        sampleAutonState = SampleAutonState.placeFirstSample;
+    }
+
+    private void placeFirstSample() {
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        IntakeStates.setMotorState(IntakeRotationStates.forward);
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        sampleAutonState = SampleAutonState.takeSecondSample;
+    }
+
+    private void takeSecondSample() {
+        if(drive.isBusy()) return;
+
+        while(IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
+            autonomousControl.updateSubsystems();
+        }
+
+        drive.followTrajectorySequenceAsync(trajectories.secondSampleTrajectory());
+        addWaitTime(AutonomousConstants.goToBasketSecondWait);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        sampleAutonState = SampleAutonState.goToPlaceSecondSample;
+    }
+
+    private void goToPlaceSecondSample() {
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        addWaitTime(AutonomousConstants.sampleReleaseWait);
+        sampleAutonState = SampleAutonState.placeSecondSample;
+    }
+
+    private void placeSecondSample() {
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        IntakeStates.setMotorState(IntakeRotationStates.forward);
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        sampleAutonState = SampleAutonState.takeThirdSample;
+    }
+
+    private void takeThirdSample(){
+        if(drive.isBusy()) return;
+
+        while(IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
+            autonomousControl.updateSubsystems();
+        }
+
+        drive.followTrajectorySequenceAsync(trajectories.thirdSampleTrajectory());
+        addWaitTime(AutonomousConstants.goToBasketSecondWait);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        sampleAutonState = SampleAutonState.goToPlaceThirdSample;
+    }
+
+    private void goToPaceThirdSample(){
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        addWaitTime(AutonomousConstants.sampleReleaseWait);
+        sampleAutonState = SampleAutonState.placeThirdSample;
+    }
+
+    private void placeThirdSample(){
+        if(currentWait > elapsedTime.seconds()) return;
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        IntakeStates.setMotorState(IntakeRotationStates.forward);
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        sampleAutonState = SampleAutonState.stop;
+    }
+
+    private void stop() {
+        if(currentWait > elapsedTime.seconds()) return;
+        sampleAutonState = SampleAutonState.idle;
+    }
+
+    private void addWaitTime(double waitTime) {
+        currentWait = elapsedTime.seconds() + waitTime;
+    }
+}

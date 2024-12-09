@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old.OuttakeController;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeDependencies;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OldOuttakeServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;

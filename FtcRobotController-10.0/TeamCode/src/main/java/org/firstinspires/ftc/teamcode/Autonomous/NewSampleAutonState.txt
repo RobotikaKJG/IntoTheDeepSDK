@@ -1,0 +1,17 @@
+package org.firstinspires.ftc.teamcode.Autonomous;
+
+public enum SampleAutonState {
+    goToBasket,
+    placeSample,
+    takeFirstSample,
+    goToPlaceFirstSample,
+    placeFirstSample,
+    takeSecondSample,
+    goToPlaceSecondSample,
+    placeSecondSample,
+    takeThirdSample,
+    goToPlaceThirdSample,
+    placeThirdSample,
+    stop,
+    idle
+}

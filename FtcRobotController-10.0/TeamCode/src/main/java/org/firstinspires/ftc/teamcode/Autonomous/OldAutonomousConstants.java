@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-public class AutonomousConstants {
+public class OldAutonomousConstants {
 
-    public static final double goToBasketWait = 4.0;
+    public static final double goToBasketWait = 2.0;
     public static final double flipArmWait = 2.0;
-    public static final double sampleReleaseWait = 0.6;
+    public static final double sampleReleaseWait = 1.5;
     public static final double slideRetractWait = 2.0;
     public static final double takeSampleMaxWait = 5.0;
     public static final double intakeCloseWait = 3.0;
