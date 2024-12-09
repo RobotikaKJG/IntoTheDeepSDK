@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoControl {
@@ -29,7 +30,8 @@ public class ServoControl {
         servos = new Servo[]{
                 hardwareMap.get(Servo.class, "outtakeLeftServo"),
                 hardwareMap.get(Servo.class, "outtakeRightServo"),
-                hardwareMap.get(Servo.class, "releaseServo")
+                hardwareMap.get(Servo.class, "releaseServo"),
+                hardwareMap.get(Servo.class, "intakeServo")
         };
 
         crServos = new CRServoImpl[]{
@@ -44,6 +46,9 @@ public class ServoControl {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
         else
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
+        //setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
+
+        setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
     }
 
     public double getServoPos(int index) {
