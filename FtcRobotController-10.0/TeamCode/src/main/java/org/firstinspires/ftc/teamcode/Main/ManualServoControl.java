@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlidePrope
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 @TeleOp
-public class ManualExtendoControl extends LinearOpMode {
+public class ManualServoControl extends LinearOpMode {
 
     private double prevTime;
     /**
@@ -23,15 +23,11 @@ public class ManualExtendoControl extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
-        IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-        //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
-        //intakeSlideControl.limitSpeed(0.05);
-        int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
+        int currentServo = 0;
         waitForStart();
 
         if (isStopRequested()) return;
@@ -42,27 +38,38 @@ public class ManualExtendoControl extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
-            telemetry.addLine("Press square to extend, press circle to retract");
-            telemetry.update();
-            if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
+            telemetry.addLine("Press left bumper for min pos, press right bumper for max pos");
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.leftBumper))
             {
-                slidePosition -= 50;
-                intakeSlideControl.setSlidePosition(slidePosition);
+                dependencies.servoControl.setServoPos(currentServo, ServoConstants.servoMinPos[currentServo]);
+            }
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.rightBumper))
+            {
+                dependencies.servoControl.setServoPos(currentServo, ServoConstants.servoMaxPos[currentServo]);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.square))
             {
-                slidePosition += 50;
-                intakeSlideControl.setSlidePosition(slidePosition);
+                if(currentServo < 3)
+                    currentServo ++;
+                else currentServo = 0;
             }
 
-            if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
-            {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+            telemetry.addLine("Currently selected servo:");
+            switch (currentServo) {
+                case 0:
+                    telemetry.addLine("Outtake left");
+                    break;
+                case 1:
+                    telemetry.addLine("Outtake right");
+                    break;
+                case 2:
+                    telemetry.addLine("Release");
+                    break;
+                case 3:
+                    telemetry.addLine("Intake");
+                    break;
             }
-            if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
-            {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
-            }
+            telemetry.update();
         }
     }
 

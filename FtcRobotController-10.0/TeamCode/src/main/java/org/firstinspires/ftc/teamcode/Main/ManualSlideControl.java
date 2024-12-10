@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
 
 @TeleOp
-public class ManualExtendoControl extends LinearOpMode {
+public class ManualSlideControl extends LinearOpMode {
 
     private double prevTime;
     /**
@@ -23,10 +24,8 @@ public class ManualExtendoControl extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
-        IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-        //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
-        //intakeSlideControl.limitSpeed(0.05);
+        OuttakeSlideControl outtakeSlideControl = new OuttakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
+        OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
         int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
@@ -47,12 +46,12 @@ public class ManualExtendoControl extends LinearOpMode {
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
                 slidePosition -= 50;
-                intakeSlideControl.setSlidePosition(slidePosition);
+                outtakeSlideControl.setSlidePosition(slidePosition);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.square))
             {
                 slidePosition += 50;
-                intakeSlideControl.setSlidePosition(slidePosition);
+                outtakeSlideControl.setSlidePosition(slidePosition);
             }
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
