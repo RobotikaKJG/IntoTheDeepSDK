@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface;
 
-import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class SlideLogic {
 
@@ -26,8 +26,6 @@ public class SlideLogic {
 
     public boolean slidesBottomReached() {
         if (!slideControl.isLimitSwitchPressed()) return false;
-
-        slideControl.setSlideMode(RunMode.RUN_USING_ENCODER);
         return true;
     }
 
@@ -44,6 +42,7 @@ public class SlideLogic {
     public void addSlideExtension(int addSlideExtension) {
         if (isExtensionTargetNotInBounds(slideExtensionTarget + addSlideExtension)) return;
         this.slideExtensionTarget += addSlideExtension;
+        IntakeStates.extensionTarget = this.slideExtensionTarget;
         slideControl.setSlidePosition(slideExtensionTarget);
     }
 

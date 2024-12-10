@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
