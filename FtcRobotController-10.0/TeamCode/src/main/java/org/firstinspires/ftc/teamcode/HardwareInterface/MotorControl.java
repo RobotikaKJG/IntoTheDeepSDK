@@ -41,9 +41,9 @@ public class MotorControl {
                 hardwareMap.dcMotor.get(MotorNames.extendo),
         };
 
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
