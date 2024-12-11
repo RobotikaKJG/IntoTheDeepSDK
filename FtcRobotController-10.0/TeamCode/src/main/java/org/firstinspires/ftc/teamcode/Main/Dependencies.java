@@ -13,17 +13,28 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeStateControl;
-import org.firstinspires.ftc.teamcode.Subsystems.OldIntake.OldIntakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjectionLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeMotorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Old.OuttakeServoController;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Old.IntakeController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -84,5 +95,64 @@ public class Dependencies {
 
     SlideControl createOuttakeSlideControl() {
         return new OuttakeSlideControl(motorControl,sensorControl);
+    }
+
+    SubsystemControl createSubsystemControl() {
+        return new SubsystemControl(edgeDetection, sensorControl);
+    }
+
+    private IntakeMotorControl createIntakeMotorControl() {
+        return new IntakeMotorControl(motorControl);
+    }
+
+    public IntakeControl createIntakeControl() {
+        return new IntakeControl(createIntakeMotorControl(), createIntakeServoControl(),
+                createIntakeExtendoControl(), createAutoCloseControl(),
+                createAutoCloseLogic(),createEjectionServoControl(),
+                createSampleEjectionLogic());
+    }
+
+    private SampleEjectionLogic createSampleEjectionLogic() {
+        return new SampleEjectionLogic(sensorControl);
+    }
+
+    private EjectionServoControl createEjectionServoControl() {
+        return new EjectionServoControl(servoControl);
+    }
+
+    private AutoCloseLogic createAutoCloseLogic() {
+        return new AutoCloseLogic(elapsedTime,sensorControl);
+    }
+
+    private IntakeServoControl createIntakeServoControl() {
+        return new IntakeServoControl(servoControl);
+    }
+
+    private ExtendoControl createIntakeExtendoControl() {
+        return new ExtendoControl(createIntakeSlideLogic());
+    }
+
+    private AutoCloseControl createAutoCloseControl() {
+        return new AutoCloseControl(gamepad1);
+    }
+
+    public OuttakeControl createOuttakeControl() {
+        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl(),createReleaseButtonLogic());
+    }
+
+    private ReleaseButtonLogic createReleaseButtonLogic() {
+        return new ReleaseButtonLogic(elapsedTime);
+    }
+
+    private ArmControl createArmControl() {
+        return new ArmControl(servoControl);
+    }
+
+    private ClawControl createClawControl() {
+        return new ClawControl(servoControl);
+    }
+
+    private VerticalSlideControl createVerticalSlideControl() {
+        return new VerticalSlideControl(createOuttakeSlideLogic());
     }
 }
