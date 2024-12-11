@@ -87,9 +87,9 @@ public class MotorControl {
     }
 
     public void limitSpeed(int index, double maxSpeed) {
-        double max = utilities.getMaxDouble(motorSpeeds, org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.motorConfig[index].length);
+        double max = utilities.getMaxDouble(motorSpeeds, MotorConstants.motorConfig[index].length);
         if (Math.abs(max) > maxSpeed)
-            for (int i = 0; i < org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.motorConfig[index].length; i++) {
+            for (int i = 0; i < MotorConstants.motorConfig[index].length; i++) {
                 motorSpeeds[Utilities.motorIndex(index, i)] /= Math.abs(max);
                 motorSpeeds[Utilities.motorIndex(index, i)] *= maxSpeed;
             }
