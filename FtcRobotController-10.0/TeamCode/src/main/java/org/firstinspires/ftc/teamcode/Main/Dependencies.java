@@ -57,7 +57,7 @@ public class Dependencies {
         localizer = new StandardTrackingWheelLocalizer(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
         motorControl = new MotorControl(hardwareMap);
-        sensorControl = new SensorControl(hardwareMap, gamepad1, localizer);
+        sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
         outtakeServoController = new OuttakeServoController(servoControl);
     }
