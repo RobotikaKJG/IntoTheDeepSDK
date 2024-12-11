@@ -2,20 +2,17 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeExtendoTrigger;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeMotorTrigger;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class IterativeController {
     private final MotorControl motorControl;
@@ -24,8 +21,9 @@ public class IterativeController {
     private final Gamepad prevGamepad1 = new Gamepad();
     private final EdgeDetection edgeDetection;
     private final DrivebaseController drivebaseController;
-    private final IntakeController intakeController;
-    private final OuttakeController outtakeController;
+    private final SubsystemControl subsystemControl;
+    private final IntakeControl intakeControl;
+    private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
 
     public IterativeController(Dependencies dependencies) {
@@ -35,13 +33,24 @@ public class IterativeController {
         motorControl = dependencies.motorControl;
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
+        subsystemControl = dependencies.createSubsystemControl();
+        intakeControl = dependencies.createIntakeControl();
+        outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
+        IntakeStates.setInitialStates();
+        OuttakeStates.setInitialStates();
+        ControlStates.setInitialStates();
     }
 
     public void TeleOp() {
         updateCommonValues();
 
+        subsystemControl.update();
+        intakeControl.update();
+        outtakeControl.update();
 
+        sensorControl.updateColor();
+        drivebaseController.updateState();
     }
 
 
