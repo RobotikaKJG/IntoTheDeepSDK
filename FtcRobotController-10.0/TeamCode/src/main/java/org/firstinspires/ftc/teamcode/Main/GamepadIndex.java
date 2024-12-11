@@ -33,6 +33,8 @@ public class GamepadIndex {
         controls.put(GamepadIndexValues.rightTrigger, gamepad.right_trigger > 0);
         controls.put(GamepadIndexValues.square, gamepad.square);
         controls.put(GamepadIndexValues.triangle, gamepad.triangle);
+        controls.put(GamepadIndexValues.options, gamepad.options);
+        controls.put(GamepadIndexValues.share, gamepad.share);
     }
 
     // Get the boolean value for a specific control

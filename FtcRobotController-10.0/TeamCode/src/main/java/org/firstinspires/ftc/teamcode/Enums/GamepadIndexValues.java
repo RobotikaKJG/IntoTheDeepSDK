@@ -19,5 +19,7 @@ public enum GamepadIndexValues {
     rightStickY,
     rightTrigger,
     square,
-    triangle
+    triangle,
+    options,
+    share
 }
