@@ -62,10 +62,6 @@ public class Dependencies {
         outtakeServoController = new OuttakeServoController(servoControl);
     }
 
-    public OldIntakeStateControl createIntakeStateControl() {
-        return new OldIntakeStateControl(motorControl, servoControl);
-    }
-
     public Drivebase createDrivebase() {
         return new Drivebase(gamepad1, motorControl, sensorControl);
     }
@@ -86,9 +82,9 @@ public class Dependencies {
         return new IntakeSlideControl(motorControl,sensorControl);
     }
 
-    public OuttakeController createOuttakeController() {
-        return new OuttakeController(edgeDetection, createOuttakeSlideLogic(),outtakeServoController);
-    }
+//    public OuttakeController createOuttakeController() { //old
+//        return new OuttakeController(edgeDetection, createOuttakeSlideLogic(),outtakeServoController);
+//    }
     SlideLogic createOuttakeSlideLogic() {
         return new SlideLogic(createOuttakeSlideControl(), new OuttakeSlideProperties());
     }
