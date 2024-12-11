@@ -27,16 +27,9 @@ public class IterativeController {
     private final IntakeController intakeController;
     private final OuttakeController outtakeController;
     private final SensorControl sensorControl;
-    private final IntakeExtendoTrigger intakeExtendoTrigger = new IntakeExtendoTrigger();
-    private final IntakeMotorTrigger intakeMotorTrigger = new IntakeMotorTrigger();
-    private final OuttakeServoController outtakeServoController;
 
     public IterativeController(Dependencies dependencies) {
         drivebaseController = dependencies.createDrivebaseController();
-        intakeController = dependencies.createIntakeController();
-        outtakeController = dependencies.createOuttakeController();
-        outtakeServoController = dependencies.outtakeServoController;
-
         gamepad1 = dependencies.gamepad1;
         edgeDetection = dependencies.edgeDetection;
         motorControl = dependencies.motorControl;
@@ -48,40 +41,9 @@ public class IterativeController {
     public void TeleOp() {
         updateCommonValues();
 
-        if(intakeCanRun())
-            intakeController.updateState();
 
-        if(outtakeCanRun())
-            outtakeController.updateState();
-
-        if(edgeDetection.rising(GamepadIndexValues.dpadLeft))
-            outtakeServoController.setServoState(OuttakeServoStates.downClose);
-
-        drivebaseController.updateState(outtakeController.getState()); //either replace idle with outtakeLeft for an outtakeLeft speed reduction or remove it
     }
 
-    private boolean intakeCanRun() {
-        if (outtakeController.getState() == SubsystemState.Idle)
-            if(intakeController.getState() == SubsystemState.Idle && intakeRisingEdge())
-                return !isColorMatch();
-            else
-                return true;
-        return false;
-    }
-
-    private boolean isColorMatch()
-    {
-        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.yellowThreshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.allianceThreshold);
-    }
-
-    private boolean intakeRisingEdge()
-    {
-        return edgeDetection.rising(intakeMotorTrigger.getTrigger()) || edgeDetection.rising(intakeExtendoTrigger.getTrigger());
-    }
-
-    private boolean outtakeCanRun() {
-        return intakeController.getState() == SubsystemState.Idle;
-    }
 
     private void updateCommonValues() {
         prevGamepad1.copy(currentGamepad1);
