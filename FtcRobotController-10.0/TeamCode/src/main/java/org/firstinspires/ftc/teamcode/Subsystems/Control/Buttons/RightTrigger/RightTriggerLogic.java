@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Control.RightTrigger;
+package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;

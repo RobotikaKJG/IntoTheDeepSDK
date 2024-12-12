@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Control.LeftTrigger;
+package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
 public enum LeftTriggerStates {
     activateIntakeMotor,

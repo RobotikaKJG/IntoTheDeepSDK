@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Control.LeftBumper;
+package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 public enum LeftBumperStates {
     manualIntakeClose,

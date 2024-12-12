@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.DpadDown.DpadDownLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.DpadUp.DpadUpLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.LeftBumper.LeftBumperLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.LeftTrigger.LeftTriggerLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.RightBumper.RightBumperLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.RightTrigger.RightTriggerLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Square.SquareLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.LeftTriggerLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLogic;
 
 public class SubsystemControl {
     private final EdgeDetection edgeDetection;

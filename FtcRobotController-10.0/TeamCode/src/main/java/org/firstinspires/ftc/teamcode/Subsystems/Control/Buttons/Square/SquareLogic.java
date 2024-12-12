@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Control.Square;
+package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;

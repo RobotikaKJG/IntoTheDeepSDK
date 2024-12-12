@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.DpadDown.DpadDownStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.DpadUp.DpadUpStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.LeftBumper.LeftBumperStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.LeftTrigger.LeftTriggerStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.RightBumper.RightBumperStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.RightTrigger.RightTriggerStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Square.SquareStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.LeftTriggerStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareStates;
 
 public class ControlStates {
     private static LeftTriggerStates leftTriggerStates = LeftTriggerStates.idle;

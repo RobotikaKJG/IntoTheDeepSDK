@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Control.RightBumper;
+package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper;
 
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
