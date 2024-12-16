@@ -37,19 +37,22 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideCon
 public class Dependencies {
     public final HardwareMap hardwareMap;
     public final Gamepad gamepad1;
+    public final Gamepad gamepad2;
     public final Telemetry telemetry;
     public final StandardTrackingWheelLocalizer localizer;
     public MotorControl motorControl;
     public SensorControl sensorControl;
     public ServoControl servoControl;
     public EdgeDetection edgeDetection = new EdgeDetection();
+    public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
     public SampleMecanumDrive drive;
     public ElapsedTime elapsedTime = new ElapsedTime();
 
-    public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Telemetry telemetry) {
+    public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
         this.telemetry = telemetry;
         localizer = new StandardTrackingWheelLocalizer(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
@@ -59,7 +62,7 @@ public class Dependencies {
     }
 
     public Drivebase createDrivebase() {
-        return new Drivebase(gamepad1, motorControl, sensorControl);
+        return new Drivebase(gamepad1,gamepad2, motorControl, sensorControl);
     }
 
     public DrivebaseController createDrivebaseController() {
@@ -84,6 +87,10 @@ public class Dependencies {
 
     SubsystemControl createSubsystemControl() {
         return new SubsystemControl(edgeDetection, sensorControl);
+    }
+
+    SubsystemControl createSubsystemControl2() {
+        return new SubsystemControl(gamepad2EdgeDetection, sensorControl);
     }
 
     private IntakeMotorControl createIntakeMotorControl() {

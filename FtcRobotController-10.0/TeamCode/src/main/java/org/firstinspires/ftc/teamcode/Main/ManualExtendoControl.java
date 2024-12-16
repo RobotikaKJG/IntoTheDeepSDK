@@ -22,7 +22,7 @@ public class ManualExtendoControl extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
-        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
+        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
         IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
         //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());

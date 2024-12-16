@@ -46,7 +46,7 @@ public class GeneralAutonomous extends LinearOpMode {
         GlobalVariables.wasAutonomous = false;
         GlobalVariables.isAutonomous = true;
 
-        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1, telemetry);
+        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
 
         drive = dependencies.drive;
         autonomousControl = dependencies.autonomousControl;

@@ -14,8 +14,8 @@ public class AutonomousDependencies extends Dependencies {
     public SampleMecanumDrive drive;
     public final AutonomousControl autonomousControl;
 
-    public AutonomousDependencies(HardwareMap hardwareMap, Gamepad gamepad1, Telemetry telemetry) {
-        super(hardwareMap, gamepad1, telemetry);
+    public AutonomousDependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
+        super(hardwareMap, gamepad1, gamepad2, telemetry);
         drive = new SampleMecanumDrive(hardwareMap);
         autonomousControl = createAutonomousControl();
     }

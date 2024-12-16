@@ -19,7 +19,11 @@ public class IntakeConstants {
     public static final int otherAllianceColor = isRedAlliance ? blue:red;
     public static final int otherAllianceThreshold = isRedAlliance ? blueThreshold:redThreshold;
 
-    public static final double intakeSpeed = 1;
+    public static double intakeSpeed = GlobalVariables.slowMode ? 0.8 : 1;
+    public static double getIntakeSpeed(){
+        return GlobalVariables.slowMode ? 0.8 : 1;
+    }
+
     public static final double servoSpeed = 1;
 
     public static final double intakeServoIncrement = 0.2;     // amount to slew servo each cycle, VERY MUCH USED
@@ -29,7 +33,7 @@ public class IntakeConstants {
     public static final double secureSampleTime = 0.4;
     public static final double intakePushoutTime = 0.75;
     public static final double pushToEndTime = 0.6;
-    public static final double clawCloseTime = 0.6;
+    public static final double clawCloseTime = 0.3;
 
     public static final GamepadIndexValues closeButton = GamepadIndexValues.leftBumper;
     public static final GamepadIndexValues forwardButton = GamepadIndexValues.rightBumper;

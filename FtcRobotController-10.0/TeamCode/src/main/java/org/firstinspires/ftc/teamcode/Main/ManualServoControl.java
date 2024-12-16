@@ -22,7 +22,7 @@ public class ManualServoControl extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
-        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
+        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);

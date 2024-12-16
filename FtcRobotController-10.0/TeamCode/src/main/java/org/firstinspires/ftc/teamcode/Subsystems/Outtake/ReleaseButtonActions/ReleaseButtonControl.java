@@ -39,6 +39,7 @@ public class ReleaseButtonControl {
 
     private void flipArm() {
         OuttakeStates.setArmState(ArmStates.up);
+        OuttakeStates.setClawState(ClawStates.closed);
     }
 
     private void releaseSample() {
