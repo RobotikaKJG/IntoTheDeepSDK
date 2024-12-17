@@ -37,8 +37,10 @@ public class PathExecution extends LinearOpMode {
             }
 
             if (!tagDetected) {
-                // Allow driver control until tag is detected
-                driveBase.updateDrive(gamepad1, this);
+                // Ensure gamepad1 is not null
+                if (gamepad1 != null) {
+                    driveBase.updateDrive(gamepad1, this);
+                }
             } else {
                 stopMotors(driveBase);
             }
@@ -48,7 +50,15 @@ public class PathExecution extends LinearOpMode {
     }
 
     private void stopMotors(DriveBase driveBase) {
-        driveBase.updateDrive(gamepad1, this);
-        driveBase.updateDrive(null, this);
+        driveBase.updateDrive(new FakeGamepad(), this);
+    }
+
+    // Simple fake gamepad to stop all motor power
+    private static class FakeGamepad extends com.qualcomm.robotcore.hardware.Gamepad {
+        public FakeGamepad() {
+            left_stick_y = 0;
+            left_stick_x = 0;
+            right_stick_x = 0;
+        }
     }
 }
