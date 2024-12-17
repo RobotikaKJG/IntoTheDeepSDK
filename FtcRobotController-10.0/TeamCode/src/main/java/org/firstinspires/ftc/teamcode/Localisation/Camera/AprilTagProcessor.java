@@ -88,4 +88,8 @@ public class AprilTagProcessor {
 
         return tagData;
     }
+
+    public ArrayList<AprilTagDetection> getLatestDetections() {
+        return aprilTagDetectionPipeline.getLatestDetections();
+    }
 }

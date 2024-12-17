@@ -78,4 +78,12 @@ public class DriveBase {
         opMode.telemetry.addData("Traction Control", tcEnabled ? "Enabled" : "Disabled");
         opMode.telemetry.update();
     }
+
+    public void setMotorPowers(double frontLeft, double backLeft, double frontRight, double backRight) {
+        frontLeftMotor.setPower(frontLeft);
+        backLeftMotor.setPower(backLeft);
+        frontRightMotor.setPower(frontRight);
+        backRightMotor.setPower(backRight);
+    }
+
 }
