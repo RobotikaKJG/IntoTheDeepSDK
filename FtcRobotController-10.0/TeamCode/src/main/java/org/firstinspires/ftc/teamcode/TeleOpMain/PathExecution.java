@@ -1,61 +1,54 @@
 package org.firstinspires.ftc.teamcode.TeleOpMain;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.DriveTrain.DriveBase;
 import org.firstinspires.ftc.teamcode.Localisation.Camera.AprilTagProcessor;
-import java.util.ArrayList;
 
 @TeleOp(name = "PathExecution", group = "TeleOp")
-public class PathExecution extends OpMode {
-
-    private DcMotor backRightMotor;
-    private AprilTagProcessor aprilTagProcessor;
-    private boolean tagDetected = false;
+public class PathExecution extends LinearOpMode {
 
     @Override
-    public void init() {
-        // Initialize the motor and map it to the name 'backRightMotor'
-        backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
-        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Initialize the AprilTag processor
-        aprilTagProcessor = new AprilTagProcessor();
+    public void runOpMode() throws InterruptedException {
+        // Initialize drive base
+        DriveBase driveBase = new DriveBase(this);
+        AprilTagProcessor aprilTagProcessor = new AprilTagProcessor();
         aprilTagProcessor.initializeCamera(hardwareMap);
 
-        telemetry.addData("Status", "Initialized");
-    }
+        boolean tagDetected = false;
 
-    @Override
-    public void loop() {
-        if (!tagDetected) {
-            // Process AprilTags
-            ArrayList<String> tags = aprilTagProcessor.processTags();
-            for (String tagInfo : tags) {
-                telemetry.addData("Tag Info", tagInfo);
-                if (tagInfo.contains("AprilTag ID: 11")) {
-                    tagDetected = true;
-                    stopMotors();
-                    telemetry.addData("Status", "Tag ID 11 Detected! Robot control disabled.");
-                    break;
+        telemetry.addData("Status", "Initialized and Waiting for Start");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            if (!tagDetected) {
+                // Process AprilTags
+                for (String tagInfo : aprilTagProcessor.processTags()) {
+                    telemetry.addData("Tag Info", tagInfo);
+                    if (tagInfo.contains("AprilTag ID: 11")) {
+                        tagDetected = true;
+                        stopMotors(driveBase);
+                        telemetry.addData("Status", "Tag ID 11 Detected! Robot control disabled.");
+                        break;
+                    }
                 }
             }
-            telemetry.update();
-        } else {
-            stopMotors(); // Ensures the robot doesn't move after tag detection
-        }
 
-        // Driver can control motor until the tag is detected
-        if (!tagDetected) {
-            double power = -gamepad1.right_stick_y;
-            backRightMotor.setPower(power);
-            telemetry.addData("Motor Power", power);
+            if (!tagDetected) {
+                // Allow driver control until tag is detected
+                driveBase.updateDrive(gamepad1, this);
+            } else {
+                stopMotors(driveBase);
+            }
+
+            telemetry.update();
         }
-        telemetry.update();
     }
 
-    private void stopMotors() {
-        backRightMotor.setPower(0);
+    private void stopMotors(DriveBase driveBase) {
+        driveBase.updateDrive(gamepad1, this);
+        driveBase.updateDrive(null, this);
     }
 }
