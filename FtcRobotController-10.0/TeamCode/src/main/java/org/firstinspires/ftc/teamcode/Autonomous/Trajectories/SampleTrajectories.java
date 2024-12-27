@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Trajectories;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
@@ -9,26 +8,27 @@ import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySe
 public class SampleTrajectories {
 
     SampleMecanumDrive drive;
-    TrajectorySequence threeSampleTrajectory;
+    TrajectorySequence preloadTrajectory;
 
-    private final Pose2d startPose = new Pose2d(-35, -60, Math.toRadians(0));
+    private final Pose2d startPose = new Pose2d(-38, -61, Math.toRadians(0));
     public SampleTrajectories(SampleMecanumDrive drive) {
         this.drive = drive;
         fillVariables();
     }
 
     private void fillVariables() {
-        threeSampleTrajectory = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-50, -60, Math.toRadians(0)))
+        preloadTrajectory = drive.trajectorySequenceBuilder(startPose)
                 .waitSeconds(2)
-                .lineToLinearHeading(new Pose2d(-48, -48,Math.toRadians(90)))
-                .waitSeconds(5)
-                .lineToConstantHeading(new Vector2d(-61, -48))
+                .lineToLinearHeading(new Pose2d(-55.5, -55.5, Math.toRadians(45)))
+                .waitSeconds(2.5)
+                .lineToLinearHeading(new Pose2d(-50, -48,Math.toRadians(90)))
+                .waitSeconds(9)
+                .lineToLinearHeading(new Pose2d(-55.5, -55.5, Math.toRadians(45)))
                 .build();
     }
 
-    public TrajectorySequence threeSampleTrajectory() {
-        return threeSampleTrajectory;
+    public TrajectorySequence preloadTrajectory() {
+        return preloadTrajectory;
     }
 
     public Pose2d getStartPose() {

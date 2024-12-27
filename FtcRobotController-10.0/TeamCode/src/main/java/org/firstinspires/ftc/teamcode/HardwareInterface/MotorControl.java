@@ -41,9 +41,9 @@ public class MotorControl {
                 hardwareMap.dcMotor.get(MotorNames.extendo),
         };
 
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
+        motors[MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -87,9 +87,9 @@ public class MotorControl {
     }
 
     public void limitSpeed(int index, double maxSpeed) {
-        double max = utilities.getMaxDouble(motorSpeeds, org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.motorConfig[index].length);
+        double max = utilities.getMaxDouble(motorSpeeds, MotorConstants.motorConfig[index].length);
         if (Math.abs(max) > maxSpeed)
-            for (int i = 0; i < org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants.motorConfig[index].length; i++) {
+            for (int i = 0; i < MotorConstants.motorConfig[index].length; i++) {
                 motorSpeeds[Utilities.motorIndex(index, i)] /= Math.abs(max);
                 motorSpeeds[Utilities.motorIndex(index, i)] *= maxSpeed;
             }

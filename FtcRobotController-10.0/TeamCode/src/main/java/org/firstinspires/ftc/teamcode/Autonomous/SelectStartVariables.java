@@ -6,7 +6,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.Enums.StartPos;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class SelectStartVariables {

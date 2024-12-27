@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SubsystemTrigger;
 
 public class DrivebaseTrigger implements SubsystemTrigger {
 
-    private static final GamepadIndexValues trigger = GamepadIndexValues.dpadDown;
+    private static final GamepadIndexValues trigger = GamepadIndexValues.share;
     @Override
     public GamepadIndexValues getTrigger() {
         return trigger;

@@ -12,13 +12,10 @@ public class DrivebaseController {
         this.edgeDetection = edgeDetection;
     }
 
-    public void updateState(SubsystemState outtakeState) {
+    public void updateState() {
         if (edgeDetection.rising(drivebaseTrigger.getTrigger()))
             drivebase.switchDrivingMode();
-        if (isOuttakeInactive(outtakeState))
-            drivebase.drive(DrivebaseConstants.driveSpeed);
-        else
-            drivebase.drive(DrivebaseConstants.outtakeModeDriveSpeed);
+        drivebase.drive(DrivebaseConstants.getDriveSpeed());
     }
 
     private boolean isOuttakeInactive(SubsystemState outtakeState) {

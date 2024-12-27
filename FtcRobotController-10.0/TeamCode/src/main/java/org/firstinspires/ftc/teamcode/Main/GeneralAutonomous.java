@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+//import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.SelectStartVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
@@ -39,18 +40,18 @@ public class GeneralAutonomous extends LinearOpMode {
 
     private void initialise() {
         //noinspection unused
-        SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
+        //SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
 
         //Needs to be set to false for SensorControl initialisation through AutonomousDependencies
         GlobalVariables.wasAutonomous = false;
         GlobalVariables.isAutonomous = true;
 
-        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1, telemetry);
+        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
 
         drive = dependencies.drive;
-        autonomousControl = dependencies.createAutonomousControl();
+        autonomousControl = dependencies.autonomousControl;
 
-
+        dependencies.servoControl.setServoStartPos();
     }
 
     private void updateAutonData() {

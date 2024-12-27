@@ -2,91 +2,96 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeExtendoTrigger;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeMotorTrigger;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeServoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class IterativeController {
     private final MotorControl motorControl;
     private final Gamepad gamepad1;
     private final Gamepad currentGamepad1 = new Gamepad();
     private final Gamepad prevGamepad1 = new Gamepad();
+    private final Gamepad gamepad2;
+    private final Gamepad currentGamepad2 = new Gamepad();
+    private final Gamepad prevGamepad2 = new Gamepad();
     private final EdgeDetection edgeDetection;
+    private final EdgeDetection gamepad2EdgeDetection;
     private final DrivebaseController drivebaseController;
-    private final IntakeController intakeController;
-    private final OuttakeController outtakeController;
+    private final SubsystemControl subsystemControl;
+    private final SubsystemControl subsystemControl2;
+    private final IntakeControl intakeControl;
+    private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
-    private final IntakeExtendoTrigger intakeExtendoTrigger = new IntakeExtendoTrigger();
-    private final IntakeMotorTrigger intakeMotorTrigger = new IntakeMotorTrigger();
-    private final OuttakeServoController outtakeServoController;
 
     public IterativeController(Dependencies dependencies) {
         drivebaseController = dependencies.createDrivebaseController();
-        intakeController = dependencies.createIntakeController();
-        outtakeController = dependencies.createOuttakeController();
-        outtakeServoController = dependencies.outtakeServoController;
-
         gamepad1 = dependencies.gamepad1;
+        gamepad2 = dependencies.gamepad2;
         edgeDetection = dependencies.edgeDetection;
+        gamepad2EdgeDetection = dependencies.gamepad2EdgeDetection;
         motorControl = dependencies.motorControl;
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
+        subsystemControl = dependencies.createSubsystemControl();
+        subsystemControl2 = dependencies.createSubsystemControl2();
+        intakeControl = dependencies.createIntakeControl();
+        outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
+        IntakeStates.setInitialStates();
+        OuttakeStates.setInitialStates();
+        ControlStates.setInitialStates();
     }
 
     public void TeleOp() {
         updateCommonValues();
+        drivebaseController.updateState();
 
-        if(intakeCanRun())
-            intakeController.updateState();
+        if(gamepad1Active()) {
+            GlobalVariables.slowMode = false;
+            subsystemControl.update();
+        }
+        else if(gamepad2Active()) {
+            GlobalVariables.slowMode = true;
+            subsystemControl2.update();
+        }
 
-        if(outtakeCanRun())
-            outtakeController.updateState();
-
-        if(edgeDetection.rising(GamepadIndexValues.dpadLeft))
-            outtakeServoController.setServoState(OuttakeServoStates.downClose);
-
-        drivebaseController.updateState(outtakeController.getState()); //either replace idle with outtakeLeft for an outtakeLeft speed reduction or remove it
+        sensorControl.updateColor();
+        intakeControl.update();
+        outtakeControl.update();
     }
 
-    private boolean intakeCanRun() {
-        if (outtakeController.getState() == SubsystemState.Idle)
-            if(intakeController.getState() == SubsystemState.Idle && intakeRisingEdge())
-                return !isColorMatch();
-            else
-                return true;
-        return false;
-    }
-
-    private boolean isColorMatch()
-    {
-        return sensorControl.isColorMatch(IntakeConstants.yellow, IntakeConstants.yellowThreshold) || sensorControl.isColorMatch(IntakeConstants.allianceColor, IntakeConstants.allianceThreshold);
-    }
-
-    private boolean intakeRisingEdge()
-    {
-        return edgeDetection.rising(intakeMotorTrigger.getTrigger()) || edgeDetection.rising(intakeExtendoTrigger.getTrigger());
-    }
-
-    private boolean outtakeCanRun() {
-        return intakeController.getState() == SubsystemState.Idle;
-    }
 
     private void updateCommonValues() {
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
         edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
+
+        prevGamepad2.copy(currentGamepad2);
+        currentGamepad2.copy(gamepad2);
+        gamepad2EdgeDetection.refreshGamepadIndex(currentGamepad2, prevGamepad2);
+
         motorControl.setMotors(MotorConstants.notSlide);
+    }
+
+    private boolean gamepad1Active(){
+        return currentGamepad1.square || currentGamepad1.triangle || currentGamepad1.dpad_up || currentGamepad1.dpad_down
+                || !currentGamepad1.atRest() || currentGamepad1.left_bumper || currentGamepad1.left_trigger != 0
+                || currentGamepad1.right_bumper || currentGamepad1.right_trigger != 0;
+//        return true;
+    }
+
+    private boolean gamepad2Active(){
+        return currentGamepad2.square || currentGamepad2.triangle || currentGamepad2.dpad_up || currentGamepad2.dpad_down
+                || !currentGamepad2.atRest() || currentGamepad2.left_bumper || currentGamepad2.left_trigger != 0
+                || currentGamepad2.right_bumper || currentGamepad2.right_trigger != 0;
+//        return false;
     }
 }

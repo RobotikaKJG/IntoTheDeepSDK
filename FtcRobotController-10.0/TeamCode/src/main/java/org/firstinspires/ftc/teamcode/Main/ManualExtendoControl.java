@@ -5,8 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeSlideProperties;
+import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 @TeleOp
 public class ManualExtendoControl extends LinearOpMode {
@@ -19,7 +22,7 @@ public class ManualExtendoControl extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
-        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, telemetry);
+        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
         IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
         //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
@@ -39,6 +42,8 @@ public class ManualExtendoControl extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
+            telemetry.addLine("Press square to extend, press circle to retract");
+            telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
                 slidePosition -= 50;
@@ -48,6 +53,15 @@ public class ManualExtendoControl extends LinearOpMode {
             {
                 slidePosition += 50;
                 intakeSlideControl.setSlidePosition(slidePosition);
+            }
+
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
+            {
+                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+            }
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
+            {
+                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
             }
         }
     }
