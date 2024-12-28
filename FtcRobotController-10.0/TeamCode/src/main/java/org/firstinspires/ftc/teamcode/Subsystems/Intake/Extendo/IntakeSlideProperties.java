@@ -13,8 +13,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        //return 2400; // could be 2650 in theory at least
-        return 2500;
+        return 1650; // max is 1740, reduced for safety
     }
 
     @Override

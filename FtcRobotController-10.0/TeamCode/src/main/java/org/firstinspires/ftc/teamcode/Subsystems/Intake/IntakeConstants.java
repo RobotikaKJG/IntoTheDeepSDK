@@ -8,6 +8,8 @@ public class IntakeConstants {
     public static double getIntakeSpeed(){
         return GlobalVariables.slowMode ? intakeSlowSpeed : intakeSpeed;
     }
+    public static final int extendoMaxExtension = 1650;
+    public static final int extendoThreshold = 20;
 
     public static final double servoSpeed = 1;
 
