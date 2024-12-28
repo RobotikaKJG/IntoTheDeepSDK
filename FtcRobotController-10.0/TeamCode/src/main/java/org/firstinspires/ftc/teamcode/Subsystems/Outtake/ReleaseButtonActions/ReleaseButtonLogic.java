@@ -1,17 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class ReleaseButtonLogic {
     private double currentWait = 0;
-    private final ElapsedTime elapsedTime;
-
-    public ReleaseButtonLogic(ElapsedTime elapsedTime) {
-        this.elapsedTime = elapsedTime;
-    }
 
     public void update(){
         switch(OuttakeStates.getReleaseButtonState()){
@@ -55,7 +48,7 @@ public class ReleaseButtonLogic {
     }
 
     private void waitToFlip() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitForReleaseConfirmation);
     }
 
@@ -69,13 +62,13 @@ public class ReleaseButtonLogic {
     }
 
     private void waitToRelease(){
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         addWaitTime(OuttakeConstants.outtakeArmCloseWait);
         OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractArm);
     }
 
     private void retractArm() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         OuttakeStates.setReleaseButtonState(ReleaseButtonStates.openClaw);
     }
 
@@ -88,7 +81,10 @@ public class ReleaseButtonLogic {
 
 
     private void addWaitTime(double waitTime) {
-        currentWait = elapsedTime.seconds() + waitTime;
+        currentWait = getSeconds() + waitTime;
     }
 
+    private double getSeconds() {
+        return System.currentTimeMillis() / 1_000.0;
+    }
 }

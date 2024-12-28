@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
@@ -26,7 +25,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeSe
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
@@ -44,8 +42,6 @@ public class Dependencies {
     public ServoControl servoControl;
     public EdgeDetection edgeDetection = new EdgeDetection();
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
-    public SampleMecanumDrive drive;
-    public ElapsedTime elapsedTime = new ElapsedTime();
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
@@ -111,7 +107,7 @@ public class Dependencies {
     }
 
     private AutoCloseLogic createAutoCloseLogic() {
-        return new AutoCloseLogic(elapsedTime,sensorControl);
+        return new AutoCloseLogic(sensorControl);
     }
 
     private IntakeServoControl createIntakeServoControl() {
@@ -127,11 +123,7 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl(),createReleaseButtonLogic());
-    }
-
-    private ReleaseButtonLogic createReleaseButtonLogic() {
-        return new ReleaseButtonLogic(elapsedTime);
+        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl());
     }
 
     private ArmControl createArmControl() {

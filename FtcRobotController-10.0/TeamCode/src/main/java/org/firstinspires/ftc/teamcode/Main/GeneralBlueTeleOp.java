@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
 import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
@@ -30,15 +29,15 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             iterativeController.TeleOp();
             localizer.update();
             if (gamepad1.triangle) break;
-            calculateLoopTime(dependencies.elapsedTime);
+            calculateLoopTime();
             //telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
             telemetry.update();
         }
     }
 
-    private void calculateLoopTime(ElapsedTime elapsedTime)
+    private void calculateLoopTime()
     {
-        double currentTime = elapsedTime.milliseconds();
+        double currentTime = System.currentTimeMillis();
         telemetry.addData("Loop time:", currentTime - prevTime);
         prevTime = currentTime;
     }

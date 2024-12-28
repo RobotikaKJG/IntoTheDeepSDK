@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
@@ -11,11 +9,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class AutoCloseLogic {
     private double currentWait = 0;
-    private final ElapsedTime elapsedTime;
     private final SensorControl sensorControl;
 
-    public AutoCloseLogic(ElapsedTime elapsedTime, SensorControl sensorControl) {
-        this.elapsedTime = elapsedTime;
+    public AutoCloseLogic(SensorControl sensorControl) {
         this.sensorControl = sensorControl;
     }
 
@@ -52,13 +48,13 @@ public class AutoCloseLogic {
     }
 
     private void secureGoodSample() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         addWaitTime(IntakeConstants.intakePushoutTime);
         IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
     }
 
     private void ejectExtraSamples() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
     }
 
@@ -74,7 +70,7 @@ public class AutoCloseLogic {
     }
 
     private void closeClaw() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.idle);
     }
 
@@ -88,6 +84,10 @@ public class AutoCloseLogic {
     }
 
     private void addWaitTime(double waitTime) {
-        currentWait = elapsedTime.seconds() + waitTime;
+        currentWait = getSeconds() + waitTime;
+    }
+
+    private double getSeconds() {
+        return System.currentTimeMillis() / 1_000.0;
     }
 }

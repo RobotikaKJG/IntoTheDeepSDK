@@ -14,15 +14,14 @@ public class OuttakeControl {
     private final ArmControl armControl;
     private final ClawControl clawControl;
     private final VerticalSlideControl verticalSlideControl;
-    private final ReleaseButtonLogic releaseButtonLogic;
+    private final ReleaseButtonLogic releaseButtonLogic = new ReleaseButtonLogic();
     private final ReleaseButtonControl releaseButtonControl = new ReleaseButtonControl();
 
     public OuttakeControl(ArmControl armControl, ClawControl clawControl,
-                          VerticalSlideControl verticalSlideControl, ReleaseButtonLogic releaseButtonLogic) {
+                          VerticalSlideControl verticalSlideControl) {
         this.armControl = armControl;
         this.clawControl = clawControl;
         this.verticalSlideControl = verticalSlideControl;
-        this.releaseButtonLogic = releaseButtonLogic;
     }
 
     public void update() {
