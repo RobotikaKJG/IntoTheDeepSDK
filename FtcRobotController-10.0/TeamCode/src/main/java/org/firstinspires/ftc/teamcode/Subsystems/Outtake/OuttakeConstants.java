@@ -10,6 +10,7 @@ public class OuttakeConstants {
     public static final double outtakeArmCloseWait = 0.65;
     public static final int lowBasketPos = 2700;
     public static final int highBasketPos = 4300;
+    public static final int slideTargetThreshold = 20;
 
     //round needed to prevent floating point errors
     public static final double outtakeRightServoMaxPos = Math.round((1-OuttakeConstants.outtakeLeftServoMinPos)*100.0)/100.0;     // Maximum rotational position
