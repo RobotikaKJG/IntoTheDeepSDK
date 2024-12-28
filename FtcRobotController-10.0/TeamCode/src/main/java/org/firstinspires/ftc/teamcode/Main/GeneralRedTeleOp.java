@@ -5,25 +5,19 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
-import org.firstinspires.ftc.teamcode.HardwareInterface.LimitSwitches;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 
 @TeleOp
 public class GeneralRedTeleOp extends LinearOpMode {
 
     private double prevTime;
-    /**
-     * @noinspection RedundantThrows
-     */
     @Override
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
         GlobalVariables.alliance = Alliance.Red;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
-        StandardTrackingWheelLocalizer localizer = dependencies.localizer;
+        ThreeDeadWheelLocalizer localizer = dependencies.localizer;
         IterativeController iterativeController = new IterativeController(dependencies);
 
         waitForStart();

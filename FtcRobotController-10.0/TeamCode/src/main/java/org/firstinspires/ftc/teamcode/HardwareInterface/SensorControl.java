@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.HardwareInterface;
 
 import android.graphics.Color;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Time;
+import com.acmerobotics.roadrunner.Twist2dDual;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
@@ -10,7 +12,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import org.firstinspires.ftc.teamcode.Enums.Alliance;
 import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
 
 
@@ -18,14 +20,16 @@ public class SensorControl {
 
     private final LimitSwitch[] limitSwitches;
     private final EdgeDetection edgeDetection;
-    private final StandardTrackingWheelLocalizer localizer;
+    private final ThreeDeadWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
     public int currentColor;
     private int currentRed;
     private int currentGreen;
     private int currentBlue;
+    private double angleModifier = 0; //used instead of internal angle reset, this is ugly but I don't want to mod roadrunner
+    private Pose2d pose = new Pose2d(0, 0, 0);
 
-    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
+    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  ThreeDeadWheelLocalizer localizer) {
         // Could be added to an array later if more limit switches are introduced
         limitSwitches = new LimitSwitch[]{
                 hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
@@ -43,22 +47,24 @@ public class SensorControl {
 
     private void setInitialLocalisationAngle() {
         if (!GlobalVariables.wasAutonomous)
-            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
+            angleModifier = 0;
         else {
             GlobalVariables.wasAutonomous = false;
-            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(-45)));
+            angleModifier = Math.toRadians(-45);
         }
     }
 
     public double getLocalizerAngle() {
         resetLocalizerAngle(); //Checks every time, resets only when button pressed
-        Pose2d currentPose = localizer.getPoseEstimate();
-        return currentPose.getHeading();
+        Twist2dDual<Time> twist = localizer.update();
+        Pose2d pose = new Pose2d(0, 0, 0);
+        pose = pose.plus(twist.value());
+        return pose.heading.toDouble() - angleModifier;
     }
 
     public void resetLocalizerAngle() {
         if (edgeDetection.rising(GamepadIndexValues.options))
-            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
+            angleModifier = pose.heading.toDouble();
     }
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {
