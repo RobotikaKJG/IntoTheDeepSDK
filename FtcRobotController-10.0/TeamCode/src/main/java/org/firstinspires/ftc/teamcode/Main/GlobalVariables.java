@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Main;
 
-import org.firstinspires.ftc.teamcode.Enums.Alliance;
-
 public class GlobalVariables {
     public static Alliance alliance;
     public static boolean wasAutonomous;

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drivebase;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 
 public class DrivebaseController {
     private final Drivebase drivebase;

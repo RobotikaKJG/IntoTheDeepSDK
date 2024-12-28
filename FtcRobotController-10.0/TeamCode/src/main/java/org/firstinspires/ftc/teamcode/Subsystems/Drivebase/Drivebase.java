@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.Subsystems.Drivebase;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 

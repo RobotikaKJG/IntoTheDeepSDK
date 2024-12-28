@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Action;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.Actions.SlidesClosed;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.Actions.SlidesHighBasket;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.Actions.SlidesLowBasket;
 
 public class OuttakeSlideActions {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Motor;
 
 public class MotorConstants {
     public static final int frontLeft = 0;

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;

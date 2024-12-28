@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 

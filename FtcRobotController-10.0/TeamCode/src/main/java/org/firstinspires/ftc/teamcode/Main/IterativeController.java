@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;

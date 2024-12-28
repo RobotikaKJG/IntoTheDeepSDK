@@ -1,15 +1,13 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
+import org.firstinspires.ftc.teamcode.Main.Dependencies;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 @TeleOp
 public class ManualServoControl extends LinearOpMode {

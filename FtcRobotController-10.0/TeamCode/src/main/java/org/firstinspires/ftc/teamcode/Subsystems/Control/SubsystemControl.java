@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperLogic;

@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.LimitSwitches;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 
 public class IntakeSlideControl implements SlideControl {
     private final MotorControl motorControl;

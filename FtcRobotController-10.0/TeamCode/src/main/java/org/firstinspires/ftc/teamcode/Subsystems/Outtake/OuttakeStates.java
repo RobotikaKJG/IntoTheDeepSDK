@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
-import org.firstinspires.ftc.teamcode.R;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 

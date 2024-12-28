@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideProperties;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideProperties;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeSlideProperties implements SlideProperties {

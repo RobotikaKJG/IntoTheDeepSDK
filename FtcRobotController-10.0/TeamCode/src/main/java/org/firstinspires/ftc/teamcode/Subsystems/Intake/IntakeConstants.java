@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 import android.graphics.Color;
 
-import org.firstinspires.ftc.teamcode.Enums.Alliance;
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.Main.Alliance;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeConstants {

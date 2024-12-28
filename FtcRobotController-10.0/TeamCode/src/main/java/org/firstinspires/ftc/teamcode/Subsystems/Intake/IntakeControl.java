@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;

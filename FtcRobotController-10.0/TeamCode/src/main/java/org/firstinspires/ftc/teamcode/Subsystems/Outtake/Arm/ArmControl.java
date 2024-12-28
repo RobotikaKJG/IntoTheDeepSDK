@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 

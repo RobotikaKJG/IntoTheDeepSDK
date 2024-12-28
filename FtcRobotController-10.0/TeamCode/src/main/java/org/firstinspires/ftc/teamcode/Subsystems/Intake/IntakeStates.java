@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;

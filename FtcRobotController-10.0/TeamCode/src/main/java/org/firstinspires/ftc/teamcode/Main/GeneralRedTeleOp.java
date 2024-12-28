@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Enums.Alliance;
 import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 
 @TeleOp

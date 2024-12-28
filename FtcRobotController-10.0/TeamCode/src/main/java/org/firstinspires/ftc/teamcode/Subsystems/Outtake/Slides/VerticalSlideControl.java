@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;

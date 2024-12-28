@@ -1,19 +1,19 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
+import org.firstinspires.ftc.teamcode.Main.Dependencies;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
 
 @TeleOp
-public class ManualSlideControl extends LinearOpMode {
+public class ManualExtendoControl extends LinearOpMode {
 
     private double prevTime;
     /**
@@ -24,8 +24,10 @@ public class ManualSlideControl extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
-        OuttakeSlideControl outtakeSlideControl = new OuttakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
+        IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
+        IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
+        //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
+        //intakeSlideControl.limitSpeed(0.05);
         int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
@@ -46,12 +48,12 @@ public class ManualSlideControl extends LinearOpMode {
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
                 slidePosition -= 50;
-                outtakeSlideControl.setSlidePosition(slidePosition);
+                intakeSlideControl.setSlidePosition(slidePosition);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.square))
             {
                 slidePosition += 50;
-                outtakeSlideControl.setSlidePosition(slidePosition);
+                intakeSlideControl.setSlidePosition(slidePosition);
             }
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))

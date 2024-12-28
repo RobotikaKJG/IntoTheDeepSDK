@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 

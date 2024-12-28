@@ -4,12 +4,12 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;

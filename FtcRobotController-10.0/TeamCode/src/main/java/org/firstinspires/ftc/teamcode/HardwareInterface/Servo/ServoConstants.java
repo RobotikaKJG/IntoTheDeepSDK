@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Servo;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;

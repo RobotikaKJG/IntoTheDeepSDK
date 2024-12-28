@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.SensorCode;
+package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 
 @TeleOp

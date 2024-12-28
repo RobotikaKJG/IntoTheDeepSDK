@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Slide;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 

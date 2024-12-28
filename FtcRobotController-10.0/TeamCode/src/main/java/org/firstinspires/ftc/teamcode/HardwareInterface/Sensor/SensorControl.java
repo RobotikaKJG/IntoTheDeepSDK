@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Sensor;
 
 import android.graphics.Color;
 
@@ -9,11 +9,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 
-import org.firstinspires.ftc.teamcode.Enums.Alliance;
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.Main.Alliance;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
-import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
 
 
 public class SensorControl {

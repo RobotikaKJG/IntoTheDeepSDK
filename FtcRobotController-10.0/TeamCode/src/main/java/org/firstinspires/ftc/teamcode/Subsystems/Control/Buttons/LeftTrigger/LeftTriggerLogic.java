@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
