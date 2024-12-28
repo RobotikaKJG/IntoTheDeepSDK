@@ -75,24 +75,9 @@ public class MotorControl {
             motorSpeeds[Utilities.motorIndex(index, i)] /= divisor;
     }
 
-    public void setMotors()
-    {
-        setMotors(MotorConstants.all);
-    }
-
-    //when setting specific combinations is needed
     public void setMotors(int index) {
         for (int i = 0; i < Utilities.configLength(index); i++)
             motors[Utilities.motorIndex(index, i)].setPower(motorSpeeds[Utilities.motorIndex(index, i)]);
-    }
-
-    public void limitSpeed(int index, double maxSpeed) {
-        double max = utilities.getMaxDouble(motorSpeeds, MotorConstants.motorConfig[index].length);
-        if (Math.abs(max) > maxSpeed)
-            for (int i = 0; i < MotorConstants.motorConfig[index].length; i++) {
-                motorSpeeds[Utilities.motorIndex(index, i)] /= Math.abs(max);
-                motorSpeeds[Utilities.motorIndex(index, i)] *= maxSpeed;
-            }
     }
 
     public void setMotorMode(int index, DcMotor.RunMode mode)

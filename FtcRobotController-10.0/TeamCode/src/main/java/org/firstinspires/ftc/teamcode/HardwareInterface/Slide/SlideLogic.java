@@ -25,8 +25,7 @@ public class SlideLogic {
     }
 
     public boolean slidesBottomReached() {
-        if (!slideControl.isLimitSwitchPressed()) return false;
-        return true;
+        return slideControl.isLimitSwitchPressed();
     }
 
     public int getSlideExtensionTarget() {

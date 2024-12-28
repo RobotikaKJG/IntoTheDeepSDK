@@ -5,27 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
 
 @TeleOp
 public class ManualSlideControl extends LinearOpMode {
 
-    private double prevTime;
-    /**
-     * @noinspection RedundantThrows
-     */
     @Override
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         OuttakeSlideControl outtakeSlideControl = new OuttakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
         int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
@@ -56,11 +49,11 @@ public class ManualSlideControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+                outtakeSlideControl.setSlidePosition(OuttakeConstants.highBasketPos);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
+                outtakeSlideControl.setSlidePosition(0);
             }
         }
     }

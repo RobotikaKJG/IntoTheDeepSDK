@@ -4,7 +4,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class LeftBumperLogic {
     private final LeftBumperControl leftBumperControl = new LeftBumperControl();
@@ -47,9 +46,5 @@ public class LeftBumperLogic {
         ControlStates.setLeftBumperState(LeftBumperStates.moveSlidesUp);
         completeAction();
         return true;
-    }
-
-    private boolean subsystemsIdle() {
-        return IntakeStates.getIntakeState() == SubsystemState.Idle && OuttakeStates.getOuttakeState() == SubsystemState.Idle;
     }
 }

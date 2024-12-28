@@ -5,29 +5,19 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 @TeleOp
 public class ManualExtendoControl extends LinearOpMode {
-
-    private double prevTime;
-    /**
-     * @noinspection RedundantThrows
-     */
     @Override
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-        //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
-        //intakeSlideControl.limitSpeed(0.05);
         int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
@@ -44,6 +34,7 @@ public class ManualExtendoControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
+            telemetry.addData("Slide position: ", intakeSlideControl.getSlidePosition());
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -58,11 +49,11 @@ public class ManualExtendoControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+                intakeSlideControl.setSlidePosition(OuttakeConstants.highBasketPos);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
+                intakeSlideControl.setSlidePosition(0);
             }
         }
     }

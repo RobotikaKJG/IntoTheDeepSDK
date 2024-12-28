@@ -42,7 +42,7 @@ public class SensorControl {
 
         setInitialLocalisationAngle();
 
-        this.edgeDetection = edgeDetection;;
+        this.edgeDetection = edgeDetection;
     }
 
     private void setInitialLocalisationAngle() {
@@ -55,10 +55,9 @@ public class SensorControl {
     }
 
     public double getLocalizerAngle() {
-        resetLocalizerAngle(); //Checks every time, resets only when button pressed
         Twist2dDual<Time> twist = localizer.update();
-        Pose2d pose = new Pose2d(0, 0, 0);
         pose = pose.plus(twist.value());
+        resetLocalizerAngle(); //Checks every time, resets only when button pressed
         return pose.heading.toDouble() - angleModifier;
     }
 
@@ -85,33 +84,14 @@ public class SensorControl {
         currentBlue = Color.blue(currentColor);
     }
 
-    public boolean isColorMatch(int targetColor, int threshold) {
-        int detectedRed = Color.red(currentColor);
-        int detectedGreen = Color.green(currentColor);
-        int detectedBlue = Color.blue(currentColor);
-
-        int targetRed = Color.red(targetColor);
-        int targetGreen = Color.green(targetColor);
-        int targetBlue = Color.blue(targetColor);
-
-        int redDiff = Math.abs(detectedRed - targetRed);
-        int greenDiff = Math.abs(detectedGreen - targetGreen);
-        int blueDiff = Math.abs(detectedBlue - targetBlue);
-
-        return redDiff <= threshold && greenDiff <= threshold && blueDiff <= threshold;
-    }
-
     public boolean isRed(){
-        if(currentGreen < 5 && currentRed >5) return true;
-        return false;
+        return currentGreen < 5 && currentRed > 5;
     }
     public boolean isYellow(){
-        if(currentGreen > 5) return true;
-        return  false;
+        return currentGreen > 5;
     }
     public boolean isBlue(){
-        if(currentRed == 2 && currentBlue > 2 && currentGreen < 5) return true;
-        return false;
+        return currentRed == 2 && currentBlue > 2 && currentGreen < 5;
     }
 
     public boolean isAllianceColor(){
