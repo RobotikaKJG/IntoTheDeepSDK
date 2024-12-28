@@ -19,7 +19,7 @@ public class OuttakeSlideControl implements SlideControl {
     }
     @Override
     public int getSlidePosition() {
-        return motorControl.getMotorPosition(MotorConstants.extendo);
+        return motorControl.getMotorPosition(MotorConstants.bothSlides);
     }
 
     @Override
