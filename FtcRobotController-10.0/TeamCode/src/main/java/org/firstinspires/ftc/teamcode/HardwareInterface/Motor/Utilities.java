@@ -39,15 +39,6 @@ public class Utilities {
         }
     }
 
-    public double getMaxDouble(double[] array, int length) {
-        double max = 0;
-        for (int i = 1; i < length; i++)
-            if (Math.abs(array[i]) > max)
-                max = array[i];
-
-        return max;
-    }
-
     /**
      * @noinspection unused
      */
