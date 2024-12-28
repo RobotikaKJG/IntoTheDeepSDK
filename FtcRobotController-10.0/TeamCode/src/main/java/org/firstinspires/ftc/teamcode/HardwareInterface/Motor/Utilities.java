@@ -7,7 +7,7 @@ public class Utilities {
     public static int getMotorPosition(DcMotor[] motors, int index) {
         int sum = 0;
         for (int i = 0; i < configLength(index); i++)
-            sum += Math.abs(getPos(motors, index, i));
+            sum += getPos(motors, index, i);
         return avg(sum, configLength(index));
     }
 
