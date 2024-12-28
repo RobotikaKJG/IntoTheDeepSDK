@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 public class IntakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
     private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-    private final SensorControl sensorControl;
+    private final SensorControl sensorControl; //keep this for when limit switches exist
 
     public IntakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;

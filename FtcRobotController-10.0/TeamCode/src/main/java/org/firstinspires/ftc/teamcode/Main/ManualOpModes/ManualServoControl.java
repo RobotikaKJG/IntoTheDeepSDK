@@ -12,10 +12,6 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 @TeleOp
 public class ManualServoControl extends LinearOpMode {
 
-    private double prevTime;
-    /**
-     * @noinspection RedundantThrows
-     */
     @Override
     public void runOpMode() throws InterruptedException {
 

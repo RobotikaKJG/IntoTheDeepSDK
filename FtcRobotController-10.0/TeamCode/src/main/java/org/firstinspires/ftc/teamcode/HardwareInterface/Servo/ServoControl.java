@@ -16,13 +16,7 @@ public class ServoControl {
 
     public ServoControl(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
-        //servoInit();
         getServos();
-    }
-
-    private void servoInit() {
-        getServos();
-        setServoStartPos();
     }
 
     private void getServos() {
@@ -49,36 +43,6 @@ public class ServoControl {
         //setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
 
         setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
-    }
-
-    public double getServoPos(int index) {
-        return servos[index].getPosition();
-    }
-
-    public void increasePos(int index) {
-        double servoPosition = getServoPos(index);
-
-        // First check for max pos overshooting due to unaligned increment before setting it to the servo
-        if (servoPosition + ServoConstants.servoIncrement[index] > ServoConstants.servoMaxPos[index])
-            servoPosition = ServoConstants.servoMaxPos[index];
-
-        if (servoPosition < ServoConstants.servoMaxPos[index])
-            servoPosition += ServoConstants.servoIncrement[index];
-
-        setServoPos(index, servoPosition);
-    }
-
-    public void decreasePos(int index) {
-        double servoPosition = getServoPos(index);
-
-        // First check for min pos overshooting due to unaligned increment before setting it to the servo
-        if (servoPosition - ServoConstants.servoIncrement[index] < ServoConstants.servoMinPos[index])
-            servoPosition = ServoConstants.servoMinPos[index];
-
-        if (servoPosition > ServoConstants.servoMinPos[index])
-            servoPosition -= ServoConstants.servoIncrement[index];
-
-        setServoPos(index, servoPosition);
     }
 
     public void setServoPos(int index, double position) {

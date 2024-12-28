@@ -5,9 +5,10 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = GlobalVariables.slowMode ? 0.5 : 1;
+    private double slideMaxSpeed = 1;
+
     private double getSlideMaxSpeed(){
-        return GlobalVariables.slowMode ? 0.5 : 1;
+        return GlobalVariables.slowMode ? slideMaxSpeed/2 : slideMaxSpeed;
     }
 
     @Override

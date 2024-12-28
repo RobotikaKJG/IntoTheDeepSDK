@@ -15,7 +15,6 @@ public class LeftTriggerLogic {
     }
 
     public void update() {
-        //if(activateIntakeMotor()) return;
         if(toggleIntakeMotor()) return;
         if(moveSlidesDown()) return;
     }
@@ -23,18 +22,6 @@ public class LeftTriggerLogic {
     private void completeAction(){
         leftTriggerControl.update();
         ControlStates.setLeftTriggerState(LeftTriggerStates.idle);
-    }
-
-    private boolean activateIntakeMotor() {
-        if(subsystemsIdle() ||  sampleInIntake()) return false;
-
-        ControlStates.setLeftTriggerState(LeftTriggerStates.activateIntakeMotor);
-        completeAction();
-        return true;
-    }
-
-    private boolean subsystemsIdle() {
-        return IntakeStates.getIntakeState() == SubsystemState.Idle && OuttakeStates.getOuttakeState() == SubsystemState.Idle;
     }
 
     private boolean sampleInIntake(){

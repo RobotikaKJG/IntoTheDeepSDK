@@ -24,11 +24,4 @@ public class ServoConstants {
                     OuttakeConstants.releaseServoMaxPos,
                     IntakeConstants.intakeServoMaxPos
             };
-    public static final double[] servoIncrement =
-            {
-                    OuttakeConstants.outtakeLeftServoIncrement,
-                    OuttakeConstants.outtakeRightServoIncrement,
-                    OuttakeConstants.releaseServoIncrement,
-                    IntakeConstants.intakeServoIncrement
-            };
 }
