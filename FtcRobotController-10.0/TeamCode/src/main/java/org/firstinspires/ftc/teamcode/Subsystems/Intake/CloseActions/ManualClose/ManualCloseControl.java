@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class ManualCloseControl {
 
@@ -37,16 +34,14 @@ public class ManualCloseControl {
     }
 
     private void eject() {
-        if(IntakeStates.getMotorState() == IntakeRotationStates.forward)
-            IntakeStates.setMotorState(IntakeRotationStates.backward);
-        IntakeStates.setServoState(IntakeRotationStates.idle);
+        if(IntakeStates.getMotorState() == IntakeMotorStates.forward)
+            IntakeStates.setMotorState(IntakeMotorStates.backward);
         IntakeStates.setExtendoState(ExtendoStates.retracted);
         IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 
     private void close() {
-        IntakeStates.setMotorState(IntakeRotationStates.idle);
-        IntakeStates.setServoState(IntakeRotationStates.idle);
+        IntakeStates.setMotorState(IntakeMotorStates.idle);
         IntakeStates.setExtendoState(ExtendoStates.retracted);
     }
 }

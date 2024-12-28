@@ -20,8 +20,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjec
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeMotorControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
@@ -92,7 +91,7 @@ public class Dependencies {
     }
 
     public IntakeControl createIntakeControl() {
-        return new IntakeControl(createIntakeMotorControl(), createIntakeServoControl(),
+        return new IntakeControl(createIntakeMotorControl(),
                 createIntakeExtendoControl(), createAutoCloseControl(),
                 createAutoCloseLogic(),createEjectionServoControl(),
                 createSampleEjectionLogic());
@@ -108,10 +107,6 @@ public class Dependencies {
 
     private AutoCloseLogic createAutoCloseLogic() {
         return new AutoCloseLogic(sensorControl);
-    }
-
-    private IntakeServoControl createIntakeServoControl() {
-        return new IntakeServoControl(servoControl);
     }
 
     private ExtendoControl createIntakeExtendoControl() {

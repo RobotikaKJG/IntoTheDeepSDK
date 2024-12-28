@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class SampleEjectionLogic {
     private final SensorControl sensorControl;
@@ -43,7 +43,7 @@ public class SampleEjectionLogic {
     }
 
     private static boolean motorForward() {
-        return IntakeStates.getMotorState() == IntakeRotationStates.forward;
+        return IntakeStates.getMotorState() == IntakeMotorStates.forward;
     }
 
     private static boolean ejectionServoClosed() {

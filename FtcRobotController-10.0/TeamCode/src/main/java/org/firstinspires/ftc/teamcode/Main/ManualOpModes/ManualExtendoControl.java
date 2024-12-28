@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValu
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 @TeleOp
 public class ManualExtendoControl extends LinearOpMode {
@@ -19,6 +18,9 @@ public class ManualExtendoControl extends LinearOpMode {
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
         int slidePosition = 0;
+        double startTime = 0;
+        double duration = 0;
+        boolean wasIf = false;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);
@@ -34,7 +36,9 @@ public class ManualExtendoControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
-            telemetry.addData("Slide position: ", intakeSlideControl.getSlidePosition());
+            telemetry.addData("Slide position", intakeSlideControl.getSlidePosition());
+            telemetry.addData("Duration", duration);
+            //telemetry.addData("Slide inner target: ", intakeSlideControl.);
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -49,11 +53,19 @@ public class ManualExtendoControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                intakeSlideControl.setSlidePosition(OuttakeConstants.highBasketPos);
+                intakeSlideControl.setSlidePosition(1650);//1740 max physical
+                slidePosition = 1650;
+                startTime = System.currentTimeMillis();
+                wasIf = false;
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                intakeSlideControl.setSlidePosition(0);
+                intakeSlideControl.setSlidePosition(20);
+            }
+            if(intakeSlideControl.getSlidePosition() > slidePosition && !wasIf)
+            {
+                duration = System.currentTimeMillis() - startTime;
+                wasIf = true;
             }
         }
     }
