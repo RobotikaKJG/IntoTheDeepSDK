@@ -7,7 +7,6 @@ public class OuttakeController implements RobotSubsystemController{
 
     public boolean risen = false;
     private final EdgeDetection edgeDetection;
-    private final ServoControl servoControl;
     private final MotorControl motorControl;
     private final HardwareMap hardwareMap;
     private final MotorControl outtakeMotorControl;
@@ -18,9 +17,8 @@ public class OuttakeController implements RobotSubsystemController{
     private int bumperClicks = 0;
     public final int maxArmAngle = 930;
 
-    public OuttakeController(EdgeDetection edgeDetection, ServoControl servoControl, MotorControl motorControl, HardwareMap hardwareMap) {
+    public OuttakeController(EdgeDetection edgeDetection, MotorControl motorControl, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
-        this.servoControl = servoControl;
         this.hardwareMap = hardwareMap;
         this.motorControl = motorControl;
         this.outtakeMotorControl = new MotorControl(hardwareMap, "armMotor", true);

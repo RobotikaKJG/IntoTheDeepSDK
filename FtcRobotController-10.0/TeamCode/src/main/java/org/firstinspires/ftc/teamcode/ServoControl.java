@@ -6,22 +6,35 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class ServoControl {
     private final HardwareMap hardwareMap;
-    Servo servo;
-    CRServo crservo;
+    private Servo servo;
+    private CRServo crservo;
 
-    public ServoControl(HardwareMap hardwareMap) {
+    // Constructor for controlling a single Servo or CRServo
+    public ServoControl(HardwareMap hardwareMap, String servoName, boolean isContinuous) {
         this.hardwareMap = hardwareMap;
-        servo = hardwareMap.servo.get("servo");
-        crservo = hardwareMap.crservo.get("intakeServo");
-        setServoPos(0);
+
+        if (isContinuous) {
+            crservo = hardwareMap.crservo.get(servoName);
+        } else {
+            servo = hardwareMap.servo.get(servoName);
+        }
     }
 
+    // Set position for standard servo
     public void setServoPos(double position) {
-        servo.setPosition(position);
+        if (servo != null) {
+            servo.setPosition(position);
+        } else {
+            throw new IllegalStateException("This ServoControl is not configured for a standard servo.");
+        }
     }
 
-    public void setServoSpeed(double speed)
-    {
-        crservo.setPower(speed);
+    // Set speed for continuous servo
+    public void setServoSpeed(double speed) {
+        if (crservo != null) {
+            crservo.setPower(speed);
+        } else {
+            throw new IllegalStateException("This ServoControl is not configured for a continuous servo.");
+        }
     }
 }
