@@ -85,13 +85,13 @@ public class SensorControl {
     }
 
     public boolean isRed(){
-        return currentGreen < 5 && currentRed > 5;
+        return currentGreen < 8 && currentRed > 5;
     }
     public boolean isYellow(){
-        return currentGreen > 5;
+        return currentGreen > 8;
     }
     public boolean isBlue(){
-        return currentRed == 2 && currentBlue > 2 && currentGreen < 5;
+        return currentRed < 5 && currentBlue > 2 && currentGreen < 8;
     }
 
     public boolean isAllianceColor(){
