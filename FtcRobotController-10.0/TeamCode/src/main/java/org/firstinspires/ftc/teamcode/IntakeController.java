@@ -88,6 +88,7 @@ public class IntakeController implements RobotSubsystemController {
         if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
             liftServoControl.setServoPos(0.94);
             turnServoControl.setServoPos(0.28);
+            currentTServoPos = 0.28;
         }
         if (edgeDetection.rising(GamepadIndexValues.dpadDown)) {
             liftServoControl.setServoPos(0.3);
@@ -110,7 +111,7 @@ public class IntakeController implements RobotSubsystemController {
         intakeServoControl.setServoPos(0.3);
         turnServoControl.setServoPos(0.28);
         currentTServoPos = 0.28;
-        liftServoControl.setServoPos(0.62);
+        liftServoControl.setServoPos(0.94);
         intakeState = SubsystemState.Start;
     }
 }
