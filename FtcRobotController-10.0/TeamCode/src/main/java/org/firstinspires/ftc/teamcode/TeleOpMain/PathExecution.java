@@ -32,7 +32,6 @@ public class PathExecution extends LinearOpMode {
                     offsetZ = detection.pose.x; // Get the offset
                     telemetry.addData("Status", "Tag ID 11 Detected! Repositioning...");
                     telemetry.addData("Offset Z", offsetZ);
-
                     // Reposition to align Z offset to 0
                     double powerLeft = repositionPower;
                     double powerRight = repositionPower;

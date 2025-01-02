@@ -12,7 +12,7 @@ public class Testtt extends OpMode {
     @Override
     public void init() {
         // Initialize the motor and map it to the name 'backRightMotor'
-        backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
+        backRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addData("Status", "Initialized");
