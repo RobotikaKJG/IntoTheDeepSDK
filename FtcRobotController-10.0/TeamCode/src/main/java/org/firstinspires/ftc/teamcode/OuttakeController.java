@@ -7,21 +7,19 @@ public class OuttakeController implements RobotSubsystemController{
 
     public boolean risen = false;
     private final EdgeDetection edgeDetection;
-    private final MotorControl motorControl;
     private final HardwareMap hardwareMap;
     private final MotorControl outtakeMotorControl;
     private SubsystemState intakeState = SubsystemState.Idle;
-    private int initialPosition;
     public double currentAngle = 0;
-    private int rightBumperClicks = 0;
     private int bumperClicks = 0;
     public final int maxArmAngle = 930;
+    private boolean hasLifted = false;
+    public boolean goDown = false;
 
-    public OuttakeController(EdgeDetection edgeDetection, MotorControl motorControl, HardwareMap hardwareMap) {
+    public OuttakeController(EdgeDetection edgeDetection, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
         this.hardwareMap = hardwareMap;
-        this.motorControl = motorControl;
-        this.outtakeMotorControl = new MotorControl(hardwareMap, "armMotor", true);
+        this.outtakeMotorControl = new MotorControl(hardwareMap, "liftMotor", true);
     }
 
     @Override
@@ -45,10 +43,9 @@ public class OuttakeController implements RobotSubsystemController{
 
     @Override
     public void start() {
-        motorControl.resetMotorEncoder();
-        initialPosition = motorControl.getMotorCurrentPosition();
+        outtakeMotorControl.resetMotorEncoder();
 
-        rightBumperClicks = 0;
+        hasLifted = false;
         bumperClicks = 0;
 
         intakeState = SubsystemState.Run;
@@ -59,8 +56,8 @@ public class OuttakeController implements RobotSubsystemController{
         if (edgeDetection.rising(GamepadIndexValues.rightBumper)) {
             if (bumperClicks != 1) {
                 bumperClicks++;
-                rightBumperClicks++;
                 risen = true;
+                hasLifted = true;
                 outtakeMotorControl.runToAngle(maxArmAngle, 0.8, 1150, 1, DcMotorSimple.Direction.REVERSE);
             }
         } else if (edgeDetection.rising(GamepadIndexValues.rightTrigger)) {
@@ -71,9 +68,14 @@ public class OuttakeController implements RobotSubsystemController{
             }
         }
 
+        if (!risen && hasLifted && outtakeMotorControl.getMotorCurrentPosition() <= outtakeMotorControl.angleToTicks(maxArmAngle - 100, 1150, 1)) {
+            goDown = true;
+        }
+
         // Check if left and right bumper clicks balance out
-        if (outtakeMotorControl.getMotorCurrentPosition() <= 5 && bumperClicks == 0 && rightBumperClicks > 0) {
+        if (outtakeMotorControl.getMotorCurrentPosition() <= 5 && bumperClicks == 0 && hasLifted) {
             intakeState = SubsystemState.Stop;
+            outtakeMotorControl.runToAngle(0, 0.1, 1150, 1, DcMotorSimple.Direction.REVERSE);
         }
     }
 
@@ -83,8 +85,6 @@ public class OuttakeController implements RobotSubsystemController{
             // Once it reaches the position, stop the motor
             outtakeMotorControl.setMotorPower(0);
 
-            // Reset click counters and transition to Idle state
-            rightBumperClicks = 0;
             bumperClicks = 0;
             risen = false;
 

@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class IntakeController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
-    private final MotorControl motorControl;
     private final HardwareMap hardwareMap;
     private final OuttakeController outtakeController;
     private SubsystemState intakeState = SubsystemState.Idle;
@@ -19,14 +18,14 @@ public class IntakeController implements RobotSubsystemController {
     private double currentAngle = 0; // Current angle of the motor
     public boolean open = true;
     private double currentTServoPos = 0.28;
+    private boolean isUp = true;
 
     // Limits for motor movement
     private static final double minAngle = 0;    // Minimum angle (degrees)
     private static final double maxAngle = 2000; // Maximum angle (degrees)
 
-    public IntakeController(EdgeDetection edgeDetection, MotorControl motorControl, HardwareMap hardwareMap, OuttakeController outtakeController) {
+    public IntakeController(EdgeDetection edgeDetection, HardwareMap hardwareMap, OuttakeController outtakeController) {
         this.edgeDetection = edgeDetection;
-        this.motorControl = motorControl;
         this.hardwareMap = hardwareMap;
         this.intakeServoControl = new ServoControl(hardwareMap, "intakeServo", false);
         this.turnServoControl = new ServoControl(hardwareMap, "turnServo", false);
@@ -55,9 +54,24 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        if (edgeDetection.rising(GamepadIndexValues.cross)) {
+        if (outtakeController.risen) {
+            liftServoControl.setServoPos(0.46);
+            turnServoControl.setServoPos(0.28);
+            isUp = false;
+        }
+        else if (outtakeController.goDown) {
+            liftServoControl.setServoPos(0.3);
+            turnServoControl.setServoPos(0.28);
+            isUp = true;
+            outtakeController.goDown = false;
+        }
+
+
+
+        if (edgeDetection.rising(GamepadIndexValues.cross) && !isUp) {
             if (!open) {
                 intakeServoControl.setServoPos(0.3);
+
                 open = true;
             } else {
                 intakeServoControl.setServoPos(0.66);
@@ -66,17 +80,13 @@ public class IntakeController implements RobotSubsystemController {
             }
         }
 
-
-
-        if (edgeDetection.rising(GamepadIndexValues.dpadRight)) {
+        if (edgeDetection.rising(GamepadIndexValues.dpadRight) && !outtakeController.risen && !isUp) {
             if (currentTServoPos < 0.62) {
                 currentTServoPos += 0.17;
                 turnServoControl.setServoPos(currentTServoPos);
             }
         }
-
-        // Handle dpadLeft for turning 45 degrees counterclockwise
-        if (edgeDetection.rising(GamepadIndexValues.dpadLeft)) {
+        if (edgeDetection.rising(GamepadIndexValues.dpadLeft) && !outtakeController.risen && !isUp) {
             if (currentTServoPos > 0.28) {
                 currentTServoPos -= 0.17;
                 turnServoControl.setServoPos(currentTServoPos);
@@ -85,13 +95,15 @@ public class IntakeController implements RobotSubsystemController {
 
 
 
-        if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
-            liftServoControl.setServoPos(0.94);
+        if (edgeDetection.rising(GamepadIndexValues.dpadUp) && !outtakeController.risen) {
+            liftServoControl.setServoPos(0.3);
             turnServoControl.setServoPos(0.28);
             currentTServoPos = 0.28;
+            isUp = true;
         }
-        if (edgeDetection.rising(GamepadIndexValues.dpadDown)) {
-            liftServoControl.setServoPos(0.3);
+        if (edgeDetection.rising(GamepadIndexValues.dpadDown) && !outtakeController.risen) {
+            liftServoControl.setServoPos(0.94);
+            isUp = false;
         }
     }
 
@@ -111,7 +123,7 @@ public class IntakeController implements RobotSubsystemController {
         intakeServoControl.setServoPos(0.3);
         turnServoControl.setServoPos(0.28);
         currentTServoPos = 0.28;
-        liftServoControl.setServoPos(0.94);
+        liftServoControl.setServoPos(0.3);
         intakeState = SubsystemState.Start;
     }
 }

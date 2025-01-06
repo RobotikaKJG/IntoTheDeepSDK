@@ -17,11 +17,10 @@ public class TeleOpController extends LinearOpMode {
     private int sleep = 80;
     @Override
     public void runOpMode() throws InterruptedException {
-        MotorControl motorControl = new MotorControl(hardwareMap, "armMotor", true);
         EdgeDetection edgeDetection = new EdgeDetection();
-        OuttakeController outtakeController = new OuttakeController(edgeDetection, motorControl, hardwareMap);
-        IntakeController intakeController = new IntakeController(edgeDetection, motorControl, hardwareMap, outtakeController);
-        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, motorControl, hardwareMap, outtakeController);
+        OuttakeController outtakeController = new OuttakeController(edgeDetection, hardwareMap);
+        IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap, outtakeController);
+        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, hardwareMap, outtakeController);
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
 
@@ -70,9 +69,9 @@ public class TeleOpController extends LinearOpMode {
 
             drive(imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
-            intakeController.updateState();
-
             armExtentionController.updateState();
+
+            intakeController.updateState();
 
             outtakeController.updateState();
 
@@ -80,7 +79,7 @@ public class TeleOpController extends LinearOpMode {
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             if (longer) telemetry.addData("Loop time;", loopTime - sleep);
             else telemetry.addData("Loop time:", loopTime);
-            telemetry.addData("open:", intakeController.open);
+            telemetry.addData("risen", outtakeController.risen);
             telemetry.update();
         }
 

@@ -55,7 +55,7 @@ public class MotorControl {
     }
 
     // convert angle to ticks
-    private int angleToTicks(double angle, int ticksPerRev, double gearRatio) {
+    public int angleToTicks(double angle, int ticksPerRev, double gearRatio) {
         return (int) ((angle / 360.0) * ticksPerRev * gearRatio);
     }
 
