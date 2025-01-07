@@ -10,24 +10,27 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
+//TODO redo due to logic changes, NOTE
 public class ExtendoExtended implements Action {
     private boolean initialized = false;
     private final SlideLogic intakeSlideLogic;
+    private final int extensionTarget;
 
-    public ExtendoExtended(SlideLogic intakeSlideLogic) {
+    public ExtendoExtended(SlideLogic intakeSlideLogic, int extensionTarget) {
         this.intakeSlideLogic = intakeSlideLogic;
+        this.extensionTarget = extensionTarget;
     }
 
     @Override
     public boolean run (@NonNull TelemetryPacket packet) {
         if (!initialized) {
-            IntakeStates.setExtendoState(ExtendoStates.extended);
+            intakeSlideLogic.setSlideExtensionTarget(extensionTarget);
             initialized = true;
         }
         return isExtending();
     }
 
     private boolean isExtending() {
-        return Math.abs(intakeSlideLogic.getSlidePosition() - IntakeConstants.extendoMaxExtension) > IntakeConstants.extendoThreshold;
+        return Math.abs(intakeSlideLogic.getSlidePosition() - intakeSlideLogic.getSlideExtensionTarget()) > IntakeConstants.extendoThreshold;
     }
 }

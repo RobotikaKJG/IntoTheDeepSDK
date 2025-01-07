@@ -22,6 +22,6 @@ public class RightTriggerControl {
     }
 
     private void moveExtendoBack() {
-        IntakeStates.setExtendoState(ExtendoStates.retracting);
+        IntakeStates.setExtendoState(ExtendoStates.stepDown);
     }
 }

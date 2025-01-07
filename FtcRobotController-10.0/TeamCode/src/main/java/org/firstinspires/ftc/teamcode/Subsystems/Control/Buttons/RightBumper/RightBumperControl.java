@@ -20,6 +20,6 @@ public class RightBumperControl {
     }
 
     private void moveExtendoForward() {
-        IntakeStates.setExtendoState(ExtendoStates.extended);
+        IntakeStates.setExtendoState(ExtendoStates.stepUp);
     }
 }

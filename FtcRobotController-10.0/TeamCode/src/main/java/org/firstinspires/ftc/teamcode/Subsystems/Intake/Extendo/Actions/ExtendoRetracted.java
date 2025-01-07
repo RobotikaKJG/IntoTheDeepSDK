@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
+//TODO redo due to logic changes, NOTE
 public class ExtendoRetracted implements Action {
     private boolean initialized = false;
     private final SlideLogic intakeSlideLogic;

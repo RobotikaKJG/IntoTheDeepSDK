@@ -11,6 +11,7 @@ public class IntakeConstants {
     public static final double currentLimit = 3.35;
 
     public static final int extendoMaxExtension = 1650;
+    public static final int extendoMinExtension = 800;
     public static final int extendoThreshold = 20;
 
     public static final double servoSpeed = 1;

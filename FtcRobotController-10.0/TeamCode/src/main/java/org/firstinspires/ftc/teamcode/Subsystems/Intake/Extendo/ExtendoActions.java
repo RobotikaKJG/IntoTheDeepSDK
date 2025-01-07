@@ -14,8 +14,8 @@ public class ExtendoActions {
         this.intakeSlideLogic = intakeSlideLogic;
     }
 
-    public Action extend(){
-        return new ExtendoExtended(intakeSlideLogic);
+    public Action extend(int extensionTarget){
+        return new ExtendoExtended(intakeSlideLogic, extensionTarget);
     }
     public Action retract(){
         return new ExtendoRetracted(intakeSlideLogic);
