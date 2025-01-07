@@ -2,9 +2,6 @@ package org.firstinspires.ftc.teamcode.HardwareInterface.Sensor;
 
 import android.graphics.Color;
 
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Time;
-import com.acmerobotics.roadrunner.Twist2dDual;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
@@ -13,23 +10,22 @@ import org.firstinspires.ftc.teamcode.Main.Alliance;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Roadrunner.EncoderHeadingLocalizer;
 
 
 public class SensorControl {
 
     private final LimitSwitch[] limitSwitches;
     private final EdgeDetection edgeDetection;
-    private final ThreeDeadWheelLocalizer localizer;
+    private final EncoderHeadingLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
     public int currentColor;
     private int currentRed;
     private int currentGreen;
     private int currentBlue;
     private double angleModifier = 0; //used instead of internal angle reset, this is ugly but I don't want to mod roadrunner
-    private Pose2d pose = new Pose2d(0, 0, 0);
 
-    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  ThreeDeadWheelLocalizer localizer) {
+    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  EncoderHeadingLocalizer localizer) {
         // Could be added to an array later if more limit switches are introduced
         limitSwitches = new LimitSwitch[]{
                 hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
@@ -55,15 +51,15 @@ public class SensorControl {
     }
 
     public double getLocalizerAngle() {
-        Twist2dDual<Time> twist = localizer.update();
-        pose = pose.plus(twist.value());
         resetLocalizerAngle(); //Checks every time, resets only when button pressed
-        return pose.heading.toDouble() - angleModifier;
+        return localizer.getHeading() - angleModifier;
     }
 
     public void resetLocalizerAngle() {
-        if (edgeDetection.rising(GamepadIndexValues.options))
-            angleModifier = pose.heading.toDouble();
+        if (edgeDetection.rising(GamepadIndexValues.options)) {
+            localizer.resetEncoders();
+            angleModifier = 0;
+        }
     }
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {

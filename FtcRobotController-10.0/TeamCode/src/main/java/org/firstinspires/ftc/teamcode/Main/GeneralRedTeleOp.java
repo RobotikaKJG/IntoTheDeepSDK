@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
 
 @TeleOp
 public class GeneralRedTeleOp extends LinearOpMode {
@@ -15,7 +14,6 @@ public class GeneralRedTeleOp extends LinearOpMode {
         GlobalVariables.isAutonomous = false;
         GlobalVariables.alliance = Alliance.Red;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
-        ThreeDeadWheelLocalizer localizer = dependencies.localizer;
         IterativeController iterativeController = new IterativeController(dependencies);
 
         waitForStart();
@@ -26,7 +24,6 @@ public class GeneralRedTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             iterativeController.TeleOp();
-            localizer.update();
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

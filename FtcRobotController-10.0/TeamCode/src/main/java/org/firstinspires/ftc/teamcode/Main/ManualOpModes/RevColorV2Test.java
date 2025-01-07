@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
-import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Roadrunner.EncoderHeadingLocalizer;
 
 @TeleOp
 public class RevColorV2Test extends LinearOpMode {
@@ -18,7 +18,7 @@ public class RevColorV2Test extends LinearOpMode {
     public void runOpMode() {
         // Get the color sensor from hardwareMap
 
-        SensorControl sensorControl = new SensorControl(hardwareMap,edgeDetection, new ThreeDeadWheelLocalizer(hardwareMap));
+        SensorControl sensorControl = new SensorControl(hardwareMap,edgeDetection, new EncoderHeadingLocalizer(hardwareMap));
 
         // Wait for the Play button to be pressed
         waitForStart();
