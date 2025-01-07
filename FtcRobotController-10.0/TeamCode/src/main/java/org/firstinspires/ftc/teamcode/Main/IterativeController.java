@@ -26,7 +26,7 @@ public class IterativeController {
     private final EdgeDetection gamepad2EdgeDetection;
     private final DrivebaseController drivebaseController;
     private final SubsystemControl subsystemControl;
-    private final SubsystemControl subsystemControl2;
+    //private final SubsystemControl subsystemControl2;
     private final IntakeControl intakeControl;
     private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
@@ -41,7 +41,7 @@ public class IterativeController {
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
         subsystemControl = dependencies.createSubsystemControl();
-        subsystemControl2 = dependencies.createSubsystemControl2();
+        //subsystemControl2 = dependencies.createSubsystemControl2();
         intakeControl = dependencies.createIntakeControl();
         outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
@@ -54,14 +54,14 @@ public class IterativeController {
         updateCommonValues();
         drivebaseController.updateState();
 
-        if(gamepad1Active()) {
-            GlobalVariables.slowMode = false;
-            subsystemControl.update();
-        }
-        else if(gamepad2Active()) {
-            GlobalVariables.slowMode = true;
-            subsystemControl2.update();
-        }
+//        if(gamepad1Active()) {
+//            GlobalVariables.slowMode = false;
+        subsystemControl.update();
+        //}
+//        else if(gamepad2Active()) {
+//            GlobalVariables.slowMode = true;
+//            subsystemControl2.update();
+//        }
 
         sensorControl.updateColor();
         intakeControl.update();
