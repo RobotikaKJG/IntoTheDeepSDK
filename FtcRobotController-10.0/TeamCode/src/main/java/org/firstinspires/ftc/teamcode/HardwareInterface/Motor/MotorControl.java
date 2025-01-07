@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Motor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 public class MotorControl {
 
@@ -18,7 +22,7 @@ public class MotorControl {
     }
 
     private final HardwareMap hardwareMap;
-    private DcMotor[] motors;
+    private DcMotorEx[] motors;
     private final Utilities utilities = new Utilities();
 
 
@@ -30,35 +34,40 @@ public class MotorControl {
     }
 
     private void getMotors() {
-        motors = new DcMotor[]{
-                hardwareMap.dcMotor.get(MotorNames.frontLeft),
-                hardwareMap.dcMotor.get(MotorNames.backLeft),
-                hardwareMap.dcMotor.get(MotorNames.frontRight),
-                hardwareMap.dcMotor.get(MotorNames.backRight),
-                hardwareMap.dcMotor.get(MotorNames.intake),
-                hardwareMap.dcMotor.get(MotorNames.slideLeft),
-                hardwareMap.dcMotor.get(MotorNames.slideRight),
-                hardwareMap.dcMotor.get(MotorNames.extendo),
+        motors = new DcMotorEx[]{
+                hardwareMap.get(DcMotorEx.class, MotorNames.frontLeft),
+                hardwareMap.get(DcMotorEx.class, MotorNames.backLeft),
+                hardwareMap.get(DcMotorEx.class, MotorNames.frontRight),
+                hardwareMap.get(DcMotorEx.class, MotorNames.backRight),
+                hardwareMap.get(DcMotorEx.class, MotorNames.intake),
+                hardwareMap.get(DcMotorEx.class, MotorNames.slideLeft),
+                hardwareMap.get(DcMotorEx.class, MotorNames.slideRight),
+                hardwareMap.get(DcMotorEx.class, MotorNames.extendo),
         };
 
+        setMotorProperties();
+    }
+
+    private void setMotorProperties() {
         motors[MotorConstants.frontLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
-        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        setZeroPowerBehavior(MotorConstants.all, DcMotor.ZeroPowerBehavior.BRAKE);
+        setZeroPowerBehavior(MotorConstants.intake, DcMotor.ZeroPowerBehavior.FLOAT);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setMotorCurrentAlert(MotorConstants.intake, IntakeConstants.currentLimit);
     }
 
-    private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-        for (DcMotor i : motors)
-            i.setZeroPowerBehavior(zeroPowerBehavior);
+    public void setZeroPowerBehavior(int index, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+        for (int i = 0; i < Utilities.configLength(index); i++)
+            motors[Utilities.motorIndex(index, i)].setZeroPowerBehavior(zeroPowerBehavior);
     }
 
     public void setMotorSpeed(int index, double speed) {
         for (int i = 0; i < Utilities.configLength(index); i++)
             motorSpeeds[Utilities.motorIndex(index, i)] = speed;
     }
-
 
     public void addMotorSpeed(int index, double speed) {
         for (int i = 0; i < Utilities.configLength(index); i++)
@@ -89,6 +98,21 @@ public class MotorControl {
     public void setMotorPos(int index, int position){
         for (int i = 0; i < Utilities.configLength(index); i++)
             motors[Utilities.motorIndex(index, i)].setTargetPosition(position);
+    }
+
+    public void setMotorCurrentAlert(int index, double current)
+    {
+        for (int i = 0; i < Utilities.configLength(index); i++)
+            motors[Utilities.motorIndex(index, i)].setCurrentAlert(current, CurrentUnit.AMPS);
+    }
+
+    public boolean isOverCurrent(int index)
+    {
+        boolean overCurrent = false;
+        for (int i = 0; i < Utilities.configLength(index); i++)
+            if(motors[Utilities.motorIndex(index, i)].isOverCurrent())
+                overCurrent = true;
+        return overCurrent;
     }
 
     /**
