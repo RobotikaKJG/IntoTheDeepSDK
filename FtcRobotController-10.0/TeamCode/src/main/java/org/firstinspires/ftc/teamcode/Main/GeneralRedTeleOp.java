@@ -32,7 +32,7 @@ public class GeneralRedTeleOp extends LinearOpMode {
 
     private void calculateLoopTime()
     {
-        double currentTime = System.currentTimeMillis();
+        double currentTime = System.nanoTime() / 1_000_000.0;
         telemetry.addData("Loop time:", currentTime - prevTime);
         prevTime = currentTime;
     }
