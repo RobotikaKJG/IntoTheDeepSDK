@@ -55,12 +55,12 @@ public class IntakeController implements RobotSubsystemController {
     @Override
     public void start() {
         if (outtakeController.risen) {
-            liftServoControl.setServoPos(0.46);
+            liftServoControl.setServoPos(0.78);
             turnServoControl.setServoPos(0.28);
             isUp = false;
         }
         else if (outtakeController.goDown) {
-            liftServoControl.setServoPos(0.3);
+            liftServoControl.setServoPos(0.94);
             turnServoControl.setServoPos(0.28);
             isUp = true;
             outtakeController.goDown = false;
@@ -96,13 +96,13 @@ public class IntakeController implements RobotSubsystemController {
 
 
         if (edgeDetection.rising(GamepadIndexValues.dpadUp) && !outtakeController.risen) {
-            liftServoControl.setServoPos(0.3);
+            liftServoControl.setServoPos(0.94);
             turnServoControl.setServoPos(0.28);
             currentTServoPos = 0.28;
             isUp = true;
         }
         if (edgeDetection.rising(GamepadIndexValues.dpadDown) && !outtakeController.risen) {
-            liftServoControl.setServoPos(0.94);
+            liftServoControl.setServoPos(0.3);
             isUp = false;
         }
     }
@@ -123,7 +123,7 @@ public class IntakeController implements RobotSubsystemController {
         intakeServoControl.setServoPos(0.3);
         turnServoControl.setServoPos(0.28);
         currentTServoPos = 0.28;
-        liftServoControl.setServoPos(0.3);
+        liftServoControl.setServoPos(0.94);
         intakeState = SubsystemState.Start;
     }
 }
