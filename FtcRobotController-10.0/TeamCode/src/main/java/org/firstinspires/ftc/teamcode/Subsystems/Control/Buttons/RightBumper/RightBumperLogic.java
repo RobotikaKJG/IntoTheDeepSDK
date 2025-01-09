@@ -22,7 +22,7 @@ public class RightBumperLogic {
     }
 
     private boolean extendExtendo() {
-        if(outtakeActive() || extendoExtended()) return false;
+        if(outtakeActive()) return false;
 
         ControlStates.setRightBumperState(RightBumperStates.moveExtendoForward);
         completeAction();
