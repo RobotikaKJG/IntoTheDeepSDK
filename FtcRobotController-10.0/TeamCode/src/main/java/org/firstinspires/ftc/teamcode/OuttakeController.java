@@ -12,7 +12,7 @@ public class OuttakeController implements RobotSubsystemController{
     private SubsystemState intakeState = SubsystemState.Idle;
     public double currentAngle = 0;
     private int bumperClicks = 0;
-    public final int maxArmAngle = 930;
+    public final int maxArmAngle = 650;
     private boolean hasLifted = false;
     public boolean goDown = false;
 

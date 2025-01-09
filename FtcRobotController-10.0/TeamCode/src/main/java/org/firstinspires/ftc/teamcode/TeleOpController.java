@@ -61,7 +61,7 @@ public class TeleOpController extends LinearOpMode {
                 Thread.sleep(sleep);
                 armExtentionController.angleIncrement = 30;
             } else {
-                armExtentionController.angleIncrement = 3;
+                armExtentionController.angleIncrement = 6;
             }
             prevGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
