@@ -24,7 +24,7 @@ public class IntakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideExtensionStep() {
         //return 2400;
-        return 2500;
+        return 425;
     }
 
     @Override

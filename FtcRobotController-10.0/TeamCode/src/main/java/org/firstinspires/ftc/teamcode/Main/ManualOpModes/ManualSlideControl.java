@@ -35,6 +35,7 @@ public class ManualSlideControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
+            telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
