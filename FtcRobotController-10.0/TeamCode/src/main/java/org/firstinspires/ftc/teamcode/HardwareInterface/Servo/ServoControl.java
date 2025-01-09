@@ -12,7 +12,6 @@ public class ServoControl {
 
     private final HardwareMap hardwareMap;
     private Servo[] servos;
-    private CRServoImpl[] crServos;
 
     public ServoControl(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -26,10 +25,6 @@ public class ServoControl {
                 hardwareMap.get(Servo.class, "outtakeRightServo"),
                 hardwareMap.get(Servo.class, "releaseServo"),
                 hardwareMap.get(Servo.class, "intakeServo")
-        };
-
-        crServos = new CRServoImpl[]{
-                hardwareMap.get(CRServoImpl.class, "crServo") //placeholder
         };
     }
 
@@ -52,10 +47,5 @@ public class ServoControl {
 
     private boolean isInBounds(int index, double position) {
         return position >= ServoConstants.servoMinPos[index] && position <= ServoConstants.servoMaxPos[index];
-    }
-
-    public void setServoSpeed(int index, double speed)
-    {
-        crServos[index].setPower(speed);
     }
 }
