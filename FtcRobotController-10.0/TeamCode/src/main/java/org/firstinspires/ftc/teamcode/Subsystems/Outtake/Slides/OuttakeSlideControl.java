@@ -47,6 +47,13 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        return sensorControl.isLimitSwitchPressed(LimitSwitches.slide);
+        //return sensorControl.isLimitSwitchPressed(LimitSwitches.slide);
+        if(getSlidePosition() < 5)
+        {
+            motorControl.setMotorSpeed(MotorConstants.extendo,0);
+            motorControl.setMotors(MotorConstants.extendo);
+            return true;
+        }
+        return false;
     }
 }

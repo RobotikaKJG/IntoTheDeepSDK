@@ -47,6 +47,12 @@ public class IntakeSlideControl implements SlideControl {
     @Override
     public boolean isLimitSwitchPressed() {
         //return sensorControl.isLimitSwitchPressed(LimitSwitches.extendo);
-        return getSlidePosition() < 20; //while there is no limit switch, could add a couple ms of delay to a cycle, NOTE
+        if(getSlidePosition() < 5)
+        {
+            motorControl.setMotorSpeed(MotorConstants.extendo,0);
+            motorControl.setMotors(MotorConstants.extendo);
+            return true;
+        }
+        return false;
     }
 }
