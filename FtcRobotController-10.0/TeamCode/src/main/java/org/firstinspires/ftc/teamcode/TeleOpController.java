@@ -9,14 +9,24 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.EdgeDetection;
+import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 
 
 @TeleOp
 public class TeleOpController extends LinearOpMode {
     private boolean longer = true;
     private int sleep = 80;
+
     @Override
     public void runOpMode() throws InterruptedException {
+        // Initialize the Pinpoint Odometry Computer
+        GoBildaPinpointDriver pinpointDriver = hardwareMap.get(GoBildaPinpointDriver.class, "pinpointIMU");
+        pinpointDriver.initialize();
+
+        // Optional: Reset the position and calibrate IMU at start
+        pinpointDriver.resetPosAndIMU();
+
+        // Other initialization logic
         EdgeDetection edgeDetection = new EdgeDetection();
         OuttakeController outtakeController = new OuttakeController(edgeDetection, hardwareMap);
         IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap, outtakeController);
@@ -33,23 +43,19 @@ public class TeleOpController extends LinearOpMode {
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        // Adjust the orientation parameters to match your robot
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP));
-        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
-        imu.initialize(parameters);
-
         waitForStart();
 
-        if(isStopRequested()) return;
+        if (isStopRequested()) return;
 
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
 
         while (opModeIsActive()) {
             double startStopwatch = System.nanoTime();
+
+            // Update Pinpoint data
+            pinpointDriver.update();
+
             if (gamepad1.triangle) {
                 break;
             }
@@ -57,45 +63,46 @@ public class TeleOpController extends LinearOpMode {
                 longer = !longer;
             }
             if (longer) {
-                // Pause the thread for 100 milliseconds as part of the prank
                 Thread.sleep(sleep);
                 armExtentionController.angleIncrement = 30;
             } else {
                 armExtentionController.angleIncrement = 6;
             }
+
             prevGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
             edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
 
-            drive(imu, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+            // Use Pinpoint yaw for driving
+            drive(pinpointDriver, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
             armExtentionController.updateState();
-
             intakeController.updateState();
-
             outtakeController.updateState();
 
             // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             if (longer) telemetry.addData("Loop time;", loopTime - sleep);
             else telemetry.addData("Loop time:", loopTime);
+
             telemetry.addData("risen", outtakeController.risen);
+
+            telemetry.addData("Yaw (Degrees)", Math.toDegrees(pinpointDriver.getHeading()));
             telemetry.update();
         }
-
     }
 
-    private void drive(IMU imu, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
+    private void drive(GoBildaPinpointDriver pinpointDriver, DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
         double ly = -gamepad1.left_stick_y; // Y stick value is reversed
         double lx = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
 
-
         if (gamepad1.options) {
-            imu.resetYaw();
+            pinpointDriver.resetPosAndIMU();
         }
 
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        // Use Pinpoint's heading instead of the IMU
+        double botHeading = pinpointDriver.getHeading();
 
         // Rotate the movement direction counter to the bot's rotation
         double rotX = lx * Math.cos(-botHeading) - ly * Math.sin(-botHeading);
