@@ -53,12 +53,12 @@ public class OuttakeController implements RobotSubsystemController{
 
     @Override
     public void run() {
-        if (edgeDetection.rising(GamepadIndexValues.rightBumper)) {
+        if (edgeDetection.rising(GamepadIndexValues.rightBumper) && TeleOpController.isUp) {
             if (bumperClicks != 1) {
                 bumperClicks++;
                 risen = true;
                 hasLifted = true;
-                outtakeMotorControl.runToAngle(maxArmAngle, 0.8, 1150, 1, DcMotorSimple.Direction.REVERSE);
+                outtakeMotorControl.runToAngle(maxArmAngle, 0.5, 1150, 1, DcMotorSimple.Direction.REVERSE);
             }
         } else if (edgeDetection.rising(GamepadIndexValues.rightTrigger)) {
             if (bumperClicks != 0) {
@@ -73,7 +73,7 @@ public class OuttakeController implements RobotSubsystemController{
         }
 
         // Check if left and right bumper clicks balance out
-        if (outtakeMotorControl.getMotorCurrentPosition() <= 5 && bumperClicks == 0 && hasLifted) {
+        if (outtakeMotorControl.angleToTicks(outtakeMotorControl.getMotorCurrentPosition(), 1150, 1) <= 50 && bumperClicks == 0 && hasLifted) {
             intakeState = SubsystemState.Stop;
             outtakeMotorControl.runToAngle(0, 0.1, 1150, 1, DcMotorSimple.Direction.REVERSE);
         }

@@ -1,21 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.IMU;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.EdgeDetection;
-import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 
 
 @TeleOp
 public class TeleOpController extends LinearOpMode {
     private boolean longer = true;
     private int sleep = 80;
+    public static boolean isUp = false;
+    public static boolean wasDown = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,7 +27,7 @@ public class TeleOpController extends LinearOpMode {
         EdgeDetection edgeDetection = new EdgeDetection();
         OuttakeController outtakeController = new OuttakeController(edgeDetection, hardwareMap);
         IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap, outtakeController);
-        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, hardwareMap, outtakeController);
+        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, intakeController, hardwareMap, outtakeController);
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
 
@@ -80,12 +77,13 @@ public class TeleOpController extends LinearOpMode {
             intakeController.updateState();
             outtakeController.updateState();
 
+            isUp = intakeController.isUp;
+            wasDown = intakeController.wasDown;
+
             // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             if (longer) telemetry.addData("Loop time;", loopTime - sleep);
             else telemetry.addData("Loop time:", loopTime);
-
-            telemetry.addData("risen", outtakeController.risen);
 
             telemetry.addData("Yaw (Degrees)", Math.toDegrees(pinpointDriver.getHeading()));
             telemetry.update();

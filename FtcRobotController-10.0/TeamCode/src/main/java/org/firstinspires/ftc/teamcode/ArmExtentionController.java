@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import java.lang.Math;
 
 public class ArmExtentionController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
+    private final IntakeController intakeController;
     private final HardwareMap hardwareMap;
     private final OuttakeController outtakeController;
     private final MotorControl extendingMotorControl;
@@ -17,8 +17,9 @@ public class ArmExtentionController implements RobotSubsystemController {
     private boolean down = false;
     private final int maxExtentionAngle = 930;
 
-    public ArmExtentionController(EdgeDetection edgeDetection, HardwareMap hardwareMap, OuttakeController outtakeController) {
+    public ArmExtentionController(EdgeDetection edgeDetection, IntakeController intakeController, HardwareMap hardwareMap, OuttakeController outtakeController) {
         this.edgeDetection = edgeDetection;
+        this.intakeController = intakeController;
         this.hardwareMap = hardwareMap;
         this.extendingMotorControl = new MotorControl(hardwareMap, "extendingMotor", true);
         this.liftMotorControl = new MotorControl(hardwareMap, "liftMotor", true);
@@ -54,8 +55,13 @@ public class ArmExtentionController implements RobotSubsystemController {
     @Override
     public void run() {
 
+        if (TeleOpController.isUp && TeleOpController.wasDown) {
+            intakeController.wasDown = false;
+            angle = 0;
+        }
+
         if (outtakeController.risen) {
-            angle = maxExtentionAngle;
+            angle = 650;
         }
         else if (outtakeController.goDown) {
             angle = 0;

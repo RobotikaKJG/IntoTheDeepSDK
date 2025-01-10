@@ -18,7 +18,8 @@ public class IntakeController implements RobotSubsystemController {
     private double currentAngle = 0; // Current angle of the motor
     public boolean open = true;
     private double currentTServoPos = 0.28;
-    private boolean isUp = true;
+    public boolean isUp = true;
+    public boolean wasDown = false;
 
     // Limits for motor movement
     private static final double minAngle = 0;    // Minimum angle (degrees)
@@ -103,6 +104,7 @@ public class IntakeController implements RobotSubsystemController {
         }
         if (edgeDetection.rising(GamepadIndexValues.dpadDown) && !outtakeController.risen) {
             liftServoControl.setServoPos(0.3);
+            wasDown = true;
             isUp = false;
         }
     }
