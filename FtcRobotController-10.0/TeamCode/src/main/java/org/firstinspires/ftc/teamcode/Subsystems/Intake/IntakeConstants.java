@@ -8,7 +8,7 @@ public class IntakeConstants {
     public static double getIntakeSpeed(){
         return GlobalVariables.slowMode ? intakeSlowSpeed : intakeSpeed;
     }
-    public static final double currentLimit = 3.35;
+    public static final double currentLimit = 5;//3.35;
 
     public static final int extendoMaxExtension = 1650;
     public static final int extendoMinExtension = 800;

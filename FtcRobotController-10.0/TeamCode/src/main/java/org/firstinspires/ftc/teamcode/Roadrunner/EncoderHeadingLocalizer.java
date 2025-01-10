@@ -1,26 +1,34 @@
 package org.firstinspires.ftc.teamcode.Roadrunner;
 
+import com.acmerobotics.roadrunner.DualNum;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Time;
+import com.acmerobotics.roadrunner.Twist2dDual;
+import com.acmerobotics.roadrunner.Vector2dDual;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+
 public class EncoderHeadingLocalizer {
-    private final DcMotorEx leftEncoder, rightEncoder;
+    //private final DcMotorEx leftEncoder, rightEncoder;
     private double leftYTicks;
     private double rightYTicks;
 
     private int lastLeftPos = 0;
     private int lastRightPos = 0;
+    private double currentHeading = 0;
 
-    public EncoderHeadingLocalizer(HardwareMap hardwareMap) {
+    public EncoderHeadingLocalizer(MotorControl motorControl) {
         // Initialize encoders
-        leftEncoder = hardwareMap.get(DcMotorEx.class, "frontLeftMotor");
-        rightEncoder = hardwareMap.get(DcMotorEx.class, "frontRightMotor");
+        //leftEncoder = hardwareMap.get(DcMotorEx.class, "frontLeftMotor");
+        //rightEncoder = hardwareMap.get(DcMotorEx.class, "frontRightMotor");
 
         // Set directions (adjust based on your robot's configuration)
-        leftEncoder.setDirection(DcMotorSimple.Direction.REVERSE); // Adjust if necessary
-        rightEncoder.setDirection(DcMotorSimple.Direction.FORWARD); // Adjust if necessary
+        //leftEncoder.setDirection(DcMotorSimple.Direction.REVERSE); // Adjust if necessary
+        //rightEncoder.setDirection(DcMotorSimple.Direction.FORWARD); // Adjust if necessary
 
         // Initialize default parameters (you can adjust based on your robot design)
         leftYTicks = 0.0;
@@ -34,8 +42,8 @@ public class EncoderHeadingLocalizer {
 
     public double getHeading() {
         // Read current positions
-        int leftPos = leftEncoder.getCurrentPosition();
-        int rightPos = rightEncoder.getCurrentPosition();
+        int leftPos = 0;//leftEncoder.getCurrentPosition();
+        int rightPos = 0;//rightEncoder.getCurrentPosition();
 
         // Calculate deltas
         int leftDelta = leftPos - lastLeftPos;
@@ -45,14 +53,14 @@ public class EncoderHeadingLocalizer {
         lastLeftPos = leftPos;
         lastRightPos = rightPos;
 
-        // Calculate heading (difference between left and right deltas normalized by ticks)
-        return (leftDelta - rightDelta) / (leftYTicks - rightYTicks);
+        currentHeading += (leftDelta - rightDelta) / (leftYTicks - rightYTicks);
+        return currentHeading;// - angleModifier;
     }
 
     public void resetEncoders(){
-        leftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftEncoder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightEncoder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        resetEncoders(0);
+    }
+    public void resetEncoders(double targetAngle){
+        currentHeading = targetAngle;
     }
 }

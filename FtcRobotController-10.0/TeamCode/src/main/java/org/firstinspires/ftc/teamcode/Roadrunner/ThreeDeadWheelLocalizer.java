@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Roadrunner;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.DualNum;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.Twist2dDual;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -24,6 +25,7 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         public double par1YTicks = 1.0; // y position of the second parallel encoder (in tick units)
         public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
     }
+    private double currentHeading = 0;
 
     public static Params PARAMS = new Params();
 
@@ -95,5 +97,50 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         lastPerpPos = perpPosVel.position;
 
         return twist;
+    }
+    public double getHeading() {
+        PositionVelocityPair par0PosVel = par0.getPositionAndVelocity();
+        PositionVelocityPair par1PosVel = par1.getPositionAndVelocity();
+
+        FlightRecorder.write("THREE_DEAD_WHEEL_INPUTS", new ThreeDeadWheelInputsMessage(par0PosVel, par1PosVel, new PositionVelocityPair(0,0,0,0)));
+
+        if (!initialized) {
+            initialized = true;
+
+            lastPar0Pos = par0PosVel.position;
+            lastPar1Pos = par1PosVel.position;
+
+            return  0;
+        }
+
+        int par0PosDelta = par0PosVel.position - lastPar0Pos;
+        int par1PosDelta = par1PosVel.position - lastPar1Pos;
+
+        Twist2dDual<Time> twist = new Twist2dDual<>(
+                new Vector2dDual<>(
+                        new DualNum<Time>(new double[] {
+                                (PARAMS.par0YTicks * par1PosDelta - PARAMS.par1YTicks * par0PosDelta) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                                (PARAMS.par0YTicks * par1PosVel.velocity - PARAMS.par1YTicks * par0PosVel.velocity) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                        }).times(inPerTick),
+                        new DualNum<Time>(new double[] {
+                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosDelta - par0PosDelta) + 0),
+                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosVel.velocity - par0PosVel.velocity) + 0),
+                        }).times(inPerTick)
+                ),
+                new DualNum<>(new double[] {
+                        (par0PosDelta - par1PosDelta) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                        (par0PosVel.velocity - par1PosVel.velocity) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                })
+        );
+
+        lastPar0Pos = par0PosVel.position;
+        lastPar1Pos = par1PosVel.position;
+
+        Pose2d pose = new Pose2d(0, 0, 0);
+        pose = pose.plus(twist.value());
+        //resetLocalizerAngle(); //Checks every time, resets only when button pressed
+        currentHeading += pose.heading.toDouble();
+
+        return currentHeading;
     }
 }

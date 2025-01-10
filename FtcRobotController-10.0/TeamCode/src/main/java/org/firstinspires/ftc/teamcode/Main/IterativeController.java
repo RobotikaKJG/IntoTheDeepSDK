@@ -63,7 +63,15 @@ public class IterativeController {
 //            subsystemControl2.update();
 //        }
 
-        sensorControl.updateColor();
+
+
+        sensorControl.updateDistance();
+        if(sensorControl.getDistance() < 70)
+            sensorControl.updateColor();
+        else{
+            sensorControl.currentColor = 0;
+        }
+
         intakeControl.update();
         outtakeControl.update();
     }

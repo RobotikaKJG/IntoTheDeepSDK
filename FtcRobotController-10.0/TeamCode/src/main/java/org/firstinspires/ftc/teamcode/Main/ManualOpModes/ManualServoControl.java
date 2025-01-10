@@ -33,6 +33,7 @@ public class ManualServoControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press left bumper for min pos, press right bumper for max pos");
+            telemetry.addLine("Press square to cycle through servos");
             if(dependencies.edgeDetection.rising(GamepadIndexValues.leftBumper))
             {
                 dependencies.servoControl.setServoPos(currentServo, ServoConstants.servoMinPos[currentServo]);

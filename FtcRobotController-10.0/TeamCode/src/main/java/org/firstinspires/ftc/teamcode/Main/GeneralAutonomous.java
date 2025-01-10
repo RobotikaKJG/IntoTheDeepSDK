@@ -31,14 +31,14 @@ public class GeneralAutonomous extends LinearOpMode {
             //Emergency stop
             if (gamepad1.triangle)
                 break;
-            //autonomousControl.runAutonomous();
+            autonomousControl.runAutonomous();
             telemetry.update();
         }
     }
 
     private void initialise() {
         //noinspection unused
-        //SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
+        SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
 
         //Needs to be set to false for SensorControl initialisation through AutonomousDependencies
         GlobalVariables.wasAutonomous = false;
@@ -56,6 +56,7 @@ public class GeneralAutonomous extends LinearOpMode {
     private void begin() {
         //Update variable that autonomous happened for the driver oriented rotation after it
         GlobalVariables.wasAutonomous = true;
+        autonomousControl.startAutonomous();
     }
 }
 
