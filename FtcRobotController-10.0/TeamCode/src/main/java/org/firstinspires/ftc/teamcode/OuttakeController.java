@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class OuttakeController implements RobotSubsystemController{
-
+public class OuttakeController implements RobotSubsystemController {
     public boolean risen = false;
     private final EdgeDetection edgeDetection;
     private final HardwareMap hardwareMap;
@@ -15,16 +14,18 @@ public class OuttakeController implements RobotSubsystemController{
     public final int maxArmAngle = 650;
     private boolean hasLifted = false;
     public boolean goDown = false;
+    public boolean square = false;
 
     public OuttakeController(EdgeDetection edgeDetection, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
         this.hardwareMap = hardwareMap;
+
         this.outtakeMotorControl = new MotorControl(hardwareMap, "liftMotor", true);
     }
 
     @Override
     public void updateState() {
-        currentAngle = outtakeMotorControl.getMotorCurrentPosition();
+        currentAngle = (outtakeMotorControl.getMotorCurrentPosition() / (double) 1150) * 360.0;
         switch (intakeState) {
             case Start:
                 start();
@@ -44,10 +45,8 @@ public class OuttakeController implements RobotSubsystemController{
     @Override
     public void start() {
         outtakeMotorControl.resetMotorEncoder();
-
         hasLifted = false;
         bumperClicks = 0;
-
         intakeState = SubsystemState.Run;
     }
 
@@ -70,34 +69,32 @@ public class OuttakeController implements RobotSubsystemController{
 
         if (!risen && hasLifted && outtakeMotorControl.getMotorCurrentPosition() <= outtakeMotorControl.angleToTicks(maxArmAngle - 100, 1150, 1)) {
             goDown = true;
+            hasLifted = false;
         }
 
-        // Check if left and right bumper clicks balance out
-        if (outtakeMotorControl.angleToTicks(outtakeMotorControl.getMotorCurrentPosition(), 1150, 1) <= 50 && bumperClicks == 0 && hasLifted) {
-            intakeState = SubsystemState.Stop;
-            outtakeMotorControl.runToAngle(0, 0.1, 1150, 1, DcMotorSimple.Direction.REVERSE);
+        if (edgeDetection.rising(GamepadIndexValues.square) && TeleOpController.isUp && !hasLifted) {
+            square = !square;
+            if (square) {
+                risen = true;
+                hasLifted = true;
+                outtakeMotorControl.runToAngle(maxArmAngle, 0.5, 1150, 1, DcMotorSimple.Direction.REVERSE);
+            }
         }
+        else if (edgeDetection.rising(GamepadIndexValues.square) && hasLifted) {
+            square = !square;
+            risen = false;
+            outtakeMotorControl.runToAngle(0, 0.5, 1150, 1, DcMotorSimple.Direction.REVERSE);
+        }
+
     }
 
     @Override
     public void stop() {
-        if (!outtakeMotorControl.isMotorBusy()) {
-            // Once it reaches the position, stop the motor
-            outtakeMotorControl.setMotorPower(0);
-
-            bumperClicks = 0;
-            risen = false;
-
-            // Synchronize the current angle with the motor's actual position
-            outtakeMotorControl.resetMotorAngle();
-
-            intakeState = SubsystemState.Idle;
-        }
+        intakeState = SubsystemState.Idle;
     }
 
     @Override
     public void idle() {
         intakeState = SubsystemState.Start;
-
     }
 }

@@ -20,6 +20,16 @@ public class ServoControl {
         }
     }
 
+    public double getServoPos() {
+        if (servo != null) {
+            return servo.getPosition();
+        } else if (crservo != null) {
+            return crservo.getPower();
+        } else {
+            return 0.0;
+        }
+    }
+
     // Set position for standard servo
     public void setServoPos(double position) {
         if (servo != null) {

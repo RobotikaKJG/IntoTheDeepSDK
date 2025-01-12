@@ -9,9 +9,10 @@ public class ArmExtentionController implements RobotSubsystemController {
     private final HardwareMap hardwareMap;
     private final OuttakeController outtakeController;
     private final MotorControl extendingMotorControl;
-    private final MotorControl liftMotorControl;
     private SubsystemState intakeState = SubsystemState.Idle;
+    public double currentAngle = 0;
     public double angle = 0;
+    private double angleS = 550;
     public double angleIncrement = 10;
     private boolean up = false;
     private boolean down = false;
@@ -21,14 +22,14 @@ public class ArmExtentionController implements RobotSubsystemController {
         this.edgeDetection = edgeDetection;
         this.intakeController = intakeController;
         this.hardwareMap = hardwareMap;
-        this.extendingMotorControl = new MotorControl(hardwareMap, "extendingMotor", true);
-        this.liftMotorControl = new MotorControl(hardwareMap, "liftMotor", true);
         this.outtakeController = outtakeController;
+
+        this.extendingMotorControl = new MotorControl(hardwareMap, "extendingMotor", true);
     }
 
     @Override
     public void updateState() {
-
+        currentAngle = (extendingMotorControl.getMotorCurrentPosition() / (double) 1150) * 360.0;
         switch (intakeState) {
             case Start:
                 start();
@@ -54,18 +55,21 @@ public class ArmExtentionController implements RobotSubsystemController {
 
     @Override
     public void run() {
-
         if (TeleOpController.isUp && TeleOpController.wasDown) {
             intakeController.wasDown = false;
             angle = 0;
         }
 
         if (outtakeController.risen) {
-            angle = 650;
-        }
-        else if (outtakeController.goDown) {
+            if (outtakeController.square) {
+                angle = angleS;
+            } else {
+                angle = 620;
+            }
+        } else if (outtakeController.goDown) {
             angle = 0;
         }
+
 
         if (edgeDetection.rising(GamepadIndexValues.leftBumper)) {
             up = true;
@@ -89,13 +93,24 @@ public class ArmExtentionController implements RobotSubsystemController {
             angle -= angleIncrement;
         }
 
+        if (intakeController.sample) {
+            angleS = 0;
+            if (currentAngle < 20) {
+                intakeController.liftDown = true;
+                intakeController.sample = false;
+            }
+        }
+
+        if (!outtakeController.square) {
+            angleS = 300;
+        }
+
         extendingMotorControl.runToAngle(angle, 0.6, 1150, 1.0, DcMotorSimple.Direction.FORWARD);
-        if (angle < 5 && down) {
+        if (angle < 10 && down) {
             extendingMotorControl.runToAngle(0, 1, 1150, 1.0, DcMotorSimple.Direction.FORWARD);
             angle = 0;
             intakeState = SubsystemState.Stop;
         }
-
     }
 
     @Override

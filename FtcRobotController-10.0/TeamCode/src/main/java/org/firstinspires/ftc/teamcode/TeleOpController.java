@@ -13,6 +13,7 @@ public class TeleOpController extends LinearOpMode {
     private int sleep = 80;
     public static boolean isUp = false;
     public static boolean wasDown = false;
+    public static boolean sample = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -79,11 +80,17 @@ public class TeleOpController extends LinearOpMode {
 
             isUp = intakeController.isUp;
             wasDown = intakeController.wasDown;
+            sample = intakeController.sample;
 
             // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             if (longer) telemetry.addData("Loop time;", loopTime - sleep);
             else telemetry.addData("Loop time:", loopTime);
+            telemetry.addData("isup", intakeController.isUp);
+            telemetry.addData("open", intakeController.open);
+            telemetry.addData("sample", intakeController.sample);
+            telemetry.addData("square", outtakeController.square);
+            telemetry.addData("angle:", armExtentionController.currentAngle);
 
             telemetry.addData("Yaw (Degrees)", Math.toDegrees(pinpointDriver.getHeading()));
             telemetry.update();
