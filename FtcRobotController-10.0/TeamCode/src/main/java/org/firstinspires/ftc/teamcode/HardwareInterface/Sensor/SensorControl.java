@@ -95,6 +95,13 @@ public class SensorControl {
         currentBlue = Color.blue(currentColor);
     }
 
+    public void resetColor(){
+        currentColor = 0;
+        currentRed = 0;
+        currentGreen = 0;
+        currentBlue = 0;
+    }
+
     public void updateDistance(){
         currentDistance = rangeSensor.getDistance(DistanceUnit.MM);
     }

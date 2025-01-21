@@ -75,11 +75,15 @@ public class AutoCloseLogic {
     }
 
     private void idle() {
-        if(IntakeStates.getIntakeState() == SubsystemState.Run)
+        if(IntakeStates.getIntakeState() == SubsystemState.Run) {
+            sensorControl.resetColor();
             IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        }
     }
 
     private boolean isSampleDetected(){
+        if(sensorControl.getDistance() > 70)
+            return false;
         return sensorControl.isYellow() || sensorControl.isAllianceColor();
     }
 
