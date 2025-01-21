@@ -10,8 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
-import org.firstinspires.ftc.teamcode.Roadrunner.EncoderHeadingLocalizer;
-import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
@@ -37,7 +36,7 @@ public class Dependencies {
     public final Gamepad gamepad1;
     public final Gamepad gamepad2;
     public final Telemetry telemetry;
-    public final ThreeDeadWheelLocalizer localizer;
+    public final StandardTrackingWheelLocalizer localizer;
     public MotorControl motorControl;
     public SensorControl sensorControl;
     public ServoControl servoControl;
@@ -50,7 +49,7 @@ public class Dependencies {
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
         this.telemetry = telemetry;
-        localizer = null; //new ThreeDeadWheelLocalizer(hardwareMap);
+        localizer = new StandardTrackingWheelLocalizer(hardwareMap);
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
