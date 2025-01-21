@@ -21,7 +21,7 @@ public class LeftBumperLogic {
     }
 
     private boolean manualIntakeClose() {
-        if(!intakeActive() || IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand) return false;
+        if(intakeClosing()) return false;
 
         ControlStates.setLeftBumperState(LeftBumperStates.manualIntakeClose);
         completeAction();
@@ -46,5 +46,12 @@ public class LeftBumperLogic {
         ControlStates.setLeftBumperState(LeftBumperStates.moveSlidesUp);
         completeAction();
         return true;
+    }
+
+    private boolean intakeClosing(){
+        return IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.waitToRetract ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.closeClaw ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.idle;
     }
 }
