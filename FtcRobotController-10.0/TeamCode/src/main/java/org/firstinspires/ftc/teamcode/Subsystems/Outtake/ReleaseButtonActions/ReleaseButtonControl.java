@@ -55,7 +55,7 @@ public class ReleaseButtonControl {
     }
 
     private void retractSlides() {
-        OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
     }
 
 

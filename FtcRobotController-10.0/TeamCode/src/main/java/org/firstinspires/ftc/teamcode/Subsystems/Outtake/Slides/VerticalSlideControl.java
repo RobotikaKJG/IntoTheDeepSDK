@@ -19,14 +19,21 @@ public class VerticalSlideControl {
             updateStates();
             prevVerticalSlideStates = OuttakeStates.getVerticalSlideState();
         }
+        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
+            if(slideLogic.slidesBottomReached()) {
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+            }
+        }
     }
 
     private void updateStates() {
         switch(OuttakeStates.getVerticalSlideState()){
-            case closed:
-                slideLogic.setSlideExtensionTarget(0);
+            case close:
+                slideLogic.setSlideExtensionTarget(20);
                 OuttakeStates.setArmState(ArmStates.down);
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+                //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
             case lowBasket:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);

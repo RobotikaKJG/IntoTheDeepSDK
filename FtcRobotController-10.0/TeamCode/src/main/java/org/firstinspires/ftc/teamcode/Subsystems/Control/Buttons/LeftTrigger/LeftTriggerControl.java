@@ -52,7 +52,7 @@ public class LeftTriggerControl {
     private void moveSlidesDown() {
         switch(OuttakeStates.getVerticalSlideState()){
             case lowBasket:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
                 break;
             case highBasket:
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);
