@@ -50,12 +50,12 @@ public class AutoCloseControl {
         }
     }
 
-    private static void secureGoodSample() {
+    private void secureGoodSample() {
         IntakeStates.setMotorState(IntakeMotorStates.forward);
         IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 
-    private static void ejectExtraSamples() {
+    private void ejectExtraSamples() {
         IntakeStates.setMotorState(IntakeMotorStates.backward);
     }
 
