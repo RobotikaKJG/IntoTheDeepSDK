@@ -21,6 +21,7 @@ public class ManualExtendoControl extends LinearOpMode {
         double startTime = 0;
         double duration = 0;
         boolean wasIf = false;
+        boolean retracting = true;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);
@@ -61,7 +62,15 @@ public class ManualExtendoControl extends LinearOpMode {
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
                 intakeSlideControl.setSlidePosition(20);
+                retracting = true;
             }
+
+            if(retracting)
+            {
+                if(intakeSlideControl.isLimitSwitchPressed())
+                    retracting = false;
+            }
+
             if(intakeSlideControl.getSlidePosition() > slidePosition && !wasIf)
             {
                 duration = System.currentTimeMillis() - startTime;

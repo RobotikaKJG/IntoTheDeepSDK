@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
@@ -25,6 +27,7 @@ public class ManualSlideControl extends LinearOpMode {
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
         waitForStart();
+        boolean retracting = true;
 
         if (isStopRequested()) return;
 
@@ -36,6 +39,9 @@ public class ManualSlideControl extends LinearOpMode {
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
             telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
+            telemetry.addData("Retracting", retracting);
+            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
+            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.extendo));
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -54,7 +60,15 @@ public class ManualSlideControl extends LinearOpMode {
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                outtakeSlideControl.setSlidePosition(0);
+                outtakeSlideControl.setSlidePosition(20);
+                retracting = true;
+            }
+
+            if(retracting)
+            {
+                telemetry.addLine("Retracting");
+                if(outtakeSlideControl.isLimitSwitchPressed())
+                    retracting = false;
             }
         }
     }
