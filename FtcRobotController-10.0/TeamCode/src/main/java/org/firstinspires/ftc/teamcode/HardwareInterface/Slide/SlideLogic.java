@@ -9,6 +9,7 @@ public class SlideLogic {
     private int slideExtensionTarget = 0;
     private final SlideProperties slideProperties;
     private int slideMaxExtension;
+    private int slideMinExtension;
     private int slideExtensionStep;
 
     public SlideLogic(SlideControl slideControl, SlideProperties slideProperties) {
@@ -21,6 +22,7 @@ public class SlideLogic {
     public void setSlideProperties()
     {
         this.slideMaxExtension = slideProperties.getSlideMaxExtension();
+        this.slideMinExtension = slideProperties.getSlideMinExtension();
         this.slideExtensionStep = slideProperties.getSlideExtensionStep();
     }
 
@@ -56,7 +58,7 @@ public class SlideLogic {
     }
 
     public boolean isExtensionTargetNotInBounds(int slideExtensionTarget) {
-        return slideExtensionTarget < 0 || slideExtensionTarget > slideMaxExtension;
+        return slideExtensionTarget < slideMinExtension || slideExtensionTarget > slideMaxExtension;
     }
 
     public void resetEncoders() {

@@ -14,7 +14,12 @@ public class OuttakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideMaxExtension() {
         // minimum extension position, first snap pos for outtakeLeft macro
-        return 2000;//full 2170
+        return 2100;//full 2170
+    }
+
+    @Override
+    public int getSlideMinExtension() {
+        return 20;
     }
 
     @Override
