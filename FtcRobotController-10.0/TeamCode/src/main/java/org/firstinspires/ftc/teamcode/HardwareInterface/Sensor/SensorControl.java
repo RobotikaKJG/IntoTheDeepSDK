@@ -2,31 +2,24 @@ package org.firstinspires.ftc.teamcode.HardwareInterface.Sensor;
 
 import android.graphics.Color;
 
-import com.acmerobotics.roadrunner.ftc.LazyImu;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Main.Alliance;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Roadrunner.ThreeDeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 
 
 public class SensorControl {
-    public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-            RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
-    public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 
     private final LimitSwitch[] limitSwitches;
     private final EdgeDetection edgeDetection;
+    private final StandardTrackingWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
     public final LynxI2cColorRangeSensor rangeSensor;
     public int currentColor;
@@ -34,22 +27,8 @@ public class SensorControl {
     private int currentGreen;
     private int currentBlue;
     private double currentDistance;
-    private LazyImu lazyImu;
-    private IMU imu;
-    private double angleModifier = 0; //used instead of internal angle reset, this is ugly but I don't want to mod roadrunner
 
-    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  ThreeDeadWheelLocalizer localizer) {
-        // Could be added to an array later if more limit switches are introduced
-         lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(
-                logoFacingDirection, usbFacingDirection));
-         imu = lazyImu.get();
-         imu.resetYaw();
 
-        limitSwitches = new LimitSwitch[]{
-                hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
-                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
-        };
-        limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
         rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
         colorSensor.setGain(2);
@@ -61,24 +40,22 @@ public class SensorControl {
 
     private void setInitialLocalisationAngle() {
         if (!GlobalVariables.wasAutonomous)
-            angleModifier = 0;
+            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
         else {
             GlobalVariables.wasAutonomous = false;
-            angleModifier = Math.toRadians(-45);
+            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(-45)));
         }
     }
 
     public double getLocalizerAngle() {
-        double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        resetLocalizerAngle(heading); //Checks every time, resets only when button pressed
-        return heading - angleModifier;
+        resetLocalizerAngle(); //Checks every time, resets only when button pressed
+        Pose2d currentPose = localizer.getPoseEstimate();
+        return currentPose.getHeading();
     }
 
-    public void resetLocalizerAngle(double heading) {
-        if (edgeDetection.rising(GamepadIndexValues.options)) {
-            //localizer.resetEncoders();
-            imu.resetYaw();
-        }
+    public void resetLocalizerAngle() {
+        if (edgeDetection.rising(GamepadIndexValues.options))
+            localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
     }
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {
