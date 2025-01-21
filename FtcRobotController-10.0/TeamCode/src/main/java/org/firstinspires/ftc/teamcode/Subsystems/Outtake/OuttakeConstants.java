@@ -10,6 +10,8 @@ public class OuttakeConstants {
     public static final double outtakeArmCloseWait = 1;//0.65;
     public static final int lowBasketPos = 1350;
     public static final int highBasketPos = 2000;
+    public static final int lowBasketPos = 1100;
+    public static final int highBasketPos = 2100;
     public static final int slideTargetThreshold = 20;
 
     //round needed to prevent floating point errors
