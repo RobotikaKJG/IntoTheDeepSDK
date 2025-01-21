@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class ReleaseButtonLogic {
     private double currentWait = 0;
@@ -62,7 +63,8 @@ public class ReleaseButtonLogic {
 
     private void waitToRelease(){
         if(currentWait > getSeconds()) return;
-        addWaitTime(OuttakeConstants.outtakeArmCloseWait);
+        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.lowBasket)
+            addWaitTime(OuttakeConstants.outtakeArmCloseWait);
         OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractArm);
     }
 
