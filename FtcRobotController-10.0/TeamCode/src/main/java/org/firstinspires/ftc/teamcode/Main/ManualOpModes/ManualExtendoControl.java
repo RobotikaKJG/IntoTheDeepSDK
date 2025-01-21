@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
@@ -39,6 +40,7 @@ public class ManualExtendoControl extends LinearOpMode {
             telemetry.addLine("Press square to extend, press circle to retract");
             telemetry.addData("Slide position", intakeSlideControl.getSlidePosition());
             telemetry.addData("Duration", duration);
+            telemetry.addData("Current", dependencies.motorControl.getMotorCurrent(MotorConstants.extendo));
             //telemetry.addData("Slide inner target: ", intakeSlideControl.);
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
