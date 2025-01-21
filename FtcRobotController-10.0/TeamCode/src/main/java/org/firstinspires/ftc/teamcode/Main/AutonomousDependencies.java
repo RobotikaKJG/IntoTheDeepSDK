@@ -21,7 +21,7 @@ public class AutonomousDependencies extends Dependencies {
     }
 
     public SampleAuton createSampleAuton() {
-        return new SampleAuton(drive,elapsedTime,autonomousControl);
+        return new SampleAuton(drive);
     }
 
     public AutonomousControl createAutonomousControl() {

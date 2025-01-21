@@ -1,17 +1,18 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Sensor;
 
 import android.graphics.Color;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
-
-import org.firstinspires.ftc.teamcode.Enums.Alliance;
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Main.Alliance;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.SensorCode.LimitSwitch;
 
 
 public class SensorControl {
@@ -20,25 +21,38 @@ public class SensorControl {
     private final EdgeDetection edgeDetection;
     private final StandardTrackingWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
+    public final LynxI2cColorRangeSensor rangeSensor;
     public int currentColor;
     private int currentRed;
     private int currentGreen;
     private int currentBlue;
+    private double currentDistance;
 
     public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
-        // Could be added to an array later if more limit switches are introduced
-        limitSwitches = new LimitSwitch[]{
-                hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
-                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
-        };
-        limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
-        colorSensor.setGain(2);
-        this.localizer = localizer;
+        limitSwitches = getLimitSwitches(hardwareMap);
 
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
+        rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
+        colorSensor.setGain(4);//2);
+
+        this.localizer = localizer;
         setInitialLocalisationAngle();
 
-        this.edgeDetection = edgeDetection;;
+        this.edgeDetection = edgeDetection;
+    }
+
+    private LimitSwitch[] getLimitSwitches(HardwareMap hardwareMap) {
+        final LimitSwitch[] limitSwitches;
+        limitSwitches = new LimitSwitch[]{
+                hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "rightSlideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
+        };
+
+        limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
+        limitSwitches[1].setMode(LimitSwitch.SwitchConfig.NC);
+        limitSwitches[2].setMode(LimitSwitch.SwitchConfig.NC);
+        return limitSwitches;
     }
 
     private void setInitialLocalisationAngle() {
@@ -63,10 +77,12 @@ public class SensorControl {
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {
         switch (state) {
-            case slide:
+            case slideLeft:
                 return limitSwitches[0].getIsPressed();
-            case extendo:
+            case slideRight:
                 return limitSwitches[1].getIsPressed();
+            case extendo:
+                return limitSwitches[2].getIsPressed();
             default:
                 return false; // Or throw an exception
         }
@@ -79,33 +95,36 @@ public class SensorControl {
         currentBlue = Color.blue(currentColor);
     }
 
-    public boolean isColorMatch(int targetColor, int threshold) {
-        int detectedRed = Color.red(currentColor);
-        int detectedGreen = Color.green(currentColor);
-        int detectedBlue = Color.blue(currentColor);
+    public void resetColor(){
+        currentColor = 0;
+        currentRed = 0;
+        currentGreen = 0;
+        currentBlue = 0;
+    }
 
-        int targetRed = Color.red(targetColor);
-        int targetGreen = Color.green(targetColor);
-        int targetBlue = Color.blue(targetColor);
-
-        int redDiff = Math.abs(detectedRed - targetRed);
-        int greenDiff = Math.abs(detectedGreen - targetGreen);
-        int blueDiff = Math.abs(detectedBlue - targetBlue);
-
-        return redDiff <= threshold && greenDiff <= threshold && blueDiff <= threshold;
+    public void updateDistance(){
+        currentDistance = rangeSensor.getDistance(DistanceUnit.MM);
     }
 
     public boolean isRed(){
-        if(currentGreen < 5 && currentRed >5) return true;
-        return false;
+        //return currentGreen < 5 && currentRed > 7 || (currentBlue == 2 && currentGreen == 2 && currentRed == 5);
+        if(currentRed < 7) return false;
+        if(currentRed < 10)
+            return (currentGreen + currentBlue) < 13;
+        return (currentGreen + currentBlue) < 22 && currentGreen < 10;
     }
+
     public boolean isYellow(){
-        if(currentGreen > 5) return true;
-        return  false;
+        return currentRed < (currentBlue + currentGreen) && currentRed > 10;
     }
+
     public boolean isBlue(){
-        if(currentRed == 2 && currentBlue > 2 && currentGreen < 5) return true;
-        return false;
+//        return (currentRed < 5 && currentBlue > 3 && currentGreen < 8) || ( currentRed == 1 && currentBlue == 3 && currentGreen < 4);
+        return currentRed < 8 && currentBlue >= 6;
+    }
+
+    public double getDistance(){
+        return currentDistance;
     }
 
     public boolean isAllianceColor(){

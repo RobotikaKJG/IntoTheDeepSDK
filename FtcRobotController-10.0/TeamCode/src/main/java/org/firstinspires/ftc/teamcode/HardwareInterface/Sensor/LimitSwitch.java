@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SensorCode;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Sensor;
 
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;

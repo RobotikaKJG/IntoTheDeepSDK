@@ -1,11 +1,17 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
+/**
+ * This class runs the loop of the autonomous period
+ */
 public class AutonomousControl {
 
     private final MotorControl motorControl;
@@ -20,6 +26,9 @@ public class AutonomousControl {
         this.intakeControl = intakeControl;
         this.outtakeControl = outtakeControl;
         this.sensorControl = sensorControl;
+        IntakeStates.setInitialStates();
+        OuttakeStates.setInitialStates();
+        ControlStates.setInitialStates();
     }
 
     public void startAutonomous() {

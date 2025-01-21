@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class IntakeMotorControl {
     private final MotorControl motorControl;
-    private IntakeRotationStates prevMotorRotationStates = IntakeRotationStates.idle;
+    private IntakeMotorStates prevMotorRotationStates = IntakeMotorStates.idle;
 
     public IntakeMotorControl(MotorControl motorControl) {
         this.motorControl = motorControl;

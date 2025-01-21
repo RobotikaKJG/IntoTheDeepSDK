@@ -1,19 +1,25 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideProperties;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideProperties;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class OuttakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = GlobalVariables.slowMode ? 0.5 : 1;
-    private double getSlideMaxSpeed(){
-        return GlobalVariables.slowMode ? 0.5 : 1;
+    private double slideMaxSpeed = 1;
+
+    private double getSlideMaxSpeed() {
+        return GlobalVariables.slowMode ? slideMaxSpeed / 2 : slideMaxSpeed;
     }
 
     @Override
     public int getSlideMaxExtension() {
         // minimum extension position, first snap pos for outtakeLeft macro
-        return 4300;//full is 4356
+        return 2100;//full 2170
+    }
+
+    @Override
+    public int getSlideMinExtension() {
+        return 20;
     }
 
     @Override

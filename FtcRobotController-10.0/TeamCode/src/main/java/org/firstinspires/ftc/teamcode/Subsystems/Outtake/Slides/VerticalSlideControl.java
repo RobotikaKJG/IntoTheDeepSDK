@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
@@ -20,14 +19,21 @@ public class VerticalSlideControl {
             updateStates();
             prevVerticalSlideStates = OuttakeStates.getVerticalSlideState();
         }
+        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
+            if(slideLogic.slidesBottomReached()) {
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+            }
+        }
     }
 
     private void updateStates() {
         switch(OuttakeStates.getVerticalSlideState()){
-            case closed:
-                slideLogic.setSlideExtensionTarget(0);
+            case close:
+                slideLogic.setSlideExtensionTarget(20);
                 OuttakeStates.setArmState(ArmStates.down);
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+                //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
             case lowBasket:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);

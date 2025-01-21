@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Enums;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad;
 
 public enum GamepadIndexValues {
     cross,

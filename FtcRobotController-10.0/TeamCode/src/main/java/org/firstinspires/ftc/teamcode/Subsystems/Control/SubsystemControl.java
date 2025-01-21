@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperLogic;
@@ -16,7 +16,7 @@ public class SubsystemControl {
     private final LeftTriggerLogic leftTriggerLogic;
     private final LeftBumperLogic leftBumperLogic = new LeftBumperLogic();
     private final RightTriggerLogic rightTriggerLogic = new RightTriggerLogic();
-    private final RightBumperLogic rightBumperLogic = new RightBumperLogic();
+    private final RightBumperLogic rightBumperLogic;
     private final SquareLogic squareLogic = new SquareLogic();
     private final DpadUpLogic dpadUpLogic = new DpadUpLogic();
     private final DpadDownLogic dpadDownLogic = new DpadDownLogic();
@@ -24,6 +24,7 @@ public class SubsystemControl {
     public SubsystemControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
         this.edgeDetection = edgeDetection;
         leftTriggerLogic = new LeftTriggerLogic(sensorControl);
+        rightBumperLogic = new RightBumperLogic(sensorControl);
     }
 
     public void update() {

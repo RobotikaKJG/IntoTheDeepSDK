@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
@@ -14,15 +12,14 @@ public class OuttakeControl {
     private final ArmControl armControl;
     private final ClawControl clawControl;
     private final VerticalSlideControl verticalSlideControl;
-    private final ReleaseButtonLogic releaseButtonLogic;
+    private final ReleaseButtonLogic releaseButtonLogic = new ReleaseButtonLogic();
     private final ReleaseButtonControl releaseButtonControl = new ReleaseButtonControl();
 
     public OuttakeControl(ArmControl armControl, ClawControl clawControl,
-                          VerticalSlideControl verticalSlideControl, ReleaseButtonLogic releaseButtonLogic) {
+                          VerticalSlideControl verticalSlideControl) {
         this.armControl = armControl;
         this.clawControl = clawControl;
         this.verticalSlideControl = verticalSlideControl;
-        this.releaseButtonLogic = releaseButtonLogic;
     }
 
     public void update() {

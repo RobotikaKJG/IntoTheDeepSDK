@@ -1,33 +1,28 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.Main.Dependencies;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 @TeleOp
 public class ManualExtendoControl extends LinearOpMode {
-
-    private double prevTime;
-    /**
-     * @noinspection RedundantThrows
-     */
     @Override
     public void runOpMode() throws InterruptedException {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
         IntakeSlideControl intakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
-        IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-        //intakeSlideControl.setSlidePosition(-intakeSlideProperties.getSlideExtensionStep());
-        //intakeSlideControl.limitSpeed(0.05);
         int slidePosition = 0;
+        double startTime = 0;
+        double duration = 0;
+        boolean wasIf = false;
+        boolean retracting = true;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);
@@ -43,6 +38,10 @@ public class ManualExtendoControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
+            telemetry.addData("Slide position", intakeSlideControl.getSlidePosition());
+            telemetry.addData("Duration", duration);
+            telemetry.addData("Current", dependencies.motorControl.getMotorCurrent(MotorConstants.extendo));
+            //telemetry.addData("Slide inner target: ", intakeSlideControl.);
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -57,11 +56,27 @@ public class ManualExtendoControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+                intakeSlideControl.setSlidePosition(1650);//1740 max physical
+                slidePosition = 1650;
+                startTime = System.currentTimeMillis();
+                wasIf = false;
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                dependencies.servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
+                intakeSlideControl.setSlidePosition(20);
+                retracting = true;
+            }
+
+            if(retracting)
+            {
+                if(intakeSlideControl.isLimitSwitchPressed())
+                    retracting = false;
+            }
+
+            if(intakeSlideControl.getSlidePosition() > slidePosition && !wasIf)
+            {
+                duration = System.currentTimeMillis() - startTime;
+                wasIf = true;
             }
         }
     }

@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -28,16 +29,45 @@ public class ExtendoControl {
 
     private void updateStates() {
         switch(IntakeStates.getExtendoState()){
-            case retracting:
-                slideLogic.stepDown();
-                IntakeStates.setEjectionServoState(EjectionServoStates.closed); // to ensure closed, NOTE
-                OuttakeStates.setClawState(ClawStates.fullyOpen);
+            case stepDown:
+                stepDown();
                 break;
-            case extended:
-                slideLogic.stepUp();
+            case retracting:
+                retracting();
+                break;
+            case stepUp:
+                stepUp();
                 break;
             case idle:
                 break;
         }
+    }
+
+    private void stepDown() {
+        slideLogic.stepDown();
+        if(slideLogic.getSlideExtensionTarget() < IntakeConstants.extendoMinExtension)
+        {
+            retracting();
+            return;
+        }
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+    }
+
+    private void retracting() {
+        IntakeStates.setExtendoState(ExtendoStates.retracting);
+        IntakeStates.setEjectionServoState(EjectionServoStates.closed); // to ensure closed, NOTE
+        OuttakeStates.setClawState(ClawStates.fullyOpen);
+        slideLogic.setSlideExtensionTarget(0);
+    }
+
+    private void stepUp() {
+        if(slideLogic.getSlideExtensionTarget() == 0)
+        {
+            IntakeStates.setExtendoState(ExtendoStates.extended);
+            slideLogic.setSlideExtensionTarget(IntakeConstants.extendoMinExtension);
+            return;
+        }
+        IntakeStates.setExtendoState(ExtendoStates.extended);
+        slideLogic.stepUp();
     }
 }

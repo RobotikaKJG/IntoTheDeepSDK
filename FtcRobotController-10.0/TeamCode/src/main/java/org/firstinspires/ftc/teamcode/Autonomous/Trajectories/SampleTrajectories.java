@@ -18,12 +18,20 @@ public class SampleTrajectories {
 
     private void fillVariables() {
         preloadTrajectory = drive.trajectorySequenceBuilder(startPose)
-                .waitSeconds(2)
-                .lineToLinearHeading(new Pose2d(-55.5, -55.5, Math.toRadians(45)))
-                .waitSeconds(2.5)
+                //.waitSeconds(2)
+                .lineToLinearHeading(new Pose2d(-52.75, -52.75, Math.toRadians(45)))
+                .waitSeconds(1.5)
                 .lineToLinearHeading(new Pose2d(-50, -48,Math.toRadians(90)))
-                .waitSeconds(9)
-                .lineToLinearHeading(new Pose2d(-55.5, -55.5, Math.toRadians(45)))
+                .waitSeconds(3)
+                .lineToLinearHeading(new Pose2d(-54.5, -51, Math.toRadians(35)))
+                .waitSeconds(3)
+                .lineToLinearHeading(new Pose2d(-60,-48,Math.toRadians(95)))
+                .waitSeconds(3)
+                .lineToLinearHeading(new Pose2d(-52, -52.5, Math.toRadians(45)))
+                .waitSeconds(3)
+                .lineToLinearHeading(new Pose2d(-55,-47, Math.toRadians(135)))
+                .waitSeconds(3)
+                .lineToLinearHeading(new Pose2d(-52, -52.5, Math.toRadians(30)))
                 .build();
     }
 

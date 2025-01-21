@@ -2,16 +2,14 @@ package org.firstinspires.ftc.teamcode.Main;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.ServoControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideLogic;
-import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
@@ -22,12 +20,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjec
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeMotorControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
@@ -45,8 +42,6 @@ public class Dependencies {
     public ServoControl servoControl;
     public EdgeDetection edgeDetection = new EdgeDetection();
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
-    public SampleMecanumDrive drive;
-    public ElapsedTime elapsedTime = new ElapsedTime();
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
@@ -55,7 +50,6 @@ public class Dependencies {
         this.gamepad2 = gamepad2;
         this.telemetry = telemetry;
         localizer = new StandardTrackingWheelLocalizer(hardwareMap);
-        drive = new SampleMecanumDrive(hardwareMap);
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
@@ -93,15 +87,19 @@ public class Dependencies {
         return new SubsystemControl(gamepad2EdgeDetection, sensorControl);
     }
 
+    public IntakeControl createIntakeControl() {
+        return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
+                createIntakeExtendoControl(), createAutoCloseControl(),
+                createAutoCloseLogic(),createEjectionServoControl(),
+                createSampleEjectionLogic());
+    }
+
     private IntakeMotorControl createIntakeMotorControl() {
         return new IntakeMotorControl(motorControl);
     }
 
-    public IntakeControl createIntakeControl() {
-        return new IntakeControl(createIntakeMotorControl(), createIntakeServoControl(),
-                createIntakeExtendoControl(), createAutoCloseControl(),
-                createAutoCloseLogic(),createEjectionServoControl(),
-                createSampleEjectionLogic());
+    private IntakeMotorLogic createIntakeMotorLogic() {
+        return new IntakeMotorLogic(motorControl);
     }
 
     private SampleEjectionLogic createSampleEjectionLogic() {
@@ -113,11 +111,7 @@ public class Dependencies {
     }
 
     private AutoCloseLogic createAutoCloseLogic() {
-        return new AutoCloseLogic(elapsedTime,sensorControl);
-    }
-
-    private IntakeServoControl createIntakeServoControl() {
-        return new IntakeServoControl(servoControl);
+        return new AutoCloseLogic(sensorControl);
     }
 
     private ExtendoControl createIntakeExtendoControl() {
@@ -129,11 +123,7 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl(),createReleaseButtonLogic());
-    }
-
-    private ReleaseButtonLogic createReleaseButtonLogic() {
-        return new ReleaseButtonLogic(elapsedTime);
+        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl());
     }
 
     private ArmControl createArmControl() {

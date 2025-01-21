@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drivebase;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 
 public class DrivebaseController {
     private final Drivebase drivebase;
@@ -16,10 +15,5 @@ public class DrivebaseController {
         if (edgeDetection.rising(drivebaseTrigger.getTrigger()))
             drivebase.switchDrivingMode();
         drivebase.drive(DrivebaseConstants.getDriveSpeed());
-    }
-
-    private boolean isOuttakeInactive(SubsystemState outtakeState) {
-        // not sure whether using stopping state is good, should be useful if doesn't break anything
-        return outtakeState == SubsystemState.Idle || outtakeState == SubsystemState.Stop;
     }
 }

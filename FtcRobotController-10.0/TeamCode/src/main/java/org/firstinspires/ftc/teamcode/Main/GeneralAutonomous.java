@@ -34,6 +34,7 @@ public class GeneralAutonomous extends LinearOpMode {
                 break;
             autonomousControl.runAutonomous();
             drive.update();
+            telemetry.addData("isAutonomous",GlobalVariables.isAutonomous);
             telemetry.update();
         }
     }

@@ -1,18 +1,14 @@
-package org.firstinspires.ftc.teamcode.SensorCode;
+package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.EdgeDetection;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+
 
 @TeleOp
 public class RevColorV2Test extends LinearOpMode {
@@ -23,21 +19,24 @@ public class RevColorV2Test extends LinearOpMode {
     public void runOpMode() {
         // Get the color sensor from hardwareMap
 
-        SensorControl sensorControl = new SensorControl(hardwareMap,edgeDetection,new StandardTrackingWheelLocalizer(hardwareMap));
+        SensorControl sensorControl = new SensorControl(hardwareMap,edgeDetection, new StandardTrackingWheelLocalizer(hardwareMap));
 
         // Wait for the Play button to be pressed
         waitForStart();
 
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
-
+            sensorControl.updateColor();
+            sensorControl.updateDistance();
             telemetry.addData("Red", sensorControl.isRed());
             telemetry.addData("Yellow", sensorControl.isYellow());
             telemetry.addData("Blue", sensorControl.isBlue());
 
             telemetry.addData("Red", Color.red(sensorControl.currentColor));
-            telemetry.addData("Yellow", Color.green(sensorControl.currentColor));
+            telemetry.addData("Green", Color.green(sensorControl.currentColor));
             telemetry.addData("Blue", Color.blue(sensorControl.currentColor));
+            telemetry.addData("Distance correct:",sensorControl.getDistance());
+            telemetry.addData("Distance correct:",sensorControl.getDistance() < 70);
 
             telemetry.update();
         }

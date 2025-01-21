@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareInterface;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Motor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -7,7 +7,7 @@ public class Utilities {
     public static int getMotorPosition(DcMotor[] motors, int index) {
         int sum = 0;
         for (int i = 0; i < configLength(index); i++)
-            sum += Math.abs(getPos(motors, index, i));
+            sum += getPos(motors, index, i);
         return avg(sum, configLength(index));
     }
 
@@ -37,15 +37,6 @@ public class Utilities {
             motors[motorIndex].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motors[motorIndex].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-    }
-
-    public double getMaxDouble(double[] array, int length) {
-        double max = 0;
-        for (int i = 1; i < length; i++)
-            if (Math.abs(array[i]) > max)
-                max = array[i];
-
-        return max;
     }
 
     /**

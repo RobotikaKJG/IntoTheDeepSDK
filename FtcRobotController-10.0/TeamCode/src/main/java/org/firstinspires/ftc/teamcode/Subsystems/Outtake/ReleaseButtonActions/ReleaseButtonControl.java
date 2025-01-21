@@ -23,8 +23,8 @@ public class ReleaseButtonControl {
             case releaseSample:
                 releaseSample();
                 break;
-            case retractArm:
-                retractArm();
+            case waitToRelease:
+                waitToRelease();
                 break;
             case openClaw:
                 openClaw();
@@ -46,7 +46,7 @@ public class ReleaseButtonControl {
         OuttakeStates.setClawState(ClawStates.halfOpen);
     }
 
-    private void retractArm() {
+    private void waitToRelease() {
         OuttakeStates.setArmState(ArmStates.down);
     }
 
@@ -55,7 +55,7 @@ public class ReleaseButtonControl {
     }
 
     private void retractSlides() {
-        OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
     }
 
 

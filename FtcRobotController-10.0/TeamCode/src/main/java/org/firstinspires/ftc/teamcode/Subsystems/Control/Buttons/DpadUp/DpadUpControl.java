@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class DpadUpControl {
 
@@ -19,16 +19,16 @@ public class DpadUpControl {
     private void toggleMotor() {
         switch(IntakeStates.getMotorState()){
             case forward:
-                IntakeStates.setMotorState(IntakeRotationStates.backward);
+                IntakeStates.setMotorState(IntakeMotorStates.backward);
                 break;
             case backward:
-                IntakeStates.setMotorState(IntakeRotationStates.forward);
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
                 break;
             case idleWasForward:
-                IntakeStates.setMotorState(IntakeRotationStates.idleWasBackward);
+                IntakeStates.setMotorState(IntakeMotorStates.idleWasBackward);
                 break;
             case idleWasBackward:
-                IntakeStates.setMotorState(IntakeRotationStates.idleWasForward);
+                IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
                 break;
         }
     }

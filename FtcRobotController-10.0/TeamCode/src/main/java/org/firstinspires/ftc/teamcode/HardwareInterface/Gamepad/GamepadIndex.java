@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode.Main;
+package org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad;
 
 
 import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.Enums.GamepadIndexValues;
 
 import java.util.EnumMap;
 

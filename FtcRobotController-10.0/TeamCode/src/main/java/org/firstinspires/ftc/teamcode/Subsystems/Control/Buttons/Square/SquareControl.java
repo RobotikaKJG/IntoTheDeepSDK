@@ -27,8 +27,8 @@ public class SquareControl {
             case waitForReleaseConfirmation:
                 OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
                 break;
-            case openClaw:
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+            case releaseSample:
+                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToRelease);
                 break;
         }
     }

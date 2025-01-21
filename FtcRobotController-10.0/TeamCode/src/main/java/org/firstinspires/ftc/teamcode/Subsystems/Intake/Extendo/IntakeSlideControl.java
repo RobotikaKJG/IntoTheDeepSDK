@@ -2,16 +2,17 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.LimitSwitches;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SlideControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 
 public class IntakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
     private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
-    private final SensorControl sensorControl;
+    private final SensorControl sensorControl; //keep this for when limit switches exist
+    private int targetPosition = 0;
 
     public IntakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
@@ -24,6 +25,7 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public void setSlidePosition(int position) {
+        targetPosition = position;
         motorControl.setMotorPos(MotorConstants.extendo, position);
         setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
         limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
@@ -47,7 +49,22 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        //return sensorControl.isLimitSwitchPressed(LimitSwitches.extendo);
-        return getSlidePosition() < 20; //while there is no limit switch, could add a couple ms of delay to a cycle, NOTE
+        return retractSlide();
+    }
+
+    private boolean retractSlide() {
+        if(sensorControl.isLimitSwitchPressed(LimitSwitches.extendo) || motorControl.isOverCurrent(MotorConstants.extendo)) {
+            motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motorControl.setMotorSpeed(MotorConstants.extendo, 0);
+            motorControl.setMotors(MotorConstants.extendo);
+            return true;
+        }
+
+        if(motorControl.getMotorPosition(MotorConstants.extendo) > 25)
+            return false;
+
+        targetPosition -= 5;
+        motorControl.setMotorPos(MotorConstants.extendo, targetPosition);
+        return false;
     }
 }

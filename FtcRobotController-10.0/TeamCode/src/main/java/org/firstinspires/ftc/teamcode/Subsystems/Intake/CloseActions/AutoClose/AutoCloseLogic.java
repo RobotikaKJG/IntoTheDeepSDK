@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
-import org.firstinspires.ftc.teamcode.HardwareInterface.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
@@ -11,11 +9,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class AutoCloseLogic {
     private double currentWait = 0;
-    private final ElapsedTime elapsedTime;
     private final SensorControl sensorControl;
 
-    public AutoCloseLogic(ElapsedTime elapsedTime, SensorControl sensorControl) {
-        this.elapsedTime = elapsedTime;
+    public AutoCloseLogic(SensorControl sensorControl) {
         this.sensorControl = sensorControl;
     }
 
@@ -52,13 +48,16 @@ public class AutoCloseLogic {
     }
 
     private void secureGoodSample() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         addWaitTime(IntakeConstants.intakePushoutTime);
-        IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
+        if(GlobalVariables.isAutonomous)
+            IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
+        else
+            IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
     }
 
     private void ejectExtraSamples() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
     }
 
@@ -74,20 +73,28 @@ public class AutoCloseLogic {
     }
 
     private void closeClaw() {
-        if(currentWait > elapsedTime.seconds()) return;
+        if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.idle);
     }
 
     private void idle() {
-        if(IntakeStates.getIntakeState() == SubsystemState.Run)
+        if(IntakeStates.getIntakeState() == SubsystemState.Run) {
+            sensorControl.resetColor();
             IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
+        }
     }
 
     private boolean isSampleDetected(){
+        if(sensorControl.getDistance() > 70)
+            return false;
         return sensorControl.isYellow() || sensorControl.isAllianceColor();
     }
 
     private void addWaitTime(double waitTime) {
-        currentWait = elapsedTime.seconds() + waitTime;
+        currentWait = getSeconds() + waitTime;
+    }
+
+    private double getSeconds() {
+        return System.currentTimeMillis() / 1_000.0;
     }
 }

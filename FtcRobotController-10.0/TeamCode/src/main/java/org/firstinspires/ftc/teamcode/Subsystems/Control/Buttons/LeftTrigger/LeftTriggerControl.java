@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
@@ -29,35 +29,30 @@ public class LeftTriggerControl {
     }
 
     private void activateIntakeMotor() {
-        IntakeStates.setMotorState(IntakeRotationStates.forward);
-        IntakeStates.setServoState(IntakeRotationStates.forward);
+        IntakeStates.setMotorState(IntakeMotorStates.forward);
         IntakeStates.setIntakeState(SubsystemState.Run);
     }
 
     private void toggleIntakeMotor() {
         switch(IntakeStates.getMotorState()){
             case forward:
-                IntakeStates.setMotorState(IntakeRotationStates.idleWasForward);
-                IntakeStates.setServoState(IntakeRotationStates.idleWasForward);
+                IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
                 break;
             case backward:
-                IntakeStates.setMotorState(IntakeRotationStates.idleWasBackward);
-                IntakeStates.setServoState(IntakeRotationStates.idleWasBackward);
+                IntakeStates.setMotorState(IntakeMotorStates.idleWasBackward);
                 break;
             case idleWasForward:
-                IntakeStates.setMotorState(IntakeRotationStates.forward);
-                IntakeStates.setServoState(IntakeRotationStates.forward);
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
                 break;
             case idleWasBackward:
-                IntakeStates.setMotorState(IntakeRotationStates.backward);
-                IntakeStates.setServoState(IntakeRotationStates.backward);
+                IntakeStates.setMotorState(IntakeMotorStates.backward);
                 break;
         }
     }
     private void moveSlidesDown() {
         switch(OuttakeStates.getVerticalSlideState()){
             case lowBasket:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
                 break;
             case highBasket:
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);

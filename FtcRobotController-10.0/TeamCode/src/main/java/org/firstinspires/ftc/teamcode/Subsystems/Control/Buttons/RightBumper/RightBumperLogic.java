@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -8,8 +10,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class RightBumperLogic {
     private final RightBumperControl rightBumperControl = new RightBumperControl();
+    private final SensorControl sensorControl;
 
-    public RightBumperLogic() {
+    public RightBumperLogic(SensorControl sensorControl) {
+        this.sensorControl = sensorControl;
     }
 
     public void update() {
@@ -22,15 +26,23 @@ public class RightBumperLogic {
     }
 
     private boolean extendExtendo() {
-        if(outtakeActive() || extendoExtended()) return false;
+        if((!outtakeInactive() && !outtakeClosing()) || sampleInIntake()) return false;
 
         ControlStates.setRightBumperState(RightBumperStates.moveExtendoForward);
         completeAction();
         return true;
     }
 
-    private boolean outtakeActive() {
-        return OuttakeStates.getOuttakeState() != SubsystemState.Idle;
+    private boolean sampleInIntake(){
+        return sensorControl.getDistance() < 70;
+    }
+
+    private boolean outtakeInactive() {
+        return OuttakeStates.getOuttakeState() == SubsystemState.Idle;
+    }
+
+    private boolean outtakeClosing(){
+        return OuttakeStates.getReleaseButtonState() == ReleaseButtonStates.waitToRetract;
     }
 
     private boolean extendoExtended() {

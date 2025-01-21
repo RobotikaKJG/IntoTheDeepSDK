@@ -1,17 +1,15 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.RotationControl.IntakeRotationStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class IntakeStates {
     private static SubsystemState intakeState = SubsystemState.Idle;
-    private static IntakeRotationStates motorState = IntakeRotationStates.idleWasForward;
-    private static IntakeRotationStates servoState = IntakeRotationStates.idle;
+    private static IntakeMotorStates motorState = IntakeMotorStates.idleWasForward;
     private static ExtendoStates extendoState = ExtendoStates.retracted;
     private static AutoCloseStates autoCloseStates = AutoCloseStates.idle;
     private static ManualCloseStates manualCloseStates = ManualCloseStates.idle;
@@ -20,8 +18,7 @@ public class IntakeStates {
 
     public static void setInitialStates(){
         intakeState = SubsystemState.Idle;
-        motorState = IntakeRotationStates.idleWasForward;
-        servoState = IntakeRotationStates.idle;
+        motorState = IntakeMotorStates.idleWasForward;
         extendoState = ExtendoStates.retracted;
         autoCloseStates = AutoCloseStates.idle;
         manualCloseStates = ManualCloseStates.idle;
@@ -37,18 +34,13 @@ public class IntakeStates {
     }
 
 
-    public static IntakeRotationStates getMotorState() {
+    public static IntakeMotorStates getMotorState() {
         return motorState;
     }
 
-    public static void setMotorState(IntakeRotationStates state) {
+    public static void setMotorState(IntakeMotorStates state) {
         motorState = state;
     }
-
-
-    public static IntakeRotationStates getServoState() { return servoState; }
-
-    public static void setServoState(IntakeRotationStates state) { servoState = state; }
 
 
     public static ExtendoStates getExtendoState() { return extendoState; }

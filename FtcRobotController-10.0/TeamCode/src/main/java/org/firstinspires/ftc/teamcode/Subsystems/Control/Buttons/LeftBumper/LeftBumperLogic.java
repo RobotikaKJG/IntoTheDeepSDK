@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
-import org.firstinspires.ftc.teamcode.Enums.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class LeftBumperLogic {
     private final LeftBumperControl leftBumperControl = new LeftBumperControl();
@@ -22,7 +21,7 @@ public class LeftBumperLogic {
     }
 
     private boolean manualIntakeClose() {
-        if(!intakeActive() || IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand) return false;
+        if(intakeClosing()) return false;
 
         ControlStates.setLeftBumperState(LeftBumperStates.manualIntakeClose);
         completeAction();
@@ -49,7 +48,10 @@ public class LeftBumperLogic {
         return true;
     }
 
-    private boolean subsystemsIdle() {
-        return IntakeStates.getIntakeState() == SubsystemState.Idle && OuttakeStates.getOuttakeState() == SubsystemState.Idle;
+    private boolean intakeClosing(){
+        return IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.waitToRetract ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.closeClaw ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.idle;
     }
 }
