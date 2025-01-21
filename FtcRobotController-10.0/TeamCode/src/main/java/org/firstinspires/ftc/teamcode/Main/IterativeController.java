@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
@@ -25,6 +26,7 @@ public class IterativeController {
     private final EdgeDetection edgeDetection;
 //    private final EdgeDetection gamepad2EdgeDetection;
     private final DrivebaseController drivebaseController;
+    private final StandardTrackingWheelLocalizer localizer;
     private final SubsystemControl subsystemControl;
     //private final SubsystemControl subsystemControl2;
     private final IntakeControl intakeControl;
@@ -40,6 +42,7 @@ public class IterativeController {
         motorControl = dependencies.motorControl;
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
+        localizer = dependencies.localizer;
         subsystemControl = dependencies.createSubsystemControl();
         //subsystemControl2 = dependencies.createSubsystemControl2();
         intakeControl = dependencies.createIntakeControl();
@@ -86,6 +89,7 @@ public class IterativeController {
 //        gamepad2EdgeDetection.refreshGamepadIndex(currentGamepad2, prevGamepad2);
 
         motorControl.setMotors(MotorConstants.notSlide);
+        localizer.update();
     }
 
 //    private boolean gamepad1Active(){
