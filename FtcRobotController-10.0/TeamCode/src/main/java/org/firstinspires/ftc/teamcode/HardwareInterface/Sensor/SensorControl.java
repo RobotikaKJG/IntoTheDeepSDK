@@ -28,14 +28,31 @@ public class SensorControl {
     private int currentBlue;
     private double currentDistance;
 
+    public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
+        limitSwitches = getLimitSwitches(hardwareMap);
 
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
         rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
         colorSensor.setGain(2);
 
+        this.localizer = localizer;
         setInitialLocalisationAngle();
 
         this.edgeDetection = edgeDetection;
+    }
+
+    private LimitSwitch[] getLimitSwitches(HardwareMap hardwareMap) {
+        final LimitSwitch[] limitSwitches;
+        limitSwitches = new LimitSwitch[]{
+                hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "rightSlideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
+        };
+
+        limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
+        limitSwitches[1].setMode(LimitSwitch.SwitchConfig.NC);
+        limitSwitches[2].setMode(LimitSwitch.SwitchConfig.NC);
+        return limitSwitches;
     }
 
     private void setInitialLocalisationAngle() {
@@ -60,10 +77,12 @@ public class SensorControl {
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {
         switch (state) {
-            case slide:
+            case slideLeft:
                 return limitSwitches[0].getIsPressed();
-            case extendo:
+            case slideRight:
                 return limitSwitches[1].getIsPressed();
+            case extendo:
+                return limitSwitches[2].getIsPressed();
             default:
                 return false; // Or throw an exception
         }

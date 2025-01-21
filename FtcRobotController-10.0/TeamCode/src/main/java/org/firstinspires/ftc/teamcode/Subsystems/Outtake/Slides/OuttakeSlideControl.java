@@ -12,6 +12,7 @@ public class OuttakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
     private final OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
     private final SensorControl sensorControl;
+    private int targetPosition = 0;
 
     public OuttakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
@@ -24,6 +25,7 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public void setSlidePosition(int position) {
+        targetPosition = position;
         motorControl.setMotorPos(MotorConstants.bothSlides, position);
         setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
         limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
@@ -47,13 +49,24 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        //return sensorControl.isLimitSwitchPressed(LimitSwitches.slide);
-        if(getSlidePosition() < 10)
-        {
-            motorControl.setMotorSpeed(MotorConstants.extendo,0);
-            motorControl.setMotors(MotorConstants.extendo);
+        boolean leftDown = retractSlide(MotorConstants.slideLeft, LimitSwitches.slideLeft);
+        boolean rightDown = retractSlide(MotorConstants.slideRight, LimitSwitches.slideRight);
+        return (leftDown && rightDown);
+    }
+
+    private boolean retractSlide(int slide, LimitSwitches limitSwitch) {
+        if(sensorControl.isLimitSwitchPressed(limitSwitch)){//||motorControl.isOverCurrent(MotorConstants.extendo)) {
+            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motorControl.setMotorSpeed(slide, 0);
+            motorControl.setMotors(slide);
             return true;
         }
+
+        if(motorControl.getMotorPosition(slide) > 25)
+            return false;
+
+        targetPosition -= 5;
+        motorControl.setMotorPos(slide, targetPosition);
         return false;
     }
 }
