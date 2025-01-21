@@ -33,7 +33,7 @@ public class SensorControl {
 
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
         rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
-        colorSensor.setGain(2);
+        colorSensor.setGain(4);//2);
 
         this.localizer = localizer;
         setInitialLocalisationAngle();
@@ -107,13 +107,20 @@ public class SensorControl {
     }
 
     public boolean isRed(){
-        return currentGreen < 5 && currentRed > 7 || currentColor == Color.rgb(5,2,2);
+        //return currentGreen < 5 && currentRed > 7 || (currentBlue == 2 && currentGreen == 2 && currentRed == 5);
+        if(currentRed < 7) return false;
+        if(currentRed < 10)
+            return (currentGreen + currentBlue) < 13;
+        return (currentGreen + currentBlue) < 22 && currentGreen < 10;
     }
+
     public boolean isYellow(){
-        return currentGreen > 6;
+        return currentRed < (currentBlue + currentGreen) && currentRed > 10;
     }
+
     public boolean isBlue(){
-        return currentRed < 5 && currentBlue > 2 && currentGreen < 8;
+//        return (currentRed < 5 && currentBlue > 3 && currentGreen < 8) || ( currentRed == 1 && currentBlue == 3 && currentGreen < 4);
+        return currentRed < 8 && currentBlue >= 6;
     }
 
     public double getDistance(){
