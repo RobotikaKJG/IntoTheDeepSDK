@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
@@ -25,15 +26,19 @@ public class LeftTriggerLogic {
     }
 
     private boolean sampleInIntake(){
-        return sensorControl.isAllianceColor() || sensorControl.isYellow();
+        return sensorControl.getDistance() < 70;
     }
 
     private boolean toggleIntakeMotor() {
-        if(outtakeActive()||(sampleInIntake() && !intakeActive())) return false;
+        if((!outtakeInactive() && !outtakeClosing())||(sampleInIntake() && !intakeActive())) return false;
 
         ControlStates.setLeftTriggerState(LeftTriggerStates.toggleIntakeMotor);
         completeAction();
         return true;
+    }
+
+    private boolean outtakeClosing(){
+        return OuttakeStates.getReleaseButtonState() == ReleaseButtonStates.waitToRetract;
     }
 
     private boolean intakeActive() {
@@ -41,14 +46,14 @@ public class LeftTriggerLogic {
     }
 
     private boolean moveSlidesDown() {
-        if(!outtakeActive()) return false;
+        if(outtakeInactive()) return false;
 
         ControlStates.setLeftTriggerState(LeftTriggerStates.moveSlidesDown);
         completeAction();
         return true;
     }
 
-    private boolean outtakeActive() {
-        return OuttakeStates.getOuttakeState() == SubsystemState.Run;
+    private boolean outtakeInactive() {
+        return OuttakeStates.getOuttakeState() == SubsystemState.Idle;
     }
 }
