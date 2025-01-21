@@ -17,6 +17,11 @@ public class IntakeSlideProperties implements SlideProperties {
     }
 
     @Override
+    public int getSlideMinExtension() {
+        return 0;
+    }
+
+    @Override
     public double getSlideMovementMaxSpeed() {
         return getSlideMaxSpeed();
     }
