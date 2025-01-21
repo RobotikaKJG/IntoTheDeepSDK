@@ -101,6 +101,11 @@ public class MotorControl {
             motors[Utilities.motorIndex(index, i)].setTargetPosition(position);
     }
 
+    public double getMotorCurrent(int index)
+    {
+        return motors[Utilities.motorIndex(index, 0)].getCurrent(CurrentUnit.AMPS);
+    }
+
     public void setMotorCurrentAlert(int index, double current)
     {
         for (int i = 0; i < Utilities.configLength(index); i++)
