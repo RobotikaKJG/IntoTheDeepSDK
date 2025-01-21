@@ -23,6 +23,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             iterativeController.TeleOp();
+            dependencies.localizer.update();
             if (gamepad1.triangle) break;
             calculateLoopTime();
             //telemetry.addData("Rotation:",dependencies.sensorControl.getLocalizerAngle());
