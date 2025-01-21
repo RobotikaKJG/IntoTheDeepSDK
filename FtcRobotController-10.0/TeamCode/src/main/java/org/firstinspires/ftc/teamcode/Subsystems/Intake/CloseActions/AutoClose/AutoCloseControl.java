@@ -56,6 +56,7 @@ public class AutoCloseControl {
     }
 
     private void ejectExtraSamples() {
+        gamepad1.rumble(200);
         IntakeStates.setMotorState(IntakeMotorStates.backward);
     }
 
