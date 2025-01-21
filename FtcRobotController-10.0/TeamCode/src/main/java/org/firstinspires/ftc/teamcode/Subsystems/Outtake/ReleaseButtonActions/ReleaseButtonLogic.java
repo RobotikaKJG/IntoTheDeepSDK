@@ -58,7 +58,6 @@ public class ReleaseButtonLogic {
 
     private void releaseSample() {
         addWaitTime(OuttakeConstants.releaseServoWait);
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToRelease);
     }
 
     private void waitToRelease(){
@@ -73,10 +72,11 @@ public class ReleaseButtonLogic {
     }
 
     private void openClaw() {
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
     }
 
     private void retractSlides() {
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToRetract);
     }
 
 
