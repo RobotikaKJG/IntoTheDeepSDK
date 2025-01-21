@@ -44,13 +44,13 @@ public class ExtendoControl {
     }
 
     private void stepDown() {
-        if(slideLogic.getSlideExtensionTarget() == IntakeConstants.extendoMinExtension)
+        slideLogic.stepDown();
+        if(slideLogic.getSlideExtensionTarget() < IntakeConstants.extendoMinExtension)
         {
             retracting();
             return;
         }
         IntakeStates.setExtendoState(ExtendoStates.extended);
-        slideLogic.stepDown();
     }
 
     private void retracting() {
