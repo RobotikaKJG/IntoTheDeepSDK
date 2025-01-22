@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
@@ -10,21 +10,21 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideSta
 
 public class OuttakeControl {
     private final ArmControl armControl;
-    private final ClawControl clawControl;
+    private final SampleClawControl sampleClawControl;
     private final VerticalSlideControl verticalSlideControl;
     private final ReleaseButtonLogic releaseButtonLogic = new ReleaseButtonLogic();
     private final ReleaseButtonControl releaseButtonControl = new ReleaseButtonControl();
 
-    public OuttakeControl(ArmControl armControl, ClawControl clawControl,
+    public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl,
                           VerticalSlideControl verticalSlideControl) {
         this.armControl = armControl;
-        this.clawControl = clawControl;
+        this.sampleClawControl = sampleClawControl;
         this.verticalSlideControl = verticalSlideControl;
     }
 
     public void update() {
         armControl.update();
-        clawControl.update();
+        sampleClawControl.update();
         verticalSlideControl.update();
         releaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
         releaseButtonLogic.update();

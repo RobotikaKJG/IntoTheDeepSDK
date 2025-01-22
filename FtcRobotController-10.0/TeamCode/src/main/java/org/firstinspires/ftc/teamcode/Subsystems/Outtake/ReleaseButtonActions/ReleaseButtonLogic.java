@@ -30,8 +30,8 @@ public class ReleaseButtonLogic {
             case retractArm:
                 retractArm();
                 break;
-            case openClaw:
-                openClaw();
+            case openSampleClaw:
+                openSampleClaw();
                 break;
             case retractSlides:
                 retractSlides();
@@ -70,10 +70,10 @@ public class ReleaseButtonLogic {
 
     private void retractArm() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.openClaw);
+        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.openSampleClaw);
     }
 
-    private void openClaw() {
+    private void openSampleClaw() {
         OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
     }
 

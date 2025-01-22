@@ -6,6 +6,6 @@ public enum AutoCloseStates {
     ejectExtraSamples,
     waitForCommand,
     waitToRetract,
-    closeClaw,
+    closeSampleClaw,
     idle
 }

@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.A
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
@@ -30,7 +30,7 @@ public class SampleAuton implements Auton{
     public void start() {
         drive.setPoseEstimate(trajectories.getStartPose());
         drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
-        OuttakeStates.setClawState(ClawStates.closed);
+        OuttakeStates.setSampleClawState(SampleClawStates.closed);
         OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
         addWaitTime(AutonomousConstants.goToBasketWait);
         sampleAutonState = SampleAutonState.goToBasket;

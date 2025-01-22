@@ -1,27 +1,27 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
-public class ClawControl {
+public class SampleClawControl {
     private final ServoControl servoControl;
-    private ClawStates prevClawState;
+    private SampleClawStates prevSampleClawState;
 
-    public ClawControl(ServoControl servoControl) {
+    public SampleClawControl(ServoControl servoControl) {
         this.servoControl = servoControl;
     }
 
     public void update() {
-        if (prevClawState != OuttakeStates.getClawState()) {
+        if (prevSampleClawState != OuttakeStates.getSampleClawState()) {
             updateStates();
-            prevClawState = OuttakeStates.getClawState();
+            prevSampleClawState = OuttakeStates.getSampleClawState();
         }
     }
 
     private void updateStates() {
-        switch (OuttakeStates.getClawState()) {
+        switch (OuttakeStates.getSampleClawState()) {
             case closed:
                 servoControl.setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
                 break;

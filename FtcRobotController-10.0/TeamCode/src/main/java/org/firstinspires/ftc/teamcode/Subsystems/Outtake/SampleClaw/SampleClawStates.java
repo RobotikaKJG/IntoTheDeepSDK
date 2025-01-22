@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw;
 
-public enum ClawStates {
+public enum SampleClawStates {
     closed, //when sample is taken
     halfOpen, //when releasing sample
     fullyOpen //when waiting to take sample, starting pos

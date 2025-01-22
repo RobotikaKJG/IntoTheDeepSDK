@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class AutoCloseControl {
@@ -42,8 +42,8 @@ public class AutoCloseControl {
             case waitToRetract:
                 waitToRetract();
                 break;
-            case closeClaw:
-                closeClaw();
+            case closeSampleClaw:
+                closeSampleClaw();
                 break;
             case idle:
                 break;
@@ -69,11 +69,11 @@ public class AutoCloseControl {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
         IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
         IntakeStates.setEjectionServoState(EjectionServoStates.closed);
-        OuttakeStates.setClawState(ClawStates.fullyOpen);
+        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
-    private static void closeClaw() {
+    private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
-        OuttakeStates.setClawState(ClawStates.closed);
+        OuttakeStates.setSampleClawState(SampleClawStates.closed);
     }
 }

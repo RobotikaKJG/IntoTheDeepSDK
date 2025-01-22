@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
 
@@ -11,8 +11,8 @@ public class SquareControl {
             case iterateOuttakeArmStates:
                 iterateOuttakeArmStates();
                 break;
-            case manualToggleClaw:
-                manualToggleClaw();
+            case manualToggleSampleClaw:
+                manualToggleSampleClaw();
                 break;
             case idle:
                 break;
@@ -33,10 +33,10 @@ public class SquareControl {
         }
     }
 
-    private void manualToggleClaw() {
-        if(OuttakeStates.getClawState() != ClawStates.closed)
-            OuttakeStates.setClawState(ClawStates.closed);
+    private void manualToggleSampleClaw() {
+        if(OuttakeStates.getSampleClawState() != SampleClawStates.closed)
+            OuttakeStates.setSampleClawState(SampleClawStates.closed);
         else
-            OuttakeStates.setClawState(ClawStates.fullyOpen);
+            OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 }

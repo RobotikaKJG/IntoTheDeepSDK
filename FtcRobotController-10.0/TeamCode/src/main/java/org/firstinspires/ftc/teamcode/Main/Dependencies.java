@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.A
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
@@ -123,15 +123,15 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(),createClawControl(),createVerticalSlideControl());
+        return new OuttakeControl(createArmControl(), createSampleClawControl(),createVerticalSlideControl());
     }
 
     private ArmControl createArmControl() {
         return new ArmControl(servoControl);
     }
 
-    private ClawControl createClawControl() {
-        return new ClawControl(servoControl);
+    private SampleClawControl createSampleClawControl() {
+        return new SampleClawControl(servoControl);
     }
 
     private VerticalSlideControl createVerticalSlideControl() {

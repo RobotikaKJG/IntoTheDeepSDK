@@ -51,7 +51,7 @@ public class LeftBumperLogic {
     private boolean intakeClosing(){
         return IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand ||
                 IntakeStates.getAutoCloseStates() == AutoCloseStates.waitToRetract ||
-                IntakeStates.getAutoCloseStates() == AutoCloseStates.closeClaw ||
+                IntakeStates.getAutoCloseStates() == AutoCloseStates.closeSampleClaw ||
                 IntakeStates.getAutoCloseStates() == AutoCloseStates.idle;
     }
 }

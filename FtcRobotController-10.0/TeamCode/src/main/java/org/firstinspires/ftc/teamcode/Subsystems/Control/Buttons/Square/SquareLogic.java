@@ -10,7 +10,7 @@ public class SquareLogic {
 
     public void update() {
         if(iterateOuttakeArmStates()) return;
-        if(manualToggleClaw()) return;
+        if(manualToggleSampleClaw()) return;
     }
 
     private void completeAction(){
@@ -29,10 +29,10 @@ public class SquareLogic {
         return OuttakeStates.getOuttakeState() == SubsystemState.Run;
     }
 
-    private boolean manualToggleClaw()
+    private boolean manualToggleSampleClaw()
     {
         if(outtakeActive()) return false;
-        ControlStates.setSquareState(SquareStates.manualToggleClaw);
+        ControlStates.setSquareState(SquareStates.manualToggleSampleClaw);
         completeAction();
         return true;
     }

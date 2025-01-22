@@ -8,7 +8,7 @@ public enum ReleaseButtonStates {
     waitToRelease,
     retractArm,
     retractSlides,
-    openClaw,
+    openSampleClaw,
     waitToRetract,
     idle
 }

@@ -21,5 +21,5 @@ public class IntakeConstants {
 
     public static final double secureSampleTime = 0.4;
     public static final double intakePushoutTime = 0.75;
-    public static final double clawCloseTime = 0.3;
+    public static final double sampleClawCloseTime = 0.3;
 }

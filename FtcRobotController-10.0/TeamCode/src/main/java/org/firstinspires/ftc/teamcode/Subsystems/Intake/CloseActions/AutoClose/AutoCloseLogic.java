@@ -32,8 +32,8 @@ public class AutoCloseLogic {
             case waitToRetract:
                 waitToRetract();
                 break;
-            case closeClaw:
-                closeClaw();
+            case closeSampleClaw:
+                closeSampleClaw();
                 break;
             case idle:
                 idle();
@@ -68,11 +68,11 @@ public class AutoCloseLogic {
 
     private void waitToRetract() {
         if(IntakeStates.getExtendoState() != ExtendoStates.retracted) return;
-        IntakeStates.setAutoCloseStates(AutoCloseStates.closeClaw);
-        addWaitTime(IntakeConstants.clawCloseTime);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.closeSampleClaw);
+        addWaitTime(IntakeConstants.sampleClawCloseTime);
     }
 
-    private void closeClaw() {
+    private void closeSampleClaw() {
         if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.idle);
     }
