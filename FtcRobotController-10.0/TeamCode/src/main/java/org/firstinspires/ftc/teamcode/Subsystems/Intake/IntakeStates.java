@@ -14,7 +14,6 @@ public class IntakeStates {
     private static AutoCloseStates autoCloseStates = AutoCloseStates.idle;
     private static ManualCloseStates manualCloseStates = ManualCloseStates.idle;
     private static EjectionServoStates ejectionServoStates = EjectionServoStates.closed;
-    public static int extensionTarget; //temporary, NOTE
 
     public static void setInitialStates(){
         intakeState = SubsystemState.Idle;

@@ -43,7 +43,6 @@ public class SlideLogic {
     public void addSlideExtension(int addSlideExtension) {
         if (isExtensionTargetNotInBounds(slideExtensionTarget + addSlideExtension)) return;
         this.slideExtensionTarget += addSlideExtension;
-        IntakeStates.extensionTarget = this.slideExtensionTarget;
         slideControl.setSlidePosition(slideExtensionTarget);
     }
 
