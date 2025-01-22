@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
@@ -12,6 +13,7 @@ public class OuttakeStates {
     private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
     private static ArmStates armState = ArmStates.down;
     private static ReleaseButtonStates releaseButtonStates = ReleaseButtonStates.idle;
+    private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
 
     public static void setInitialStates(){
         outtakeState = SubsystemState.Idle;
@@ -19,6 +21,7 @@ public class OuttakeStates {
         sampleClawState = SampleClawStates.fullyOpen;
         armState = ArmStates.down;
         releaseButtonStates = ReleaseButtonStates.idle;
+        specimenClawState = SpecimenClawStates.open;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -63,5 +66,13 @@ public class OuttakeStates {
 
     public static void setReleaseButtonState (ReleaseButtonStates state) {
         releaseButtonStates = state;
+    }
+
+    public static SpecimenClawStates getSpecimenClawState(){
+        return specimenClawState;
+    }
+
+    public static void setSpecimenClawState(SpecimenClawStates state){
+        specimenClawState = state;
     }
 }

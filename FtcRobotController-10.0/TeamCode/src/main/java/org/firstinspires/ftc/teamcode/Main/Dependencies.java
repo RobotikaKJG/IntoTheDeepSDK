@@ -30,6 +30,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProp
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -123,7 +124,7 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSampleClawControl(),createVerticalSlideControl());
+        return new OuttakeControl(createArmControl(), createSampleClawControl(),createSpecimenClawControl(),createVerticalSlideControl());
     }
 
     private ArmControl createArmControl() {
@@ -132,6 +133,10 @@ public class Dependencies {
 
     private SampleClawControl createSampleClawControl() {
         return new SampleClawControl(servoControl);
+    }
+
+    private SpecimenClawControl createSpecimenClawControl() {
+        return new SpecimenClawControl(servoControl);
     }
 
     private VerticalSlideControl createVerticalSlideControl() {

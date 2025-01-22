@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
@@ -11,14 +12,16 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideSta
 public class OuttakeControl {
     private final ArmControl armControl;
     private final SampleClawControl sampleClawControl;
+    private final SpecimenClawControl specimenClawControl;
     private final VerticalSlideControl verticalSlideControl;
     private final ReleaseButtonLogic releaseButtonLogic = new ReleaseButtonLogic();
     private final ReleaseButtonControl releaseButtonControl = new ReleaseButtonControl();
 
-    public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl,
+    public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
                           VerticalSlideControl verticalSlideControl) {
         this.armControl = armControl;
         this.sampleClawControl = sampleClawControl;
+        this.specimenClawControl = specimenClawControl;
         this.verticalSlideControl = verticalSlideControl;
     }
 

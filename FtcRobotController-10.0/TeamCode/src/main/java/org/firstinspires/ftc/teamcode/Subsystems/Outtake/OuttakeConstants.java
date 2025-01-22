@@ -17,4 +17,7 @@ public class OuttakeConstants {
     public static final double outtakeRightServoMinPos = Math.round((1-OuttakeConstants.outtakeLeftServoMaxPos)*100.0)/100.0;     // Taking position, starting position
 
     public static double releaseServoWait = 0.3;
+
+    public static double specimenClawServoMinPos = 0.45;
+    public static double specimenClawServoMaxPos = 0.75;
 }
