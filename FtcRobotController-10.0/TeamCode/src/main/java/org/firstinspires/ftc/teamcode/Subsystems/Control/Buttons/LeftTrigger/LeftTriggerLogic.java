@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
@@ -38,7 +38,7 @@ public class LeftTriggerLogic {
     }
 
     private boolean outtakeClosing(){
-        return OuttakeStates.getReleaseButtonState() == ReleaseButtonStates.waitToRetract;
+        return OuttakeStates.getReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
     }
 
     private boolean intakeActive() {

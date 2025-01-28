@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 
 public class SquareControl {
     public void update() {
@@ -22,13 +22,13 @@ public class SquareControl {
     private void iterateOuttakeArmStates() {
         switch (OuttakeStates.getReleaseButtonState()){
             case idle:
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
                 break;
             case waitForReleaseConfirmation:
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
                 break;
             case releaseSample:
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToRelease);
+                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
                 break;
         }
     }

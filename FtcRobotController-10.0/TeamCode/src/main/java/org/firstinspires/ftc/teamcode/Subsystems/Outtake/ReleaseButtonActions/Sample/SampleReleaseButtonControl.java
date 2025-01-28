@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
-public class ReleaseButtonControl {
-    private ReleaseButtonStates prevReleaseButtonStates = ReleaseButtonStates.idle;
+public class SampleReleaseButtonControl {
+    private SampleReleaseButtonStates prevSampleReleaseButtonStates = SampleReleaseButtonStates.idle;
 
     public void update(){
-        if(OuttakeStates.getReleaseButtonState() != prevReleaseButtonStates) {
+        if(OuttakeStates.getReleaseButtonState() != prevSampleReleaseButtonStates) {
             updateStates();
-            prevReleaseButtonStates = OuttakeStates.getReleaseButtonState();
+            prevSampleReleaseButtonStates = OuttakeStates.getReleaseButtonState();
         }
     }
 

@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenCl
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class OuttakeStates {
@@ -12,7 +12,7 @@ public class OuttakeStates {
     private static VerticalSlideStates verticalSlideStates = VerticalSlideStates.closed;
     private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
     private static ArmStates armState = ArmStates.down;
-    private static ReleaseButtonStates releaseButtonStates = ReleaseButtonStates.idle;
+    private static SampleReleaseButtonStates sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
 
     public static void setInitialStates(){
@@ -20,7 +20,7 @@ public class OuttakeStates {
         verticalSlideStates = VerticalSlideStates.closed;
         sampleClawState = SampleClawStates.fullyOpen;
         armState = ArmStates.down;
-        releaseButtonStates = ReleaseButtonStates.idle;
+        sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;
     }
 
@@ -60,12 +60,12 @@ public class OuttakeStates {
     }
 
 
-    public static ReleaseButtonStates getReleaseButtonState(){
-        return releaseButtonStates;
+    public static SampleReleaseButtonStates getReleaseButtonState(){
+        return sampleReleaseButtonStates;
     }
 
-    public static void setReleaseButtonState (ReleaseButtonStates state) {
-        releaseButtonStates = state;
+    public static void setReleaseButtonState (SampleReleaseButtonStates state) {
+        sampleReleaseButtonStates = state;
     }
 
     public static SpecimenClawStates getSpecimenClawState(){

@@ -4,8 +4,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenCl
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
@@ -14,8 +14,8 @@ public class OuttakeControl {
     private final SampleClawControl sampleClawControl;
     private final SpecimenClawControl specimenClawControl;
     private final VerticalSlideControl verticalSlideControl;
-    private final ReleaseButtonLogic releaseButtonLogic = new ReleaseButtonLogic();
-    private final ReleaseButtonControl releaseButtonControl = new ReleaseButtonControl();
+    private final SampleReleaseButtonLogic sampleReleaseButtonLogic = new SampleReleaseButtonLogic();
+    private final SampleReleaseButtonControl sampleReleaseButtonControl = new SampleReleaseButtonControl();
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
                           VerticalSlideControl verticalSlideControl) {
@@ -29,8 +29,8 @@ public class OuttakeControl {
         armControl.update();
         sampleClawControl.update();
         verticalSlideControl.update();
-        releaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
-        releaseButtonLogic.update();
+        sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
+        sampleReleaseButtonLogic.update();
 
         updateOuttakeState();
     }

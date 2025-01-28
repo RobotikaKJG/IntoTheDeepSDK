@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample;
 
-public enum ReleaseButtonStates {
+public enum SampleReleaseButtonStates {
     flipArm,
     waitToFlip,
     waitForReleaseConfirmation,

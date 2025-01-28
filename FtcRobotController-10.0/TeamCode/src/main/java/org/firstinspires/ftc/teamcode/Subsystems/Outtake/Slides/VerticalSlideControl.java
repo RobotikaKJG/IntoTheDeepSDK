@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 
 public class VerticalSlideControl {
     private final SlideLogic slideLogic;
@@ -22,7 +22,7 @@ public class VerticalSlideControl {
         if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
             if(slideLogic.slidesBottomReached()) {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
-                OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.idle);
             }
         }
     }

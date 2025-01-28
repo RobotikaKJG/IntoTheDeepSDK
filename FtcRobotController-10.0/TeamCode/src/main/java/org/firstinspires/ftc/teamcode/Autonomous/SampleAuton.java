@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.ReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class SampleAuton implements Auton{
@@ -116,21 +116,21 @@ public class SampleAuton implements Auton{
 
     private void goToBasket() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
         addWaitTime(AutonomousConstants.flipArmFirstWait);
         sampleAutonState = SampleAutonState.flipArm;
     }
 
     private void flipArm() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
         addWaitTime(AutonomousConstants.sampleReleaseWait);
         sampleAutonState = SampleAutonState.placeSample;
     }
 
     private void placeSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
         addWaitTime(AutonomousConstants.slideRetractWait);
         sampleAutonState = SampleAutonState.goToFirstSample;
     }
@@ -170,21 +170,21 @@ public class SampleAuton implements Auton{
 
     private void goToPlaceFirstSample(){
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
         addWaitTime(AutonomousConstants.flipArmWait);
         sampleAutonState = SampleAutonState.flipArmForFirstSample;
     }
 
     private void flipArmForFirstSample(){
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
         addWaitTime(AutonomousConstants.sampleReleaseWait);
         sampleAutonState = SampleAutonState.placeFirstSample;
     }
 
     private void placeFirstSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
         addWaitTime(AutonomousConstants.slideRetractWait);
         sampleAutonState = SampleAutonState.goToSecondSample;
     }
@@ -220,21 +220,21 @@ public class SampleAuton implements Auton{
 
     private void goToPlaceSecondSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
         addWaitTime(AutonomousConstants.flipArmWait);
         sampleAutonState = SampleAutonState.flipArmForSecondSample;
     }
 
     private void flipArmForSecondSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
         addWaitTime(AutonomousConstants.sampleReleaseWait);
         sampleAutonState = SampleAutonState.placeSecondSample;
     }
 
     private void placeSecondSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
         addWaitTime(AutonomousConstants.slideRetractWait);
         sampleAutonState = SampleAutonState.goToThirdSample;
     }
@@ -269,21 +269,21 @@ public class SampleAuton implements Auton{
 
     private void goToPlaceThirdSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.flipArm);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
         addWaitTime(AutonomousConstants.flipArmWait);
         sampleAutonState = SampleAutonState.flipArmForThirdSample;
     }
 
     private void flipArmForThirdSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.releaseSample);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
         addWaitTime(AutonomousConstants.sampleReleaseWait);
         sampleAutonState = SampleAutonState.placeThirdSample;
     }
 
     private void placeThirdSample() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
         addWaitTime(AutonomousConstants.slideRetractWait);
         sampleAutonState = SampleAutonState.stop;
     }

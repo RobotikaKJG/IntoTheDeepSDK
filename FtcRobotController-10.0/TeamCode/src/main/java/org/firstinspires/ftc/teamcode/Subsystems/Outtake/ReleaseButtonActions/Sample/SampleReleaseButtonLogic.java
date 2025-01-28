@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
-public class ReleaseButtonLogic {
+public class SampleReleaseButtonLogic {
     private double currentWait = 0;
 
     public void update(){
@@ -45,12 +45,12 @@ public class ReleaseButtonLogic {
 
     private void flipArm() {
         addWaitTime(OuttakeConstants.outtakeArmWait);
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToFlip);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToFlip);
     }
 
     private void waitToFlip() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitForReleaseConfirmation);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitForReleaseConfirmation);
     }
 
     private void waitForReleaseConfirmation() {
@@ -65,20 +65,20 @@ public class ReleaseButtonLogic {
         if(currentWait > getSeconds()) return;
         if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.lowBasket)
             addWaitTime(OuttakeConstants.outtakeArmCloseWait);
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractArm);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractArm);
     }
 
     private void retractArm() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.openSampleClaw);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.openSampleClaw);
     }
 
     private void openSampleClaw() {
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.retractSlides);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
     }
 
     private void retractSlides() {
-        OuttakeStates.setReleaseButtonState(ReleaseButtonStates.waitToRetract);
+        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToRetract);
     }
 
 
