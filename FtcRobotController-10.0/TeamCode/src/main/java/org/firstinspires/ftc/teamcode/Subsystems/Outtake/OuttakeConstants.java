@@ -20,4 +20,7 @@ public class OuttakeConstants {
 
     public static double specimenClawServoMinPos = 0.45;
     public static double specimenClawServoMaxPos = 0.75;
+
+    public static int lowRungPos = 800;
+    public static int highRungPos = 1500;
 }

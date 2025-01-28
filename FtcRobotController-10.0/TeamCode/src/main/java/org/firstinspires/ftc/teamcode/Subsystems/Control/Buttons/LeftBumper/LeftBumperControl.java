@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class LeftBumperControl {
     public LeftBumperControl() {
@@ -37,6 +38,15 @@ public class LeftBumperControl {
     }
 
     private void moveSlidesUp() {
+        if(OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed)
+            switch(OuttakeStates.getVerticalSlideState()) {
+                case closed:
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
+                    break;
+                case lowBasket:
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
+                    break;
+            }
         switch(OuttakeStates.getVerticalSlideState()){
             case closed:
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);
