@@ -44,12 +44,20 @@ public class Limelight extends LinearOpMode {
                 double tx = result.getTx();
                 double ty = result.getTy();
 
-                // Calculate corrections for tx and ty
-                double txCorrection = -KP_TX * tx; // Negative to reduce tx towards 0
-                double tyCorrection = KP_TY * ty;  // Positive to bring ty to 0
+                // Check if tx is 0 and ty is -10, then stop the robot
+                if (Math.abs(tx) <= TX_TY_THRESHOLD && Math.abs(ty + 10) <= TX_TY_THRESHOLD) {
+                    // Stop motors when the target conditions are met
+                    frontLeftMotor.setPower(0);
+                    backLeftMotor.setPower(0);
+                    frontRightMotor.setPower(0);
+                    backRightMotor.setPower(0);
 
-                // Check if tx and ty are within the threshold
-                if (Math.abs(tx) > TX_TY_THRESHOLD || Math.abs(ty) > TX_TY_THRESHOLD) {
+                    telemetry.addData("Status", "Aligned: Stopped");
+                } else {
+                    // Calculate corrections for tx and ty
+                    double txCorrection = -KP_TX * tx; // Negative to reduce tx towards 0
+                    double tyCorrection = KP_TY * ty;  // Positive to bring ty to 0
+
                     // Apply motor powers based on corrections
                     double frontLeftPower = tyCorrection + txCorrection;
                     double backLeftPower = tyCorrection - txCorrection;
@@ -60,18 +68,12 @@ public class Limelight extends LinearOpMode {
                     backLeftMotor.setPower(backLeftPower);
                     frontRightMotor.setPower(frontRightPower);
                     backRightMotor.setPower(backRightPower);
-                } else {
-                    // Stop motors when target is aligned
-                    frontLeftMotor.setPower(0);
-                    backLeftMotor.setPower(0);
-                    frontRightMotor.setPower(0);
-                    backRightMotor.setPower(0);
+
+                    telemetry.addData("Status", "Adjusting");
                 }
 
                 telemetry.addData("Target X", tx);
                 telemetry.addData("Target Y", ty);
-                telemetry.addData("TX Correction", txCorrection);
-                telemetry.addData("TY Correction", tyCorrection);
             } else {
                 telemetry.addData("Limelight", "No Targets");
                 // Stop motors if no valid target
