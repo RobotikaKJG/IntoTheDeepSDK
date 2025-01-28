@@ -46,7 +46,7 @@ public class Limelight extends LinearOpMode {
 
                 // Calculate corrections for tx and ty
                 double txCorrection = -KP_TX * tx; // Negative to reduce tx towards 0
-                double tyCorrection = KP_TY * ty;  // Positive to bring ty to 0
+                double tyCorrection = -KP_TY * ty; // Negative to move forward when ty > 0
 
                 // Check if tx and ty are within the threshold
                 if (Math.abs(tx) > TX_TY_THRESHOLD || Math.abs(ty) > TX_TY_THRESHOLD) {
