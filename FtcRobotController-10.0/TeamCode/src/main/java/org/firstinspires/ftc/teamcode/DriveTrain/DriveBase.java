@@ -6,15 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.DriveTrain.MotorSpeed.TractionControl;
 
 public class DriveBase {
-    private boolean tcEnabled = true;
-    private boolean previousButtonState = false;
 
     private DcMotor frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
     private IMU imu;
-    private TractionControl tractionControl;
 
     public DriveBase(LinearOpMode opMode) {
         // Hardware initialization
@@ -31,8 +27,6 @@ public class DriveBase {
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
-
-        tractionControl = new TractionControl();
     }
 
     public void updateDrive(Gamepad gamepad1, LinearOpMode opMode) {
@@ -58,24 +52,11 @@ public class DriveBase {
         double frontRightTargetPower = (rotY - rotX - rx) / denominator;
         double backRightTargetPower = (rotY + rotX - rx) / denominator;
 
-        if (gamepad1.circle && !previousButtonState) {
-            tcEnabled = !tcEnabled;
-        }
-        previousButtonState = gamepad1.circle;
+        frontLeftMotor.setPower(frontLeftTargetPower);
+        backLeftMotor.setPower(backLeftTargetPower);
+        frontRightMotor.setPower(frontRightTargetPower);
+        backRightMotor.setPower(backRightTargetPower);
 
-        if (tcEnabled) {
-            frontLeftMotor.setPower(tractionControl.gradualAcceleration(frontLeftMotor.getPower(), frontLeftTargetPower, opMode));
-            backLeftMotor.setPower(tractionControl.gradualAcceleration(backLeftMotor.getPower(), backLeftTargetPower, opMode));
-            frontRightMotor.setPower(tractionControl.gradualAcceleration(frontRightMotor.getPower(), frontRightTargetPower, opMode));
-            backRightMotor.setPower(tractionControl.gradualAcceleration(backRightMotor.getPower(), backRightTargetPower, opMode));
-        } else {
-            frontLeftMotor.setPower(frontLeftTargetPower);
-            backLeftMotor.setPower(backLeftTargetPower);
-            frontRightMotor.setPower(frontRightTargetPower);
-            backRightMotor.setPower(backRightTargetPower);
-        }
-
-        opMode.telemetry.addData("Traction Control", tcEnabled ? "Enabled" : "Disabled");
         opMode.telemetry.update();
     }
 
