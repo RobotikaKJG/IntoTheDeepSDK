@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Limelight Scaled Alignment", group = "TeleOp")
+@TeleOp(name = "Limelight Inverse Scaling", group = "TeleOp")
 public class Limelight extends LinearOpMode {
     private Limelight3A limelight;
     private int targetPipeline = 1;
@@ -15,7 +15,9 @@ public class Limelight extends LinearOpMode {
     private static final double TX_TY_THRESHOLD = 0.05; // Margin of error
     private static final double KP_TX = 0.02; // Proportional constant for horizontal correction
     private static final double KP_TY = 0.02; // Proportional constant for vertical correction
-    private static final double MIN_POWER = 0.1; // Minimum power to prevent stalling
+    private static final double MAX_POWER = 0.5; // Maximum motor power
+    private static final double MIN_POWER = 0.1; // Minimum motor power
+    private static final double SCALING_CONSTANT = 0.2; // Small constant to stabilize scaling
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -49,13 +51,11 @@ public class Limelight extends LinearOpMode {
                 double txCorrection = KP_TX * ty;
                 double tyCorrection = KP_TY * tx;
 
-                // Apply scaling to corrections
-                double scaledTxCorrection = txCorrection * Math.abs(ty);
-                double scaledTyCorrection = tyCorrection * Math.abs(tx);
-
-                // Ensure a minimum power threshold
-                scaledTxCorrection = Math.copySign(Math.max(Math.abs(scaledTxCorrection), MIN_POWER), scaledTxCorrection);
-                scaledTyCorrection = Math.copySign(Math.max(Math.abs(scaledTyCorrection), MIN_POWER), scaledTyCorrection);
+                // Scale corrections inversely with the error magnitude
+                double scaledTxCorrection = Math.signum(txCorrection) *
+                        Math.min(MAX_POWER, Math.max(MIN_POWER, SCALING_CONSTANT / (Math.abs(ty) + SCALING_CONSTANT)));
+                double scaledTyCorrection = Math.signum(tyCorrection) *
+                        Math.min(MAX_POWER, Math.max(MIN_POWER, SCALING_CONSTANT / (Math.abs(tx) + SCALING_CONSTANT)));
 
                 // Check if tx and ty are within the threshold
                 if (Math.abs(tx) > TX_TY_THRESHOLD || Math.abs(ty) > TX_TY_THRESHOLD) {
@@ -91,7 +91,6 @@ public class Limelight extends LinearOpMode {
             }
 
             telemetry.update();
-            // END
         }
     }
 }
