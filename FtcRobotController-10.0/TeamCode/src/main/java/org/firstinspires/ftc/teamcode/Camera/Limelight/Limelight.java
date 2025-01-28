@@ -20,7 +20,7 @@ public class Limelight extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         // Initialize the Limelight
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight.setPollRateHz(100); // Set a polling rate suitable for your application
+        limelight.setPollRateHz(100); // Set a polling rate
         limelight.pipelineSwitch(targetPipeline);  // Set to pipeline 1
         limelight.start();  // Start the Limelight
 
@@ -44,9 +44,9 @@ public class Limelight extends LinearOpMode {
                 double tx = result.getTx();
                 double ty = result.getTy();
 
-                // Calculate corrections for tx and ty
-                double txCorrection = -KP_TX * tx; // Negative to reduce tx towards 0
-                double tyCorrection = -KP_TY * ty; // Negative to move forward when ty > 0
+                // Calculate corrections for tx and ty (negetive values because camera behind)
+                double txCorrection = -KP_TX * tx;
+                double tyCorrection = -KP_TY * ty;
 
                 // Check if tx and ty are within the threshold
                 if (Math.abs(tx) > TX_TY_THRESHOLD || Math.abs(ty) > TX_TY_THRESHOLD) {
