@@ -5,7 +5,9 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
         closed,
         closing,
         close,
+        lowRung,
         lowBasket,
+        highRung,
         highBasket
     }
 
