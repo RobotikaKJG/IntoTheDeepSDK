@@ -56,20 +56,20 @@ public class ManualSlideControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                outtakeSlideControl.setSlidePosition(OuttakeConstants.highBasketPos);
+                outtakeSlideControl.setSlidePosition(850);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                outtakeSlideControl.setSlidePosition(20);
+                outtakeSlideControl.setSlidePosition(0);
                 retracting = true;
             }
 
-            if(retracting)
-            {
-                telemetry.addLine("Retracting");
-                if(outtakeSlideControl.isLimitSwitchPressed())
-                    retracting = false;
-            }
+//            if(retracting)
+//            {
+//                telemetry.addLine("Retracting");
+//                if(outtakeSlideControl.isLimitSwitchPressed())
+//                    retracting = false;
+//            }
         }
     }
 
