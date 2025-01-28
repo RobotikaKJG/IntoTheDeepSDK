@@ -6,18 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Limelight Inverse Scaling", group = "TeleOp")
+@TeleOp(name = "Limelight Alignment Control", group = "TeleOp")
 public class Limelight extends LinearOpMode {
     private Limelight3A limelight;
     private int targetPipeline = 1;
     private DcMotor frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
 
     private static final double TX_TY_THRESHOLD = 0.05; // Margin of error
-    private static final double KP_TX = 0.02; // Proportional constant for horizontal correction
-    private static final double KP_TY = 0.02; // Proportional constant for vertical correction
-    private static final double MAX_POWER = 0.5; // Maximum motor power
-    private static final double MIN_POWER = 0.1; // Minimum motor power
-    private static final double SCALING_CONSTANT = 0.2; // Small constant to stabilize scaling
+    private static final double KP_TX = 0.02; // Proportional constant for X-axis correction
+    private static final double KP_TY = 0.02; // Proportional constant for Y-axis correction
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -47,23 +44,17 @@ public class Limelight extends LinearOpMode {
                 double tx = result.getTx();
                 double ty = result.getTy();
 
-                // Proportional corrections
-                double txCorrection = KP_TX * ty;
-                double tyCorrection = KP_TY * tx;
-
-                // Scale corrections inversely with the error magnitude
-                double scaledTxCorrection = Math.signum(txCorrection) *
-                        Math.min(MAX_POWER, Math.max(MIN_POWER, SCALING_CONSTANT / (Math.abs(ty) + SCALING_CONSTANT)));
-                double scaledTyCorrection = Math.signum(tyCorrection) *
-                        Math.min(MAX_POWER, Math.max(MIN_POWER, SCALING_CONSTANT / (Math.abs(tx) + SCALING_CONSTANT)));
+                // Calculate corrections for tx and ty
+                double txCorrection = -KP_TX * tx; // Negative to reduce tx towards 0
+                double tyCorrection = KP_TY * ty;  // Positive to bring ty to 0
 
                 // Check if tx and ty are within the threshold
                 if (Math.abs(tx) > TX_TY_THRESHOLD || Math.abs(ty) > TX_TY_THRESHOLD) {
-                    // Apply motor powers based on scaled corrections
-                    double frontLeftPower = scaledTyCorrection + scaledTxCorrection;
-                    double backLeftPower = scaledTyCorrection - scaledTxCorrection;
-                    double frontRightPower = scaledTyCorrection - scaledTxCorrection;
-                    double backRightPower = scaledTyCorrection + scaledTxCorrection;
+                    // Apply motor powers based on corrections
+                    double frontLeftPower = tyCorrection + txCorrection;
+                    double backLeftPower = tyCorrection - txCorrection;
+                    double frontRightPower = tyCorrection - txCorrection;
+                    double backRightPower = tyCorrection + txCorrection;
 
                     frontLeftMotor.setPower(frontLeftPower);
                     backLeftMotor.setPower(backLeftPower);
@@ -77,10 +68,10 @@ public class Limelight extends LinearOpMode {
                     backRightMotor.setPower(0);
                 }
 
-                telemetry.addData("Target X (tx)", tx);
-                telemetry.addData("Target Y (ty)", ty);
-                telemetry.addData("Scaled TX Correction", scaledTxCorrection);
-                telemetry.addData("Scaled TY Correction", scaledTyCorrection);
+                telemetry.addData("Target X", tx);
+                telemetry.addData("Target Y", ty);
+                telemetry.addData("TX Correction", txCorrection);
+                telemetry.addData("TY Correction", tyCorrection);
             } else {
                 telemetry.addData("Limelight", "No Targets");
                 // Stop motors if no valid target
