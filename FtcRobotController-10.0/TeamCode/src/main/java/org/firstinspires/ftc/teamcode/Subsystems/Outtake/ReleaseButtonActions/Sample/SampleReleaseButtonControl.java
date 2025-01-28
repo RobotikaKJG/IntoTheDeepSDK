@@ -9,14 +9,14 @@ public class SampleReleaseButtonControl {
     private SampleReleaseButtonStates prevSampleReleaseButtonStates = SampleReleaseButtonStates.idle;
 
     public void update(){
-        if(OuttakeStates.getReleaseButtonState() != prevSampleReleaseButtonStates) {
+        if(OuttakeStates.getSampleReleaseButtonState() != prevSampleReleaseButtonStates) {
             updateStates();
-            prevSampleReleaseButtonStates = OuttakeStates.getReleaseButtonState();
+            prevSampleReleaseButtonStates = OuttakeStates.getSampleReleaseButtonState();
         }
     }
 
     private void updateStates(){
-        switch(OuttakeStates.getReleaseButtonState()){
+        switch(OuttakeStates.getSampleReleaseButtonState()){
             case flipArm:
                 flipArm();
                 break;

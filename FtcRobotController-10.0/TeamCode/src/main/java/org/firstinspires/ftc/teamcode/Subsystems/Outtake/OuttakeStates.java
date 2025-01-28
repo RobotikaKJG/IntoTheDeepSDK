@@ -60,11 +60,11 @@ public class OuttakeStates {
     }
 
 
-    public static SampleReleaseButtonStates getReleaseButtonState(){
+    public static SampleReleaseButtonStates getSampleReleaseButtonState(){
         return sampleReleaseButtonStates;
     }
 
-    public static void setReleaseButtonState (SampleReleaseButtonStates state) {
+    public static void setSampleReleaseButtonState(SampleReleaseButtonStates state) {
         sampleReleaseButtonStates = state;
     }
 

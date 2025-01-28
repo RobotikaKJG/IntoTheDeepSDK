@@ -8,7 +8,7 @@ public class SampleReleaseButtonLogic {
     private double currentWait = 0;
 
     public void update(){
-        switch(OuttakeStates.getReleaseButtonState()){
+        switch(OuttakeStates.getSampleReleaseButtonState()){
             case idle:
                 idle();
                 break;
@@ -45,12 +45,12 @@ public class SampleReleaseButtonLogic {
 
     private void flipArm() {
         addWaitTime(OuttakeConstants.outtakeArmWait);
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToFlip);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToFlip);
     }
 
     private void waitToFlip() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitForReleaseConfirmation);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitForReleaseConfirmation);
     }
 
     private void waitForReleaseConfirmation() {
@@ -65,20 +65,20 @@ public class SampleReleaseButtonLogic {
         if(currentWait > getSeconds()) return;
         if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.lowBasket)
             addWaitTime(OuttakeConstants.outtakeArmCloseWait);
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractArm);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractArm);
     }
 
     private void retractArm() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.openSampleClaw);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.openSampleClaw);
     }
 
     private void openSampleClaw() {
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.retractSlides);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractSlides);
     }
 
     private void retractSlides() {
-        OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToRetract);
+        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToRetract);
     }
 
 

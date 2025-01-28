@@ -22,7 +22,7 @@ public class VerticalSlideControl {
         if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
             if(slideLogic.slidesBottomReached()) {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
-                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.idle);
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.idle);
             }
         }
     }

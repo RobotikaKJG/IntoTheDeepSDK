@@ -42,7 +42,7 @@ public class RightBumperLogic {
     }
 
     private boolean outtakeClosing(){
-        return OuttakeStates.getReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
+        return OuttakeStates.getSampleReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
     }
 
     private boolean extendoExtended() {

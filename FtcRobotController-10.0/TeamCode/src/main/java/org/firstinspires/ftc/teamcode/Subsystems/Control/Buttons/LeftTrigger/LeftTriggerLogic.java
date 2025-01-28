@@ -38,7 +38,7 @@ public class LeftTriggerLogic {
     }
 
     private boolean outtakeClosing(){
-        return OuttakeStates.getReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
+        return OuttakeStates.getSampleReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
     }
 
     private boolean intakeActive() {

@@ -20,15 +20,15 @@ public class SquareControl {
     }
 
     private void iterateOuttakeArmStates() {
-        switch (OuttakeStates.getReleaseButtonState()){
+        switch (OuttakeStates.getSampleReleaseButtonState()){
             case idle:
-                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.flipArm);
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
                 break;
             case waitForReleaseConfirmation:
-                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.releaseSample);
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.releaseSample);
                 break;
             case releaseSample:
-                OuttakeStates.setReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
                 break;
         }
     }
