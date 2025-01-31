@@ -4,14 +4,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class IntakeController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
-    private final MotorControl motorControl;
     private final HardwareMap hardwareMap;
-    private final OuttakeController outtakeController;
     private SubsystemState intakeState = SubsystemState.Idle;
-    private final MotorControl extendingMotorControl;
-    private final ServoControl intakeServoControl;
-    private final ServoControl turnServoControl;
-    private final ServoControl liftServoControl;
+    private final ServoControl firstServoControl;
+    private final ServoControl secondServoControl;
     private final double power = 0.5;
     private boolean circle = false;
     private boolean hasRotated = false;
@@ -24,15 +20,11 @@ public class IntakeController implements RobotSubsystemController {
     private static final double minAngle = 0;    // Minimum angle (degrees)
     private static final double maxAngle = 2000; // Maximum angle (degrees)
 
-    public IntakeController(EdgeDetection edgeDetection, MotorControl motorControl, HardwareMap hardwareMap, OuttakeController outtakeController) {
+    public IntakeController(EdgeDetection edgeDetection, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
-        this.motorControl = motorControl;
         this.hardwareMap = hardwareMap;
-        this.intakeServoControl = new ServoControl(hardwareMap, "intakeServo", false);
-        this.turnServoControl = new ServoControl(hardwareMap, "turnServo", false);
-        this.liftServoControl = new ServoControl(hardwareMap, "liftServo", false);
-        this.extendingMotorControl = new MotorControl(hardwareMap, "extendingMotor", true);
-        this.outtakeController = outtakeController;
+        this.firstServoControl = new ServoControl(hardwareMap, "outtakeServo1", false);
+        this.secondServoControl = new ServoControl(hardwareMap, "outtakeServo2", false);
     }
 
     @Override
@@ -55,42 +47,13 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        if (edgeDetection.rising(GamepadIndexValues.cross)) {
-            if (!open) {
-                intakeServoControl.setServoPos(0.3);
-                open = true;
-            } else {
-                intakeServoControl.setServoPos(0.66);
+//        firstServoControl.setServoPos(1);
+//        secondServoControl.setServoPos(0.04);
 
-                open = false;
-            }
-        }
+        setServoPositions(0.5);
 
-
-
-        if (edgeDetection.rising(GamepadIndexValues.dpadRight)) {
-            if (currentTServoPos < 0.62) {
-                currentTServoPos += 0.17;
-                turnServoControl.setServoPos(currentTServoPos);
-            }
-        }
-
-        // Handle dpadLeft for turning 45 degrees counterclockwise
-        if (edgeDetection.rising(GamepadIndexValues.dpadLeft)) {
-            if (currentTServoPos > 0.28) {
-                currentTServoPos -= 0.17;
-                turnServoControl.setServoPos(currentTServoPos);
-            }
-        }
-
-
-
-        if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
-            liftServoControl.setServoPos(0.94);
-            turnServoControl.setServoPos(0.28);
-        }
-        if (edgeDetection.rising(GamepadIndexValues.dpadDown)) {
-            liftServoControl.setServoPos(0.3);
+        if (edgeDetection.rising(GamepadIndexValues.square)) {
+            intakeState = SubsystemState.Run;
         }
     }
 
@@ -101,16 +64,32 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void stop() {
-//        servoControl.setServoSpeed(0);
         intakeState = SubsystemState.Idle;
     }
 
     @Override
     public void idle() {
-        intakeServoControl.setServoPos(0.3);
-        turnServoControl.setServoPos(0.28);
-        currentTServoPos = 0.28;
-        liftServoControl.setServoPos(0.62);
-        intakeState = SubsystemState.Start;
+
+//        firstServoControl.setServoPos(0.02);
+//        secondServoControl.setServoPos(1);
+
+        setServoPositions(0.0);
+
+        if (edgeDetection.rising(GamepadIndexValues.square)) {
+            intakeState = SubsystemState.Start;
+        }
+    }
+
+    private void setServoPositions(double inputValue) {
+        // Clamp input value to the range [0, 1]
+        inputValue = Math.max(0, Math.min(inputValue, 1));
+
+        // Calculate positions for both servos
+        double firstServoPos = 0.02 + (0.98 * inputValue);  // Servo 1: 0.02 to 1
+        double secondServoPos = 1 - (0.96 * inputValue);  // Servo 2: 1 to 0.02
+
+        // Set servo positions
+        firstServoControl.setServoPos(firstServoPos);
+        secondServoControl.setServoPos(secondServoPos);
     }
 }
