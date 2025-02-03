@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperStates;
@@ -16,6 +18,8 @@ public class ControlStates {
     private static SquareStates squareStates = SquareStates.idle;
     private static DpadUpStates dpadUpStates = DpadUpStates.idle;
     private static DpadDownStates dpadDownStates = DpadDownStates.idle;
+    private static CrossStates crossStates = CrossStates.idle;
+    private static CircleStates circleStates = CircleStates.idle;
 
     public static void setInitialStates(){
         leftTriggerStates = LeftTriggerStates.idle;
@@ -25,6 +29,8 @@ public class ControlStates {
         squareStates = SquareStates.idle;
         dpadUpStates = DpadUpStates.idle;
         dpadDownStates = DpadDownStates.idle;
+        crossStates = CrossStates.idle;
+        circleStates = CircleStates.idle;
     }
 
 
@@ -81,11 +87,30 @@ public class ControlStates {
         dpadUpStates = state;
     }
 
+
     public static DpadDownStates getDpadDownState() {
         return dpadDownStates;
     }
 
     public static void setDpadDownState(DpadDownStates state) {
         dpadDownStates = state;
+    }
+
+
+    public static CrossStates getCrossState() {
+        return crossStates;
+    }
+
+    public static void setCrossState(CrossStates crossStates) {
+        ControlStates.crossStates = crossStates;
+    }
+
+
+    public static CircleStates getCircleState() {
+        return circleStates;
+    }
+
+    public static void setCircleState(CircleStates circleStates) {
+        ControlStates.circleStates = circleStates;
     }
 }

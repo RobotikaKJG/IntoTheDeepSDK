@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
@@ -8,18 +9,21 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sa
 public class SquareControl {
     public void update() {
         switch (ControlStates.getSquareState()) {
-            case iterateOuttakeArmStates:
-                iterateOuttakeArmStates();
+            case iterateSampleReleaseStates:
+                iterateSampleReleaseStates();
                 break;
             case manualToggleSampleClaw:
                 manualToggleSampleClaw();
+                break;
+            case placeSpecimen:
+                placeSpecimen();
                 break;
             case idle:
                 break;
         }
     }
 
-    private void iterateOuttakeArmStates() {
+    private void iterateSampleReleaseStates() {
         switch (OuttakeStates.getSampleReleaseButtonState()){
             case idle:
                 OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
@@ -38,5 +42,9 @@ public class SquareControl {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
         else
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+    }
+
+    private void placeSpecimen() {
+        OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.clipOn);
     }
 }

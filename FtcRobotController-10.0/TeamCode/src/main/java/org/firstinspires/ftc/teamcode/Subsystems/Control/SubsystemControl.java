@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.Lef
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossLogic;
 
 public class SubsystemControl {
     private final EdgeDetection edgeDetection;
@@ -20,11 +22,14 @@ public class SubsystemControl {
     private final SquareLogic squareLogic = new SquareLogic();
     private final DpadUpLogic dpadUpLogic = new DpadUpLogic();
     private final DpadDownLogic dpadDownLogic = new DpadDownLogic();
+    private final CircleLogic circleLogic;
+    private final CrossLogic crossLogic = new CrossLogic();
 
     public SubsystemControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
         this.edgeDetection = edgeDetection;
         leftTriggerLogic = new LeftTriggerLogic(sensorControl);
         rightBumperLogic = new RightBumperLogic(sensorControl);
+        circleLogic = new CircleLogic(sensorControl);
     }
 
     public void update() {
@@ -53,5 +58,10 @@ public class SubsystemControl {
         if(edgeDetection.rising(GamepadIndexValues.dpadDown))
             dpadDownLogic.update();
 
+        if(edgeDetection.rising(GamepadIndexValues.circle))
+            circleLogic.update();
+
+        if(edgeDetection.rising(GamepadIndexValues.cross))
+            crossLogic.update();
     }
 }

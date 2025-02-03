@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
@@ -13,6 +14,7 @@ public class OuttakeStates {
     private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
     private static ArmStates armState = ArmStates.down;
     private static SampleReleaseButtonStates sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
+    private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
 
     public static void setInitialStates(){
@@ -21,6 +23,7 @@ public class OuttakeStates {
         sampleClawState = SampleClawStates.fullyOpen;
         armState = ArmStates.down;
         sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
+        specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;
     }
 
@@ -68,11 +71,21 @@ public class OuttakeStates {
         sampleReleaseButtonStates = state;
     }
 
+
     public static SpecimenClawStates getSpecimenClawState(){
         return specimenClawState;
     }
 
     public static void setSpecimenClawState(SpecimenClawStates state){
         specimenClawState = state;
+    }
+
+
+    public static SpecimenReleaseButtonStates getSpecimenReleaseButtonState(){
+        return specimenReleaseButtonStates;
+    }
+
+    public static void setSpecimenReleaseButtonState(SpecimenReleaseButtonStates state) {
+        specimenReleaseButtonStates = state;
     }
 }

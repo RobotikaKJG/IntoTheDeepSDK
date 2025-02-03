@@ -21,6 +21,11 @@ public class OuttakeConstants {
     public static double specimenClawServoMinPos = 0.45;
     public static double specimenClawServoMaxPos = 0.75;
 
+    public static double specimenClipOnWait = 1;
+    public static double specimenReleaseWait = 0.5;
+
     public static int lowRungPos = 800;
     public static int highRungPos = 1500;
+    public static int lowRungScorePos = 750;
+    public static int highRungScorePos = 1450;
 }

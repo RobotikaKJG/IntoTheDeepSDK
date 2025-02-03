@@ -44,8 +44,15 @@ public class VerticalSlideControl {
             case lowRung:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowRungPos);
                 break;
+            case lowRungScore:
+                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowRungScorePos);
+                break;
             case highRung:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungPos);
+                break;
+            case highRungScore:
+                slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungScorePos);
+                break;
         }
     }
 }

@@ -5,8 +5,10 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
         closed,
         closing,
         close,
+        lowRungScore,
         lowRung,
         lowBasket,
+        highRungScore,
         highRung,
         highBasket
     }

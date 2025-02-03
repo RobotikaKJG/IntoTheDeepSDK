@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 public enum SquareStates {
-    iterateOuttakeArmStates,
+    iterateSampleReleaseStates,
     manualToggleSampleClaw,
+    placeSpecimen,
     idle
 }
