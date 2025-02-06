@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+
 @TeleOp
 public class GeneralBlueTeleOp extends LinearOpMode {
 

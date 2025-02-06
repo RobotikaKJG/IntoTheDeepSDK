@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
-
-
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class HangControl {
     private final SlideLogic slideLogic;
-    private HangStates prevHangState = HangStates.getHangState();
+    private HangStates prevHangState = OuttakeStates.getHangState();
 
     public HangControl(SlideLogic slideLogic) {
         this.slideLogic = slideLogic;
@@ -15,25 +14,25 @@ public class HangControl {
 
     public void update() {
         // If the hang state has changed, update the slide target accordingly.
-        if (HangStates.getHangState() != prevHangState) {
+        if (OuttakeStates.getHangState() != prevHangState) {
             updateStates();
-            prevHangState = HangStates.getHangState();
+            prevHangState = OuttakeStates.getHangState();
         }
 
         // Check if the slide has reached its target position for extending.
-        if (HangStates.getHangState() == HangStates.EXTENDING) {
+        if (OuttakeStates.getHangState() == HangStates.EXTENDING) {
             if (isAtTarget()) {
                 // When close enough to the target (e.g. within the threshold),
                 // update the state to EXTENDED.
-                HangStates.setHangState(HangStates.EXTENDED);
+                OuttakeStates.setHangState(HangStates.EXTENDED);
             }
         }
 
         // Check if the slide has reached its target position for retracting.
-        if (HangStates.getHangState() == HangStates.RETRACTING) {
+        if (OuttakeStates.getHangState() == HangStates.RETRACTING) {
 
             if (isAtTarget()) {
-                HangStates.setHangState(HangStates.RETRACTED);
+                OuttakeStates.setHangState(HangStates.RETRACTED);
             }
         }
     }
@@ -44,7 +43,7 @@ public class HangControl {
     }
 
     private void updateStates() {
-        switch (HangStates.getHangState()) {
+        switch (OuttakeStates.getHangState()) {
             case EXTENDING:
                 // Command the slides to extend to high basket.
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.hangBar);

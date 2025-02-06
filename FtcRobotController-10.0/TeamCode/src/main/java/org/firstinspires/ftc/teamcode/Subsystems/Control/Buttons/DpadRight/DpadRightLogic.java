@@ -1,21 +1,42 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
+
 public class DpadRightLogic {
     private final DpadRightControl dpadRightControl = new DpadRightControl();
-    private boolean previousButtonState = false;
 
-    /**
-     * Call this update method periodically (passing in the current gamepad dpad_right value).
-     * @param currentButtonState true if the dpad_right button is currently pressed.
-     */
-    public void update(boolean currentButtonState) {
-        // Detect a rising edge: button was not pressed previously, but is pressed now.
-        if (currentButtonState && !previousButtonState) {
-            DpadRightStates.setDpadRightState(DpadRightStates.toggleHang);
-            dpadRightControl.update();
-            // Reset the dpad-right command state to idle.
-            DpadRightStates.setDpadRightState(DpadRightStates.idle);
-        }
-        previousButtonState = currentButtonState;
+    public void update() {
+
+        iterateHangStates();
+    }
+
+    private boolean iterateHangStates() {
+        if (intakeActive()|| smapleActive() || specimenActive()) return false;
+
+        ControlStates.setDpadRightState(DpadRightStates.toggleHang);
+        dpadRightControl.update();
+        // Reset the dpad-right command state to idle.
+        ControlStates.setDpadRightState(DpadRightStates.idle);
+        return true;
+    }
+
+    private boolean intakeActive()
+    {
+        return IntakeStates.getIntakeState() != SubsystemState.Idle;
+    }
+
+    private boolean smapleActive()
+    {
+        return OuttakeStates.getSampleReleaseButtonState() != SampleReleaseButtonStates.idle;
+    }
+
+    private boolean specimenActive()
+    {
+        return OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.idle;
     }
 }

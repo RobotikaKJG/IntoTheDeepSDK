@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.HangStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+
 
 public class DpadRightControl {
     public void update() {
-        switch (DpadRightStates.getDpadRightState()) {
+        switch (ControlStates.getDpadRightState()) {
             case toggleHang:
                 toggleHang();
                 break;
@@ -16,12 +19,12 @@ public class DpadRightControl {
 
     private void toggleHang() {
         // Toggle only if the slides are fully retracted or fully extended.
-        if (HangStates.getHangState() == HangStates.RETRACTED) {
+        if (OuttakeStates.getHangState() == HangStates.RETRACTED) {
             // If retracted, command extension.
-            HangStates.setHangState(HangStates.EXTENDING);
-        } else if (HangStates.getHangState() == HangStates.EXTENDED) {
+            OuttakeStates.setHangState(HangStates.EXTENDING);
+        } else if (OuttakeStates.getHangState() == HangStates.EXTENDED) {
             // If extended, command retraction.
-            HangStates.setHangState(HangStates.RETRACTING);
+            OuttakeStates.setHangState(HangStates.RETRACTING);
         }
         // If the slides are already moving (EXTENDING or RETRACTING), ignore new commands.
     }
