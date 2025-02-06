@@ -55,7 +55,8 @@ public class IntakeSlideControl implements SlideControl {
     private boolean retractSlide() {
         if(sensorControl.isLimitSwitchPressed(LimitSwitches.extendo) || motorControl.isOverCurrent(MotorConstants.extendo)) {
             motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motorControl.setMotorSpeed(MotorConstants.extendo, 0);
+            motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
+            motorControl.setMotorSpeed(MotorConstants.extendo, 0);//0.1);
             motorControl.setMotors(MotorConstants.extendo);
             return true;
         }
