@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.HangStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.HangStates;
 
 public class OuttakeStates {
     private static SubsystemState outtakeState = SubsystemState.Idle;
@@ -16,6 +18,7 @@ public class OuttakeStates {
     private static SampleReleaseButtonStates sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
     private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
+    private static HangStates hangState = HangStates.RETRACTED;
 
     public static void setInitialStates(){
         outtakeState = SubsystemState.Idle;
@@ -88,4 +91,13 @@ public class OuttakeStates {
     public static void setSpecimenReleaseButtonState(SpecimenReleaseButtonStates state) {
         specimenReleaseButtonStates = state;
     }
+
+    public static HangStates getHangState() {
+        return hangState;
+    }
+
+    public static void setHangState(HangStates state) {
+        hangState = state;
+    }
+
 }
