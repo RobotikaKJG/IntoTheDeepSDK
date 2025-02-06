@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -23,7 +22,7 @@ public class SquareLogic {
     }
 
     private boolean iterateSampleReleaseStates() {
-        if(!outtakeActive()) return false;
+        if(!outtakeActive() || specimenTaken()) return false;
         ControlStates.setSquareState(SquareStates.iterateSampleReleaseStates);
         completeAction();
         return true;
@@ -51,7 +50,7 @@ public class SquareLogic {
 
     private boolean placeSpecimen() {
         if(!outtakeActive() || intakeActive() || !specimenTaken()) return false;
-        ControlStates.setCircleState(CircleStates.dropSample);
+        ControlStates.setSquareState(SquareStates.placeSpecimen);
         completeAction();
         return true;
     }

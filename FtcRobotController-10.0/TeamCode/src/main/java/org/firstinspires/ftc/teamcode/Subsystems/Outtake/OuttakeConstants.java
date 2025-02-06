@@ -18,14 +18,14 @@ public class OuttakeConstants {
 
     public static double releaseServoWait = 0.3;
 
-    public static double specimenClawServoMinPos = 0.45;
-    public static double specimenClawServoMaxPos = 0.75;
+    public static double specimenClawServoMinPos = 0.5;
+    public static double specimenClawServoMaxPos = 0.7;
 
-    public static double specimenClipOnWait = 1;
-    public static double specimenReleaseWait = 0.5;
+    public static double specimenReleaseWait = 0.1;
 
-    public static int lowRungPos = 800;
-    public static int highRungPos = 1500;
-    public static int lowRungScorePos = 750;
-    public static int highRungScorePos = 1450;
+    public static int lowRungPos = 300;
+    public static int highRungPos = 1350;
+    public static int lowRungScorePos = 0;
+    public static int highRungScorePos = 1040;
+    public static int specimenHungThreshold = 10;
 }

@@ -1,11 +1,17 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class SpecimenReleaseButtonLogic {
     private double currentWait = 0;
+    private final SlideLogic slideLogic;
+
+    public SpecimenReleaseButtonLogic(SlideLogic slideLogic) {
+        this.slideLogic = slideLogic;
+    }
 
     public void update() {
         switch (OuttakeStates.getSpecimenReleaseButtonState()) {
@@ -28,11 +34,11 @@ public class SpecimenReleaseButtonLogic {
     }
 
     private void clipOn() {
-        addWaitTime(OuttakeConstants.specimenClipOnWait);
+        OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.waitToRelease);
     }
 
     private void waitToRelease() {
-        if(currentWait > getSeconds()) return;
+        if(Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.specimenHungThreshold) return;
         OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.release);
         addWaitTime(OuttakeConstants.specimenReleaseWait);
     }

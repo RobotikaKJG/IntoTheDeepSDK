@@ -43,17 +43,18 @@ public class LeftBumperControl {
                 case closed:
                     OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
                     break;
-                case lowBasket:
+                case lowRung:
                     OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
                     break;
             }
-        switch(OuttakeStates.getVerticalSlideState()){
-            case closed:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);
-                break;
-            case lowBasket:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
-                break;
+        else
+            switch(OuttakeStates.getVerticalSlideState()){
+                case closed:
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);
+                    break;
+                case lowBasket:
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
+                    break;
         }
     }
 }

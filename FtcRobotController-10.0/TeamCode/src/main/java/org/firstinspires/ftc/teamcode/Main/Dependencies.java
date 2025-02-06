@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.A
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
@@ -43,6 +44,7 @@ public class Dependencies {
     public ServoControl servoControl;
     public EdgeDetection edgeDetection = new EdgeDetection();
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
+    private final SlideLogic outtakeSlideLogic;
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
@@ -54,6 +56,7 @@ public class Dependencies {
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
+        outtakeSlideLogic = createOuttakeSlideLogic();
     }
 
     public Drivebase createDrivebase() {
@@ -124,7 +127,11 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSampleClawControl(),createSpecimenClawControl(),createVerticalSlideControl());
+        return new OuttakeControl(createArmControl(), createSampleClawControl(),createSpecimenClawControl(),createVerticalSlideControl(), createSpecimenReleaseButtonLogic());
+    }
+
+    private SpecimenReleaseButtonLogic createSpecimenReleaseButtonLogic() {
+        return new SpecimenReleaseButtonLogic(outtakeSlideLogic);
     }
 
     private ArmControl createArmControl() {
@@ -140,6 +147,6 @@ public class Dependencies {
     }
 
     private VerticalSlideControl createVerticalSlideControl() {
-        return new VerticalSlideControl(createOuttakeSlideLogic());
+        return new VerticalSlideControl(outtakeSlideLogic);
     }
 }
