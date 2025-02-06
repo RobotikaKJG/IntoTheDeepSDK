@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class CrossControl {
