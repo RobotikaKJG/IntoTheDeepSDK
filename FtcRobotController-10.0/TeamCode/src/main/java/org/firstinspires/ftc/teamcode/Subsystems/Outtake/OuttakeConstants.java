@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 public class OuttakeConstants {
-    public static final double outtakeLeftServoMaxPos = 0.88;//0.965;//+0.0?     // Placing position,
-    public static final double outtakeLeftServoMinPos = 0.1675;//0.2;     // Taking position, starting position
+    public static final double outtakeLeftServoMaxPos = 0.825;//0.82;//0.88;//0.965;//+0.0?     // Taking position, starting position
+    public static final double outtakeLeftServoMinPos = 0.085;//0.065;//1675;//0.2;     // Placing position,
     public static final double releaseServoMaxPos = 0.77;     // Maximum rotational position, claw open
     public static final double releaseServoReleasePos = 0.60;     // used for upOpen
     public static final double releaseServoMinPos = 0.45;     // Minimum rotational position, claw closed position
