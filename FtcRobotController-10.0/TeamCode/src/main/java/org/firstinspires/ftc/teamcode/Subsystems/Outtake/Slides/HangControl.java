@@ -22,7 +22,7 @@ public class HangControl {
 
         // Check if the slide has reached its target position for extending.
         if (HangStates.getHangState() == HangStates.EXTENDING) {
-            if (isAtTarget(OuttakeConstants.highBasketPos)) {
+            if (isAtTarget()) {
                 // When close enough to the target (e.g. within the threshold),
                 // update the state to EXTENDED.
                 HangStates.setHangState(HangStates.EXTENDED);
@@ -31,16 +31,16 @@ public class HangControl {
 
         // Check if the slide has reached its target position for retracting.
         if (HangStates.getHangState() == HangStates.RETRACTING) {
-            int retractTarget = 20;
-            if (isAtTarget(retractTarget)) {
+
+            if (isAtTarget()) {
                 HangStates.setHangState(HangStates.RETRACTED);
             }
         }
     }
 
 
-    private boolean isAtTarget(int targetPosition) {
-        return Math.abs(slideLogic.getSlidePosition() - targetPosition) < OuttakeConstants.hangThreshold;
+    private boolean isAtTarget() {
+        return Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) < OuttakeConstants.hangThreshold;
     }
 
     private void updateStates() {
