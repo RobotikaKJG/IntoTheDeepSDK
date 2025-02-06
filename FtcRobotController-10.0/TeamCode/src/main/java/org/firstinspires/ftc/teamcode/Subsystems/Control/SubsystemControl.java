@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValu
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight.DpadRightLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.LeftTriggerLogic;
@@ -12,6 +13,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.Ri
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight.DpadRightLogic;
+
 
 public class SubsystemControl {
     private final EdgeDetection edgeDetection;
@@ -24,6 +27,7 @@ public class SubsystemControl {
     private final DpadDownLogic dpadDownLogic = new DpadDownLogic();
     private final CircleLogic circleLogic;
     private final CrossLogic crossLogic = new CrossLogic();
+    private final DpadRightLogic dpadRightLogic = new DpadRightLogic();
 
     public SubsystemControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
         this.edgeDetection = edgeDetection;
@@ -63,5 +67,8 @@ public class SubsystemControl {
 
         if(edgeDetection.rising(GamepadIndexValues.cross))
             crossLogic.update();
+
+        if (edgeDetection.rising(GamepadIndexValues.dpadRight))
+            dpadRightLogic.update();
     }
 }

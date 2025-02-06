@@ -14,12 +14,12 @@ public class Limelight extends LinearOpMode {
 
     // Tune these values for your specific needs
     private static final double TX_TY_THRESHOLD = 0.05; // Margin of error
-    private static final double KP_TX = 0.02;           // Proportional constant for X-axis correction
-    private static final double KP_TY = 0.02;           // Proportional constant for Y-axis correction
+    private static final double KP_TX = 0.03;           // Proportional constant for X-axis correction
+    private static final double KP_TY = 0.03;           // Proportional constant for Y-axis correction
 
     // Desired target values for tx and ty
     private static final double DESIRED_TX = 0.0;
-    private static final double DESIRED_TY = 18.0;
+    private static final double DESIRED_TY = 0.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -65,8 +65,8 @@ public class Limelight extends LinearOpMode {
                     telemetry.addData("Status", "Aligned: Stopped");
                 } else {
                     // Calculate motor power corrections based on how far off we are
-                    double txCorrection = -KP_TX * txError;
-                    double tyCorrection = KP_TY * tyError;
+                    double txCorrection = KP_TX * txError;
+                    double tyCorrection = -KP_TY * tyError;
 
                     /*
                      * Here is one simple approach to mix forward/backward and rotation:

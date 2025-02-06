@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
@@ -21,14 +22,17 @@ public class OuttakeControl {
     private final SampleReleaseButtonControl sampleReleaseButtonControl = new SampleReleaseButtonControl();
     private final SpecimenReleaseButtonLogic specimenReleaseButtonLogic;
     private final SpecimenReleaseButtonControl specimenReleaseButtonControl = new SpecimenReleaseButtonControl();
+    private final HangControl hangControl;
+
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
-                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic) {
+                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl) {
         this.armControl = armControl;
         this.sampleClawControl = sampleClawControl;
         this.specimenClawControl = specimenClawControl;
         this.verticalSlideControl = verticalSlideControl;
         this.specimenReleaseButtonLogic = specimenReleaseButtonLogic;
+        this.hangControl = hangControl;
     }
 
     public void update() {
@@ -40,6 +44,7 @@ public class OuttakeControl {
         specimenClawControl.update();
         specimenReleaseButtonControl.update();
         specimenReleaseButtonLogic.update();
+        hangControl.update();
 
         updateOuttakeState();
     }
