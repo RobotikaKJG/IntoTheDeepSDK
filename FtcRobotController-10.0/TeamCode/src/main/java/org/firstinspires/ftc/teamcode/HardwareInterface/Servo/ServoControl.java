@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Servo;
 
-import com.qualcomm.robotcore.hardware.CRServoImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -30,16 +29,19 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos); //should be idlepos
+        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
         setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
-        if (GlobalVariables.isAutonomous)
+
+        if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
-        else
+            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
+        }
+        else {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
-        //setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
+            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
+        }
 
         setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
-        setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos); //to be changed, NOTE
     }
 
     public void setServoPos(int index, double position) {

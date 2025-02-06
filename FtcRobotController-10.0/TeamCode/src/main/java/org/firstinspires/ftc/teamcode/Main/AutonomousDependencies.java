@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 //import org.firstinspires.ftc.teamcode.Autonomous.NewSampleAuton;
 import org.firstinspires.ftc.teamcode.Autonomous.SampleAuton;
+import org.firstinspires.ftc.teamcode.Autonomous.SpecimenAuton;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 
 public class AutonomousDependencies extends Dependencies {
@@ -24,7 +25,11 @@ public class AutonomousDependencies extends Dependencies {
         return new SampleAuton(drive);
     }
 
+    public SpecimenAuton createSpecimenAuton() {
+        return new SpecimenAuton(drive);
+    }
+
     public AutonomousControl createAutonomousControl() {
-        return new AutonomousControl(motorControl,createSampleAuton(),createIntakeControl(),createOuttakeControl(),sensorControl);
+        return new AutonomousControl(motorControl,createSampleAuton(),createSpecimenAuton(),createIntakeControl(),createOuttakeControl(),sensorControl);
     }
 }

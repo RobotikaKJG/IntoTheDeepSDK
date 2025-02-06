@@ -29,6 +29,9 @@ public class ExtendoControl {
 
     private void updateStates() {
         switch(IntakeStates.getExtendoState()){
+            case fullyExtend:
+                fullyExtend();
+                break;
             case stepDown:
                 stepDown();
                 break;
@@ -41,6 +44,11 @@ public class ExtendoControl {
             case idle:
                 break;
         }
+    }
+
+    private void fullyExtend() {
+        slideLogic.setSlideExtensionTarget(IntakeConstants.extendoMaxExtension);
+        IntakeStates.setExtendoState(ExtendoStates.extended);
     }
 
     private void stepDown() {

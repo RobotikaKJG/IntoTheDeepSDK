@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 public class AutonomousConstants {
 
+    //sample constants
     public static final double goToBasketWait = 1.5;
     public static final double flipArmFirstWait = 0.75;
     public static final double flipArmWait = 1;
@@ -12,4 +13,14 @@ public class AutonomousConstants {
     public static final double goToBasketSecondWait = 0;
     public static final double goToBasketThirdWait = 1.5;
 
+    //specimen constants
+    public static final double goToPushFirstSampleWait = 1.5;
+    public static final double goToPushSecondSampleWait = 1;
+    public static final double goToPushThirdSampleWait = 1;
+
+    public static final double pushSampleWait = 1;
+
+    public static final double takeSpecimenWait = 0.5;
+    public static final double goToTakeSecondSpecimenWait = 1;
+    public static final double goToPlaceSecondSpecimenWait = 2;
 }

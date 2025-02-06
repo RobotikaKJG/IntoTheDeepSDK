@@ -137,17 +137,12 @@ public class SampleAuton implements Auton{
 
     private void goToFirstSample() {
         if(currentWait > getSeconds()) return;
-        IntakeStates.setExtendoState(ExtendoStates.stepUp);
 
-        if(repeats > 2) {
-            IntakeStates.setExtendoState(ExtendoStates.stepUp);
-            addWaitTime(AutonomousConstants.takeSampleMaxWait);
-            IntakeStates.setMotorState(IntakeMotorStates.forward);
-            sampleAutonState = SampleAutonState.takeFirstSample;
-            repeats = 0;
-        }
-        else
-            repeats++;
+        IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
+        addWaitTime(AutonomousConstants.takeSampleMaxWait);
+        IntakeStates.setMotorState(IntakeMotorStates.forward);
+        sampleAutonState = SampleAutonState.takeFirstSample;
+
     }
 
     private void takeFirstSample() {
@@ -191,17 +186,12 @@ public class SampleAuton implements Auton{
 
     private void goToSecondSample() {
         if(currentWait > getSeconds()) return;
-        IntakeStates.setExtendoState(ExtendoStates.stepUp);
 
-        if(repeats > 2) {
-            IntakeStates.setExtendoState(ExtendoStates.stepUp);
-            addWaitTime(AutonomousConstants.takeSampleMaxWait);
-            IntakeStates.setMotorState(IntakeMotorStates.forward);
-            sampleAutonState = SampleAutonState.takeSecondSample;
-            repeats = 0;
-        }
-        else
-            repeats++;
+        IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
+        addWaitTime(AutonomousConstants.takeSampleMaxWait);
+        IntakeStates.setMotorState(IntakeMotorStates.forward);
+        sampleAutonState = SampleAutonState.takeSecondSample;
+
     }
 
     private void takeSecondSample() {
@@ -241,16 +231,12 @@ public class SampleAuton implements Auton{
 
     private void goToThirdSample() {
         if(currentWait > getSeconds()) return;
-        IntakeStates.setExtendoState(ExtendoStates.stepUp);
 
-        if(repeats > 2) {
-            IntakeStates.setExtendoState(ExtendoStates.stepUp);
-            addWaitTime(AutonomousConstants.takeSampleMaxWait);
-            IntakeStates.setMotorState(IntakeMotorStates.forward);
-            sampleAutonState = SampleAutonState.takeThirdSample;
-        }
-        else
-            repeats++;
+        IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
+        addWaitTime(AutonomousConstants.takeSampleMaxWait);
+        IntakeStates.setMotorState(IntakeMotorStates.forward);
+        sampleAutonState = SampleAutonState.takeThirdSample;
+
     }
 
     private void takeThirdSample() {

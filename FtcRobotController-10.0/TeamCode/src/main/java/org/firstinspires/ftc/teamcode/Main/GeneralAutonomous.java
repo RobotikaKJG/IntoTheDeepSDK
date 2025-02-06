@@ -34,14 +34,13 @@ public class GeneralAutonomous extends LinearOpMode {
                 break;
             autonomousControl.runAutonomous();
             drive.update();
-            telemetry.addData("isAutonomous",GlobalVariables.isAutonomous);
             telemetry.update();
         }
     }
 
     private void initialise() {
         //noinspection unused
-        //SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
+        SelectStartVariables selectStartVariables = new SelectStartVariables(gamepad1, telemetry);
 
         //Needs to be set to false for SensorControl initialisation through AutonomousDependencies
         GlobalVariables.wasAutonomous = false;
