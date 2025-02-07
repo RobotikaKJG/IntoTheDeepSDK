@@ -19,12 +19,12 @@ public class DpadRightControl {
 
     private void toggleHang() {
         // Toggle only if the slides are fully retracted or fully extended.
-        if (OuttakeStates.getHangState() == HangStates.RETRACTED) {
+        if (OuttakeStates.getHangState() == HangStates.retracted) {
             // If retracted, command extension.
-            OuttakeStates.setHangState(HangStates.EXTENDING);
-        } else if (OuttakeStates.getHangState() == HangStates.EXTENDED) {
+            OuttakeStates.setHangState(HangStates.extending);
+        } else if (OuttakeStates.getHangState() == HangStates.extended) {
             // If extended, command retraction.
-            OuttakeStates.setHangState(HangStates.RETRACTING);
+            OuttakeStates.setHangState(HangStates.retracting);
         }
         // If the slides are already moving (EXTENDING or RETRACTING), ignore new commands.
     }
