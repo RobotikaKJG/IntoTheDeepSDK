@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class SquareLogic {
@@ -18,12 +18,12 @@ public class SquareLogic {
 
     private void completeAction(){
         squareControl.update();
-        ControlStates.setSquareState(SquareStates.idle);
+        ButtonStates.setSquareState(SquareStates.idle);
     }
 
     private boolean iterateSampleReleaseStates() {
         if(!outtakeActive() || specimenTaken()) return false;
-        ControlStates.setSquareState(SquareStates.iterateSampleReleaseStates);
+        ButtonStates.setSquareState(SquareStates.iterateSampleReleaseStates);
         completeAction();
         return true;
     }
@@ -35,7 +35,7 @@ public class SquareLogic {
     private boolean manualToggleSampleClaw()
     {
         if(outtakeActive()) return false;
-        ControlStates.setSquareState(SquareStates.manualToggleSampleClaw);
+        ButtonStates.setSquareState(SquareStates.manualToggleSampleClaw);
         completeAction();
         return true;
     }
@@ -50,7 +50,7 @@ public class SquareLogic {
 
     private boolean placeSpecimen() {
         if(!outtakeActive() || intakeActive() || !specimenTaken()) return false;
-        ControlStates.setSquareState(SquareStates.placeSpecimen);
+        ButtonStates.setSquareState(SquareStates.placeSpecimen);
         completeAction();
         return true;
     }

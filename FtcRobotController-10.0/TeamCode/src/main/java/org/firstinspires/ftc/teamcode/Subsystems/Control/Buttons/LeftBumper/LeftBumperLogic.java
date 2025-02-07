@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
@@ -17,13 +17,13 @@ public class LeftBumperLogic {
 
     private void completeAction(){
         leftBumperControl.update();
-        ControlStates.setLeftBumperState(LeftBumperStates.idle);
+        ButtonStates.setLeftBumperState(LeftBumperStates.idle);
     }
 
     private boolean manualIntakeClose() {
         if(intakeClosing()) return false;
 
-        ControlStates.setLeftBumperState(LeftBumperStates.manualIntakeClose);
+        ButtonStates.setLeftBumperState(LeftBumperStates.manualIntakeClose);
         completeAction();
         return true;
     }
@@ -35,7 +35,7 @@ public class LeftBumperLogic {
     private boolean autoIntakeCloseConfirmation() {
         if(IntakeStates.getAutoCloseStates() != AutoCloseStates.waitForCommand) return false;
 
-        ControlStates.setLeftBumperState(LeftBumperStates.autoIntakeCloseConfirmation);
+        ButtonStates.setLeftBumperState(LeftBumperStates.autoIntakeCloseConfirmation);
         completeAction();
         return true;
     }
@@ -43,7 +43,7 @@ public class LeftBumperLogic {
     private boolean moveSlidesUp() {
         if(intakeActive()) return false;
 
-        ControlStates.setLeftBumperState(LeftBumperStates.moveSlidesUp);
+        ButtonStates.setLeftBumperState(LeftBumperStates.moveSlidesUp);
         completeAction();
         return true;
     }
