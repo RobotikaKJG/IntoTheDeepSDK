@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -16,12 +16,12 @@ public class DpadDownLogic {
 
     private void completeAction(){
         dpadDownControl.update();
-        ControlStates.setDpadDownState(DpadDownStates.idle);
+        ButtonStates.setDpadDownState(DpadDownStates.idle);
     }
 
     private boolean toggleEjectionServo() {
         if(outtakeActive() || extendoRetracted()) return false;
-        ControlStates.setDpadDownState(DpadDownStates.toggleEjectionServo);
+        ButtonStates.setDpadDownState(DpadDownStates.toggleEjectionServo);
         completeAction();
         return true;
     }

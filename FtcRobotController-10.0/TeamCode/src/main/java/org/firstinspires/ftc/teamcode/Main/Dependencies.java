@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
@@ -84,12 +84,12 @@ public class Dependencies {
         return new OuttakeSlideControl(motorControl,sensorControl);
     }
 
-    SubsystemControl createSubsystemControl() {
-        return new SubsystemControl(edgeDetection, sensorControl);
+    ButtonControl createSubsystemControl() {
+        return new ButtonControl(edgeDetection, sensorControl);
     }
 
-    SubsystemControl createSubsystemControl2() {
-        return new SubsystemControl(gamepad2EdgeDetection, sensorControl);
+    ButtonControl createSubsystemControl2() {
+        return new ButtonControl(gamepad2EdgeDetection, sensorControl);
     }
 
     public IntakeControl createIntakeControl() {

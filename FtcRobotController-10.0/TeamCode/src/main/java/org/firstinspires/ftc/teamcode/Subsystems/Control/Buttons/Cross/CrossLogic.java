@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross;
 
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
@@ -16,12 +16,12 @@ public class CrossLogic {
 
     private void completeAction(){
         crossControl.update();
-        ControlStates.setCrossState(CrossStates.idle);
+        ButtonStates.setCrossState(CrossStates.idle);
     }
 
     private boolean takeSpecimen() {
         if(outtakeActive() || intakeActive() || specimenTaken()) return false;
-        ControlStates.setCrossState(CrossStates.takeSpecimen);
+        ButtonStates.setCrossState(CrossStates.takeSpecimen);
         completeAction();
         return true;
     }

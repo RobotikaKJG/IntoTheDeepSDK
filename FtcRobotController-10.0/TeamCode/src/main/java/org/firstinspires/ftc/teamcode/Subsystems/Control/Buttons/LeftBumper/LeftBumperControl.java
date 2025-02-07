@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
@@ -13,7 +12,7 @@ public class LeftBumperControl {
     }
 
     public void update() {
-        switch(ControlStates.getLeftBumperState()){
+        switch(ButtonStates.getLeftBumperState()){
             case manualIntakeClose:
                 manualIntakeClose();
                 break;

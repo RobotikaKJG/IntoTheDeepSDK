@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -22,7 +22,7 @@ public class LeftTriggerLogic {
 
     private void completeAction(){
         leftTriggerControl.update();
-        ControlStates.setLeftTriggerState(LeftTriggerStates.idle);
+        ButtonStates.setLeftTriggerState(LeftTriggerStates.idle);
     }
 
     private boolean sampleInIntake(){
@@ -32,7 +32,7 @@ public class LeftTriggerLogic {
     private boolean toggleIntakeMotor() {
         if((!outtakeInactive() && !outtakeClosing())||(sampleInIntake() && !intakeActive())) return false;
 
-        ControlStates.setLeftTriggerState(LeftTriggerStates.toggleIntakeMotor);
+        ButtonStates.setLeftTriggerState(LeftTriggerStates.toggleIntakeMotor);
         completeAction();
         return true;
     }
@@ -48,7 +48,7 @@ public class LeftTriggerLogic {
     private boolean moveSlidesDown() {
         if(outtakeInactive()) return false;
 
-        ControlStates.setLeftTriggerState(LeftTriggerStates.moveSlidesDown);
+        ButtonStates.setLeftTriggerState(LeftTriggerStates.moveSlidesDown);
         completeAction();
         return true;
     }
