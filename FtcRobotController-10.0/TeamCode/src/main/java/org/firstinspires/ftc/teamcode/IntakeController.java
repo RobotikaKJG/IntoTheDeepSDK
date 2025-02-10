@@ -102,31 +102,32 @@ public class IntakeController implements RobotSubsystemController {
             }
         }
 
-        if (edgeDetection.rising(GamepadIndexValues.dpadRight) && !outtakeController.risen && !isUp && !circle) {
+        if (edgeDetection.rising(GamepadIndexValues.dpadLeft) && !outtakeController.risen && !isUp && !circle) {
             if (currentTServoPos < 0.62) {
                 currentTServoPos += 0.17;
                 turnServoControl.setServoPos(currentTServoPos);
             }
         }
 
-        if (edgeDetection.rising(GamepadIndexValues.dpadLeft) && !outtakeController.risen && !isUp && !circle) {
+        if (edgeDetection.rising(GamepadIndexValues.dpadRight) && !outtakeController.risen && !isUp && !circle) {
             if (currentTServoPos > 0.11) {
                 currentTServoPos -= 0.17;
                 turnServoControl.setServoPos(currentTServoPos);
             }
         }
 
-        if (edgeDetection.rising(GamepadIndexValues.dpadUp) && !outtakeController.risen && !circle) {
-            liftServoControl.setServoPos(0.94);
-            turnServoControl.setServoPos(0.28);
-            currentTServoPos = 0.28;
-            isUp = true;
-        }
-
         if (edgeDetection.rising(GamepadIndexValues.dpadDown) && !outtakeController.risen && !circle) {
-            liftServoControl.setServoPos(0.3);
-            wasDown = true;
-            isUp = false;
+            if (isUp) {
+                liftServoControl.setServoPos(0.3);
+                wasDown = true;
+                isUp = false;
+            }
+            else {
+                liftServoControl.setServoPos(0.94);
+                turnServoControl.setServoPos(0.28);
+                currentTServoPos = 0.28;
+                isUp = true;
+            }
         }
     }
 
