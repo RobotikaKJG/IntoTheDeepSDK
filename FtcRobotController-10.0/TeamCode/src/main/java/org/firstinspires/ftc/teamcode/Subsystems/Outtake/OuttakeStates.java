@@ -17,7 +17,7 @@ public class OuttakeStates {
     private static SampleReleaseButtonStates sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
     private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
-    private static HangStates hangState = HangStates.RETRACTED;
+    private static HangStates hangState = HangStates.retracted;
 
     public static void setInitialStates(){
         outtakeState = SubsystemState.Idle;
@@ -27,7 +27,7 @@ public class OuttakeStates {
         sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
         specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;
-        hangState = HangStates.RETRACTED;
+        hangState = HangStates.retracted;
     }
 
     public static SubsystemState getOuttakeState() {

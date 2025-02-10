@@ -6,5 +6,6 @@ public enum ExtendoStates {
     stepUp,
     stepDown,
     extended,
+    fullyExtend,
     idle
 }

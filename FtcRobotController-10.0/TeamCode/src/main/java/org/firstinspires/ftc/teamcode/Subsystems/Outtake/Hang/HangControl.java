@@ -20,19 +20,19 @@ public class HangControl {
         }
 
         // Check if the slide has reached its target position for extending.
-        if (OuttakeStates.getHangState() == HangStates.EXTENDING) {
+        if (OuttakeStates.getHangState() == HangStates.extending) {
             if (isAtTarget()) {
                 // When close enough to the target (e.g. within the threshold),
                 // update the state to EXTENDED.
-                OuttakeStates.setHangState(HangStates.EXTENDED);
+                OuttakeStates.setHangState(HangStates.extended);
             }
         }
 
         // Check if the slide has reached its target position for retracting.
-        if (OuttakeStates.getHangState() == HangStates.RETRACTING) {
+        if (OuttakeStates.getHangState() == HangStates.retracting) {
 
             if (isAtTarget()) {
-                OuttakeStates.setHangState(HangStates.RETRACTED);
+                OuttakeStates.setHangState(HangStates.retracted);
             }
         }
     }
@@ -44,11 +44,11 @@ public class HangControl {
 
     private void updateStates() {
         switch (OuttakeStates.getHangState()) {
-            case EXTENDING:
+            case extending:
                 // Command the slides to extend to high basket.
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.hangBar);
                 break;
-            case RETRACTING:
+            case retracting:
                 // Command the slides to retract (target position set to 20).
                 slideLogic.setSlideExtensionTarget(20);
                 break;

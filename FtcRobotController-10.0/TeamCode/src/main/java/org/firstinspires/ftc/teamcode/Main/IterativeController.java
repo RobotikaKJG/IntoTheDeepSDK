@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.SubsystemControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -27,7 +27,7 @@ public class IterativeController {
 //    private final EdgeDetection gamepad2EdgeDetection;
     private final DrivebaseController drivebaseController;
     private final StandardTrackingWheelLocalizer localizer;
-    private final SubsystemControl subsystemControl;
+    private final ButtonControl buttonControl;
     //private final SubsystemControl subsystemControl2;
     private final IntakeControl intakeControl;
     private final OuttakeControl outtakeControl;
@@ -43,20 +43,20 @@ public class IterativeController {
         currentGamepad1.copy(this.gamepad1);
         prevGamepad1.copy(currentGamepad1);
         localizer = dependencies.localizer;
-        subsystemControl = dependencies.createSubsystemControl();
+        buttonControl = dependencies.createSubsystemControl();
         //subsystemControl2 = dependencies.createSubsystemControl2();
         intakeControl = dependencies.createIntakeControl();
         outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
         IntakeStates.setInitialStates();
         OuttakeStates.setInitialStates();
-        ControlStates.setInitialStates();
+        ButtonStates.setInitialStates();
     }
 
     public void TeleOp() {
         updateCommonValues();
         drivebaseController.updateState();
-        subsystemControl.update();
+        buttonControl.update();
 
 //        if(gamepad1Active()) {
 //            GlobalVariables.slowMode = false;

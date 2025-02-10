@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sa
 
 public class SquareControl {
     public void update() {
-        switch (ControlStates.getSquareState()) {
+        switch (ButtonStates.getSquareState()) {
             case iterateSampleReleaseStates:
                 iterateSampleReleaseStates();
                 break;

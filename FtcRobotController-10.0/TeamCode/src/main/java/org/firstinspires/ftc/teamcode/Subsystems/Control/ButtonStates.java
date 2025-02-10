@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.Rig
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareStates;
 
-public class ControlStates {
+public class ButtonStates {
     private static LeftTriggerStates leftTriggerStates = LeftTriggerStates.idle;
     private static LeftBumperStates leftBumperStates = LeftBumperStates.idle;
     private static RightTriggerStates rightTriggerStates = RightTriggerStates.idle;
@@ -105,7 +105,7 @@ public class ControlStates {
     }
 
     public static void setCrossState(CrossStates crossStates) {
-        ControlStates.crossStates = crossStates;
+        ButtonStates.crossStates = crossStates;
     }
 
 
@@ -114,7 +114,7 @@ public class ControlStates {
     }
 
     public static void setCircleState(CircleStates circleStates) {
-        ControlStates.circleStates = circleStates;
+        ButtonStates.circleStates = circleStates;
     }
 
 

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp;
 
 
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class DpadUpLogic {
@@ -14,12 +14,12 @@ public class DpadUpLogic {
 
     private void completeAction(){
         dpadUpControl.update();
-        ControlStates.setDpadUpState(DpadUpStates.idle);
+        ButtonStates.setDpadUpState(DpadUpStates.idle);
     }
 
     private boolean reverseMotor() {
         if(outtakeActive()) return false;
-        ControlStates.setDpadUpState(DpadUpStates.toggleMotor);
+        ButtonStates.setDpadUpState(DpadUpStates.toggleMotor);
         completeAction();
         return true;
     }

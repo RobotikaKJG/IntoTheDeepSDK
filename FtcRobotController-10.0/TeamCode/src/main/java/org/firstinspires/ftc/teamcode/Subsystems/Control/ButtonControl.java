@@ -13,10 +13,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.Ri
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight.DpadRightLogic;
 
 
-public class SubsystemControl {
+public class ButtonControl {
     private final EdgeDetection edgeDetection;
     private final LeftTriggerLogic leftTriggerLogic;
     private final LeftBumperLogic leftBumperLogic = new LeftBumperLogic();
@@ -29,7 +28,7 @@ public class SubsystemControl {
     private final CrossLogic crossLogic = new CrossLogic();
     private final DpadRightLogic dpadRightLogic = new DpadRightLogic();
 
-    public SubsystemControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
+    public ButtonControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
         this.edgeDetection = edgeDetection;
         leftTriggerLogic = new LeftTriggerLogic(sensorControl);
         rightBumperLogic = new RightBumperLogic(sensorControl);

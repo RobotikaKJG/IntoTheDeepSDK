@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.ControlStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class DpadUpControl {
 
     public void update() {
-        switch (ControlStates.getDpadUpState()) {
+        switch (ButtonStates.getDpadUpState()) {
             case toggleMotor:
                 toggleMotor();
                 break;

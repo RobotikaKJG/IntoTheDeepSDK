@@ -29,12 +29,12 @@ public class SelectStartVariables {
         while (!risingTriangleEdge && !risingSquareEdge) {
             calculateGamepadValues();
 
-            telemetry.addLine("Press triangle for RED, press square for BLUE");
+            telemetry.addLine("Press triangle for SAMPLE, press square for SPECIMEN");
             telemetry.update();
             if (risingTriangleEdge)
-                GlobalVariables.alliance = Alliance.Red;
+                GlobalVariables.autonomousMode = AutonomousMode.sampleAuton;
             if (risingSquareEdge)
-                GlobalVariables.alliance = Alliance.Blue;
+                GlobalVariables.autonomousMode = AutonomousMode.specimenAuton;
 
         }
     }
