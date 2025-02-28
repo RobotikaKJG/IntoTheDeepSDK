@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = 1;
+    private double slideMaxSpeed = 0.1;
 
     private double getSlideMaxSpeed(){
         return GlobalVariables.slowMode ? slideMaxSpeed/2 : slideMaxSpeed;
@@ -13,7 +13,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 1650; // max is 1740, reduced for safety
+        return 600; // max is 1740, reduced for safety, 1650 was before Jonas changed
     }
 
     @Override
@@ -29,7 +29,7 @@ public class IntakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideExtensionStep() {
         //return 2400;
-        return 425;
+        return 155;
     }
 
     @Override
