@@ -47,8 +47,8 @@ public class IntakeController implements RobotSubsystemController {
 
     @Override
     public void start() {
-//        firstServoControl.setServoPos(1);
-//        secondServoControl.setServoPos(0.04);
+       firstServoControl.setServoPos(1);
+       secondServoControl.setServoPos(1);
 
         setServoPositions(0.5);
 
@@ -70,26 +70,24 @@ public class IntakeController implements RobotSubsystemController {
     @Override
     public void idle() {
 
-//        firstServoControl.setServoPos(0.02);
-//        secondServoControl.setServoPos(1);
-
-        setServoPositions(0.0);
+       firstServoControl.setServoPos(0);
+       secondServoControl.setServoPos(0);
 
         if (edgeDetection.rising(GamepadIndexValues.square)) {
             intakeState = SubsystemState.Start;
         }
     }
 
-    private void setServoPositions(double inputValue) {
-        // Clamp input value to the range [0, 1]
-        inputValue = Math.max(0, Math.min(inputValue, 1));
-
-        // Calculate positions for both servos
-        double firstServoPos = 0.02 + (0.98 * inputValue);  // Servo 1: 0.02 to 1
-        double secondServoPos = 1 - (0.96 * inputValue);  // Servo 2: 1 to 0.02
-
-        // Set servo positions
-        firstServoControl.setServoPos(firstServoPos);
-        secondServoControl.setServoPos(secondServoPos);
+//     private void setServoPositions(double inputValue) {
+//         // Clamp input value to the range [0, 1]
+//         inputValue = Math.max(0, Math.min(inputValue, 1));
+//
+//         // Calculate positions for both servos
+//         double firstServoPos = 0.02 + (0.98 * inputValue);  // Servo 1: 0.02 to 1
+//         double secondServoPos = 1 - (0.96 * inputValue);  // Servo 2: 1 to 0.02
+//
+//         // Set servo positions
+//         firstServoControl.setServoPos(firstServoPos);
+//         secondServoControl.setServoPos(secondServoPos);
     }
 }

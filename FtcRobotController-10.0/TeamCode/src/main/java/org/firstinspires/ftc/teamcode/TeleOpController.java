@@ -24,10 +24,10 @@ public class TeleOpController extends LinearOpMode {
         Gamepad prevGamepad1 = new Gamepad();
 
         // Define the motors
-        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+//         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
+//         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
+//         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
+//         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
