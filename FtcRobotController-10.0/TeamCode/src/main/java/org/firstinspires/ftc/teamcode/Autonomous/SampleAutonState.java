@@ -1,27 +1,37 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 public enum SampleAutonState {
-    goToBasket,
-    flipArm,
-    placeSample,
-    goToFirstSample,
-    takeFirstSample,
-    retractFirstSample,
-    goToPlaceFirstSample,
-    flipArmForFirstSample,
-    placeFirstSample,
-    goToSecondSample,
-    takeSecondSample,
-    retractSecondSample,
-    goToPlaceSecondSample,
-    flipArmForSecondSample,
-    placeSecondSample,
-    goToThirdSample,
-    takeThirdSample,
-    retractThirdSample,
-    goToPlaceThirdSample,
-    flipArmForThirdSample,
-    placeThirdSample,
-    stop,
-    idle
+    waitForFlip,
+    releaseSample,
+    driveToSecondSample,
+    startIntake,
+    checkSamplePickup,
+    retractOuttake,
+    prepareNextCycle,
+    waitForFlipSecondSample,
+    releaseSecondSample,
+
+    thirdSampleIntakePath,
+    startIntakeForThirdSample,
+    checkSamplePickupForThirdSample,
+    retractOuttakeForThirdSample,
+    thirdSampleOuttakePath,
+    prepareNextCycleForThirdSample,
+    waitForFlipThirdSample,
+    releaseThirdSample,
+
+    forthSampleIntakePath,
+    startIntakeForForthSample,
+    checkSamplePickupForForthSample,
+    retractOuttakeForForthSample,
+    forthSampleOuttakePath,
+    prepareNextCycleForForthSample,
+    waitForFlipForthSample,
+    releaseForthSample,
+
+    startOuttakeSample,
+    startIntakeSample,
+
+    stop            // End of autonomous sequence
 }
+

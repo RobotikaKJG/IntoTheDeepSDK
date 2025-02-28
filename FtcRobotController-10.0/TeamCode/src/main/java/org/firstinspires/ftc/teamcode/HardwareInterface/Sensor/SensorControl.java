@@ -23,9 +23,9 @@ public class SensorControl {
     public final NormalizedColorSensor colorSensor;
     public final LynxI2cColorRangeSensor rangeSensor;
     public int currentColor;
-    private int currentRed;
-    private int currentGreen;
-    private int currentBlue;
+    public int currentRed;
+    public int currentGreen;
+    public int currentBlue;
     private double currentDistance;
 
     public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
