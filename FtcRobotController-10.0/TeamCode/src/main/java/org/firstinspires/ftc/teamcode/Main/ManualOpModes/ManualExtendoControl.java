@@ -56,8 +56,8 @@ public class ManualExtendoControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                intakeSlideControl.setSlidePosition(1650);//1740 max physical
-                slidePosition = 1650;
+                intakeSlideControl.setSlidePosition(600);//1740 max physical 1650 before Jonas changed
+                slidePosition = 600;
                 startTime = System.currentTimeMillis();
                 wasIf = false;
             }
