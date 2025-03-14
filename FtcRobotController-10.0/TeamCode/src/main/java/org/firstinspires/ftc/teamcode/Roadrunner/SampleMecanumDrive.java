@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MAX_ACCEL
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MAX_ANG_ACCEL;
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MAX_ANG_VEL;
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MIN_ACCEL;
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.MOTOR_VELO_PID;
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants.TRACK_WIDTH;
@@ -66,7 +67,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private final TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
+    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL, MIN_ACCEL);
 
     private final TrajectoryFollower follower;
 
@@ -311,7 +312,13 @@ public class SampleMecanumDrive extends MecanumDrive {
         ));
     }
 
-    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
-        return new ProfileAccelerationConstraint(maxAccel);
+//    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
+//        return new ProfileAccelerationConstraint(maxAccel);
+//    }
+
+    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double minAccel, double maxAccel) {
+        return (displacement, velocity, pose, motionState) ->
+                Math.max(minAccel, Math.min(maxAccel, MAX_ACCEL));
     }
+
 }

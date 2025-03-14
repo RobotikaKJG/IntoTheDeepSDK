@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
@@ -26,6 +27,8 @@ public class OuttakeStates {
     private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
     private static HangStates hangState = HangStates.retracted;
+    private static SampleLockStates sampleLockState = SampleLockStates.closed;
+
 
     // ExecutorService for Multithreading
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -105,22 +108,31 @@ public class OuttakeStates {
         hangState = state;
     }
 
-    // ✅ Check if the arm is flipped
+    // Check if the arm is flipped
     public static boolean isArmFlipped() {
         return armState == ArmStates.up;
     }
 
-    // ✅ Execute outtake extension and arm flip in parallel
+    public static SampleLockStates getSampleLockState() {
+        return sampleLockState;
+    }
+
+    public static void setSampleLockState(SampleLockStates state) {
+        sampleLockState = state;
+    }
+
+
+    // Execute outtake extension and arm flip in parallel
     public static void extendOuttakeAndIntakeAndFlipArm() {
 
 //        setSampleClawState(SampleClawStates.closed);
 
-        // ✅ Step 1: Extend outtake slides immediately
+        // Step 1: Extend outtake slides immediately
         CompletableFuture.runAsync(() -> {
             setVerticalSlideState(VerticalSlideStates.highBasket);
         }, executor);
 
-        // ✅ Step 2: Delay the intake & flip arm execution by 0.2s
+        // Step 2: Delay the intake & flip arm execution by 0.2s
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(200);  // Wait 0.2 seconds before extending intake and flipping the arm
@@ -131,9 +143,6 @@ public class OuttakeStates {
             IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         }, executor);
     }
-
-
-
 
 
     // ✅ Execute sample release in a separate thread
@@ -155,7 +164,25 @@ public class OuttakeStates {
         }
     }
 
+    public static void extendOuttakeAndFlipArm() {
 
+//        setSampleClawState(SampleClawStates.closed);
+
+        // Step 1: Extend outtake slides immediately
+        CompletableFuture.runAsync(() -> {
+            setVerticalSlideState(VerticalSlideStates.highBasket);
+        }, executor);
+
+        // Step 2: Delay the intake & flip arm execution by 0.2s
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(200);  // Wait 0.2 seconds before extending intake and flipping the arm
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
+        }, executor);
+    }
 
     // ✅ Shutdown executor when not needed
     public static void shutdownExecutor() {

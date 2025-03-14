@@ -29,6 +29,16 @@ public enum SampleAutonState {
     waitForFlipForthSample,
     releaseForthSample,
 
+    fifthSampleIntakePath,
+    fifthSampleOuttakePath,
+    prepareNextCycleForFifthSample,
+    startIntakeForFifthSample,
+    waitForFlipFifthSample,
+    releaseFifthSample,
+    prepareNextCycleForSubSample,
+    moveToSub,
+    waiting,
+
     startOuttakeSample,
     startIntakeSample,
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.extendOuttakeAndIntakeAndFlipArm;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setArmState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
@@ -34,10 +35,10 @@ public class SampleAuton implements Auton {
         drive.setPoseEstimate(trajectories.getStartPose());
         drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
 
-        // Extend outtake and intake slides, and flip the arm with a delay
+//         Extend outtake and intake slides, and flip the arm with a delay
         OuttakeStates.extendOuttakeAndIntakeAndFlipArm();
 
-        // Ensure the sample claw is closed before moving to the next state
+//         Ensure the sample claw is closed before moving to the next state
         OuttakeStates.setSampleClawState(SampleClawStates.closed);
 
         sampleAutonState = SampleAutonState.waitForFlip;
@@ -46,7 +47,7 @@ public class SampleAuton implements Auton {
     @Override
     public void run() {
         switch (sampleAutonState) {
-            //FIRST SAMPLE
+            // FIRST SAMPLE
             // Outtake
             case waitForFlip:
                 // Ensure the arm has fully flipped before proceeding
@@ -225,11 +226,6 @@ public class SampleAuton implements Auton {
 //                if (drive.isBusy()) return;
 
                 drive.followTrajectorySequenceAsync(trajectories.followThirdSampleOuttakePath());
-                sampleAutonState = SampleAutonState.prepareNextCycleForThirdSample;
-                break;
-
-            case prepareNextCycleForThirdSample:
-                if (drive.isBusy()) return;
 
                 try {
                     Thread.sleep(350); // Wait for 0.35 seconds before restarting the cycle
@@ -237,11 +233,24 @@ public class SampleAuton implements Auton {
                     Thread.currentThread().interrupt(); // Restore interrupted status
                 }
 
-                // Extend outtake and intake slides, and flip the arm again for the second sample
                 OuttakeStates.extendOuttakeAndIntakeAndFlipArm();
-
                 sampleAutonState = SampleAutonState.waitForFlipThirdSample;
                 break;
+
+//            case prepareNextCycleForThirdSample:
+////                if (drive.isBusy()) return;
+//
+//                try {
+//                    Thread.sleep(350); // Wait for 0.35 seconds before restarting the cycle
+//                } catch (InterruptedException e) {
+//                    Thread.currentThread().interrupt(); // Restore interrupted status
+//                }
+//
+//                // Extend outtake and intake slides, and flip the arm again for the second sample
+//                OuttakeStates.extendOuttakeAndIntakeAndFlipArm();
+//
+//                sampleAutonState = SampleAutonState.waitForFlipThirdSample;
+//                break;
 
             case waitForFlipThirdSample:
                 // Ensure the arm has fully flipped before proceeding
@@ -327,11 +336,6 @@ public class SampleAuton implements Auton {
 //                if (drive.isBusy()) return;
 
                 drive.followTrajectorySequenceAsync(trajectories.followForthSampleOuttakePath());
-                sampleAutonState = SampleAutonState.prepareNextCycleForForthSample;
-                break;
-
-            case prepareNextCycleForForthSample:
-                if (drive.isBusy()) return;
 
                 try {
                     Thread.sleep(350); // Wait for 0.35 seconds before restarting the cycle
@@ -339,11 +343,11 @@ public class SampleAuton implements Auton {
                     Thread.currentThread().interrupt(); // Restore interrupted status
                 }
 
-                // Extend outtake and intake slides, and flip the arm again for the second sample
                 OuttakeStates.extendOuttakeAndIntakeAndFlipArm();
 
                 sampleAutonState = SampleAutonState.waitForFlipForthSample;
                 break;
+
 
             case waitForFlipForthSample:
                 // Ensure the arm has fully flipped before proceeding
@@ -362,7 +366,125 @@ public class SampleAuton implements Auton {
 
                 // Wait 0.2 seconds before stopping
                 addWaitTime(0.2);
-                sampleAutonState = SampleAutonState.stop;
+                sampleAutonState = SampleAutonState.prepareNextCycleForFifthSample;
+                break;
+
+            case prepareNextCycleForFifthSample:
+                if (drive.isBusy()) return;
+
+                IntakeStates.setMotorState(IntakeMotorStates.idle);
+                IntakeStates.setExtendoState(ExtendoStates.retracting);
+
+                // Move arm back to default position
+                OuttakeStates.setArmState(ArmStates.down);
+
+                // Fully open the claw before retracting slides
+                OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+
+                // Retract slides after the arm is fully reset
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractSlides);
+
+                // Set wait time to ensure slides fully retract
+                if (currentWait == 0) {
+                    addWaitTime(AutonomousConstants.slideRetractWait);
+                }
+
+                // Prevent state transition until slides are fully down
+                if (currentWait > getSeconds()) return;
+
+
+                // Move to the next state after retraction is complete
+                sampleAutonState = SampleAutonState.fifthSampleIntakePath;
+                currentWait = 0; // Reset wait time for next use
+                break;
+
+            case fifthSampleIntakePath:
+//                if (drive.isBusy()) return;
+
+
+                drive.followTrajectorySequenceAsync(trajectories.followFiveSampleIntakePath());
+                sampleAutonState = SampleAutonState.startIntakeForFifthSample;
+                break;
+
+            case startIntakeForFifthSample:
+                if (drive.isBusy()) return;
+                // Extend intake slides
+                IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
+
+                // Start intake motor
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
+
+                // Move to the next state or stop
+
+                currentWait = getSeconds() + 1.0;
+                sampleAutonState = SampleAutonState.waiting;
+                break;
+
+            case waiting:
+                // Check if 1 second has passed
+                if (getSeconds() < currentWait) return; // Stay in this state until time has passed
+
+                // Once 1 second has passed, proceed to the next state
+                sampleAutonState = SampleAutonState.fifthSampleOuttakePath;
+                break;
+
+            case fifthSampleOuttakePath:
+                // Stop the intake motor
+                IntakeStates.setMotorState(IntakeMotorStates.idle);
+
+                // Retract the intake slides
+                IntakeStates.setExtendoState(ExtendoStates.retracting);
+
+                drive.followTrajectorySequenceAsync(trajectories.followFiveSampleOuttakePath());
+
+                OuttakeStates.extendOuttakeAndFlipArm();
+
+                sampleAutonState = SampleAutonState.waitForFlipFifthSample;
+                break;
+
+            case waitForFlipFifthSample:
+                // Ensure the arm has fully flipped before proceeding
+                if (!OuttakeStates.isArmFlipped()) return;
+
+                // Wait 1 second before releasing the second sample
+                sampleAutonState = SampleAutonState.releaseFifthSample;
+                break;
+
+            case releaseFifthSample:
+                if(drive.isBusy()) return;
+
+                // Release the sample
+                OuttakeStates.releaseSample();
+
+                // Wait 0.2 seconds before stopping
+                addWaitTime(0.2);
+                sampleAutonState = SampleAutonState.prepareNextCycleForSubSample;
+                break;
+
+            case prepareNextCycleForSubSample:
+                if (drive.isBusy()) return;
+
+                // Move arm back to default position
+                OuttakeStates.setArmState(ArmStates.down);
+
+                // Fully open the claw before retracting slides
+                OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+
+                // Retract slides after the arm is fully reset
+                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractSlides);
+
+                // Set wait time to ensure slides fully retract
+                if (currentWait == 0) {
+                    addWaitTime(AutonomousConstants.slideRetractWait);
+                }
+
+                // Prevent state transition until slides are fully down
+                if (currentWait > getSeconds()) return;
+
+
+                // Move to the next state after retraction is complete
+                sampleAutonState = SampleAutonState.fifthSampleIntakePath;
+                currentWait = 0; // Reset wait time for next use
                 break;
 
             case stop:

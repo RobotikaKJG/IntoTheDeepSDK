@@ -10,8 +10,8 @@ public class IntakeConstants {
     }
     public static final double currentLimit = 5;//3.35;
 
-    public static final int extendoMaxExtension = 1650;
-    public static final int extendoMinExtension = 800;
+    public static final int extendoMaxExtension = 600;
+    public static final int extendoMinExtension = 300;
     public static final int extendoThreshold = 20;
 
     public static final double servoSpeed = 1;
@@ -22,4 +22,5 @@ public class IntakeConstants {
     public static final double secureSampleTime = 0.4;
     public static final double intakePushoutTime = 0.75;
     public static final double sampleClawCloseTime = 0.3;
+
 }
