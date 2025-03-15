@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class AutoCloseControl {
 
@@ -75,5 +76,7 @@ public class AutoCloseControl {
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
         OuttakeStates.setSampleClawState(SampleClawStates.closed);
+        OuttakeStates.setSampleLockState(SampleLockStates.open);
     }
+
 }

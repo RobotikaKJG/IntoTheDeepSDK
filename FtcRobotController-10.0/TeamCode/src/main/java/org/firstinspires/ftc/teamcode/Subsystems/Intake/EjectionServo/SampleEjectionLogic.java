@@ -4,6 +4,8 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class SampleEjectionLogic {
     private final SensorControl sensorControl;
@@ -15,13 +17,13 @@ public class SampleEjectionLogic {
 
     public void update(){
         if(shouldOpen()) {
-            IntakeStates.setEjectionServoState(EjectionServoStates.open);
+            OuttakeStates.setSampleLockState(SampleLockStates.open);
             wasShouldOpen = true;
         }
         if(wasShouldOpen && shouldClose())
         {
             wasShouldOpen = false;
-            IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+            OuttakeStates.setSampleLockState(SampleLockStates.closed);
         }
     }
 
@@ -47,7 +49,7 @@ public class SampleEjectionLogic {
     }
 
     private static boolean ejectionServoClosed() {
-            return IntakeStates.getEjectionServoState() == EjectionServoStates.closed;
+            return OuttakeStates.getSampleLockState() == SampleLockStates.closed;
     }
 
     private boolean correctColor(){
