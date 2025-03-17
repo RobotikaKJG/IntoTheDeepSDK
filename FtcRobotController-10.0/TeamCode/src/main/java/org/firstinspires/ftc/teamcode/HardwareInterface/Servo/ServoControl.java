@@ -29,9 +29,8 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
-        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
 //        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoTakePos);
+        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
