@@ -24,7 +24,8 @@ public class ServoControl {
                 hardwareMap.get(Servo.class, "outtakeRightServo"),
                 hardwareMap.get(Servo.class, "releaseServo"),
                 hardwareMap.get(Servo.class, "specimenClawServo"),
-                hardwareMap.get(Servo.class, "intakeServo")
+                hardwareMap.get(Servo.class, "intakeServo"),
+                hardwareMap.get(Servo.class,"lockServo")
         };
     }
 
@@ -42,6 +43,7 @@ public class ServoControl {
         }
 
         setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
+        setServoPos(ServoConstants.lock,OuttakeConstants.lockServoMinPos);
     }
 
     public void setServoPos(int index, double position) {
