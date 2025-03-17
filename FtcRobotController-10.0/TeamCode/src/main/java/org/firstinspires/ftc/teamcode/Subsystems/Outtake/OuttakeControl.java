@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
+//import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
+//import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
@@ -23,16 +25,19 @@ public class OuttakeControl {
     private final SpecimenReleaseButtonLogic specimenReleaseButtonLogic;
     private final SpecimenReleaseButtonControl specimenReleaseButtonControl = new SpecimenReleaseButtonControl();
     private final HangControl hangControl;
+//    private final DropSampleLogic dropSampleLogic;
+//    private final DropSampleControl dropSampleControl = new DropSampleControl();
 
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
-                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl) {
+                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl){//, DropSampleLogic dropSampleLogic) {
         this.armControl = armControl;
         this.sampleClawControl = sampleClawControl;
         this.specimenClawControl = specimenClawControl;
         this.verticalSlideControl = verticalSlideControl;
         this.specimenReleaseButtonLogic = specimenReleaseButtonLogic;
         this.hangControl = hangControl;
+//        this.dropSampleLogic = dropSampleLogic;
     }
 
     public void update() {
@@ -45,6 +50,8 @@ public class OuttakeControl {
         specimenReleaseButtonControl.update();
         specimenReleaseButtonLogic.update();
         hangControl.update();
+//        dropSampleControl.update();
+//        dropSampleLogic.update();
 
         updateOuttakeState();
     }

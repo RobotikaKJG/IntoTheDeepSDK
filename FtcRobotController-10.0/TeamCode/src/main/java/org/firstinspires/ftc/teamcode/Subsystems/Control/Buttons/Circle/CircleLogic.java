@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -25,7 +26,7 @@ public class CircleLogic {
     }
 
     private boolean dropSample() {
-        if(!outtakeActive() || !sampleInIntake() || !specimenTaken()) return false;
+        if(outtakeActive() || !sampleInIntake() || specimenTaken() || intakeActive()) return false;
         ButtonStates.setCircleState(CircleStates.dropSample);
         completeAction();
         return true;
@@ -41,5 +42,9 @@ public class CircleLogic {
 
     private boolean specimenTaken(){
         return OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed;
+    }
+
+    private boolean intakeActive() {
+        return IntakeStates.getIntakeState() == SubsystemState.Run;
     }
 }

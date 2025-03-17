@@ -128,8 +128,14 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSampleClawControl(),createSpecimenClawControl(),createVerticalSlideControl(), createSpecimenReleaseButtonLogic(), createHangControl());
+        return new OuttakeControl(createArmControl(), createSampleClawControl(),
+                createSpecimenClawControl(),createVerticalSlideControl(),
+                createSpecimenReleaseButtonLogic(), createHangControl());//, createDropSampleLogic());
     }
+
+//    private DropSampleLogic createDropSampleLogic() {
+//        return new DropSampleLogic(outtakeSlideLogic);
+//    }
 
     private HangControl createHangControl() {
         return new HangControl(outtakeSlideLogic);

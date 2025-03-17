@@ -35,6 +35,9 @@ public class VerticalSlideControl {
                 //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
+            case dropSample:
+//                slideLogic.setSlideExtensionTarget(OuttakeConstants.dropSampleHeight);
+                break;
             case lowBasket:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
                 break;
