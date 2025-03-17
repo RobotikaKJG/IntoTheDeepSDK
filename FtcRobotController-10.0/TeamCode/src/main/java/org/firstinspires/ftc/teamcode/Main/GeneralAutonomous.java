@@ -55,7 +55,7 @@ public class GeneralAutonomous extends LinearOpMode {
     }
 
     private void updateAutonData() {
-        telemetry.addData("Alliance:", GlobalVariables.alliance);
+        telemetry.addData("Auton:", GlobalVariables.autonomousMode);
         //telemetry.addData("Current position: ",aprilTagCameraControl.getCurrentPosition());
         telemetry.update();
         // Slow down CPU cycles
