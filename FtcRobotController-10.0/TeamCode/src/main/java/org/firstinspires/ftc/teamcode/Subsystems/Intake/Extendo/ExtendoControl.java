@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
@@ -63,7 +63,7 @@ public class ExtendoControl {
 
     private void retracting() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
-        IntakeStates.setEjectionServoState(EjectionServoStates.closed); // to ensure closed, NOTE
+//        IntakeStates.setEjectionServoState(EjectionServoStates.closed); // to ensure closed, NOTE
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
         slideLogic.setSlideExtensionTarget(0);
     }

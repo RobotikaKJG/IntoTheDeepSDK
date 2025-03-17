@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -37,7 +37,7 @@ public class ManualCloseControl {
         if(IntakeStates.getMotorState() == IntakeMotorStates.forward)
             IntakeStates.setMotorState(IntakeMotorStates.backward);
         IntakeStates.setExtendoState(ExtendoStates.retracted);
-        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 
     private void close() {

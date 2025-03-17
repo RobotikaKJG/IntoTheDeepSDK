@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class DpadDownControl {
@@ -17,9 +17,9 @@ public class DpadDownControl {
     }
 
     private void toggleEjectionServo() {
-        if(IntakeStates.getEjectionServoState() == EjectionServoStates.closed)
-            IntakeStates.setEjectionServoState(EjectionServoStates.open);
-        else
-            IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+//        if(IntakeStates.getEjectionServoState() == EjectionServoStates.closed)
+//            IntakeStates.setEjectionServoState(EjectionServoStates.open);
+//        else
+//            IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 }

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -53,7 +53,7 @@ public class AutoCloseControl {
 
     private void secureGoodSample() {
         IntakeStates.setMotorState(IntakeMotorStates.forward);
-        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 
     private void ejectExtraSamples() {
@@ -69,7 +69,7 @@ public class AutoCloseControl {
     private static void waitToRetract() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
         IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
-        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 

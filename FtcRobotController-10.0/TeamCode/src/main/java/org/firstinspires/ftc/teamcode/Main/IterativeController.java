@@ -66,6 +66,7 @@ public class IterativeController {
 //            GlobalVariables.slowMode = true;
 //            subsystemControl2.update();
 //        }
+//        buttonControl.update();
 
         sensorControl.updateDistance();
         if(sensorControl.getDistance() < 70)

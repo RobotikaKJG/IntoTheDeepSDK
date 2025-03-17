@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockSt
 public class SampleEjectionLogic {
     private final SensorControl sensorControl;
     private boolean wasShouldOpen = false;
+    private double currentWait = 0;
 
     public SampleEjectionLogic(SensorControl sensorControl) {
         this.sensorControl = sensorControl;
@@ -28,12 +29,16 @@ public class SampleEjectionLogic {
     }
 
     private boolean shouldOpen() {
-        return wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed();
+//        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed()) {
+////            addWaitTime(0.4);
+//            return  true;
+//        }
+        return false;
     }
 
     private boolean shouldClose()
     {
-        return correctColor() && !ejectionServoClosed();
+        return false;//currentWait < getSeconds();
     }
 
     private boolean wrongColor(){
@@ -54,5 +59,13 @@ public class SampleEjectionLogic {
 
     private boolean correctColor(){
         return sensorControl.isAllianceColor() ||sensorControl.isYellow();
+    }
+
+    private void addWaitTime(double waitTime) {
+        currentWait = getSeconds() + waitTime;
+    }
+
+    private double getSeconds() {
+        return System.currentTimeMillis() / 1_000.0;
     }
 }
