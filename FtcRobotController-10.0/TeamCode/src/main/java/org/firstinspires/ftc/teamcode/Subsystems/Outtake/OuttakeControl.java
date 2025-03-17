@@ -27,6 +27,8 @@ public class OuttakeControl {
     private final HangControl hangControl;
 //    private final DropSampleLogic dropSampleLogic;
 //    private final DropSampleControl dropSampleControl = new DropSampleControl();
+//    private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
+//    private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
 
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
@@ -52,6 +54,9 @@ public class OuttakeControl {
         hangControl.update();
 //        dropSampleControl.update();
 //        dropSampleLogic.update();
+//        takeSpecimenControl.update();
+//        takeSpecimenLogic.update();
+
 
         updateOuttakeState();
     }
