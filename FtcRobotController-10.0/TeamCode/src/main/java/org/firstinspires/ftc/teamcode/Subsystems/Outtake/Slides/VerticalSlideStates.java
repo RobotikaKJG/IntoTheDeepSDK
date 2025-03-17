@@ -11,6 +11,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
         lowBasket,
         highRungScore,
         highRung,
+        hang,
         highBasket
     }
 

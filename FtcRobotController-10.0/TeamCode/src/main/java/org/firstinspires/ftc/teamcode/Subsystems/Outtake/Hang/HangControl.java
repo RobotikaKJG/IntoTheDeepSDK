@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class HangControl {
     private final SlideLogic slideLogic;
@@ -46,11 +49,12 @@ public class HangControl {
         switch (OuttakeStates.getHangState()) {
             case extending:
                 // Command the slides to extend to high basket.
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.hangBar);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
                 break;
             case retracting:
                 // Command the slides to retract (target position set to 20).
-                slideLogic.setSlideExtensionTarget(20);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+                IntakeStates.setExtendoState(ExtendoStates.hold);
                 break;
             default:
                 // For EXTENDED and RETRACTED, no change is needed.

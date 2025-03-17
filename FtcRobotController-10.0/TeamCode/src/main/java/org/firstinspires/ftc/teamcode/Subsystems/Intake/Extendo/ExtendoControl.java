@@ -41,6 +41,9 @@ public class ExtendoControl {
             case stepUp:
                 stepUp();
                 break;
+            case hold:
+                hold();
+                break;
             case idle:
                 break;
         }
@@ -77,5 +80,9 @@ public class ExtendoControl {
         }
         IntakeStates.setExtendoState(ExtendoStates.extended);
         slideLogic.stepUp();
+    }
+
+    private void hold(){
+        slideLogic.setSlideExtensionTarget(70);
     }
 }
