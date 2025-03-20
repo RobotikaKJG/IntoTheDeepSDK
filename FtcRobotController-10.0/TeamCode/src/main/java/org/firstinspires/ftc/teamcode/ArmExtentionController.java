@@ -6,28 +6,18 @@ import java.lang.Math;
 
 public class ArmExtentionController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
-    private final MotorControl motorControl;
     private final HardwareMap hardwareMap;
-    private final OuttakeController outtakeController;
-    private final MotorControl extendingMotorControl;
-    private final MotorControl armMotorControl;
+    private final MotorControl motorMotorControl;
     private SubsystemState intakeState = SubsystemState.Idle;
-    public double angle = 0;
-    public double currentAngle = 0;
-    public double angleIncrement = 3;
-    private boolean up = false;
-    private boolean down = false;
-    private boolean border = false;
-    private final int maxExtentionAngle = 310;
-    private boolean extended = false;
+    private double voltageStep = 0.01;  // Increment step
+    private double maxVoltage = 1.0;    // Maximum motor power
+    private double minVoltage = 0.0;    // Minimum motor power
+    public double voltage = 0.0;
 
-    public ArmExtentionController(EdgeDetection edgeDetection, MotorControl motorControl, HardwareMap hardwareMap, OuttakeController outtakeController) {
+    public ArmExtentionController(EdgeDetection edgeDetection, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
-        this.motorControl = motorControl;
         this.hardwareMap = hardwareMap;
-        this.extendingMotorControl = new MotorControl(hardwareMap, "extendingMotor", true);
-        this.armMotorControl = new MotorControl(hardwareMap, "armMotor", true);
-        this.outtakeController = outtakeController;
+        this.motorMotorControl = new MotorControl(hardwareMap, "Motor", true);
     }
 
     @Override
@@ -51,87 +41,45 @@ public class ArmExtentionController implements RobotSubsystemController {
 
     @Override
     public void start() {
-        extendingMotorControl.resetMotorEncoder();
-        angle = 0;
-        extended = false;
         intakeState = SubsystemState.Run;
     }
 
-    @Override
     public void run() {
-        currentAngle = extendingMotorControl.getMotorCurrentPosition();
-        if (edgeDetection.rising(GamepadIndexValues.leftBumper)) {
-            up = true;
-        } else if (edgeDetection.falling(GamepadIndexValues.leftBumper)) {
-            up = false;
-        }
-
-        if (edgeDetection.rising(GamepadIndexValues.leftTrigger)) {
-            down = true;
-        } else if (edgeDetection.falling(GamepadIndexValues.leftTrigger)) {
-            down = false;
-        }
-
-        if (up && angle < maxExtentionAngle) {
-            angle += angleIncrement;
-        } else if (up) {
-            angle = maxExtentionAngle;
-        }
-        if (down) {
-            angle -= angleIncrement;
-        }
-
+        // Check button presses using edge detection
         if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
-            border = !border;
-            angle = 0;
-
-            if (border) {
-                armMotorControl.runToAngle(120, 0.5, 1150, 1, DcMotorSimple.Direction.FORWARD);
-            } else {
-                armMotorControl.runToAngle(0, 0.5, 1150, 1, DcMotorSimple.Direction.FORWARD);
-            }
+            voltage = Math.min(voltage + voltageStep, maxVoltage);
+        }
+        if (edgeDetection.rising(GamepadIndexValues.dpadDown)) {
+            voltage = Math.max(voltage - voltageStep, minVoltage);
         }
 
+        // Apply the voltage to the motor
+        motorMotorControl.setMotorPower(voltage);
 
-        if (!outtakeController.risen) {
-            if (!border) {
-                if (angle > 100 && !extended) {
-                    extended = true;
-                    armMotorControl.runToAngle(130 * Math.sin(Math.PI / (2 * 370) * angle) - 16, 0.5, 1150, 1, DcMotorSimple.Direction.FORWARD);
-                }
-                else if (extended) {
-                    armMotorControl.runToAngle(130 * Math.sin(Math.PI / (2 * 370) * angle) - 16, 0.5, 1150, 1, DcMotorSimple.Direction.FORWARD);
-                }
-            } else {
-                if (angle > 250) {
-                    armMotorControl.runToAngle(130 * Math.sin(Math.PI / (2 * 370) * angle) - 16, 0.5, 1150, 1, DcMotorSimple.Direction.FORWARD);
-                }
-            }
-        }
-
-        extendingMotorControl.runToAngle(angle, 0.6, 1150, 1.0, DcMotorSimple.Direction.FORWARD);
-        if (angle < 5 && down) {
-            extendingMotorControl.runToAngle(0, 1, 1150, 1.0, DcMotorSimple.Direction.FORWARD);
-            angle = 0;
-            extended = false;
+        // Stop when pressing circle
+        if (edgeDetection.rising(GamepadIndexValues.circle)) {
             intakeState = SubsystemState.Stop;
         }
+    }
 
+    // Getter methods for telemetry in TeleOpController
+    public int getMotorPosition() {
+        return motorMotorControl.getMotorCurrentPosition();
+    }
+
+    public boolean isMotorBusy() {
+        return motorMotorControl.isMotorBusy();
     }
 
     @Override
     public void stop() {
-        if (!extendingMotorControl.isMotorBusy()) {
-            down = false;
-            up = false;
-            extended = false;
-            extendingMotorControl.setMotorPower(0);
-            intakeState = SubsystemState.Idle;
-        }
+        intakeState = SubsystemState.Idle;
     }
 
     @Override
     public void idle() {
-        intakeState = SubsystemState.Start;
+        if (edgeDetection.rising(GamepadIndexValues.circle)) {
+            intakeState = SubsystemState.Start;
+        }
     }
 }

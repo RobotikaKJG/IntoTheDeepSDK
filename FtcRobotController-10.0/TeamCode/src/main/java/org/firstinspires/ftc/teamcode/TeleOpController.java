@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.EdgeDetection;
@@ -19,18 +20,18 @@ public class TeleOpController extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         EdgeDetection edgeDetection = new EdgeDetection();
-        IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap);
+        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, hardwareMap);
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
 
         // Define the motors
-//         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-//         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-//         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-//         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
+//        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
+//        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
+//        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+//
+//        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         waitForStart();
@@ -50,13 +51,22 @@ public class TeleOpController extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
 
-            intakeController.updateState();
+            armExtentionController.updateState();
+
+            // Print telemetry in TeleOpController
+            telemetry.addData("Motor Voltage", armExtentionController.voltage);
+
+            // 312rpm = 0.04
+            // 435rpm = 0.03
+
+            telemetry.addData("Motor Position", armExtentionController.getMotorPosition());
+            telemetry.addData("Motor Busy", armExtentionController.isMotorBusy());
+            telemetry.update();
 
             // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
             if (longer) telemetry.addData("Loop time;", loopTime);
             else telemetry.addData("Loop time:", loopTime);
-            telemetry.update();
         }
 
     }
