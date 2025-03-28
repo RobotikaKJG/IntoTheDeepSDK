@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class SampleAuton implements Auton {
@@ -40,6 +41,7 @@ public class SampleAuton implements Auton {
 
 //         Ensure the sample claw is closed before moving to the next state
         OuttakeStates.setSampleClawState(SampleClawStates.closed);
+
 
         sampleAutonState = SampleAutonState.waitForFlip;
     }

@@ -30,6 +30,7 @@ public class AutoCloseControl {
     public void updateStates() {
         switch (IntakeStates.getAutoCloseStates()) {
             case checkColor:
+                checkColor();
                 break;
             case secureGoodSample:
                 secureGoodSample();
@@ -49,6 +50,11 @@ public class AutoCloseControl {
             case idle:
                 break;
         }
+    }
+
+    private void checkColor() {
+        OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
     private void secureGoodSample() {

@@ -84,7 +84,6 @@ public class AutoCloseLogic {
         if(IntakeStates.getIntakeState() == SubsystemState.Run) {
             sensorControl.resetColor();
             IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
-            OuttakeStates.setSampleLockState(SampleLockStates.closed);
         }
     }
 

@@ -67,7 +67,6 @@ public class ExtendoControl {
     private void retracting() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
 //        IntakeStates.setEjectionServoState(EjectionServoStates.closed); // to ensure closed, NOTE
-        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
         slideLogic.setSlideExtensionTarget(0);
     }
 

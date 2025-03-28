@@ -33,6 +33,8 @@ public class VerticalSlideControl {
                 slideLogic.setSlideExtensionTarget(20);
                 OuttakeStates.setArmState(ArmStates.down);
                 //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
+//                if(slideLogic.getSlidePosition() <= 150) {slideLogic.setMaxSpeed(0.1);}
+//                slideLogic.setMaxSpeed(0.1);
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
             case dropSample:
@@ -42,6 +44,7 @@ public class VerticalSlideControl {
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
                 break;
             case highBasket:
+                slideLogic.setMaxSpeed(0.1);
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highBasketPos);
                 break;
             case lowRung:
