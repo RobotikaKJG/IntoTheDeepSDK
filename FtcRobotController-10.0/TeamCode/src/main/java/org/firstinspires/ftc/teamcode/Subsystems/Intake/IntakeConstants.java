@@ -23,4 +23,6 @@ public class IntakeConstants {
     public static final double intakePushoutTime = 0.35;
     public static final double sampleClawCloseTime = 0.3;
 
+    public static double lockServoMinPos = 0.10;
+    public static double lockServoMaxPos = 0.69;
 }
