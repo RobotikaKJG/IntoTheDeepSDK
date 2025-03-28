@@ -8,7 +8,7 @@ public class OuttakeConstants {
     public static final double releaseServoMinPos = 0.48;     // Minimum rotational position, claw closed position
     public static final double outtakeArmWait = 0.6;
     public static final double outtakeArmCloseWait = 0.5;//0.65;
-    public static final int lowBasketPos = 500;
+    public static final int lowBasketPos = 425;
     public static final int highBasketPos = 720;
     public static final int hangBar = 500;
     public static final int slideTargetThreshold = 20;
