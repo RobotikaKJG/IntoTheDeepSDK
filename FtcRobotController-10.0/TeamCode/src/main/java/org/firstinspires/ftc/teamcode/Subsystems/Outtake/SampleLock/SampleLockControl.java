@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -23,10 +24,10 @@ public class SampleLockControl {
     private void updateStates() {
         switch (OuttakeStates.getSampleLockState()) {
             case closed:
-                servoControl.setServoPos(ServoConstants.lock, OuttakeConstants.lockServoMinPos);
+                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
                 break;
             case open:
-                servoControl.setServoPos(ServoConstants.lock, OuttakeConstants.lockServoMaxPos);
+                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
                 break;
         }
     }
