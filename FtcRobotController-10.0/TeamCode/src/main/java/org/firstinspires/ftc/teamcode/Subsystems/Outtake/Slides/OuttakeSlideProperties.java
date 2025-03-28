@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class OuttakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = 0.5;
+    private double slideMaxSpeed = 1;
     private double getSlideMaxSpeed() {
         return GlobalVariables.slowMode ? slideMaxSpeed / 2 : slideMaxSpeed;
     }
@@ -13,7 +13,7 @@ public class OuttakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideMaxExtension() {
         // minimum extension position, first snap pos for outtakeLeft macro
-        return 700;//full 2170
+        return 720;//full 2170
     }
 
     @Override

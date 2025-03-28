@@ -68,6 +68,7 @@ public class SlideLogic {
         slideProperties.setSlideMaxSpeed(maxSpeed);
     }
     public int getSlidePosition() {
+        //System.out.println(slideControl.getSlidePosition());
         return slideControl.getSlidePosition();
     }
 

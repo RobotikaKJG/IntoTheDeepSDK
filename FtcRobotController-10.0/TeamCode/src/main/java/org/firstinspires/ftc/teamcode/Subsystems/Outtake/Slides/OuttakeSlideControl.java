@@ -13,7 +13,8 @@ public class OuttakeSlideControl implements SlideControl {
     private final OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
     private final SensorControl sensorControl;
     private int targetPosition = 0;
-    private int currentPosition = 0;
+    public static int currentPosition = 0; //me don't like this a lot, NOTE
+    public double maxSpeed = 0;
 
     public OuttakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
@@ -27,6 +28,7 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public int getSlidePosition() {
+        //System.out.println(currentPosition);
         return currentPosition;
     }
 
@@ -45,6 +47,8 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public void limitSpeed(double power) {
+        maxSpeed = power;
+        //System.out.println(power);
         motorControl.setMotorSpeed(MotorConstants.bothSlides, power);
         motorControl.setMotors(MotorConstants.bothSlides);
     }

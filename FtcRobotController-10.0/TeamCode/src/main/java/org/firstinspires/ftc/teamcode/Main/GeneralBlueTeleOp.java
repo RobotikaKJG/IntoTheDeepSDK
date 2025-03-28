@@ -29,6 +29,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             if (gamepad1.triangle) break;
             calculateLoopTime();
 //            telemetry.addData("AutoCloseStates",IntakeStates.getAutoCloseStates());
+            telemetry.addData("outtake slide states",OuttakeStates.getVerticalSlideState());
+            //telemetry.addData("slide pos",dependencies.outtakeSlideControl.getSlidePosition());
             telemetry.update();
         }
     }

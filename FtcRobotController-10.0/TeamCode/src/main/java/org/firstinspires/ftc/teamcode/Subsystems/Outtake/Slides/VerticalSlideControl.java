@@ -31,11 +31,12 @@ public class VerticalSlideControl {
     private void updateStates() {
         switch(OuttakeStates.getVerticalSlideState()){
             case close:
+                slideLogic.setMaxSpeed(0.5);
                 slideLogic.setSlideExtensionTarget(20);
                 OuttakeStates.setArmState(ArmStates.down);
                 //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
 //                if(slideLogic.getSlidePosition() <= 150) {slideLogic.setMaxSpeed(0.1);}
-//                slideLogic.setMaxSpeed(0.1);
+
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
             case dropSample:
@@ -45,7 +46,6 @@ public class VerticalSlideControl {
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
                 break;
             case highBasket:
-                slideLogic.setMaxSpeed(0.1);
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highBasketPos);
                 break;
             case lowRung:
@@ -66,10 +66,14 @@ public class VerticalSlideControl {
         }
     }
     private void profileRetractionSpeed(){
-        int position = slideLogic.getSlidePosition();
+        int position = OuttakeSlideControl.currentPosition;
+        //System.out.println("Pos: " + slideLogic.getSlidePosition());
         if(position < OuttakeConstants.profilingThreshold) {
-            double slideSpeed = position * OuttakeConstants.speedProfileMultiplier;
-            slideLogic.limitSpeed(slideSpeed);
+            //System.out.println("profiling active");
+            double slideSpeed = position * OuttakeConstants.speedProfileMultiplier + OuttakeConstants.verticalOffset;
+            if(slideSpeed < 0)
+                slideSpeed = 0;
+            slideLogic.limitSpeed(0);
         }
     }
 }

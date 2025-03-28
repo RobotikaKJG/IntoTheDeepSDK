@@ -32,6 +32,7 @@ public class OuttakeConstants {
     public static int specimenHungThreshold = 10;
     public static int hangThreshold = 20;
 
-    public static double speedProfileMultiplier = 0.0066;
-    public static int profilingThreshold = 150;
+    public static double speedProfileMultiplier = 0.01;
+    public static int profilingThreshold = 250;
+    public static double verticalOffset = -1;
 }
