@@ -13,14 +13,21 @@ public class OuttakeSlideControl implements SlideControl {
     private final OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
     private final SensorControl sensorControl;
     private int targetPosition = 0;
+    private int currentPosition = 0;
 
     public OuttakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
         this.sensorControl = sensorControl;
     }
+
+    @Override
+    public void updateSlidePosition() {
+        currentPosition = motorControl.getMotorPosition(MotorConstants.bothSlides);
+    }
+
     @Override
     public int getSlidePosition() {
-        return motorControl.getMotorPosition(MotorConstants.bothSlides);
+        return currentPosition;
     }
 
     @Override

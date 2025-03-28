@@ -47,6 +47,8 @@ public class Dependencies {
     public EdgeDetection edgeDetection = new EdgeDetection();
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
     private final SlideLogic outtakeSlideLogic;
+    public SlideControl intakeSlideControl;
+    public SlideControl outtakeSlideControl;
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
@@ -59,6 +61,8 @@ public class Dependencies {
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
         outtakeSlideLogic = createOuttakeSlideLogic();
+        intakeSlideControl = createIntakeSlideControl();
+        outtakeSlideControl = createOuttakeSlideControl();
     }
 
     public Drivebase createDrivebase() {
@@ -73,15 +77,15 @@ public class Dependencies {
         return new SlideLogic(createIntakeSlideControl(), new IntakeSlideProperties());
     }
 
-    SlideControl createIntakeSlideControl() {
+    private SlideControl createIntakeSlideControl() {
         return new IntakeSlideControl(motorControl,sensorControl);
     }
 
-    SlideLogic createOuttakeSlideLogic() {
+    private SlideLogic createOuttakeSlideLogic() {
         return new SlideLogic(createOuttakeSlideControl(), new OuttakeSlideProperties());
     }
 
-    SlideControl createOuttakeSlideControl() {
+    private SlideControl createOuttakeSlideControl() {
         return new OuttakeSlideControl(motorControl,sensorControl);
     }
 

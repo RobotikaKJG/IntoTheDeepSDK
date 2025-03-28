@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValu
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
@@ -33,6 +34,8 @@ public class IterativeController {
     private final IntakeControl intakeControl;
     private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
+    private final SlideControl intakeSlideControl;
+    private final SlideControl outakeSlideControl;
     private boolean colorSensorActive = true;
 
     public IterativeController(Dependencies dependencies) {
@@ -50,6 +53,8 @@ public class IterativeController {
         intakeControl = dependencies.createIntakeControl();
         outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
+        intakeSlideControl = dependencies.intakeSlideControl;
+        outakeSlideControl = dependencies.outtakeSlideControl;
         IntakeStates.setInitialStates();
         OuttakeStates.setInitialStates();
         ButtonStates.setInitialStates();
@@ -73,7 +78,7 @@ public class IterativeController {
             colorSensorActive = !colorSensorActive;
         }
 
-        sensorControl.updateDistance();
+        updateHardwareValues();
 
         if(!colorSensorActive)
             sensorControl.resetDistance();
@@ -84,6 +89,12 @@ public class IterativeController {
 
         intakeControl.update();
         outtakeControl.update();
+    }
+
+    private void updateHardwareValues() {
+        sensorControl.updateDistance();
+        intakeSlideControl.updateSlidePosition();
+        outakeSlideControl.updateSlidePosition();
     }
 
 
