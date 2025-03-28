@@ -48,7 +48,7 @@ public class SampleReleaseButtonControl {
 
     private void waitToRelease() {
         OuttakeStates.setArmState(ArmStates.down);
-    }
+    } //Bad names, NOTE
 
     private void openSampleClaw() {
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
