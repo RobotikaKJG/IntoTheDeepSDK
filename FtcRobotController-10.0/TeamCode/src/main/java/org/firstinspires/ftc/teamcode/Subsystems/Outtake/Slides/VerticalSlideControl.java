@@ -24,6 +24,7 @@ public class VerticalSlideControl {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
                 OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.idle);
             }
+            profileRetractionSpeed();
         }
     }
 
@@ -62,6 +63,13 @@ public class VerticalSlideControl {
             case highRungScore:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungScorePos);
                 break;
+        }
+    }
+    private void profileRetractionSpeed(){
+        int position = slideLogic.getSlidePosition();
+        if(position < OuttakeConstants.profilingThreshold) {
+            double slideSpeed = position * OuttakeConstants.speedProfileMultiplier;
+            slideLogic.limitSpeed(slideSpeed);
         }
     }
 }

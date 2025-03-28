@@ -31,4 +31,7 @@ public class OuttakeConstants {
     public static int highRungScorePos = 1040;
     public static int specimenHungThreshold = 10;
     public static int hangThreshold = 20;
+
+    public static double speedProfileMultiplier = 0.0066;
+    public static int profilingThreshold = 150;
 }

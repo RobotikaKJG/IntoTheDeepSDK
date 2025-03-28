@@ -70,4 +70,8 @@ public class SlideLogic {
     public int getSlidePosition() {
         return slideControl.getSlidePosition();
     }
+
+    public void limitSpeed(double speed) {
+        slideControl.limitSpeed(speed);
+    }
 }

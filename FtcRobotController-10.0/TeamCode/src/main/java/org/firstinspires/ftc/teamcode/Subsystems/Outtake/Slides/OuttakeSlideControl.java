@@ -36,7 +36,6 @@ public class OuttakeSlideControl implements SlideControl {
         motorControl.setMotorPos(MotorConstants.bothSlides, position);
         setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
         limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
-        motorControl.setMotors(MotorConstants.bothSlides);
     }
 
     @Override
@@ -47,6 +46,7 @@ public class OuttakeSlideControl implements SlideControl {
     @Override
     public void limitSpeed(double power) {
         motorControl.setMotorSpeed(MotorConstants.bothSlides, power);
+        motorControl.setMotors(MotorConstants.bothSlides);
     }
 
     @Override
