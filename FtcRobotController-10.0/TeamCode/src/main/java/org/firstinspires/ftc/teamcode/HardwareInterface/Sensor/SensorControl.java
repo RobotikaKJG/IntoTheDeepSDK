@@ -112,16 +112,16 @@ public class SensorControl {
 
     public boolean isRed(){
         //return currentGreen < 5 && currentRed > 7 || (currentBlue == 2 && currentGreen == 2 && currentRed == 5);
-        return currentRed < 16 && currentRed > 6;
+        return currentGreen < 8 && currentRed > 7;
     }
 
     public boolean isYellow(){
-        return currentRed > 15;
+        return currentGreen > 8;
     }
 
     public boolean isBlue(){
 //        return (currentRed < 5 && currentBlue > 3 && currentGreen < 8) || ( currentRed == 1 && currentBlue == 3 && currentGreen < 4);
-        return currentRed < 4 && currentBlue > 4;
+        return currentRed <= 4 && currentBlue > 3 && currentRed > 2;
     }
 
     public double getDistance(){
