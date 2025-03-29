@@ -68,7 +68,7 @@ public class VerticalSlideControl {
     private void profileRetractionSpeed(){
         int position = OuttakeSlideControl.currentPosition;
         //System.out.println("Pos: " + slideLogic.getSlidePosition());
-        if(position < OuttakeConstants.profilingThreshold) {
+        if(position < OuttakeConstants.profilingThreshold && position > OuttakeConstants.limitSwitchThreshold) {
             //System.out.println("profiling active");
             double slideSpeed = position * OuttakeConstants.speedProfileMultiplier + OuttakeConstants.verticalOffset;
             if(slideSpeed < 0)

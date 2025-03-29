@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class OuttakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
@@ -73,10 +74,11 @@ public class OuttakeSlideControl implements SlideControl {
             return true;
         }
 
-        if(motorControl.getMotorPosition(slide) > 25)
+        if(currentPosition > OuttakeConstants.limitSwitchThreshold)
             return false;
 
         targetPosition -= 5;
+        limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotorPos(slide, targetPosition);
         return false;
     }

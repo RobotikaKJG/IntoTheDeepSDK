@@ -33,6 +33,7 @@ public class OuttakeConstants {
     public static int hangThreshold = 20;
 
     public static double speedProfileMultiplier = 0.01;
-    public static int profilingThreshold = 250;
+    public static int profilingThreshold = 350;
     public static double verticalOffset = -1;
+    public static int limitSwitchThreshold = 25; // motion profiling turns off, the closing finishes with limit switch seeking
 }
