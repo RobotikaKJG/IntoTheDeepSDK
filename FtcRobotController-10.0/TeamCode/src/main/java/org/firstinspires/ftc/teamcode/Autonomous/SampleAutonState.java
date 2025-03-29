@@ -41,6 +41,7 @@ public enum SampleAutonState {
 
     startOuttakeSample,
     startIntakeSample,
+    startOuttakeSample2,
 
     stop            // End of autonomous sequence
 }

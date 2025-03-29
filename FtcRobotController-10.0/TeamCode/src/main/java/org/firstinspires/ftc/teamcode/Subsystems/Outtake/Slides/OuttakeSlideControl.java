@@ -77,7 +77,7 @@ public class OuttakeSlideControl implements SlideControl {
         if(currentPosition > OuttakeConstants.limitSwitchThreshold)
             return false;
 
-        targetPosition -= 5;
+        targetPosition -= 10;
         limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotorPos(slide, targetPosition);
         return false;

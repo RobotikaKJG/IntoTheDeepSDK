@@ -34,8 +34,6 @@ public class VerticalSlideControl {
                 slideLogic.setMaxSpeed(0.5);
                 slideLogic.setSlideExtensionTarget(20);
                 OuttakeStates.setArmState(ArmStates.down);
-                //OuttakeStates.setReleaseButtonState(ReleaseButtonStates.idle);
-//                if(slideLogic.getSlidePosition() <= 150) {slideLogic.setMaxSpeed(0.1);}
 
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
