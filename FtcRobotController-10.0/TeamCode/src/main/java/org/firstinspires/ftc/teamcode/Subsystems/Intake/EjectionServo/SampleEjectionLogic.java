@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -18,7 +19,8 @@ public class SampleEjectionLogic {
 
     public void update(){
         if(shouldOpen()) {
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
+            if(!GlobalVariables.isAutonomous)
+                OuttakeStates.setSampleLockState(SampleLockStates.open);
             wasShouldOpen = true;
         }
         if(wasShouldOpen && shouldClose())
@@ -29,16 +31,16 @@ public class SampleEjectionLogic {
     }
 
     private boolean shouldOpen() {
-//        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed()) {
-////            addWaitTime(0.4);
-//            return  true;
-//        }
+        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed()) {
+            addWaitTime(0.4);
+            return  true;
+        }
         return false;
     }
 
     private boolean shouldClose()
     {
-        return false;//currentWait < getSeconds();
+        return currentWait < getSeconds();
     }
 
     private boolean wrongColor(){
