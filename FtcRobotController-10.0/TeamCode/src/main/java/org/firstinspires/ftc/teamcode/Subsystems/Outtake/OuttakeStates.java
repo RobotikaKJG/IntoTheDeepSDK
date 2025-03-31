@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -36,7 +37,14 @@ public class OuttakeStates {
     public static void setInitialStates() {
         outtakeState = SubsystemState.Idle;
         verticalSlideStates = VerticalSlideStates.closed;
-        sampleClawState = SampleClawStates.fullyOpen;
+        if(GlobalVariables.isAutonomous) {
+            sampleClawState = SampleClawStates.closed;
+            sampleLockState = SampleLockStates.open;
+        }
+        else {
+            sampleClawState = SampleClawStates.fullyOpen;
+            sampleLockState = SampleLockStates.closed;
+        }
         armState = ArmStates.down;
         sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
         specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
