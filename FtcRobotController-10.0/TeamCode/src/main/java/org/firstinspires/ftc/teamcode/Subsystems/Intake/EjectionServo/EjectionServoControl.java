@@ -26,10 +26,10 @@ public class EjectionServoControl {
     private void updateStates() {
         switch (OuttakeStates.getSampleLockState()){
             case closed:
-                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
+                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
                 break;
             case open:
-                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
+                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
                 break;
         }
     }
