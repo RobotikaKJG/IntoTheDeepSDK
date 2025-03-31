@@ -112,7 +112,7 @@ public class SensorControl {
 
     public boolean isRed(){
         //return currentGreen < 5 && currentRed > 7 || (currentBlue == 2 && currentGreen == 2 && currentRed == 5);
-        return currentGreen < 8 && currentRed >= 7;
+        return currentGreen < 8 && currentRed > 5;
     }
 
     public boolean isYellow(){
