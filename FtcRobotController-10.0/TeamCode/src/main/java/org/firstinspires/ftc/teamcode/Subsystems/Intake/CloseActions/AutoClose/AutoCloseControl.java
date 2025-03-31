@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 //import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -54,7 +55,8 @@ public class AutoCloseControl {
 
     private void checkColor() {
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
-        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+        if(!GlobalVariables.isAutonomous)
+            OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
     private void secureGoodSample() {
@@ -81,8 +83,10 @@ public class AutoCloseControl {
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
-        OuttakeStates.setSampleClawState(SampleClawStates.closed);
-        OuttakeStates.setSampleLockState(SampleLockStates.open);
+        if(!GlobalVariables.isAutonomous) {
+            OuttakeStates.setSampleClawState(SampleClawStates.closed);
+            OuttakeStates.setSampleLockState(SampleLockStates.open);
+        }
     }
 
 }
