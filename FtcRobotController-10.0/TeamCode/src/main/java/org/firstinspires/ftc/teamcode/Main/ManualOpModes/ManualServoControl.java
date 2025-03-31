@@ -44,7 +44,7 @@ public class ManualServoControl extends LinearOpMode {
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.square))
             {
-                if(currentServo < 4)
+                if(currentServo < 5)
                     currentServo ++;
                 else currentServo = 0;
             }
@@ -65,6 +65,9 @@ public class ManualServoControl extends LinearOpMode {
                     break;
                 case 4:
                     telemetry.addLine("Intake");
+                    break;
+                case 5:
+                    telemetry.addLine("Lock");
                     break;
             }
             telemetry.update();
