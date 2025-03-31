@@ -189,8 +189,11 @@ public class SampleAuton implements Auton {
                 // Check if 1 second has passed
                 if (getSeconds() < currentWait) return; // Stay in this state until time has passed
 
-                // Once 1 second has passed, proceed to the next state
-                sampleAutonState = SampleAutonState.fifthSampleOuttakePath;
+                if (checkSamplePickup(SampleAutonState.fifthSampleOuttakePath)) return;
+                else{
+
+                }
+
                 break;
 
             case fifthSampleOuttakePath:
@@ -315,9 +318,11 @@ public class SampleAuton implements Auton {
 
         IntakeStates.setExtendoState(ExtendoStates.retracted);
         setSampleClawState(SampleClawStates.closed);
+        OuttakeStates.setSampleLockState(SampleLockStates.open);
 
         sampleAutonState = next;
         currentWait = 0;
+        wasIfCalled = false;
         return true;
     }
 
