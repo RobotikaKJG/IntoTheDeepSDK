@@ -117,9 +117,9 @@ public class OuttakeStates {
     }
 
     // Check if the arm is flipped
-    public static boolean isArmFlipped() {
-        return armState == ArmStates.up;
-    }
+//    public static boolean isArmFlipped(double currentWait) {
+//        return getVerticalSlideState() == VerticalSlideStates.highBasket && getSeconds() > currentWait;
+//    }
 
     public static SampleLockStates getSampleLockState() {
         return sampleLockState;
@@ -144,11 +144,11 @@ public class OuttakeStates {
         // Step 2: Delay the intake & flip arm execution by 0.2s
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(200);  // Wait 0.2 seconds before extending intake and flipping the arm
+                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
+            setArmState(ArmStates.up);
             IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         }, executor);
     }
@@ -156,21 +156,18 @@ public class OuttakeStates {
 
     // ✅ Execute sample release in a separate thread
     public static void releaseSample() {
-        // Ensure the arm is fully flipped before releasing the sample
-        if (isArmFlipped()) {
-            setSampleClawState(SampleClawStates.halfOpen);
-
-            // Wait for 0.2 seconds to let the sample fully drop
-            try {
-                Thread.sleep(200); // 200 ms wait
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-
-            // Activate the intake motor after releasing the sample
-            IntakeStates.setMotorState(IntakeMotorStates.forward);
-
-        }
+//        // Ensure the arm is fully flipped before releasing the sample
+//        if (isArmFlipped()) {
+//            setSampleClawState(SampleClawStates.halfOpen);
+//
+//            // Wait for 0.2 seconds to let the sample fully drop
+//            try {
+//                Thread.sleep(1000); // 200 ms wait
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
+//
+//        }
     }
 
     public static void extendOuttakeAndFlipArm() {
@@ -185,11 +182,11 @@ public class OuttakeStates {
         // Step 2: Delay the intake & flip arm execution by 0.2s
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(200);  // Wait 0.2 seconds before extending intake and flipping the arm
+                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
+            setArmState(ArmStates.up);
         }, executor);
     }
 

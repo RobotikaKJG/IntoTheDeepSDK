@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.extendOuttakeAndIntakeAndFlipArm;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setArmState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
+import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleLockState;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SampleTrajectories;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class SampleAuton implements Auton {
@@ -24,6 +26,8 @@ public class SampleAuton implements Auton {
     private final SampleTrajectories trajectories;
     private SampleAutonState sampleAutonState;
     private double currentWait = 0;
+    private boolean wasIfCalled = false;
+//    private ElapsedTime time = new ElapsedTime();
 
     public SampleAuton(SampleMecanumDrive drive) {
         this.drive = drive;
@@ -36,7 +40,7 @@ public class SampleAuton implements Auton {
         drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
 
         extendOuttakeAndIntakeAndFlipArm();
-        setSampleClawState(SampleClawStates.closed);
+//        setSampleClawState(SampleClawStates.closed);
         sampleAutonState = SampleAutonState.waitForFlip;
     }
 
@@ -44,7 +48,7 @@ public class SampleAuton implements Auton {
     public void run() {
         switch (sampleAutonState) {
             case waitForFlip:
-                if (!waitForFlipThen(SampleAutonState.releaseSample, 1.0)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseSample)) return;
                 break;
 
             case releaseSample:
@@ -72,7 +76,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipSecondSample:
-                if (!waitForFlipThen(SampleAutonState.releaseSecondSample, 1.0)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseSecondSample)) return;
                 break;
 
             case releaseSecondSample:
@@ -100,7 +104,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipThirdSample:
-                if (!waitForFlipThen(SampleAutonState.releaseThirdSample, 1.0)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseThirdSample)) return;
                 break;
 
             case releaseThirdSample:
@@ -128,7 +132,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipForthSample:
-                if (!waitForFlipThen(SampleAutonState.releaseForthSample, 1.0)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseForthSample)) return;
                 break;
 
             case releaseForthSample:
@@ -141,27 +145,22 @@ public class SampleAuton implements Auton {
                 IntakeStates.setMotorState(IntakeMotorStates.idle);
                 IntakeStates.setExtendoState(ExtendoStates.retracting);
 
-                // Move arm back to default position
-                OuttakeStates.setArmState(ArmStates.down);
+                setArmState(ArmStates.down);
+                setSampleClawState(SampleClawStates.fullyOpen);
 
-                // Fully open the claw before retracting slides
-                OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
-
-                // Retract slides after the arm is fully reset
-                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractSlides);
-
-                // Set wait time to ensure slides fully retract
-                if (currentWait == 0) {
-                    addWaitTime(AutonomousConstants.slideRetractWait);
-                }
-
-                // Prevent state transition until slides are fully down
+                if (currentWait == 0) addWaitTime(AutonomousConstants.flipArmWait);
                 if (currentWait > getSeconds()) return;
+                if(!wasIfCalled) {
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+                    wasIfCalled = true;
+                }
 
 
                 // Move to the next state after retraction is complete
-                sampleAutonState = SampleAutonState.fifthSampleIntakePath;
+                //sampleAutonState = SampleAutonState.fifthSampleIntakePath;
+                sampleAutonState = SampleAutonState.stop;
                 currentWait = 0; // Reset wait time for next use
+                wasIfCalled = false;
                 break;
 
             case fifthSampleIntakePath:
@@ -209,11 +208,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipFifthSample:
-                // Ensure the arm has fully flipped before proceeding
-                if (!OuttakeStates.isArmFlipped()) return;
-
-                // Wait 1 second before releasing the second sample
-                sampleAutonState = SampleAutonState.releaseFifthSample;
+                if (waitForFlipThen(SampleAutonState.releaseFifthSample)) return;
                 break;
 
             case releaseFifthSample:
@@ -230,44 +225,48 @@ public class SampleAuton implements Auton {
             case prepareNextCycleForSubSample:
                 if (drive.isBusy()) return;
 
-                // Move arm back to default position
-                OuttakeStates.setArmState(ArmStates.down);
+                setArmState(ArmStates.down);
+                setSampleClawState(SampleClawStates.fullyOpen);
 
-                // Fully open the claw before retracting slides
-                OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
-
-                // Retract slides after the arm is fully reset
-                OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractSlides);
-
-                // Set wait time to ensure slides fully retract
-                if (currentWait == 0) {
-                    addWaitTime(AutonomousConstants.slideRetractWait);
-                }
-
-                // Prevent state transition until slides are fully down
+                if (currentWait == 0) addWaitTime(AutonomousConstants.flipArmWait);
                 if (currentWait > getSeconds()) return;
+                if(!wasIfCalled) {
+                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+                    wasIfCalled = true;
+                }
 
 
                 // Move to the next state after retraction is complete
                 sampleAutonState = SampleAutonState.fifthSampleIntakePath;
-                currentWait = 0; // Reset wait time for next use
+                currentWait = 0;
+                wasIfCalled = false;
                 break;
             // Additional sample states can follow same pattern...
         }
     }
 
-    private boolean waitForFlipThen(SampleAutonState next, double seconds) {
-        if (!OuttakeStates.isArmFlipped()) return false;
-        addWaitTime(seconds);
+    private boolean waitForFlipThen(SampleAutonState next) {
+        addWaitTime(AutonomousConstants.flipArmFirstWait);
+
+        //if (!OuttakeStates.isArmFlipped(currentWait)) return false;
+
         sampleAutonState = next;
+        wasIfCalled = false;
         return true;
     }
 
     private boolean waitThenRelease(SampleAutonState next, double waitTime) {
         if (currentWait > getSeconds()) return false;
-        OuttakeStates.releaseSample();
-        addWaitTime(waitTime);
+//        OuttakeStates.releaseSample();
+        setSampleClawState(SampleClawStates.halfOpen);
+        setSampleLockState(SampleLockStates.closed);
+//        if(!wasIfCalled) {
+//            addWaitTime(waitTime);
+//            wasIfCalled = true;
+//        }
+//        if (currentWait > getSeconds()) return false;
         sampleAutonState = next;
+        wasIfCalled = false;
         return true;
     }
 
@@ -280,29 +279,39 @@ public class SampleAuton implements Auton {
 
     private void startIntake(SampleAutonState next) {
         IntakeStates.setMotorState(IntakeMotorStates.forward);
+        OuttakeStates.setSampleLockState(SampleLockStates.closed);
         sampleAutonState = next;
     }
 
     private boolean checkSamplePickup(SampleAutonState next) {
         if (drive.isBusy()) return false;
-        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
-            addWaitTime(AutonomousConstants.intakeCloseWait);
-            IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
-            sampleAutonState = next;
-            return true;
-        }
-        return false;
+        setArmState(ArmStates.down);
+        setSampleClawState(SampleClawStates.fullyOpen);
+        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) return false;
+
+        //addWaitTime(AutonomousConstants.intakeCloseWait);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+        sampleAutonState = next;
+        return true;
     }
 
     private boolean handleRetractOuttake(SampleAutonState next) {
         if (drive.isBusy()) return false;
 
-        setArmState(ArmStates.down);
-        setSampleClawState(SampleClawStates.fullyOpen);
-        OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+//        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
 
-        if (currentWait == 0) addWaitTime(AutonomousConstants.slideRetractWait);
+        if (currentWait == 0) addWaitTime(AutonomousConstants.flipArmWait);
+        //System.out.println(currentWait + " > " + getSeconds());
         if (currentWait > getSeconds()) return false;
+
+        if(!wasIfCalled) {
+            OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+            setSampleClawState(SampleClawStates.fullyOpen);
+            wasIfCalled = true;
+        }
+
+        System.out.println(OuttakeStates.getVerticalSlideState());
+        if (OuttakeStates.getVerticalSlideState() != VerticalSlideStates.closed) return false;
 
         IntakeStates.setExtendoState(ExtendoStates.retracted);
         setSampleClawState(SampleClawStates.closed);
