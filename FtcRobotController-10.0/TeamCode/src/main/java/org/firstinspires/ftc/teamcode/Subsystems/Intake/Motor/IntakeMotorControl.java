@@ -29,6 +29,7 @@ public class IntakeMotorControl {
             case backward:
                 motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.getIntakeSpeed());
                 break;
+            case idle:
             case idleWasForward:
             case idleWasBackward:
                 motorControl.setMotorSpeed(MotorConstants.intake, 0);
