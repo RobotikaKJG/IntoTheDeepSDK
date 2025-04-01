@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.HardwareInterface.Motor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Utilities {
+public class MotorUtilities {
 
-    public static int getMotorPosition(DcMotor[] motors, int index) {
+    public int getMotorPosition(DcMotor[] motors, int index) {
         int sum = 0;
         for (int i = 0; i < configLength(index); i++)
             sum += getPos(motors, index, i);
@@ -13,21 +13,21 @@ public class Utilities {
 
 
     //extracted for readability
-    public static int configLength(int index) {
+    public int configLength(int index) {
         return MotorConstants.motorConfig[index].length;
     }
 
     //more readable version instead of doing it directly in straightAvgCalc
-    private static int getPos(DcMotor[] motors, int index, int i) {
+    private int getPos(DcMotor[] motors, int index, int i) {
         int motorIndex = motorIndex(index, i);
         return motors[motorIndex].getCurrentPosition();
     }
 
-    public static int motorIndex(int index, int i) {
+    public int motorIndex(int index, int i) {
         return MotorConstants.motorConfig[index][i];
     }
 
-    public static int avg(int sum, int count) {
+    public int avg(int sum, int count) {
         return sum / count;
     }
 
@@ -42,7 +42,7 @@ public class Utilities {
     /**
      * @noinspection unused
      */
-    public static double setMinValue(double value, double limit) {
+    public double setMinValue(double value, double limit) {
         if (Math.abs(value) < limit)
             value = Math.signum(value) * limit;
         return value;

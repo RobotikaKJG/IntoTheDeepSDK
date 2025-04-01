@@ -23,7 +23,7 @@ public class MotorControl {
 
     private final HardwareMap hardwareMap;
     private DcMotorEx[] motors;
-    private final Utilities utilities = new Utilities();
+    private final MotorUtilities utilities = new MotorUtilities();
 
 
     private final double[] motorSpeeds = new double[8];
@@ -61,62 +61,62 @@ public class MotorControl {
     }
 
     public void setZeroPowerBehavior(int index, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motors[Utilities.motorIndex(index, i)].setZeroPowerBehavior(zeroPowerBehavior);
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motors[utilities.motorIndex(index, i)].setZeroPowerBehavior(zeroPowerBehavior);
     }
 
     public void setMotorSpeed(int index, double speed) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motorSpeeds[Utilities.motorIndex(index, i)] = speed;
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motorSpeeds[utilities.motorIndex(index, i)] = speed;
     }
 
     public void addMotorSpeed(int index, double speed) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motorSpeeds[Utilities.motorIndex(index, i)] += speed;
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motorSpeeds[utilities.motorIndex(index, i)] += speed;
     }
 
     public void multiplyMotorSpeed(int index, double multiplier) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motorSpeeds[Utilities.motorIndex(index, i)] *= multiplier;
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motorSpeeds[utilities.motorIndex(index, i)] *= multiplier;
     }
 
     public void divideMotorSpeed(int index, double divisor) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motorSpeeds[Utilities.motorIndex(index, i)] /= divisor;
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motorSpeeds[utilities.motorIndex(index, i)] /= divisor;
     }
 
     public void setMotors(int index) {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motors[Utilities.motorIndex(index, i)].setPower(motorSpeeds[Utilities.motorIndex(index, i)]);
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motors[utilities.motorIndex(index, i)].setPower(motorSpeeds[utilities.motorIndex(index, i)]);
     }
 
     public void setMotorMode(int index, DcMotor.RunMode mode)
     {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motors[Utilities.motorIndex(index, i)].setMode(mode);
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motors[utilities.motorIndex(index, i)].setMode(mode);
     }
 
     public void setMotorPos(int index, int position){
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motors[Utilities.motorIndex(index, i)].setTargetPosition(position);
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motors[utilities.motorIndex(index, i)].setTargetPosition(position);
     }
 
     public double getMotorCurrent(int index)
     {
-        return motors[Utilities.motorIndex(index, 0)].getCurrent(CurrentUnit.AMPS);
+        return motors[utilities.motorIndex(index, 0)].getCurrent(CurrentUnit.AMPS);
     }
 
     public void setMotorCurrentAlert(int index, double current)
     {
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            motors[Utilities.motorIndex(index, i)].setCurrentAlert(current, CurrentUnit.AMPS);
+        for (int i = 0; i < utilities.configLength(index); i++)
+            motors[utilities.motorIndex(index, i)].setCurrentAlert(current, CurrentUnit.AMPS);
     }
 
     public boolean isOverCurrent(int index)
     {
         boolean overCurrent = false;
-        for (int i = 0; i < Utilities.configLength(index); i++)
-            if(motors[Utilities.motorIndex(index, i)].isOverCurrent())
+        for (int i = 0; i < utilities.configLength(index); i++)
+            if(motors[utilities.motorIndex(index, i)].isOverCurrent())
                 overCurrent = true;
         return overCurrent;
     }
@@ -130,7 +130,7 @@ public class MotorControl {
     }
 
     public int getMotorPosition(int index) {
-        return Utilities.getMotorPosition(motors, index);
+        return utilities.getMotorPosition(motors, index);
     }
 
     public void resetMotorEncoders(int index) {
