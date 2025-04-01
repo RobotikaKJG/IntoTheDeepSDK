@@ -34,26 +34,11 @@ public class SpecimenTrajectories {
 
         collectSamples = drive.trajectorySequenceBuilder(hangFirstSpecimen.end())
                 .splineToConstantHeading(new Vector2d(35, -30), Math.toRadians(90))
-//                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-//                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToConstantHeading(new Vector2d(35, -25), Math.toRadians(90),
-//                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-//                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToConstantHeading(new Vector2d(40, -5), Math.toRadians(0),
-//                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-//                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToConstantHeading(new Vector2d(49, -10), Math.toRadians(-90),
-//                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-//                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToConstantHeading(new Vector2d(49, -35), Math.toRadians(-90),
-//                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-//                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToConstantHeading(new Vector2d(48, -10), Math.toRadians(-90))
-//                .splineToConstantHeading(new Vector2d(58, -10), Math.toRadians(-90))
-//                .splineTo(new Vector2d(58, -35), Math.toRadians(-90))
-//                .splineToConstantHeading(new Vector2d(58, -10), Math.toRadians(-90))
-//                .splineToConstantHeading(new Vector2d(61, -10), Math.toRadians(-90))
-//                .splineTo(new Vector2d(61, -50), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(35, -30), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(35, -25), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(40, -5), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(49, -10), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(49, -35), Math.toRadians(-90))
                 .build();
 
         goToTakeSecondSpecimen = drive.trajectorySequenceBuilder(collectSamples.end())

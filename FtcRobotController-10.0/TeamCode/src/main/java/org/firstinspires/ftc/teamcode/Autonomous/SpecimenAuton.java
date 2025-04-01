@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
@@ -32,9 +33,6 @@ public class SpecimenAuton implements Auton{
         drive.followTrajectorySequenceAsync(trajectories.hangFirstSpecimen());
         OuttakeStates.setSpecimenClawState(SpecimenClawStates.closed);
         OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
-//        DriveConstants.MAX_VEL = 75;//68;
-//        DriveConstants.MAX_ANG_VEL = 20;
-//        DriveConstants.MAX_ANG_ACCEL = 10;
     }
 
     @Override
@@ -139,12 +137,12 @@ public class SpecimenAuton implements Auton{
     private void waitToPush(){
         if(currentWait > getSeconds()) return;
         specimenAutonState = SpecimenAutonState.retractExtendo;
-        //IntakeStates.setMotorState(IntakeMotorStates.backward);
+        IntakeStates.setMotorState(IntakeMotorStates.backward);
     }
 
     private void retractExtendo() {
-//        if(initialised)
-//            IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
+        if(initialised)
+            IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
         if(!initialised)
         {
             IntakeStates.setExtendoState(ExtendoStates.retracting);
@@ -159,12 +157,12 @@ public class SpecimenAuton implements Auton{
             case firstSample:
                 specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
                 drive.followTrajectorySequenceAsync(trajectories.goToTakeSecondSpecimen());
-                //collectSampleCycleState = CollectSampleCycleState.secondSample;
+                collectSampleCycleState = CollectSampleCycleState.secondSample;
                 break;
             case secondSample:
                 IntakeStates.setExtendoState(ExtendoStates.retracting);
                 specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
-                //collectSampleCycleState = CollectSampleCycleState.thirdSample;
+                collectSampleCycleState = CollectSampleCycleState.thirdSample;
                 break;
             case thirdSample:
                 specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
@@ -176,29 +174,29 @@ public class SpecimenAuton implements Auton{
     private void goToTakeSpecimen() {
         if(drive.isBusy()) return;
 
-//        switch (specimenCycleState){
-//            case secondSpecimen:
-//                drive.followTrajectorySequenceAsync(trajectories.hangSecondSpecimen());
-//                addWaitTime(AutonomousConstants.goToTakeSecondSpecimenWait);
-//                break;
-//            case thirdSpecimen:
-//                break;
-//            case fourthSpecimen:
-//                break;
-//            case fifthSpecimen:
-//                break;
-//        }
+        switch (specimenCycleState){
+            case secondSpecimen:
+                drive.followTrajectorySequenceAsync(trajectories.hangSecondSpecimen());
+                addWaitTime(AutonomousConstants.goToTakeSecondSpecimenWait);
+                break;
+            case thirdSpecimen:
+                break;
+            case fourthSpecimen:
+                break;
+            case fifthSpecimen:
+                break;
+        }
         specimenAutonState = SpecimenAutonState.takeSpecimen;
     }
 
     private void takeSpecimen() {
         if(!initialised)
         {
-//            OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.takeSpecimen);
+            OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.takeSpecimen);
             initialised = true;
         }
 
-//        if(OuttakeStates.getTakeSpecimenStates() != TakeSpecimenStates.idle) return;
+        if(OuttakeStates.getTakeSpecimenStates() != TakeSpecimenStates.idle) return;
         specimenAutonState = SpecimenAutonState.goToPlaceSpecimen;
         switch (specimenCycleState){
             case secondSpecimen:

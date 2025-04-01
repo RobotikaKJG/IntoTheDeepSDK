@@ -27,6 +27,7 @@ public class OuttakeConstants {
     public static double lockServoMaxPos = 0.69;
 
     public static double specimenReleaseWait = 0.1;
+    public static double takeSpecimenWait = 0.2;
 
     public static int lowRungPos = 300;
     public static int highRungPos = 1350;

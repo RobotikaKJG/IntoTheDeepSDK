@@ -4,13 +4,10 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class SampleEjectionLogic {
     private final SensorControl sensorControl;
     private boolean wasShouldOpen = false;
-    private double currentWait = 0;
 
     public SampleEjectionLogic(SensorControl sensorControl) {
         this.sensorControl = sensorControl;
@@ -18,27 +15,23 @@ public class SampleEjectionLogic {
 
     public void update(){
         if(shouldOpen()) {
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
+            IntakeStates.setEjectionServoState(EjectionServoStates.open);
             wasShouldOpen = true;
         }
         if(wasShouldOpen && shouldClose())
         {
             wasShouldOpen = false;
-            OuttakeStates.setSampleLockState(SampleLockStates.closed);
+            IntakeStates.setEjectionServoState(EjectionServoStates.closed);
         }
     }
 
     private boolean shouldOpen() {
-//        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed()) {
-////            addWaitTime(0.4);
-//            return  true;
-//        }
-        return false;
+        return wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed();
     }
 
     private boolean shouldClose()
     {
-        return false;//currentWait < getSeconds();
+        return correctColor() && !ejectionServoClosed();
     }
 
     private boolean wrongColor(){
@@ -54,18 +47,10 @@ public class SampleEjectionLogic {
     }
 
     private static boolean ejectionServoClosed() {
-            return OuttakeStates.getSampleLockState() == SampleLockStates.closed;
+        return IntakeStates.getEjectionServoState() == EjectionServoStates.closed;
     }
 
     private boolean correctColor(){
         return sensorControl.isAllianceColor() ||sensorControl.isYellow();
-    }
-
-    private void addWaitTime(double waitTime) {
-        currentWait = getSeconds() + waitTime;
-    }
-
-    private double getSeconds() {
-        return System.currentTimeMillis() / 1_000.0;
     }
 }

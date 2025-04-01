@@ -4,12 +4,9 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class EjectionServoControl {
-    private SampleLockStates prevEjectionServoState = SampleLockStates.closed;
+    private EjectionServoStates prevEjectionServoState = EjectionServoStates.closed;
     private final ServoControl servoControl;
 
     public EjectionServoControl(ServoControl servoControl) {
@@ -17,19 +14,19 @@ public class EjectionServoControl {
     }
 
     public void update(){
-        if(OuttakeStates.getSampleLockState() != prevEjectionServoState) {
+        if(IntakeStates.getEjectionServoState() != prevEjectionServoState) {
             updateStates();
-            prevEjectionServoState = OuttakeStates.getSampleLockState();
+            prevEjectionServoState = IntakeStates.getEjectionServoState();
         }
     }
 
     private void updateStates() {
-        switch (OuttakeStates.getSampleLockState()){
+        switch (IntakeStates.getEjectionServoState()){
             case closed:
-                servoControl.setServoPos(ServoConstants.lock, OuttakeConstants.lockServoMinPos);
+                servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
                 break;
             case open:
-                servoControl.setServoPos(ServoConstants.lock, OuttakeConstants.lockServoMaxPos);
+                servoControl.setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
                 break;
         }
     }
