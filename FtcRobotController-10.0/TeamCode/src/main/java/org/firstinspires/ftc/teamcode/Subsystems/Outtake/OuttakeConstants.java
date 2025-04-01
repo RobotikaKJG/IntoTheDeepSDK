@@ -29,6 +29,11 @@ public class OuttakeConstants {
     public static double specimenReleaseWait = 0.1;
     public static double takeSpecimenWait = 0.2;
 
+    public static double raiseWait = 0.5;
+    public static double moveArmDownWait = 0.2;
+    public static double releaseWait = 0.2;
+    public static double moveArmBackWait = 0.5;
+
     public static int lowRungPos = 300;
     public static int highRungPos = 1350;
     public static int lowRungScorePos = 0;

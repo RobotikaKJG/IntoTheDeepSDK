@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
@@ -21,6 +22,7 @@ public class OuttakeStates {
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
     private static HangStates hangState = HangStates.retracted;
     private static TakeSpecimenStates takeSpecimenStates = TakeSpecimenStates.idle;
+    private static DropSampleStates dropSampleState = DropSampleStates.idle;
 
     public static void setInitialStates() {
         outtakeState = SubsystemState.Idle;
@@ -31,6 +33,8 @@ public class OuttakeStates {
         specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;
         hangState = HangStates.retracted;
+        takeSpecimenStates = TakeSpecimenStates.idle;
+        dropSampleState = DropSampleStates.idle;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -104,5 +108,13 @@ public class OuttakeStates {
 
     public static void setTakeSpecimenStates(TakeSpecimenStates state) {
         takeSpecimenStates = state;
+    }
+
+    public static DropSampleStates getDropSampleState() {
+        return dropSampleState;
+    }
+
+    public static void setDropSampleState(DropSampleStates state) {
+        dropSampleState = state;
     }
 }
