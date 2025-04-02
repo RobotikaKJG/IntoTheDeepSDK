@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Autonomous.Trajectories;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 
@@ -16,8 +15,6 @@ public class SpecimenTrajectories {
     TrajectorySequence hangSecondSpecimen;
     TrajectorySequence goToTakeThirdSpecimen;
     TrajectorySequence hangThirdSpecimen;
-    TrajectorySequence hangFourthSpecimen;
-    TrajectorySequence hangFifthSpecimen;
     TrajectorySequence park;
 
     private final Pose2d startPose = new Pose2d(7, -61,Math.toRadians(-90));
@@ -61,20 +58,6 @@ public class SpecimenTrajectories {
                 .lineToLinearHeading(new Pose2d(2,-28.5,Math.toRadians(-90)))
                 .build();
 
-        hangFourthSpecimen = drive.trajectorySequenceBuilder(hangSecondSpecimen.end())
-                .lineToLinearHeading(new Pose2d(45,-55,Math.toRadians(90)))
-                .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(-1,-33,Math.toRadians(-85)))
-                .lineToLinearHeading(new Pose2d(-1,-32,Math.toRadians(-90)))
-                .build();
-
-        hangFifthSpecimen = drive.trajectorySequenceBuilder(hangSecondSpecimen.end())
-                .lineToLinearHeading(new Pose2d(45,-55,Math.toRadians(90)))
-                .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(-4,-33,Math.toRadians(-85)))
-                .lineToLinearHeading(new Pose2d(-4,-32,Math.toRadians(-90)))
-                .build();
-
         park = drive.trajectorySequenceBuilder(hangSecondSpecimen.end())
                 //.lineToLinearHeading(new Pose2d(45,-50 ,Math.toRadians(-45)))
                 .splineTo(new Vector2d(45,-50),Math.toRadians(-45))
@@ -104,14 +87,6 @@ public class SpecimenTrajectories {
 
     public TrajectorySequence hangThirdSpecimen() {
         return hangThirdSpecimen;
-    }
-
-    public TrajectorySequence hangFourthSpecimen() {
-        return hangFourthSpecimen;
-    }
-
-    public TrajectorySequence hangFifthSpecimen() {
-        return hangFifthSpecimen;
     }
 
     public TrajectorySequence park() {

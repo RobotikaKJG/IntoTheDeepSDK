@@ -9,7 +9,6 @@ public class AutonomousConstants {
     public static final double sampleReleaseWait = 1;
     public static final double slideRetractWait = 1;
     public static final double takeSampleMaxWait = 2.5;
-    public static final double takeThirdSampleMaxWait = 3.5;
     public static final double intakeCloseWait = 1.5;
     public static final double goToBasketSecondWait = 0;
     public static final double goToBasketThirdWait = 1.5;
@@ -21,7 +20,6 @@ public class AutonomousConstants {
 
     public static final double pushSampleWait = 1;
 
-    public static final double takeSpecimenWait = 0.5;
     public static final double goToTakeSecondSpecimenWait = 4;
     public static final double goToPlaceSecondSpecimenWait = 6;
 }

@@ -151,10 +151,6 @@ public class SampleAuton implements Auton{
     }
 
     private void takeFirstSample() {
-        //A loop, very very scary, NOTE
-//        while(currentWait > getseconds() && IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
-//            autonomousControl.updateSubsystems();
-//        }
         if(currentWait > getSeconds()) return;
         addWaitTime(AutonomousConstants.intakeCloseWait);
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
@@ -293,18 +289,6 @@ public class SampleAuton implements Auton{
         sampleAutonState = SampleAutonState.idle;
     }
 
-//    private void execute(AutonStateInterface state)
-//    {
-//        if(currentWait > getSeconds()) return;
-//
-//        state.execute();
-//
-//        // execute viduj V
-//        OuttakeStates.setSampleReleaseButtonState(state.ButtonState);
-//
-//        addWaitTime(state.WaitTime);
-//        sampleAutonState = state.AutonState;
-//    }
 
     private void addWaitTime(double waitTime) {
         currentWait = getSeconds() + waitTime;

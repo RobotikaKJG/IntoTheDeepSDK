@@ -12,9 +12,6 @@ public class IntakeConstants {
 
     public static final int extendoMaxExtension = 600;
     public static final int extendoMinExtension = 300;
-    public static final int extendoThreshold = 20;
-
-    public static final double servoSpeed = 1;
 
     public static final double intakeServoMaxPos = 0.15;     // Taking position
     public static final double intakeServoMinPos = 0;     // Minimum rotational position, starting position

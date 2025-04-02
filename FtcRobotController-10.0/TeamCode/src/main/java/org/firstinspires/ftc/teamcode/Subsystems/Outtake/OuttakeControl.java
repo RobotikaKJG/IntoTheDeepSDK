@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
-//import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
-//import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenCl
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
@@ -27,21 +29,21 @@ public class OuttakeControl {
     private final SpecimenReleaseButtonLogic specimenReleaseButtonLogic;
     private final SpecimenReleaseButtonControl specimenReleaseButtonControl = new SpecimenReleaseButtonControl();
     private final HangControl hangControl;
-//    private final DropSampleLogic dropSampleLogic;
-//    private final DropSampleControl dropSampleControl = new DropSampleControl();
-//    private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
-//    private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
+    private final DropSampleLogic dropSampleLogic;
+    private final DropSampleControl dropSampleControl = new DropSampleControl();
+    private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
+    private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
 
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
-                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl){//, DropSampleLogic dropSampleLogic) {
+                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl, DropSampleLogic dropSampleLogic) {
         this.armControl = armControl;
         this.sampleClawControl = sampleClawControl;
         this.specimenClawControl = specimenClawControl;
         this.verticalSlideControl = verticalSlideControl;
         this.specimenReleaseButtonLogic = specimenReleaseButtonLogic;
         this.hangControl = hangControl;
-//        this.dropSampleLogic = dropSampleLogic;
+        this.dropSampleLogic = dropSampleLogic;
     }
 
     public void update() {
@@ -54,10 +56,10 @@ public class OuttakeControl {
         specimenReleaseButtonControl.update();
         specimenReleaseButtonLogic.update();
         hangControl.update();
-//        dropSampleControl.update();
-//        dropSampleLogic.update();
-//        takeSpecimenControl.update();
-//        takeSpecimenLogic.update();
+        dropSampleControl.update();
+        dropSampleLogic.update();
+        takeSpecimenControl.update();
+        takeSpecimenLogic.update();
 
 
         updateOuttakeState();

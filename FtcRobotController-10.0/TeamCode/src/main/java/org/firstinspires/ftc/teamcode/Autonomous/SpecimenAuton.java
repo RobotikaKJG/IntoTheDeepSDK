@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SpecimenTrajectories;
-import org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -152,21 +151,10 @@ public class SpecimenAuton implements Auton{
 
         if(drive.isBusy()) return;
 
-        switch (collectSampleCycleState)
-        {
-            case firstSample:
-                specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
-                drive.followTrajectorySequenceAsync(trajectories.goToTakeSecondSpecimen());
-                collectSampleCycleState = CollectSampleCycleState.secondSample;
-                break;
-            case secondSample:
-                IntakeStates.setExtendoState(ExtendoStates.retracting);
-                specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
-                collectSampleCycleState = CollectSampleCycleState.thirdSample;
-                break;
-            case thirdSample:
-                specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
-                break;
+        if (collectSampleCycleState == CollectSampleCycleState.firstSample) {
+            specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
+            drive.followTrajectorySequenceAsync(trajectories.goToTakeSecondSpecimen());
+            collectSampleCycleState = CollectSampleCycleState.secondSample;
         }
         initialised = false;
     }
@@ -180,10 +168,8 @@ public class SpecimenAuton implements Auton{
                 addWaitTime(AutonomousConstants.goToTakeSecondSpecimenWait);
                 break;
             case thirdSpecimen:
-                break;
-            case fourthSpecimen:
-                break;
-            case fifthSpecimen:
+                drive.followTrajectorySequenceAsync(trajectories.hangThirdSpecimen());
+                addWaitTime(AutonomousConstants.goToTakeSecondSpecimenWait);
                 break;
         }
         specimenAutonState = SpecimenAutonState.takeSpecimen;
@@ -204,10 +190,6 @@ public class SpecimenAuton implements Auton{
                 break;
             case thirdSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangThirdSpecimen());
-                break;
-            case fourthSpecimen:
-                break;
-            case fifthSpecimen:
                 break;
         }
         initialised = false;
@@ -245,10 +227,6 @@ public class SpecimenAuton implements Auton{
                 specimenCycleState = SpecimenCycleState.fourthSpecimen;
                 specimenAutonState = SpecimenAutonState.extendExtendoForPark; //NOTE, only for testing, will be at 5
                 drive.followTrajectorySequenceAsync(trajectories.park());
-                break;
-            case fourthSpecimen:
-                break;
-            case fifthSpecimen:
                 break;
         }
     }

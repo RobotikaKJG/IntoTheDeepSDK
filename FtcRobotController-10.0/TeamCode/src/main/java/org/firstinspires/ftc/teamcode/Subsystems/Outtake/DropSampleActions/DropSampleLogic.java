@@ -48,7 +48,7 @@ public class DropSampleLogic {
     }
 
     private void waitToRaise() {
-        //if (Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.sampleDropThreshold) return;
+        if (Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.sampleDropThreshold) return;
         if(currentWait > getSeconds()) return;
         OuttakeStates.setDropSampleState(DropSampleStates.moveArm);
         addWaitTime(OuttakeConstants.moveArmDownWait);

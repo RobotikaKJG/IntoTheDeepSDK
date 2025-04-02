@@ -10,7 +10,6 @@ public class ServoConstants {
     public static final int release = 2;
     public static final int specimenClaw = 3;
     public static final int intake = 4;
-    public static final int lock = 5; // Sample Lock Servo
 
 
     public static final double[] servoMinPos =
@@ -19,8 +18,7 @@ public class ServoConstants {
                     OuttakeConstants.outtakeRightServoMinPos,
                     OuttakeConstants.releaseServoMinPos,
                     OuttakeConstants.specimenClawServoMinPos,
-                    IntakeConstants.intakeServoMinPos,
-                    OuttakeConstants.lockServoMinPos
+                    IntakeConstants.intakeServoMinPos
             };
     public static final double[] servoMaxPos =
             {
@@ -28,7 +26,6 @@ public class ServoConstants {
                     OuttakeConstants.outtakeRightServoMaxPos,
                     OuttakeConstants.releaseServoMaxPos,
                     OuttakeConstants.specimenClawServoMaxPos,
-                    IntakeConstants.intakeServoMaxPos,
-                    OuttakeConstants.lockServoMaxPos
+                    IntakeConstants.intakeServoMaxPos
             };
 }

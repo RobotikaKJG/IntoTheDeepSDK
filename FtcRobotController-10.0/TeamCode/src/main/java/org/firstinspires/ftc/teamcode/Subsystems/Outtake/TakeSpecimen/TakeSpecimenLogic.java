@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class TakeSpecimenLogic {
 

@@ -43,7 +43,6 @@ public class ServoControl {
         }
 
         setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
-        setServoPos(ServoConstants.lock,OuttakeConstants.lockServoMinPos);
     }
 
     public void setServoPos(int index, double position) {

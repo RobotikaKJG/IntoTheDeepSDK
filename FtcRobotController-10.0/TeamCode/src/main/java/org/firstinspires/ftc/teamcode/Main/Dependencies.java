@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.A
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
-//import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
@@ -131,12 +131,12 @@ public class Dependencies {
     public OuttakeControl createOuttakeControl() {
         return new OuttakeControl(createArmControl(), createSampleClawControl(),
                 createSpecimenClawControl(),createVerticalSlideControl(),
-                createSpecimenReleaseButtonLogic(), createHangControl());//, createDropSampleLogic());
+                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic());
     }
 
-//    private DropSampleLogic createDropSampleLogic() {
-//        return new DropSampleLogic(outtakeSlideLogic);
-//    }
+    private DropSampleLogic createDropSampleLogic() {
+        return new DropSampleLogic(outtakeSlideLogic);
+    }
 
     private HangControl createHangControl() {
         return new HangControl(outtakeSlideLogic);

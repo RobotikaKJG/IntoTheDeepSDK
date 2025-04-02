@@ -42,10 +42,11 @@ public class IntakeControl {
         autoCloseControl.update();
         manualCloseControl.update();
         intakeMotorControl.update();
-        //intakeMotorLogic.update();
+        intakeMotorLogic.update();
         extendoControl.update();
         ejectionServoControl.update();
         sampleEjectionLogic.update();
+
 
         updateIntakeState();
         updateColorState();

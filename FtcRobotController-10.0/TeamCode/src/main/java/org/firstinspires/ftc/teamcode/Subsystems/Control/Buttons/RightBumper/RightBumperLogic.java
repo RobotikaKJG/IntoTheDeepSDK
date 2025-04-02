@@ -4,8 +4,6 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class RightBumperLogic {
@@ -43,9 +41,5 @@ public class RightBumperLogic {
 
     private boolean outtakeClosing(){
         return OuttakeStates.getSampleReleaseButtonState() == SampleReleaseButtonStates.waitToRetract;
-    }
-
-    private boolean extendoExtended() {
-        return IntakeStates.getExtendoState() == ExtendoStates.extended;
     }
 }

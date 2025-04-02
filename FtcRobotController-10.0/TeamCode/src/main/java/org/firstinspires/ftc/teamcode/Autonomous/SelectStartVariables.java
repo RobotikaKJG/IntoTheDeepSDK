@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
-import org.firstinspires.ftc.teamcode.Main.Alliance;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 

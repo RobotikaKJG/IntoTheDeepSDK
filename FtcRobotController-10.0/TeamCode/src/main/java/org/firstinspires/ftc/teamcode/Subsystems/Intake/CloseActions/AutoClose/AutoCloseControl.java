@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class AutoCloseControl {
 
@@ -53,7 +52,7 @@ public class AutoCloseControl {
 
     private void secureGoodSample() {
         IntakeStates.setMotorState(IntakeMotorStates.forward);
-//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
     }
 
     private void ejectExtraSamples() {
@@ -69,14 +68,13 @@ public class AutoCloseControl {
     private static void waitToRetract() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
         IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
-//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
         OuttakeStates.setSampleClawState(SampleClawStates.closed);
-        OuttakeStates.setSampleLockState(SampleLockStates.open);
     }
 
 }

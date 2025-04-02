@@ -4,5 +4,4 @@ public enum SpecimenCycleState {
     secondSpecimen,
     thirdSpecimen,
     fourthSpecimen,
-    fifthSpecimen
 }

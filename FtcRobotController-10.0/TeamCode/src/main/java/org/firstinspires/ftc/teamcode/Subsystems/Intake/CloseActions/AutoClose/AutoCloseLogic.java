@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
@@ -84,7 +82,6 @@ public class AutoCloseLogic {
         if(IntakeStates.getIntakeState() == SubsystemState.Run) {
             sensorControl.resetColor();
             IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
-            OuttakeStates.setSampleLockState(SampleLockStates.closed);
         }
     }
 

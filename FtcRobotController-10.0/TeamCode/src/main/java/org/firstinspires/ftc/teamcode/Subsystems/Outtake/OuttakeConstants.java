@@ -11,7 +11,6 @@ public class OuttakeConstants {
     public static final int lowBasketPos = 1100;
     public static final int highBasketPos = 2100;
     public static final int hangBar = 1500;
-    public static final int slideTargetThreshold = 20;
 
 
     //round needed to prevent floating point errors
@@ -22,9 +21,6 @@ public class OuttakeConstants {
 
     public static double specimenClawServoMinPos = 0.5;
     public static double specimenClawServoMaxPos = 0.7;
-
-    public static double lockServoMinPos = 0.10;
-    public static double lockServoMaxPos = 0.69;
 
     public static double specimenReleaseWait = 0.1;
     public static double takeSpecimenWait = 0.2;
@@ -40,4 +36,5 @@ public class OuttakeConstants {
     public static int highRungScorePos = 1040;
     public static int specimenHungThreshold = 10;
     public static int hangThreshold = 20;
+    public static int sampleDropThreshold = 100;
 }
