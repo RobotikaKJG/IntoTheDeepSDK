@@ -22,7 +22,6 @@ public class OuttakeSlideControl implements SlideControl {
     public int getSlidePosition() {
         return motorControl.getMotorPosition(MotorConstants.bothSlides);
     }
-
     @Override
     public void setSlidePosition(int position) {
         targetPosition = position;
@@ -31,31 +30,26 @@ public class OuttakeSlideControl implements SlideControl {
         limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotors(MotorConstants.bothSlides);
     }
-
     @Override
     public void setSlideMode(DcMotor.RunMode mode) {
         motorControl.setMotorMode(MotorConstants.bothSlides, mode);
     }
-
     @Override
     public void limitSpeed(double power) {
         motorControl.setMotorSpeed(MotorConstants.bothSlides, power);
     }
-
     @Override
     public void resetEncoders() {
         motorControl.resetMotorEncoders(MotorConstants.bothSlides);
     }
-
     @Override
     public boolean isLimitSwitchPressed() {
         boolean leftDown = retractSlide(MotorConstants.slideLeft, LimitSwitches.slideLeft);
         boolean rightDown = retractSlide(MotorConstants.slideRight, LimitSwitches.slideRight);
         return (leftDown && rightDown);
     }
-
     private boolean retractSlide(int slide, LimitSwitches limitSwitch) {
-        if(sensorControl.isLimitSwitchPressed(limitSwitch)){//||motorControl.isOverCurrent(MotorConstants.extendo)) {
+        if(sensorControl.isLimitSwitchPressed(limitSwitch)){
             motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motorControl.setMotorSpeed(slide, 0);
             motorControl.setMotors(slide);

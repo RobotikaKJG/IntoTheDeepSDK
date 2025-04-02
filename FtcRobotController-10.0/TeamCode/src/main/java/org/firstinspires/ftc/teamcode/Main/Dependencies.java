@@ -48,7 +48,8 @@ public class Dependencies {
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
     private final SlideLogic outtakeSlideLogic;
 
-    public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
+    public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1,
+                        Gamepad gamepad2, Telemetry telemetry) {
 
         this.hardwareMap = hardwareMap;
         this.gamepad1 = gamepad1;
@@ -69,12 +70,23 @@ public class Dependencies {
         return new DrivebaseController(createDrivebase(), edgeDetection);
     }
 
+    SlideControl createIntakeSlideControl() {
+        return new IntakeSlideControl(motorControl,sensorControl);
+    }
+
     SlideLogic createIntakeSlideLogic() {
         return new SlideLogic(createIntakeSlideControl(), new IntakeSlideProperties());
     }
 
-    SlideControl createIntakeSlideControl() {
-        return new IntakeSlideControl(motorControl,sensorControl);
+    private ExtendoControl createIntakeExtendoControl() {
+        return new ExtendoControl(createIntakeSlideLogic());
+    }
+
+    public IntakeControl createIntakeControl() {
+        return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
+                createIntakeExtendoControl(), createAutoCloseControl(),
+                createAutoCloseLogic(),createEjectionServoControl(),
+                createSampleEjectionLogic());
     }
 
     SlideLogic createOuttakeSlideLogic() {
@@ -91,13 +103,6 @@ public class Dependencies {
 
     ButtonControl createSubsystemControl2() {
         return new ButtonControl(gamepad2EdgeDetection, sensorControl);
-    }
-
-    public IntakeControl createIntakeControl() {
-        return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
-                createIntakeExtendoControl(), createAutoCloseControl(),
-                createAutoCloseLogic(),createEjectionServoControl(),
-                createSampleEjectionLogic());
     }
 
     private IntakeMotorControl createIntakeMotorControl() {
@@ -120,9 +125,7 @@ public class Dependencies {
         return new AutoCloseLogic(sensorControl);
     }
 
-    private ExtendoControl createIntakeExtendoControl() {
-        return new ExtendoControl(createIntakeSlideLogic());
-    }
+
 
     private AutoCloseControl createAutoCloseControl() {
         return new AutoCloseControl(gamepad1);

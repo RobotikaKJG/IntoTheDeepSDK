@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 public enum LeftBumperStates {
-    manualIntakeClose,
-    autoIntakeCloseConfirmation,
+    closeIntake,
     moveSlidesUp,
     idle
 }

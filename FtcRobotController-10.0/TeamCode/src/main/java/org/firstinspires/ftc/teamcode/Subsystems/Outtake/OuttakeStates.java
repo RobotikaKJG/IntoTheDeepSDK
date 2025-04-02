@@ -40,80 +40,60 @@ public class OuttakeStates {
     public static SubsystemState getOuttakeState() {
         return outtakeState;
     }
-
     public static void setOuttakeState(SubsystemState state) {
         outtakeState = state;
     }
-
     public static VerticalSlideStates getVerticalSlideState() {
         return verticalSlideStates;
     }
-
     public static void setVerticalSlideState(VerticalSlideStates state) {
         verticalSlideStates = state;
     }
-
     public static SampleClawStates getSampleClawState() {
         return sampleClawState;
     }
-
     public static void setSampleClawState(SampleClawStates state) {
         sampleClawState = state;
     }
-
     public static ArmStates getArmState() {
         return armState;
     }
-
     public static void setArmState(ArmStates state) {
         armState = state;
     }
-
     public static SampleReleaseButtonStates getSampleReleaseButtonState() {
         return sampleReleaseButtonStates;
     }
-
     public static void setSampleReleaseButtonState(SampleReleaseButtonStates state) {
         sampleReleaseButtonStates = state;
     }
-
     public static SpecimenClawStates getSpecimenClawState() {
         return specimenClawState;
     }
-
     public static void setSpecimenClawState(SpecimenClawStates state) {
         specimenClawState = state;
     }
-
     public static SpecimenReleaseButtonStates getSpecimenReleaseButtonState() {
         return specimenReleaseButtonStates;
     }
-
     public static void setSpecimenReleaseButtonState(SpecimenReleaseButtonStates state) {
         specimenReleaseButtonStates = state;
     }
-
     public static HangStates getHangState() {
         return hangState;
     }
-
     public static void setHangState(HangStates state) {
         hangState = state;
     }
-
-
     public static TakeSpecimenStates getTakeSpecimenStates() {
         return takeSpecimenStates;
     }
-
     public static void setTakeSpecimenStates(TakeSpecimenStates state) {
         takeSpecimenStates = state;
     }
-
     public static DropSampleStates getDropSampleState() {
         return dropSampleState;
     }
-
     public static void setDropSampleState(DropSampleStates state) {
         dropSampleState = state;
     }

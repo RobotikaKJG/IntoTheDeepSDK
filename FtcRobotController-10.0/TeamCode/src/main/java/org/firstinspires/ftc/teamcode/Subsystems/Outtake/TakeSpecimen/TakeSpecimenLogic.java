@@ -16,8 +16,8 @@ public class TakeSpecimenLogic {
             case waitToTake:
                 waitToTake();
                 break;
-            case raiseClaw:
-                raiseClaw();
+            case raiseSlides:
+                raiseSlides();
                 break;
             case idle:
                 break;
@@ -32,10 +32,10 @@ public class TakeSpecimenLogic {
     private void waitToTake() {
         if(currentWait > getSeconds()) return;
 
-        OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.raiseClaw);
+        OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.raiseSlides);
     }
 
-    private void raiseClaw() {
+    private void raiseSlides() {
         OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.idle);
     }
 

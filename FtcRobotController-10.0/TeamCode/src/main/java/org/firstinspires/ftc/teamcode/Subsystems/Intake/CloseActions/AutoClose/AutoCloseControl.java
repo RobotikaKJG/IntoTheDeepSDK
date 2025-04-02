@@ -67,7 +67,7 @@ public class AutoCloseControl {
 
     private static void waitToRetract() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
-        IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
+        IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
         IntakeStates.setEjectionServoState(EjectionServoStates.closed);
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }

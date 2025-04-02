@@ -17,15 +17,17 @@ public class MotorUtilities {
         return MotorConstants.motorConfig[index].length;
     }
 
+    public int motorIndex(int index, int i) {
+        return MotorConstants.motorConfig[index][i];
+    }
+
     //more readable version instead of doing it directly in straightAvgCalc
     private int getPos(DcMotor[] motors, int index, int i) {
         int motorIndex = motorIndex(index, i);
         return motors[motorIndex].getCurrentPosition();
     }
 
-    public int motorIndex(int index, int i) {
-        return MotorConstants.motorConfig[index][i];
-    }
+
 
     public int avg(int sum, int count) {
         return sum / count;

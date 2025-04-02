@@ -50,7 +50,7 @@ public class OuttakeControl {
         armControl.update();
         sampleClawControl.update();
         verticalSlideControl.update();
-        sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
+        sampleReleaseButtonControl.update();
         sampleReleaseButtonLogic.update();
         specimenClawControl.update();
         specimenReleaseButtonControl.update();
@@ -61,12 +61,11 @@ public class OuttakeControl {
         takeSpecimenControl.update();
         takeSpecimenLogic.update();
 
-
         updateOuttakeState();
     }
 
     private void updateOuttakeState(){
-        if(slidesActive() || specimenTaken())
+        if(slidesActive())
             OuttakeStates.setOuttakeState(SubsystemState.Run);
         else
             OuttakeStates.setOuttakeState(SubsystemState.Idle);
@@ -74,9 +73,5 @@ public class OuttakeControl {
 
     private boolean slidesActive() {
         return OuttakeStates.getVerticalSlideState() != VerticalSlideStates.closed;
-    }
-
-    private boolean specimenTaken() {
-        return OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed;
     }
 }

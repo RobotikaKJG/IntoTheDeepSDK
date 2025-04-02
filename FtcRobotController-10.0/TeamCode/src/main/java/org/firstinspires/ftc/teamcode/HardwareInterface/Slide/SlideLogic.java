@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Slide;
 
 public class SlideLogic {
-
-
     private final SlideControl slideControl;
     private int slideExtensionTarget = 0;
     private final SlideProperties slideProperties;

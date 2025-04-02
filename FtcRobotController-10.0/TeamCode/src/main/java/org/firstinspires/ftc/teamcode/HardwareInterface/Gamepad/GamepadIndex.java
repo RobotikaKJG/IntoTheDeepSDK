@@ -8,7 +8,8 @@ import java.util.EnumMap;
 public class GamepadIndex {
 
     // EnumMap to store boolean values for each control
-    private final EnumMap<GamepadIndexValues, Boolean> controls = new EnumMap<>(GamepadIndexValues.class);
+    private final EnumMap<GamepadIndexValues, Boolean> controls =
+            new EnumMap<>(GamepadIndexValues.class);
 
     // Update the boolean values based on the current state of the controls
     public void updateControls(Gamepad gamepad) {

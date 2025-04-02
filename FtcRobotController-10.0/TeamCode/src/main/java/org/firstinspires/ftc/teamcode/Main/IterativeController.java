@@ -30,12 +30,15 @@ public class IterativeController {
     private final StandardTrackingWheelLocalizer localizer;
     private final ButtonControl buttonControl;
     private final ButtonControl subsystemControl2;
-    private final IntakeControl intakeControl;
     private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
     private boolean colorSensorActive = true;
 
+    private final IntakeControl intakeControl;
+
     public IterativeController(Dependencies dependencies) {
+        intakeControl = dependencies.createIntakeControl();
+
         drivebaseController = dependencies.createDrivebaseController();
         gamepad1 = dependencies.gamepad1;
         gamepad2 = dependencies.gamepad2;
@@ -47,7 +50,6 @@ public class IterativeController {
         localizer = dependencies.localizer;
         buttonControl = dependencies.createSubsystemControl();
         subsystemControl2 = dependencies.createSubsystemControl2();
-        intakeControl = dependencies.createIntakeControl();
         outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
         IntakeStates.setInitialStates();

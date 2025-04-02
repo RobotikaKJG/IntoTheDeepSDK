@@ -8,8 +8,10 @@ public class EdgeDetection {
 
     private final GamepadIndex currentGamepad1Index = new GamepadIndex();
     private final GamepadIndex prevGamepad1Index = new GamepadIndex();
-    private final EnumMap<GamepadIndexValues, Boolean> risingEdges = new EnumMap<>(GamepadIndexValues.class);
-    private final EnumMap<GamepadIndexValues, Boolean> fallingEdges = new EnumMap<>(GamepadIndexValues.class);
+    private final EnumMap<GamepadIndexValues, Boolean> risingEdges =
+            new EnumMap<>(GamepadIndexValues.class);
+    private final EnumMap<GamepadIndexValues, Boolean> fallingEdges =
+            new EnumMap<>(GamepadIndexValues.class);
 
     public void refreshGamepadIndex(Gamepad currentGamepad, Gamepad prevGamepad) {
         currentGamepad1Index.updateControls(currentGamepad);

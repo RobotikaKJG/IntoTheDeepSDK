@@ -8,16 +8,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideSta
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class LeftBumperControl {
-    public LeftBumperControl() {
-    }
 
     public void update() {
         switch(ButtonStates.getLeftBumperState()){
-            case manualIntakeClose:
-                manualIntakeClose();
-                break;
-            case autoIntakeCloseConfirmation:
-                autoIntakeCloseConfirmation();
+            case closeIntake:
+                closeIntake();
                 break;
             case moveSlidesUp:
                 moveSlidesUp();
@@ -27,12 +22,7 @@ public class LeftBumperControl {
         }
     }
 
-    private void manualIntakeClose() {
-        //IntakeStates.setManualCloseStates(ManualCloseStates.activate);
-        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
-    }
-
-    private void autoIntakeCloseConfirmation() {
+    private void closeIntake() {
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
     }
 
