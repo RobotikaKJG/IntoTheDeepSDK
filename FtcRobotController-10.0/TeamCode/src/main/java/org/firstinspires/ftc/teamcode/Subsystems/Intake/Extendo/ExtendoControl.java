@@ -32,6 +32,9 @@ public class ExtendoControl {
             case fullyExtend:
                 fullyExtend();
                 break;
+            case sampleExtend:
+                sampleExtend();
+                break;
             case stepDown:
                 stepDown();
                 break;
@@ -49,9 +52,15 @@ public class ExtendoControl {
         }
     }
 
+
     private void fullyExtend() {
         slideLogic.setSlideExtensionTarget(IntakeConstants.extendoMaxExtension);
         IntakeStates.setExtendoState(ExtendoStates.extended);
+    }
+
+    private void sampleExtend() {
+        slideLogic.setSlideExtensionTarget(IntakeConstants.extendoSampleExtension);
+        IntakeStates.setExtendoState(ExtendoStates.sampleExtended);
     }
 
     private void stepDown() {

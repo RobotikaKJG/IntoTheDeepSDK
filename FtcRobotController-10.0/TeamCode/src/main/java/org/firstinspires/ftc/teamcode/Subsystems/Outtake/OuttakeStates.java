@@ -149,7 +149,7 @@ public class OuttakeStates {
                 Thread.currentThread().interrupt();
             }
             setArmState(ArmStates.up);
-            IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
+            IntakeStates.setExtendoState(ExtendoStates.sampleExtend);
         }, executor);
     }
 

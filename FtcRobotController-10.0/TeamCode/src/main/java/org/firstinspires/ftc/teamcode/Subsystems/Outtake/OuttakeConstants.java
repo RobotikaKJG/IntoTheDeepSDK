@@ -15,8 +15,8 @@ public class OuttakeConstants {
 
 
     //round needed to prevent floating point errors
-    public static final double outtakeRightServoMaxPos = 0.840;     // Maximum rotational position
-    public static final double outtakeRightServoMinPos = 0.246;     // Taking position, starting position
+    public static final double outtakeRightServoMaxPos = 0.839;     // Maximum rotational position 0,84
+    public static final double outtakeRightServoMinPos = 0.246;     // Taking position, starting position 0,246
 
     public static double releaseServoWait = 0.3;
 
@@ -35,5 +35,5 @@ public class OuttakeConstants {
     public static double speedProfileMultiplier = 0.01;
     public static int profilingThreshold = 300;
     public static double verticalOffset = -1;
-    public static int limitSwitchThreshold = 40; // motion profiling turns off, the closing finishes with limit switch seeking
+    public static int limitSwitchThreshold = 100; // motion profiling turns off, the closing finishes with limit switch seeking
 }

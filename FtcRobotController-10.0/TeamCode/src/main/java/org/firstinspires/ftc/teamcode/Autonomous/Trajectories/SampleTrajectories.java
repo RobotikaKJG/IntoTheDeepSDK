@@ -29,11 +29,11 @@ public class SampleTrajectories {
 
     private void fillVariables() {
         preloadTrajectory = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(65)))
+                .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(54)))
                 .waitSeconds(0.5)
                 .build();
 
-        follow2ndSamplePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(65)))  // Starts from last position
+        follow2ndSamplePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(54)))  // Starts from last position
                 .lineToLinearHeading(new Pose2d(-57, -49, Math.toRadians(80)))
                 .waitSeconds(0.5)
                 .build();
@@ -51,7 +51,7 @@ public class SampleTrajectories {
             .build();
 
         forthSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(65)))
-                .lineToLinearHeading(new Pose2d(-57, -47, Math.toRadians(120)))
+                .lineToLinearHeading(new Pose2d(-57, -45, Math.toRadians(125)))
                 .waitSeconds(0.5)
                 .build();
 

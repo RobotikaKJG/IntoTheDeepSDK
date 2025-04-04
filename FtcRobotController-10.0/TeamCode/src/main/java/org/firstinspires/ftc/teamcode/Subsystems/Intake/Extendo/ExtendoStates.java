@@ -7,6 +7,8 @@ public enum ExtendoStates {
     stepUp,
     stepDown,
     extended,
+    sampleExtended, // This one is already extended
     fullyExtend,
+    sampleExtend, // This one extends
     idle
 }

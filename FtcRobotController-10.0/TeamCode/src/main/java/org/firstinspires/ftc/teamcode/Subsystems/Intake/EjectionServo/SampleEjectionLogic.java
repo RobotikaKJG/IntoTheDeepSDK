@@ -18,16 +18,18 @@ public class SampleEjectionLogic {
     }
 
     public void update(){
-        if(shouldOpen()) {
+        if(shouldOpen() && !wasShouldOpen) {
             if(!GlobalVariables.isAutonomous)
                 OuttakeStates.setSampleLockState(SampleLockStates.open);
             wasShouldOpen = true;
         }
-        if(wasShouldOpen && shouldClose())
+        if(!ejectionServoClosed() && shouldClose())
         {
-            wasShouldOpen = false;
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
         }
+
+        if(correctColor())
+            wasShouldOpen = false;
     }
 
     private boolean shouldOpen() {
@@ -38,6 +40,7 @@ public class SampleEjectionLogic {
         return false;
     }
 
+
     private boolean shouldClose()
     {
         return currentWait < getSeconds();
@@ -46,6 +49,7 @@ public class SampleEjectionLogic {
     private boolean wrongColor(){
         return sensorControl.isOtherAllianceColor();
     }
+
 
     private static boolean extendoExtended() {
         return IntakeStates.getExtendoState() == ExtendoStates.extended;

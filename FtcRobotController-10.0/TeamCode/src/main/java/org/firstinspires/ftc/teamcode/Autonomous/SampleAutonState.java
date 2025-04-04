@@ -43,6 +43,9 @@ public enum SampleAutonState {
     startIntakeSample,
     startOuttakeSample2,
 
+    searchingForward,
+    returningAfterPickup,
+
     stop            // End of autonomous sequence
 }
 

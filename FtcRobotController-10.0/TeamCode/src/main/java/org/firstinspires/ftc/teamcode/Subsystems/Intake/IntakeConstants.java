@@ -11,6 +11,7 @@ public class IntakeConstants {
     public static final double currentLimit = 5;//3.35;
 
     public static final int extendoMaxExtension = 600;
+    public static final int extendoSampleExtension = 420;
     public static final int extendoMinExtension = 300;
     public static final int extendoThreshold = 20;
 
