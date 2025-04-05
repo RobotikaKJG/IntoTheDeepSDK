@@ -15,13 +15,12 @@ public class SampleTrajectories {
     TrajectorySequence thirdSampleOuttakePath;
     TrajectorySequence forthSampleIntakePath;
     TrajectorySequence forthSampleOuttakePath;
-
     TrajectorySequence fiveSampleIntakePath;
     TrajectorySequence fiveSampleOuttakePath;
     TrajectorySequence moveToSub;
 
 
-    private final Pose2d startPose = new Pose2d(-38, -61, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
+    private final Pose2d startPose = new Pose2d(-38, -65, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
     public SampleTrajectories(SampleMecanumDrive drive) {
         this.drive = drive;
         fillVariables();
@@ -29,35 +28,35 @@ public class SampleTrajectories {
 
     private void fillVariables() {
         preloadTrajectory = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(54)))
-                .waitSeconds(0.5)
+                .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(60)))
+//                .waitSeconds(0.5)
                 .build();
 
-        follow2ndSamplePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(54)))  // Starts from last position
-                .lineToLinearHeading(new Pose2d(-57, -49, Math.toRadians(80)))
-                .waitSeconds(0.5)
+        follow2ndSamplePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(60)))  // Starts from last position
+                .lineToLinearHeading(new Pose2d(-57, -49, Math.toRadians(75)))
+//                .waitSeconds(0.5)
                 .build();
 
-        thirdSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -49, Math.toRadians(70)))
+        thirdSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -49, Math.toRadians(75)))
             // third sample intake
             .lineToLinearHeading(new Pose2d(-57, -47, Math.toRadians(100)))
-            .waitSeconds(0.5)
+//            .waitSeconds(0.5)
             .build();
 
         thirdSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -47, Math.toRadians(90)))
             // third sample outtake
             .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(65)))
-            .waitSeconds(0.5)
+//            .waitSeconds(0.5)
             .build();
 
         forthSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -50, Math.toRadians(65)))
                 .lineToLinearHeading(new Pose2d(-57, -45, Math.toRadians(125)))
-                .waitSeconds(0.5)
+//                .waitSeconds(0.5)
                 .build();
 
         forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-57, -47, Math.toRadians(115)))
                 .lineToLinearHeading(new Pose2d(-55, -52, Math.toRadians(35)))
-                .waitSeconds(0.5)
+//                .waitSeconds(0.5)
                 .build();
 
         fiveSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-55, -52, Math.toRadians(35)))

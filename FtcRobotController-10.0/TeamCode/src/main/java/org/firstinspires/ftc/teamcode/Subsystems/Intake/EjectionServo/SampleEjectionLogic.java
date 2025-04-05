@@ -18,7 +18,7 @@ public class SampleEjectionLogic {
     }
 
     public void update(){
-        if(shouldOpen() && !wasShouldOpen) {
+        if(shouldOpen()) {
             if(!GlobalVariables.isAutonomous)
                 OuttakeStates.setSampleLockState(SampleLockStates.open);
             wasShouldOpen = true;
@@ -26,6 +26,7 @@ public class SampleEjectionLogic {
         if(!ejectionServoClosed() && shouldClose())
         {
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
+            addWaitTime(2);
         }
 
         if(correctColor())
@@ -33,8 +34,8 @@ public class SampleEjectionLogic {
     }
 
     private boolean shouldOpen() {
-        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed()) {
-            addWaitTime(0.4);
+        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed() && getSeconds() > currentWait) {
+            addWaitTime(0.6);
             return  true;
         }
         return false;

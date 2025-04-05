@@ -305,6 +305,7 @@ public class SampleAuton implements Auton {
 
     private boolean startIntake(SampleAutonState next) {
         if (drive.isBusy()) return false;
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
         IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         IntakeStates.setMotorState(IntakeMotorStates.forward);
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
@@ -323,8 +324,20 @@ public class SampleAuton implements Auton {
         return true;
     }
 
+    private boolean samplePickup(SampleAutonState next) {
+        if (drive.isBusy()) return false;
+        setArmState(ArmStates.down);
+        setSampleClawState(SampleClawStates.fullyOpen);
+        if (IntakeStates.getExtendoState() != ExtendoStates.extended) return false;
+        //addWaitTime(AutonomousConstants.intakeCloseWait);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+        sampleAutonState = next;
+        return true;
+    }
+
     private boolean handleRetractOuttake(SampleAutonState next) {
         if (drive.isBusy()) return false;
+        IntakeStates.setMotorState(IntakeMotorStates.forward);
 
 //        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
 
@@ -357,6 +370,7 @@ public class SampleAuton implements Auton {
 
     private boolean prepareNextCycle(SampleAutonState next, TrajectorySequence optionalTrajectory) {
         if (drive.isBusy()) return false;
+        IntakeStates.setMotorState(IntakeMotorStates.idle);
 
         if (optionalTrajectory != null) {
             drive.followTrajectorySequenceAsync(optionalTrajectory);

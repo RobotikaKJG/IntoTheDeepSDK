@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sp
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class SquareControl {
     public void update() {
@@ -38,8 +39,10 @@ public class SquareControl {
     }
 
     private void manualToggleSampleClaw() {
-        if(OuttakeStates.getSampleClawState() != SampleClawStates.closed)
+        if(OuttakeStates.getSampleClawState() != SampleClawStates.closed) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
+            OuttakeStates.setSampleLockState(SampleLockStates.open);
+        }
         else
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }

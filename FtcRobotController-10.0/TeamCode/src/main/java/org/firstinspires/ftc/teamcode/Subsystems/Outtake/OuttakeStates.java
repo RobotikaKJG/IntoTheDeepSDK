@@ -134,7 +134,7 @@ public class OuttakeStates {
     // Execute outtake extension and arm flip in parallel
     public static void extendOuttakeAndIntakeAndFlipArm() {
 
-//        setSampleClawState(SampleClawStates.closed);
+        setSampleClawState(SampleClawStates.closed);
 
         // Step 1: Extend outtake slides immediately
         CompletableFuture.runAsync(() -> {

@@ -1,26 +1,31 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose;
 
-//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
 public class ManualCloseControl {
+    private final ElapsedTime elapsedTime = new ElapsedTime();
+
+    private enum EjectPhase { START, WAITING, FINISH }
+    private EjectPhase ejectPhase = EjectPhase.START;
 
     private ManualCloseStates prevManualCloseState = ManualCloseStates.idle;
-
-    public ManualCloseControl() {
-
-    }
+    private double waitDuration = 1.0; // seconds
+    private double waitUntilTime = 0;
 
     public void update() {
-        if(IntakeStates.getManualCloseStates() != prevManualCloseState) {
-            updateStates();
+        if (IntakeStates.getManualCloseStates() != prevManualCloseState) {
+            ejectPhase = EjectPhase.START; // reset eject state on change
             prevManualCloseState = IntakeStates.getManualCloseStates();
         }
+
+        updateStates();
     }
 
-    public void updateStates() {
+    private void updateStates() {
         switch (IntakeStates.getManualCloseStates()) {
             case eject:
                 eject();
@@ -34,10 +39,28 @@ public class ManualCloseControl {
     }
 
     private void eject() {
-        if(IntakeStates.getMotorState() == IntakeMotorStates.forward)
-            IntakeStates.setMotorState(IntakeMotorStates.backward);
-        IntakeStates.setExtendoState(ExtendoStates.retracted);
-//        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+        switch (ejectPhase) {
+            case START:
+                if (IntakeStates.getMotorState() == IntakeMotorStates.forward) {
+                    IntakeStates.setMotorState(IntakeMotorStates.backward);
+                    waitUntilTime = elapsedTime.seconds() + waitDuration;
+                    ejectPhase = EjectPhase.WAITING;
+                } else {
+                    ejectPhase = EjectPhase.FINISH;
+                }
+                break;
+
+            case WAITING:
+                if (elapsedTime.seconds() >= waitUntilTime) {
+                    ejectPhase = EjectPhase.FINISH;
+                }
+                break;
+
+            case FINISH:
+                IntakeStates.setExtendoState(ExtendoStates.retracted);
+//              IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+                break;
+        }
     }
 
     private void close() {
