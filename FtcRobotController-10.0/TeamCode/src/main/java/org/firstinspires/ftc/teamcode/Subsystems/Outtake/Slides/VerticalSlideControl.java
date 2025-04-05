@@ -24,7 +24,7 @@ public class VerticalSlideControl {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
                 OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.idle);
             }
-//            profileRetractionSpeed();
+            profileRetractionSpeed();
         }
     }
 
@@ -32,7 +32,7 @@ public class VerticalSlideControl {
         switch(OuttakeStates.getVerticalSlideState()){
             case close:
                 //slideLogic.setMaxSpeed(0.5);
-                slideLogic.setSlideExtensionTarget(90);
+                slideLogic.setSlideExtensionTarget(50);
                 OuttakeStates.setArmState(ArmStates.down);
 
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
