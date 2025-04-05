@@ -44,7 +44,7 @@ public class SampleEjectionLogic {
 
     private boolean shouldClose()
     {
-        return currentWait < getSeconds();
+        return currentWait < getSeconds() && extendoExtended();
     }
 
     private boolean wrongColor(){
