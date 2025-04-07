@@ -31,8 +31,9 @@ public class VerticalSlideControl {
     private void updateStates() {
         switch(OuttakeStates.getVerticalSlideState()){
             case close:
-                //slideLogic.setMaxSpeed(0.5);
+                slideLogic.setMaxSpeed(0.8);
                 slideLogic.setSlideExtensionTarget(50);
+                slideLogic.setMaxSpeed(0.8);
                 OuttakeStates.setArmState(ArmStates.down);
 
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
@@ -71,7 +72,7 @@ public class VerticalSlideControl {
             double slideSpeed = position * OuttakeConstants.speedProfileMultiplier + OuttakeConstants.verticalOffset;
             if(slideSpeed < 0)
                 slideSpeed = 0;
-            slideLogic.limitSpeed(0);
+            slideLogic.limitSpeed(slideSpeed);
         }
     }
 }

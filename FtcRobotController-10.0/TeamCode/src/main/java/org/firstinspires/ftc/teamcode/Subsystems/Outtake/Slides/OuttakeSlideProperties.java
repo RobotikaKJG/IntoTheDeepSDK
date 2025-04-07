@@ -18,7 +18,7 @@ public class OuttakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMinExtension() {
-        return 20;
+        return 0;
     }
 
     @Override
