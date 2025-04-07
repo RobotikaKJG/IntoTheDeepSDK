@@ -4,7 +4,7 @@ public class AutonomousConstants {
 
     //sample constants
     public static final double goToBasketWait = 1.5;
-    public static final double flipArmFirstWait = 1;
+    public static final double flipArmFirstWait = 2;
     public static final double flipArmWait = 1;
     public static final double sampleReleaseWait = 1;
     public static final double slideRetractWait = 1;

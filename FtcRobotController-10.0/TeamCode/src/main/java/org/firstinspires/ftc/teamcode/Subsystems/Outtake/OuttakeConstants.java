@@ -15,8 +15,8 @@ public class OuttakeConstants {
 
 
     //round needed to prevent floating point errors
-    public static final double outtakeRightServoMaxPos = 0.839;     // Maximum rotational position 0,84
-    public static final double outtakeRightServoMinPos = 0.246;     // Taking position, starting position 0,246
+    public static final double outtakeRightServoMaxPos = 0.835;     // Maximum rotational position 0,84
+    public static final double outtakeRightServoMinPos = 0.246;     // Taking position, ending position 0,246
 
     public static double releaseServoWait = 0.3;
 

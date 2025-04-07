@@ -69,7 +69,7 @@ public class IntakeSlideControl implements SlideControl {
         if(motorControl.getMotorPosition(MotorConstants.extendo) > 25)
             return false;
 
-        targetPosition -= 5;
+        targetPosition -= 15;
         motorControl.setMotorPos(MotorConstants.extendo, targetPosition);
         return false;
     }

@@ -41,7 +41,6 @@ public class SquareControl {
     private void manualToggleSampleClaw() {
         if(OuttakeStates.getSampleClawState() != SampleClawStates.closed) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
         else
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);

@@ -6,12 +6,16 @@ import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.se
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleLockState;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SampleTrajectories;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -27,6 +31,10 @@ public class SampleAuton implements Auton {
     private SampleAutonState sampleAutonState;
     private double currentWait = 0;
     private boolean wasIfCalled = false;
+    private final ElapsedTime waitTimer = new ElapsedTime();
+    private boolean waitingToRetract = false;
+    private boolean waiting = false;
+    private double targetWait = 0;
 //    private ElapsedTime time = new ElapsedTime();
 
     public SampleAuton(SampleMecanumDrive drive) {
@@ -52,7 +60,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case releaseSample:
-                if (!waitThenRelease(SampleAutonState.driveToSecondSample, 0.2)) return;
+                if (!waitThenRelease(SampleAutonState.stop, 0.2)) return;
                 break;
 
             case driveToSecondSample:
@@ -64,7 +72,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case checkSamplePickup:
-                if (!checkSamplePickup(SampleAutonState.retractOuttake)) return;
+                if (!samplePickup(SampleAutonState.retractOuttake)) return;
                 break;
 
             case retractOuttake:
@@ -92,7 +100,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case checkSamplePickupForThirdSample:
-                if (!checkSamplePickup(SampleAutonState.retractOuttakeForThirdSample)) return;
+                if (!samplePickup(SampleAutonState.retractOuttakeForThirdSample)) return;
                 break;
 
             case retractOuttakeForThirdSample:
@@ -120,7 +128,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case checkSamplePickupForForthSample:
-                if (!checkSamplePickup(SampleAutonState.retractOuttakeForForthSample)) return;
+                if (!samplePickup(SampleAutonState.retractOuttakeForForthSample)) return;
                 break;
 
             case retractOuttakeForForthSample:
@@ -176,9 +184,12 @@ public class SampleAuton implements Auton {
                 IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
 
                 // Start intake motor
+//                if(IntakeStates.getExtendoState() == ExtendoStates.extended) {
+//                    IntakeStates.setMotorState(IntakeMotorStates.forward);
+//                }
+
                 IntakeStates.setMotorState(IntakeMotorStates.forward);
 
-                // Move to the next state or stop
 
                 currentWait = getSeconds() + 1.0;
                 sampleAutonState = SampleAutonState.waiting;
@@ -306,6 +317,8 @@ public class SampleAuton implements Auton {
     private boolean startIntake(SampleAutonState next) {
         if (drive.isBusy()) return false;
         OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+        setArmState(ArmStates.down);
+        setSampleClawState(SampleClawStates.fullyOpen);
         IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         IntakeStates.setMotorState(IntakeMotorStates.forward);
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
@@ -318,22 +331,31 @@ public class SampleAuton implements Auton {
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
         if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) return false;
-        //addWaitTime(AutonomousConstants.intakeCloseWait);
+        IntakeStates.setMotorState(IntakeMotorStates.backward);
+//        addWaitTime(AutonomousConstants.intakeCloseWait);
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+        IntakeStates.setMotorState(IntakeMotorStates.idle);
         sampleAutonState = next;
         return true;
     }
 
     private boolean samplePickup(SampleAutonState next) {
         if (drive.isBusy()) return false;
-        setArmState(ArmStates.down);
-        setSampleClawState(SampleClawStates.fullyOpen);
-        if (IntakeStates.getExtendoState() != ExtendoStates.extended) return false;
-        //addWaitTime(AutonomousConstants.intakeCloseWait);
-        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
-        sampleAutonState = next;
-        return true;
+        IntakeStates.setMotorState(IntakeMotorStates.idle);
+        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
+            ElapsedTime timer = new ElapsedTime();
+            // Wait until the elapsed time reaches the desired wait period.
+            while (timer.seconds() < AutonomousConstants.intakeCloseWait) {
+                // Do nothing
+            }
+            IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+            sampleAutonState = next;
+            return true;
+        }
+        return false;
     }
+
+
 
     private boolean handleRetractOuttake(SampleAutonState next) {
         if (drive.isBusy()) return false;
@@ -354,7 +376,8 @@ public class SampleAuton implements Auton {
         System.out.println(OuttakeStates.getVerticalSlideState());
         if (OuttakeStates.getVerticalSlideState() != VerticalSlideStates.closed) return false;
 
-        IntakeStates.setExtendoState(ExtendoStates.retracted);
+        if(IntakeStates.getExtendoState() != ExtendoStates.retracted) return false;
+//        IntakeStates.setExtendoState(ExtendoStates.retracted);
         setSampleClawState(SampleClawStates.closed);
         OuttakeStates.setSampleLockState(SampleLockStates.open);
 
