@@ -27,10 +27,10 @@ public class OuttakeControl {
     private final SpecimenReleaseButtonLogic specimenReleaseButtonLogic;
     private final SpecimenReleaseButtonControl specimenReleaseButtonControl = new SpecimenReleaseButtonControl();
     private final HangControl hangControl;
-//    private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
-//    private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
     private final DropSampleLogic dropSampleLogic;
     private final DropSampleControl dropSampleControl = new DropSampleControl();
+    private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
+    private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
 
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
@@ -54,10 +54,10 @@ public class OuttakeControl {
         specimenReleaseButtonControl.update();
         specimenReleaseButtonLogic.update();
         hangControl.update();
-//        takeSpecimenControl.update();
-//        takeSpecimenLogic.update();
         dropSampleControl.update();
         dropSampleLogic.update();
+        takeSpecimenControl.update();
+        takeSpecimenLogic.update();
 
 
         updateOuttakeState();

@@ -18,6 +18,6 @@ public class CrossControl {
     }
 
     private void takeSpecimen() {
-//        OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.takeSpecimen);
+        OuttakeStates.setTakeSpecimenStates(TakeSpecimenStates.takeSpecimen);
     }
 }

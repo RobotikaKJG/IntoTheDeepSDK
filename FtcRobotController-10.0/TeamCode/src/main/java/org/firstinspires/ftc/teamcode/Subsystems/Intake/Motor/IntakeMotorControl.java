@@ -42,6 +42,7 @@ public class IntakeMotorControl {
         else {
             switch (IntakeStates.getMotorState()) {
                 case forward:
+                    IntakeConstants.setIntakeSpeed(1);
                     motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.getIntakeSpeed());
                     break;
                 case backward:
