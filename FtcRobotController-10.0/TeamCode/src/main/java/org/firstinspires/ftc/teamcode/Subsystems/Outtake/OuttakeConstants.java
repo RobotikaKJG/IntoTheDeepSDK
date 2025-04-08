@@ -37,4 +37,6 @@ public class OuttakeConstants {
     public static double verticalOffset = -3.5;
     public static int limitSwitchThreshold = 150; // motion profiling turns off, the closing finishes with limit switch seeking
     public static int limitSwitchRetractionStep = 10;
+    public static double takeSpecimenWait = 0.2;
+    public static double ejectWait = 0.5;
 }
