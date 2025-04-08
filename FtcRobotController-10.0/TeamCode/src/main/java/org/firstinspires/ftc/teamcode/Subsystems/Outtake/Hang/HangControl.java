@@ -49,12 +49,12 @@ public class HangControl {
         switch (OuttakeStates.getHangState()) {
             case extending:
                 // Command the slides to extend to high basket.
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
+
                 break;
             case retracting:
                 // Command the slides to retract (target position set to 20).
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
-                IntakeStates.setExtendoState(ExtendoStates.hold);
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
+                //IntakeStates.setExtendoState(ExtendoStates.hold);
                 break;
             default:
                 // For EXTENDED and RETRACTED, no change is needed.

@@ -11,12 +11,11 @@ public class DpadRightLogic {
     private final DpadRightControl dpadRightControl = new DpadRightControl();
 
     public void update() {
-
         iterateHangStates();
     }
 
     private boolean iterateHangStates() {
-        if (intakeActive()|| smapleActive() || specimenActive()) return false;
+        if (!intakeIdle()) return false;//|| sampleActive() || specimenActive()) return false;
 
         ButtonStates.setDpadRightState(DpadRightStates.toggleHang);
         dpadRightControl.update();
@@ -25,12 +24,12 @@ public class DpadRightLogic {
         return true;
     }
 
-    private boolean intakeActive()
+    private boolean intakeIdle()
     {
-        return IntakeStates.getIntakeState() != SubsystemState.Idle;
+        return IntakeStates.getIntakeState() == SubsystemState.Idle;
     }
 
-    private boolean smapleActive()
+    private boolean sampleActive()
     {
         return OuttakeStates.getSampleReleaseButtonState() != SampleReleaseButtonStates.idle;
     }

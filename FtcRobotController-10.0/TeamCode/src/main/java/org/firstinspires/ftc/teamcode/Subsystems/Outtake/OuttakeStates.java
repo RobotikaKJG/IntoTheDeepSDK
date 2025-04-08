@@ -9,10 +9,12 @@ import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
@@ -29,6 +31,8 @@ public class OuttakeStates {
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
     private static HangStates hangState = HangStates.retracted;
     private static SampleLockStates sampleLockState = SampleLockStates.closed;
+    private static TakeSpecimenStates takeSpecimenStates = TakeSpecimenStates.idle;
+    private static DropSampleStates dropSampleState = DropSampleStates.idle;
 
 
     // ExecutorService for Multithreading
@@ -50,6 +54,8 @@ public class OuttakeStates {
         specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;
         hangState = HangStates.retracted;
+        takeSpecimenStates = TakeSpecimenStates.idle;
+        dropSampleState = DropSampleStates.idle;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -193,5 +199,21 @@ public class OuttakeStates {
     // ✅ Shutdown executor when not needed
     public static void shutdownExecutor() {
         executor.shutdown();
+    }
+
+    public static TakeSpecimenStates getTakeSpecimenStates() {
+        return takeSpecimenStates;
+    }
+
+    public static void setTakeSpecimenStates(TakeSpecimenStates state) {
+        takeSpecimenStates = state;
+    }
+
+    public static DropSampleStates getDropSampleState() {
+        return dropSampleState;
+    }
+
+    public static void setDropSampleState(DropSampleStates state) {
+        dropSampleState = state;
     }
 }
