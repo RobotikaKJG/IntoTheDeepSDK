@@ -24,6 +24,9 @@ public class GeneralRedTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
+            telemetry.addData("Red", dependencies.sensorControl.isRed());
+            telemetry.addData("Yellow", dependencies.sensorControl.isYellow());
+            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
             calculateLoopTime();
             telemetry.update();
         }
