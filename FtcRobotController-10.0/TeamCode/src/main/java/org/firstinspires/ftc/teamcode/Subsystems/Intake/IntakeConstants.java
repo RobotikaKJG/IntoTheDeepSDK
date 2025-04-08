@@ -3,10 +3,13 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class IntakeConstants {
-    public static final double intakeSpeed = 1;
+    public static  double intakeSpeed = 1;
     public static final double intakeSlowSpeed = 0.8;
     public static double getIntakeSpeed(){
         return GlobalVariables.slowMode ? intakeSlowSpeed : intakeSpeed;
+    }
+    public static void setIntakeSpeed(double speed){
+        intakeSpeed = speed;
     }
     public static final double currentLimit = 5;//3.35;
 

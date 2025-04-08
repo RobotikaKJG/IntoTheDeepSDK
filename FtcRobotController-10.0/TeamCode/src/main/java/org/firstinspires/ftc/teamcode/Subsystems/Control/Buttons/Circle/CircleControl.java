@@ -17,6 +17,6 @@ public class CircleControl {
     }
 
     private void dropSample() {
-//        OuttakeStates.setDropSampleState(DropSampleStates.raiseSlides);
+        OuttakeStates.setDropSampleState(DropSampleStates.openLock);
     }
 }

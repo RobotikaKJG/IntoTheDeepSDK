@@ -26,7 +26,7 @@ public class CircleLogic {
     }
 
     private boolean dropSample() {
-        if(outtakeActive() || !sampleInIntake() || specimenTaken() || intakeActive()) return false;
+        //if(outtakeActive() || !sampleInIntake()) return false;
         ButtonStates.setCircleState(CircleStates.dropSample);
         completeAction();
         return true;
