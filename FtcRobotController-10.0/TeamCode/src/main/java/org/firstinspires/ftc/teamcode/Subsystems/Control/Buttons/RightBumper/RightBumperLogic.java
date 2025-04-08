@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -26,7 +26,7 @@ public class RightBumperLogic {
     }
 
     private boolean extendExtendo() {
-        if((!outtakeInactive() && !outtakeClosing()) || sampleInIntake()) return false;
+        if((clawClosed() && !outtakeClosing())) return false;
 
         ButtonStates.setRightBumperState(RightBumperStates.moveExtendoForward);
         completeAction();
@@ -37,8 +37,8 @@ public class RightBumperLogic {
         return sensorControl.getDistance() < 70;
     }
 
-    private boolean outtakeInactive() {
-        return OuttakeStates.getOuttakeState() == SubsystemState.Idle;
+    private boolean clawClosed() {
+        return OuttakeStates.getSampleClawState() == SampleClawStates.closed;
     }
 
     private boolean outtakeClosing(){
