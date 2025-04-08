@@ -70,8 +70,5 @@ public class ButtonControl {
 
         if (edgeDetection.rising(GamepadIndexValues.dpadRight))
             dpadRightLogic.update();
-
-
-
     }
 }
