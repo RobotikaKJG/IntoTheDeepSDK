@@ -41,9 +41,12 @@ public class SquareControl {
     private void manualToggleSampleClaw() {
         if(OuttakeStates.getSampleClawState() != SampleClawStates.closed) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
+            OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
-        else
+        else {
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+            OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        }
     }
 
     private void placeSpecimen() {
