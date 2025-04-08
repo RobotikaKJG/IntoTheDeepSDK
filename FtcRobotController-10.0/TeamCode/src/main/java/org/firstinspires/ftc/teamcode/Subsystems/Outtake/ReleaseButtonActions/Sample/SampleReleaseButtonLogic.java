@@ -40,7 +40,8 @@ public class SampleReleaseButtonLogic {
     }
 
     private void idle(){
-
+        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.highBasket)
+            OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
     }
 
     private void flipArm() {
