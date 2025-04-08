@@ -29,7 +29,7 @@ public class SpecimenTrajectories {
 
     private void fillVariables() {
         hangFirstSpecimen = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(10, -29,Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(10, -28,Math.toRadians(-90)))
                 .build();
 
         collectSamples = drive.trajectorySequenceBuilder(hangFirstSpecimen.end())
