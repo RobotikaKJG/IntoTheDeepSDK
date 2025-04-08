@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -48,7 +49,6 @@ public class AutoCloseLogic {
         IntakeStates.setAutoCloseStates(AutoCloseStates.secureGoodSample);
         addWaitTime(IntakeConstants.secureSampleTime);
     }
-
     private void secureGoodSample() {
         if(currentWait > getSeconds()) return;
         addWaitTime(IntakeConstants.intakePushoutTime);
@@ -57,31 +57,25 @@ public class AutoCloseLogic {
         else
             IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
     }
-
     private void ejectExtraSamples() {
         if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
     }
-
     private void waitForCommand() {
         if(GlobalVariables.isAutonomous)
             IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
     }
-
     private void waitToRetract() {
         if(IntakeStates.getExtendoState() != ExtendoStates.retracted) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.closeSampleClaw);
         addWaitTime(IntakeConstants.sampleClawCloseTime);
     }
-
     private void closeSampleClaw() {
         if(currentWait > getSeconds()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.idle);
     }
-
-
     private void idle() {
-        if(IntakeStates.getIntakeState() == SubsystemState.Run) {
+        if(IntakeStates.getMotorState() == IntakeMotorStates.forward) {
             sensorControl.resetColor();
             IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
         }
