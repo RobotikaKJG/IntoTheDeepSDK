@@ -35,7 +35,7 @@ public class SampleEjectionLogic {
 
     private boolean shouldOpen() {
         if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed() && getSeconds() > currentWait) {
-            addWaitTime(0.6);
+            addWaitTime(0.4);
             return  true;
         }
         return false;

@@ -60,12 +60,12 @@ public class SampleAuton implements Auton {
                 break;
 
             case releaseSample:
-                if (!waitThenRelease(SampleAutonState.stop, 0.2)) return;
+                if (!waitThenRelease(SampleAutonState.startIntake, 0.2)) return;
                 break;
 
-            case driveToSecondSample:
-                if (!driveAndGo(trajectories.follow2ndSamplePath(), SampleAutonState.startIntake)) return;
-                break;
+//            case driveToSecondSample:
+//                if (!driveAndGo(trajectories.follow2ndSamplePath(), SampleAutonState.startIntake)) return;
+//                break;
 
             case startIntake:
                 if (!startIntake(SampleAutonState.checkSamplePickup)) return;
