@@ -21,7 +21,7 @@ public class SampleTrajectories {
 
 
     private final Pose2d startPose = new Pose2d(-38, -65, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
-    private final Pose2d basketPose = new Pose2d(-57, -50, Math.toRadians(60));
+    private final Pose2d basketPose = new Pose2d(-57.5, -49, Math.toRadians(65));
     public SampleTrajectories(SampleMecanumDrive drive) {
         this.drive = drive;
         fillVariables();
