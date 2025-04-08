@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 
 public class IterativeController {
     private final MotorControl motorControl;
@@ -63,20 +64,20 @@ public class IterativeController {
     public void TeleOp() {
         updateCommonValues();
         drivebaseController.updateState();
-//        buttonControl.update();
+        buttonControl.update();
 
-        if(gamepad1Active()) {
-            GlobalVariables.slowMode = false;
-            buttonControl.update();
-        }
-        else if(gamepad2Active()) {
-            GlobalVariables.slowMode = true;
-            subsystemControl2.update();
-        }
+//        if(gamepad1Active()) {
+//            GlobalVariables.slowMode = false;
+//            buttonControl.update();
+//        }
+//        else if(gamepad2Active()) {
+//            GlobalVariables.slowMode = true;
+//            subsystemControl2.update();
+//        }
         if(edgeDetection.rising(GamepadIndexValues.dpadLeft))
-        {
             colorSensorActive = !colorSensorActive;
-        }
+        if(OuttakeStates.getOuttakeState() == SubsystemState.Run)
+            colorSensorActive = true;
 
         updateHardwareValues();
 
@@ -93,8 +94,9 @@ public class IterativeController {
 
     private void updateHardwareValues() {
         sensorControl.updateDistance();
-        intakeSlideControl.updateSlidePosition();
-        outakeSlideControl.updateSlidePosition();
+//        intakeSlideControl.updateSlidePosition();
+        if(OuttakeStates.getOuttakeState() == SubsystemState.Run)
+            outakeSlideControl.updateSlidePosition();
     }
 
 
@@ -103,9 +105,9 @@ public class IterativeController {
         currentGamepad1.copy(gamepad1);
         edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
 
-        prevGamepad2.copy(currentGamepad2);
-        currentGamepad2.copy(gamepad2);
-        gamepad2EdgeDetection.refreshGamepadIndex(currentGamepad2, prevGamepad2);
+//        prevGamepad2.copy(currentGamepad2);
+//        currentGamepad2.copy(gamepad2);
+//        gamepad2EdgeDetection.refreshGamepadIndex(currentGamepad2, prevGamepad2);
 
         motorControl.setMotors(MotorConstants.notSlide);
         localizer.update();
