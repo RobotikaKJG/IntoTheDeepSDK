@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.Main;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 @TeleOp
 public class GeneralBlueTeleOp extends LinearOpMode {
@@ -28,9 +26,6 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
             calculateLoopTime();
-//            telemetry.addData("AutoCloseStates",IntakeStates.getAutoCloseStates());
-            telemetry.addData("outtake slide states",OuttakeStates.getVerticalSlideState());
-            //telemetry.addData("slide pos",dependencies.outtakeSlideControl.getSlidePosition());
             telemetry.update();
         }
     }
