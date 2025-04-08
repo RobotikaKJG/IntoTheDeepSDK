@@ -57,6 +57,7 @@ public class VerticalSlideControl {
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungPos);
                 break;
             case hang:
+                slideLogic.setMaxSpeed(1);
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.hangBar);
                 break;
             case highRungScore:
