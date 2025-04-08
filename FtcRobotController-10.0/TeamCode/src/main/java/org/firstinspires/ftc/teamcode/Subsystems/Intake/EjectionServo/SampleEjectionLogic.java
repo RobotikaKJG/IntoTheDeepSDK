@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -44,7 +45,7 @@ public class SampleEjectionLogic {
 
     private boolean shouldClose()
     {
-        return currentWait < getSeconds() && extendoExtended();
+        return currentWait < getSeconds() && extendoExtended() && IntakeStates.getAutoCloseStates() != AutoCloseStates.idle;
     }
 
     private boolean wrongColor(){
