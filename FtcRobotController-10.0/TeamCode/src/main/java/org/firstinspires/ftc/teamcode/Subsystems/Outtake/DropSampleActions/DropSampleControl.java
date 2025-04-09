@@ -26,7 +26,7 @@ public class DropSampleControl {
                 OuttakeStates.setSampleLockState(SampleLockStates.open);
                 break;
             case spinMotor:
-                IntakeConstants.setIntakeSpeed(0.5);
+                IntakeConstants.setIntakeSpeed(1);//0.5);
                 IntakeStates.setMotorState(IntakeMotorStates.backward);
                 break;
             case waitToEject:

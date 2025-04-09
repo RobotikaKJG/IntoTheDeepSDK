@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
@@ -82,7 +83,7 @@ public class AutoCloseLogic {
     }
 
     private boolean isSampleDetected(){
-        if(sensorControl.getDistance() > 70)
+        if(sensorControl.getDistance() > 70 ||GlobalVariables.autonomousMode == AutonomousMode.specimenAuton)
             return false;
         return sensorControl.isYellow() || sensorControl.isAllianceColor();
     }
