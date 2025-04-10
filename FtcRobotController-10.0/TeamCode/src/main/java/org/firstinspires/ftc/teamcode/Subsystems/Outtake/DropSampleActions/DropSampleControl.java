@@ -4,7 +4,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
@@ -22,18 +21,24 @@ public class DropSampleControl {
 
     private void updateStates() {
         switch (OuttakeStates.getDropSampleState()) {
-            case openLock:
-                OuttakeStates.setSampleLockState(SampleLockStates.open);
+            case raiseSlides:
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
                 break;
-            case spinMotor:
-                IntakeConstants.setIntakeSpeed(1);//0.5);
-                IntakeStates.setMotorState(IntakeMotorStates.backward);
+            case flipArm:
+                OuttakeStates.setArmState(ArmStates.drop);
                 break;
-            case waitToEject:
+            case release:
+                OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+                break;
+            case flipBack:
+                OuttakeStates.setArmState(ArmStates.down);
+                break;
+            case retractSlides:
+                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+                break;
+            case waitToRetract:
                 break;
             case idle:
-                IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
-                OuttakeStates.setSampleLockState(SampleLockStates.closed);
                 break;
         }
     }

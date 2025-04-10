@@ -18,14 +18,26 @@ public class DropSampleLogic {
     {
         switch(OuttakeStates.getDropSampleState())
         {
-            case openLock:
-                openLock();
+            case activate:
+                activate();
                 break;
-            case spinMotor:
-                spinMotor();
+            case raiseSlides:
+                raiseSlides();
                 break;
-            case waitToEject:
-                waitToEject();
+            case flipArm:
+                flipArm();
+                break;
+            case release:
+                release();
+                break;
+            case flipBack:
+                flipBack();
+                break;
+            case retractSlides:
+                retractSlides();
+                break;
+            case waitToRetract:
+                waitToRetract();
                 break;
             case idle:
                 idle();
@@ -33,17 +45,42 @@ public class DropSampleLogic {
         }
     }
 
-    private void openLock() {
-        OuttakeStates.setDropSampleState(DropSampleStates.spinMotor);
+    private void activate(){
+        addWaitTime(0.2);
+        OuttakeStates.setDropSampleState(DropSampleStates.raiseSlides);
     }
 
-    private void spinMotor() {
-        addWaitTime(OuttakeConstants.ejectWait);
-        OuttakeStates.setDropSampleState(DropSampleStates.waitToEject);
+    private void raiseSlides() {
+        if(currentWait > getSeconds()) return;
+        addWaitTime(1.3);
+        OuttakeStates.setDropSampleState(DropSampleStates.flipArm);
     }
 
-    private void waitToEject() {
-        if(getSeconds() < currentWait) return;
+    private void flipArm() {
+        if(currentWait > getSeconds()) return;
+        addWaitTime(0.2);
+        OuttakeStates.setDropSampleState(DropSampleStates.release);
+    }
+
+    private void release() {
+        if(currentWait > getSeconds()) return;
+        addWaitTime(0.5);
+        OuttakeStates.setDropSampleState(DropSampleStates.flipBack);
+    }
+
+    private void flipBack() {
+        if(currentWait > getSeconds()) return;
+        addWaitTime(0.5);
+        OuttakeStates.setDropSampleState(DropSampleStates.retractSlides);
+    }
+
+    private void retractSlides() {
+        if(currentWait > getSeconds()) return;
+        OuttakeStates.setDropSampleState(DropSampleStates.waitToRetract);
+    }
+
+    private void waitToRetract(){
+        if(OuttakeStates.getVerticalSlideState() != VerticalSlideStates.closed) return;
         OuttakeStates.setDropSampleState(DropSampleStates.idle);
     }
 

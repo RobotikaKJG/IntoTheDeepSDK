@@ -72,7 +72,7 @@ public class ArmControl {
 //        } catch (InterruptedException e) {
 //            Thread.currentThread().interrupt();
 //        }
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
+        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoSamplePos);
         servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMinPos);
     }
 
@@ -84,6 +84,6 @@ public class ArmControl {
     }
 
     private void drop() {
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
+        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
     }
 }

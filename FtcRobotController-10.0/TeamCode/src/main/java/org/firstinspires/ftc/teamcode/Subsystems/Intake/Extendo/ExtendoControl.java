@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 //import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
@@ -59,7 +61,10 @@ public class ExtendoControl {
     }
 
     private void sampleExtend() {
-        slideLogic.setSlideExtensionTarget(IntakeConstants.extendoSampleExtension);
+        if(GlobalVariables.autonomousMode == AutonomousMode.sampleAuton)
+            slideLogic.setSlideExtensionTarget(IntakeConstants.extendoSampleExtension);
+        else
+            slideLogic.setSlideExtensionTarget(IntakeConstants.extendoSpecimenExtension);
         IntakeStates.setExtendoState(ExtendoStates.sampleExtended);
     }
 

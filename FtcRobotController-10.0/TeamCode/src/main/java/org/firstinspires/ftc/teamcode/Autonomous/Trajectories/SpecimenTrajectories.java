@@ -35,35 +35,41 @@ public class SpecimenTrajectories {
 
     private void fillVariables() {
         hangFirstSpecimen = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(10, -28.5,Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(10, -28.5,Math.toRadians(-90)),
+                        SampleMecanumDrive.getVelocityConstraint(80, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(30,60)
+                )
                 .build();
 
         collectFirstSample = drive.trajectorySequenceBuilder(hangFirstSpecimen.end())
-                .lineToLinearHeading(new Pose2d(30, -45, Math.toRadians(40)))
+                .lineToLinearHeading(new Pose2d(49,-48,Math.toRadians(90)))
                 .build();
 
         dropFirstSample = drive.trajectorySequenceBuilder(collectFirstSample.end())
                 .lineToLinearHeading(new Pose2d(32, -45, Math.toRadians(-30)))
                 .build();
 
-        collectSecondSample = drive.trajectorySequenceBuilder(dropFirstSample.end())
-                .lineToLinearHeading(new Pose2d(36, -42, Math.toRadians(35)))
+        collectSecondSample = drive.trajectorySequenceBuilder(collectFirstSample.end())
+                .lineToLinearHeading(new Pose2d(58,-48,Math.toRadians(80)))
                 .build();
 
         dropSecondSample = drive.trajectorySequenceBuilder(collectSecondSample.end())
                 .lineToLinearHeading(new Pose2d(38, -45, Math.toRadians(-30)))
                 .build();
 
-        collectThirdSample = drive.trajectorySequenceBuilder(dropSecondSample.end())
-                .lineToLinearHeading(new Pose2d(44, -40, Math.toRadians(30)))
+        collectThirdSample = drive.trajectorySequenceBuilder(collectSecondSample.end())
+                .lineToLinearHeading(new Pose2d(57  ,-48,Math.toRadians(55)))
                 .build();
 
         dropThirdSample = drive.trajectorySequenceBuilder(collectThirdSample.end())
                 .lineToLinearHeading(new Pose2d(38, -45, Math.toRadians(-30)))
                 .build();
 
-        goToTakeSecondSpecimen = drive.trajectorySequenceBuilder(dropThirdSample.end())
-                .lineToLinearHeading(new Pose2d(42,-60,Math.toRadians(90)))
+        goToTakeSecondSpecimen = drive.trajectorySequenceBuilder(collectThirdSample.end())
+                .lineToLinearHeading(new Pose2d(42,-60,Math.toRadians(90)),
+                        SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MIN_ACCEL,DriveConstants.MAX_ACCEL)
+                )
                 .lineToLinearHeading(new Pose2d(42,-64,Math.toRadians(85)),
                         SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MIN_ACCEL,DriveConstants.MAX_ACCEL)

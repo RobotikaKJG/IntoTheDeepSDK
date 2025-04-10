@@ -15,13 +15,13 @@ public class AutonomousConstants {
     public static final double goToBasketThirdWait = 1.5;
 
     //specimen constants
-    public static final double goToTakeSampleWait = 0.3;
+    public static final double goToTakeSampleWait = 1.5;
     public static final double releaseSampleWait = 0.7;
-    public static final double goToPlaceWait = 2;
+    public static final double goToPlaceWait = 2.4;
 
-    public static final double pushSampleWait = 1;
+    public static final double placeFirstWait = 1.2;
 
     public static final double takeSpecimenWait = 0.5;
     public static final double goToTakeSecondSpecimenWait = 4;
-    public static final double goToPlaceSecondSpecimenWait = 6;
+    public static final double startDropWait = 1;
 }

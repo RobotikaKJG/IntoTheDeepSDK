@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 public class IntakeConstants {
     public static  double intakeSpeed = 1;
     public static final double intakeSlowSpeed = 0.8;
+
     public static double getIntakeSpeed(){
         return GlobalVariables.slowMode ? intakeSlowSpeed : intakeSpeed;
     }
@@ -15,6 +16,7 @@ public class IntakeConstants {
 
     public static final int extendoMaxExtension = 600;
     public static final int extendoSampleExtension = 420;
+    public static int extendoSpecimenExtension = 480;
     public static final int extendoMinExtension = 300;
     public static final int extendoThreshold = 20;
 
@@ -23,7 +25,7 @@ public class IntakeConstants {
     public static final double intakeServoMaxPos = 0.15;     // Taking position
     public static final double intakeServoMinPos = 0;     // Minimum rotational position, starting position
 
-    public static final double secureSampleTime = 0.4;
+    public static final double secureSampleTime = 0.5;
     public static final double intakePushoutTime = 0.1;
     public static final double sampleClawCloseTime = 0.3;
 

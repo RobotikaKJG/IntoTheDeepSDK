@@ -5,6 +5,7 @@ public enum SpecimenAutonState {
     hangFirstSpecimen,
     goToTakeSample,
     takeSample,
+    secureSample,
     moveSample,
     dropSample,
     goToTakeSpecimen,

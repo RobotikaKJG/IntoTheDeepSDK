@@ -14,9 +14,9 @@ public class OuttakeConstants {
     public static final int slideTargetThreshold = 20;
 
 
-    //round needed to prevent floating point errors
-    public static final double outtakeRightServoMaxPos = 0.835;     // Maximum rotational position 0,84
-    public static final double outtakeRightServoMinPos = 0.246;     // Taking position, ending position 0,246
+    public static final double outtakeRightServoMaxPos = 0.84;     // Taking position,Maximum rotational position 0,84
+    public static final double outtakeRightServoSamplePos = 0.246;
+    public static final double outtakeRightServoMinPos = 0.1;     //  ending position 0,246
 
     public static double releaseServoWait = 0.3;
 
@@ -25,7 +25,7 @@ public class OuttakeConstants {
 
     public static double specimenReleaseWait = 0.1;
 
-    public static int lowRungPos = 100;
+    public static int lowRungPos = 200; // Currently used for sample drop too, NOTE
     public static int highRungPos = 500;
     public static int lowRungScorePos = 40;
     public static int highRungScorePos = 340;

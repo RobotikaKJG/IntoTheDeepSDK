@@ -83,7 +83,7 @@ public class AutoCloseLogic {
     }
 
     private boolean isSampleDetected(){
-        if(sensorControl.getDistance() > 70 ||GlobalVariables.autonomousMode == AutonomousMode.specimenAuton)
+        if(sensorControl.getDistance() > 70)
             return false;
         return sensorControl.isYellow() || sensorControl.isAllianceColor();
     }

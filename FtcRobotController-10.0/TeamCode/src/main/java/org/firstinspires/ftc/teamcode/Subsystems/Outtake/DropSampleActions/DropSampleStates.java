@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions;
 
 public enum DropSampleStates {
-    openLock,
-    spinMotor,
-    waitToEject,
+    activate,
+    raiseSlides,
+    flipArm,
+    release,
+    flipBack,
+    retractSlides,
+    waitToRetract,
     idle
 }

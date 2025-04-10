@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
@@ -23,7 +24,7 @@ public class IntakeMotorControl {
     }
 
     public void updateStates() {
-        if (GlobalVariables.isAutonomous) {
+        if (GlobalVariables.autonomousMode == AutonomousMode.sampleAuton) {
             switch (IntakeStates.getMotorState()) {
                 case forward:
                     motorControl.setMotorSpeed(MotorConstants.intake, 0.8);
