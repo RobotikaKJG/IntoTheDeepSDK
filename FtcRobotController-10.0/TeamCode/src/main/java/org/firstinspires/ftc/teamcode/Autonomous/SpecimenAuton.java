@@ -105,13 +105,13 @@ public class SpecimenAuton implements Auton{
             initialised = true;
         }
 
-        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.idle)  return;
+        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.close)  return;
 
 
         initialised = false;
         addWaitTime(AutonomousConstants.goToTakeSampleWait);
         drive.followTrajectorySequenceAsync(trajectories.collectFirstSample());
-        specimenAutonState = SpecimenAutonState.goToTakeSample;//goToTakeSpecimen;
+        specimenAutonState = SpecimenAutonState.goToTakeSpecimen;//goToTakeSpecimen;
     }
     private void goToTakeSample(){
         if(currentWait > getSeconds()) return;
