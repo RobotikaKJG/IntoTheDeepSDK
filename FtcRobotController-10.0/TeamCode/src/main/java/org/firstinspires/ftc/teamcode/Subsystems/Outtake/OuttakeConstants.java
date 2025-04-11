@@ -28,7 +28,7 @@ public class OuttakeConstants {
     public static int lowRungPos = 200; // Currently used for sample drop too, NOTE
     public static int highRungPos = 500;
     public static int lowRungScorePos = 40;
-    public static int highRungScorePos = 380;
+    public static int highRungScorePos = 370;
     public static int specimenHungThreshold = 10;
     public static int hangThreshold = 20;
 
