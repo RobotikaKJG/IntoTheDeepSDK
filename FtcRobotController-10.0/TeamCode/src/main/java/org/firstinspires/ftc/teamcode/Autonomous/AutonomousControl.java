@@ -65,6 +65,7 @@ public class AutonomousControl {
     public void updateSubsystems(){
         intakeControl.update();
         outtakeControl.update();
+        sensorControl.updateDistance();
         sensorControl.updateColor();
         outtakeSlideControl.updateSlidePosition();
     }

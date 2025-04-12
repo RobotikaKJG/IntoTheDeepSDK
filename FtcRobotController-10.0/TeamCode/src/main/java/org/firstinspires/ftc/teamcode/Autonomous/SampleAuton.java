@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.se
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleLockState;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SampleTrajectories;
@@ -31,10 +32,7 @@ public class SampleAuton implements Auton {
     private SampleAutonState sampleAutonState;
     private double currentWait = 0;
     private boolean wasIfCalled = false;
-    private final ElapsedTime waitTimer = new ElapsedTime();
-    private boolean waitingToRetract = false;
-    private boolean waiting = false;
-    private double targetWait = 0;
+    private long samplePickupWaitStartTime = -1;
 //    private ElapsedTime time = new ElapsedTime();
 
     public SampleAuton(SampleMecanumDrive drive) {
@@ -62,10 +60,6 @@ public class SampleAuton implements Auton {
             case releaseSample:
                 if (!waitThenRelease(SampleAutonState.startIntake, 0.2)) return;
                 break;
-
-//            case driveToSecondSample:
-//                if (!driveAndGo(trajectories.follow2ndSamplePath(), SampleAutonState.startIntake)) return;
-//                break;
 
             case startIntake:
                 if (!startIntake(SampleAutonState.checkSamplePickup)) return;
@@ -108,7 +102,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case thirdSampleOuttakePath:
-                if (!prepareNextCycle(SampleAutonState.waitForFlipThirdSample, trajectories.followThirdSampleOuttakePath())) return;
+                if (!prepareNextCycle(SampleAutonState.waitForFlipThirdSample, null)) return;
                 break;
 
             case waitForFlipThirdSample:
@@ -149,6 +143,7 @@ public class SampleAuton implements Auton {
 
             case prepareNextCycleForFifthSample:
                 if (drive.isBusy()) return;
+                if (currentWait > getSeconds()) return;
 
                 setArmState(ArmStates.down);
                 setSampleClawState(SampleClawStates.fullyOpen);
@@ -173,94 +168,59 @@ public class SampleAuton implements Auton {
             case fifthSampleIntakePath:
 //                if (drive.isBusy()) return;
 
+                TrajectorySequence fiveSampleIntakePath =
+                        drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
+                                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), 13.5))
+                                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80, 50))
+                                .lineToSplineHeading(new Pose2d(-34, -8, Math.toRadians(0)))
+                                .build();
+
                 IntakeStates.setMotorState(IntakeMotorStates.idle);
-                drive.followTrajectorySequenceAsync(trajectories.followFiveSampleIntakePath());
+                drive.followTrajectorySequenceAsync(fiveSampleIntakePath);
                 sampleAutonState = SampleAutonState.startIntakeForFifthSample;
                 break;
 
             case startIntakeForFifthSample:
                 if (drive.isBusy()) return;
-                // Extend intake slides
-                IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
-
-                // Start intake motor
-//                if(IntakeStates.getExtendoState() == ExtendoStates.extended) {
-//                    IntakeStates.setMotorState(IntakeMotorStates.forward);
-//                }
-
-                IntakeStates.setMotorState(IntakeMotorStates.forward);
-
-
-                currentWait = getSeconds() + 1.0;
-                sampleAutonState = SampleAutonState.waiting;
+                startIntake(SampleAutonState.waiting);
                 break;
 
             case waiting:
-                // Check if 1 second has passed
-                if (getSeconds() < currentWait) return; // Stay in this state until time has passed
+                if (checkSamplePickup(SampleAutonState.returningAfterPickup)) return;
 
-                if (checkSamplePickup(SampleAutonState.fifthSampleOuttakePath)) return;
-                else {
-                    // Begin moving forward slowly to try and collect the sample
-                    drive.followTrajectorySequenceAsync(
-                            drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                                    .forward(3) // move forward a small distance
-                                    .build()
-                    );
-
-                    sampleAutonState = SampleAutonState.searchingForward;
-                }
-                break;
-
-            case searchingForward:
-                if (drive.isBusy()) return;
-
-                // Check if the sample was picked up after moving forward
-                if (checkSamplePickup(SampleAutonState.fifthSampleOuttakePath)) {
-                    // If sample was picked up, go back to original position
-                    drive.followTrajectorySequenceAsync(
-                            drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                                    .back(3) // move backward the same distance
-                                    .build()
-                    );
-                    sampleAutonState = SampleAutonState.returningAfterPickup;
-                }
                 break;
 
             case returningAfterPickup:
-                if (drive.isBusy()) return;
-
-                // After returning to original position, proceed to outtake
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
+                addWaitTime(0.1);
                 sampleAutonState = SampleAutonState.fifthSampleOuttakePath;
                 break;
 
             case fifthSampleOuttakePath:
+                if (currentWait > getSeconds()) return;
+                IntakeStates.setMotorState(IntakeMotorStates.idle);
+
                 OuttakeStates.setSampleClawState(SampleClawStates.closed);
 
                 drive.followTrajectorySequenceAsync(trajectories.followFiveSampleOuttakePath());
+                OuttakeStates.setSampleClawState(SampleClawStates.closed);
 
                 OuttakeStates.extendOuttakeAndFlipArm();
 
-                sampleAutonState = SampleAutonState.releaseFifthSample;
+                sampleAutonState = SampleAutonState.waitForFlipFifthSample;
                 break;
 
             case waitForFlipFifthSample:
-                if (waitForFlipThen(SampleAutonState.releaseFifthSample)) return;
+                if (waitForFlipThenSub(SampleAutonState.releaseFifthSample)) return;
                 break;
 
             case releaseFifthSample:
-                if(drive.isBusy()) return;
-
-                // Release the sample
-                OuttakeStates.releaseSample();
-
-                // Wait 0.2 seconds before stopping
-                addWaitTime(0.2);
-                sampleAutonState = SampleAutonState.prepareNextCycleForSubSample;
+//                if(drive.isBusy()) return;
+                if (waitThenRelease(SampleAutonState.prepareNextCycleForSubSample, 0.2)) return;
                 break;
 
             case prepareNextCycleForSubSample:
-                if (drive.isBusy()) return;
+//                if (drive.isBusy()) return;
 
                 setArmState(ArmStates.down);
                 setSampleClawState(SampleClawStates.fullyOpen);
@@ -292,36 +252,48 @@ public class SampleAuton implements Auton {
         return true;
     }
 
+    private boolean waitForFlipThenSub(SampleAutonState next) {
+        addWaitTime(AutonomousConstants.flipSubArmFirstWait);
+
+        //if (!OuttakeStates.isArmFlipped(currentWait)) return false;
+
+        sampleAutonState = next;
+        wasIfCalled = false;
+        return true;
+    }
+
     private boolean waitThenRelease(SampleAutonState next, double waitTime) {
         if (currentWait > getSeconds()) return false;
 //        OuttakeStates.releaseSample();
         setSampleClawState(SampleClawStates.halfOpen);
         setSampleLockState(SampleLockStates.closed);
-//        if(!wasIfCalled) {
-//            addWaitTime(waitTime);
-//            wasIfCalled = true;
-//        }
-//        if (currentWait > getSeconds()) return false;
         sampleAutonState = next;
         wasIfCalled = false;
         return true;
     }
 
     private boolean driveAndGo(TrajectorySequence traj, SampleAutonState next) {
-        if (drive.isBusy()) return false;
+//        if (drive.isBusy()) return false;
         drive.followTrajectorySequenceAsync(traj);
+
+//        addWaitTime(AutonomousConstants.intakeSampleWait);
+
         sampleAutonState = next;
         return true;
     }
 
     private boolean startIntake(SampleAutonState next) {
         if (drive.isBusy()) return false;
+//        addWaitTime(AutonomousConstants.intakeSampleWait);
+//        if (currentWait > getSeconds()) return false;
+
         OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
         IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         IntakeStates.setMotorState(IntakeMotorStates.forward);
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
         sampleAutonState = next;
         return true;
     }
@@ -331,35 +303,52 @@ public class SampleAuton implements Auton {
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
         if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) return false;
-        IntakeStates.setMotorState(IntakeMotorStates.backward);
-//        addWaitTime(AutonomousConstants.intakeCloseWait);
-        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
         IntakeStates.setMotorState(IntakeMotorStates.idle);
+        OuttakeStates.setSampleLockState(SampleLockStates.closed);
         sampleAutonState = next;
         return true;
     }
 
     private boolean samplePickup(SampleAutonState next) {
-        if (drive.isBusy()) return false;
-        IntakeStates.setMotorState(IntakeMotorStates.idle);
-        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
-            ElapsedTime timer = new ElapsedTime();
-            // Wait until the elapsed time reaches the desired wait period.
-            while (timer.seconds() < AutonomousConstants.intakeCloseWait) {
-                // Do nothing
-            }
-            IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
-            sampleAutonState = next;
-            return true;
+        // If the drive is busy, reset the timer and exit.
+        if (drive.isBusy()) {
+            samplePickupWaitStartTime = -1;
+            return false;
         }
-        return false;
+
+        // Set the arm and claw to the desired positions.
+        setArmState(ArmStates.down);
+        setSampleClawState(SampleClawStates.fullyOpen);
+
+        // Check whether the intake auto-close process has already started.
+        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) {
+            // If the timer hasn't been started yet, start it now.
+            if (samplePickupWaitStartTime < 0) {
+                samplePickupWaitStartTime = System.currentTimeMillis();
+            }
+            // Calculate elapsed time and check if it is less than the wait time (converted to milliseconds)
+            if (System.currentTimeMillis() - samplePickupWaitStartTime < (long)(AutonomousConstants.intakeCloseWait * 1000)) {
+                // Still waiting for the timeout; return false
+                return false;
+            }
+            // If the timeout has been reached, proceed with the transition.
+        }
+
+        // Reset the timer once we are proceeding.
+        samplePickupWaitStartTime = -1;
+
+        // Update intake states and proceed to the next autonomous state.
+        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+//        IntakeStates.setMotorState(IntakeMotorStates.idle);
+        sampleAutonState = next;
+        return true;
     }
 
 
 
     private boolean handleRetractOuttake(SampleAutonState next) {
         if (drive.isBusy()) return false;
-        IntakeStates.setMotorState(IntakeMotorStates.forward);
+//        IntakeStates.setMotorState(IntakeMotorStates.forward);
 
 //        OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.waitToRelease);
 

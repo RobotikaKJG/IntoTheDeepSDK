@@ -27,10 +27,10 @@ public class IntakeMotorControl {
         if (GlobalVariables.autonomousMode == AutonomousMode.sampleAuton) {
             switch (IntakeStates.getMotorState()) {
                 case forward:
-                    motorControl.setMotorSpeed(MotorConstants.intake, 0.8);
+                    motorControl.setMotorSpeed(MotorConstants.intake, 1.0);
                     break;
                 case backward:
-                    motorControl.setMotorSpeed(MotorConstants.intake, -0.8);
+                    motorControl.setMotorSpeed(MotorConstants.intake, -1.0);
                     break;
                 case idle:
                 case idleWasForward:

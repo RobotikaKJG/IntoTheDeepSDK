@@ -33,6 +33,7 @@ public class SelectStartVariables {
             telemetry.update();
             if (risingTriangleEdge)
                 GlobalVariables.autonomousMode = AutonomousMode.sampleAuton;
+                GlobalVariables.alliance = Alliance.Red;
             if (risingSquareEdge)
                 GlobalVariables.autonomousMode = AutonomousMode.specimenAuton;
 

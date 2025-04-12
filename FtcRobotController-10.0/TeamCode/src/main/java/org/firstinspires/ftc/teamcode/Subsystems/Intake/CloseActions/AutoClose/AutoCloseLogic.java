@@ -53,10 +53,10 @@ public class AutoCloseLogic {
     private void secureGoodSample() {
         if(currentWait > getSeconds()) return;
         addWaitTime(IntakeConstants.intakePushoutTime);
-        if(GlobalVariables.isAutonomous)
-            IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
-        else
-            IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
+        //if(GlobalVariables.isAutonomous)
+        //    IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
+        //else
+        IntakeStates.setAutoCloseStates(AutoCloseStates.ejectExtraSamples);
     }
     private void ejectExtraSamples() {
         if(currentWait > getSeconds()) return;
@@ -85,7 +85,7 @@ public class AutoCloseLogic {
     private boolean isSampleDetected(){
         if(sensorControl.getDistance() > 70)
             return false;
-        return sensorControl.isYellow() || sensorControl.isAllianceColor();
+        return sensorControl.isYellow() || sensorControl.isAllianceColor() || GlobalVariables.isAutonomous;
     }
 
     private void addWaitTime(double waitTime) {
