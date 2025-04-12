@@ -90,7 +90,7 @@ public class SpecimenAuton implements Auton{
             initialised = true;
         }
 
-        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.close)  return;
+        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.release)  return;
 
 
         initialised = false;
@@ -117,17 +117,19 @@ public class SpecimenAuton implements Auton{
         switch (specimenCycleState){
             case secondSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangSecondSpecimen());
-//                addWaitTime(3);
+                addWaitTime(2.1);
                 break;
             case thirdSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangThirdSpecimen());
-//                addWaitTime(2.5);
+                addWaitTime(1.7);
                 break;
             case fourthSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangFourthSpecimen());
-//                addWaitTime(2.5);
+                addWaitTime(1.6);
                 break;
             case fifthSpecimen:
+                drive.followTrajectorySequenceAsync(trajectories.hangFifthSpecimen());
+                addWaitTime(1.7);
                 break;
         }
         initialised = false;
@@ -140,8 +142,8 @@ public class SpecimenAuton implements Auton{
             OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
             initialised = true;
         }
-//        if(currentWait > getSeconds()) return;
-        if(drive.isBusy()) return;
+        if(currentWait > getSeconds()) return;
+//        if(drive.isBusy()) return;
 
         initialised = false;
         specimenAutonState = SpecimenAutonState.placeSpecimen;
@@ -154,7 +156,7 @@ public class SpecimenAuton implements Auton{
             initialised = true;
         }
 
-        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.close)  return;
+        if(OuttakeStates.getSpecimenReleaseButtonState() != SpecimenReleaseButtonStates.release)  return;
         initialised = false;
 
         switch (specimenCycleState){
@@ -170,10 +172,12 @@ public class SpecimenAuton implements Auton{
                 break;
             case fourthSpecimen:
                 specimenCycleState = SpecimenCycleState.fifthSpecimen;
-                specimenAutonState = SpecimenAutonState.extendExtendoForPark;
-                drive.followTrajectorySequenceAsync(trajectories.park());
+                specimenAutonState = SpecimenAutonState.goToTakeSpecimen;
+                drive.followTrajectorySequenceAsync(trajectories.goToTakeFifthSpecimen());
                 break;
             case fifthSpecimen:
+                specimenAutonState = SpecimenAutonState.extendExtendoForPark;
+                drive.followTrajectorySequenceAsync(trajectories.park());
                 break;
         }
     }
