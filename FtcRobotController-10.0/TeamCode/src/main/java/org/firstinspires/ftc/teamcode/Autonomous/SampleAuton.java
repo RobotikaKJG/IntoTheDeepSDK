@@ -186,24 +186,22 @@ public class SampleAuton implements Auton {
                 break;
 
             case waiting:
-                if (checkSamplePickup(SampleAutonState.returningAfterPickup)) return;
+                if (checkSamplePickup(SampleAutonState.fifthSampleOuttakePath)) return;
 
                 break;
 
-            case returningAfterPickup:
-                IntakeStates.setMotorState(IntakeMotorStates.forward);
-                addWaitTime(0.1);
-                sampleAutonState = SampleAutonState.fifthSampleOuttakePath;
-                break;
+//            case returningAfterPickup:
+//                IntakeStates.setMotorState(IntakeMotorStates.forward);
+////                addWaitTime(0.1);
+//                sampleAutonState = SampleAutonState.fifthSampleOuttakePath;
+//                break;
 
             case fifthSampleOuttakePath:
-                if (currentWait > getSeconds()) return;
+//                if (currentWait > getSeconds()) return;
                 IntakeStates.setMotorState(IntakeMotorStates.idle);
 
                 OuttakeStates.setSampleClawState(SampleClawStates.closed);
-
                 drive.followTrajectorySequenceAsync(trajectories.followFiveSampleOuttakePath());
-                OuttakeStates.setSampleClawState(SampleClawStates.closed);
 
                 OuttakeStates.extendOuttakeAndFlipArm();
 
