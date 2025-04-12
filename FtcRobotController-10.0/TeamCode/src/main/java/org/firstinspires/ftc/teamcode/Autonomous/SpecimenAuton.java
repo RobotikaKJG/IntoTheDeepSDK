@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SpecimenTrajectories;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
@@ -116,8 +118,9 @@ public class SpecimenAuton implements Auton{
         specimenAutonState = SpecimenAutonState.goToPlaceSpecimen;
         switch (specimenCycleState){
             case secondSpecimen:
+//                drive.setPoseEstimate(new Pose2d(50,-64,Math.toRadians(90)));
                 drive.followTrajectorySequenceAsync(trajectories.hangSecondSpecimen());
-                addWaitTime(2.1);
+                addWaitTime(2.2);
                 break;
             case thirdSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangThirdSpecimen());

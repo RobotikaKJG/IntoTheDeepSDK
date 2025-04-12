@@ -290,7 +290,7 @@ public class SampleAuton implements Auton {
         setSampleClawState(SampleClawStates.fullyOpen);
         IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         IntakeStates.setMotorState(IntakeMotorStates.forward);
-        OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        OuttakeStates.setSampleLockState(SampleLockStates.open); // change, NOTE
         IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
         sampleAutonState = next;
         return true;

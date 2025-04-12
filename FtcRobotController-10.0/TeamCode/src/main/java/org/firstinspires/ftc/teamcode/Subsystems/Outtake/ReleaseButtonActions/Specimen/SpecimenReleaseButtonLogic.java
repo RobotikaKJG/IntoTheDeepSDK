@@ -35,10 +35,12 @@ public class SpecimenReleaseButtonLogic {
 
     private void clipOn() {
         OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.waitToRelease);
+        addWaitTime(0.4);
     }
 
     private void waitToRelease() {
-        if(Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.specimenHungThreshold) return;
+//        if(Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.specimenHungThreshold) return;
+        if(currentWait > getSeconds()) return;
         OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.release);
         addWaitTime(OuttakeConstants.specimenReleaseWait);
     }

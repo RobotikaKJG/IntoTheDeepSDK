@@ -20,15 +20,15 @@ public class OuttakeConstants {
 
     public static double releaseServoWait = 0.3;
 
-    public static double specimenClawServoMinPos = 0.2;
-    public static double specimenClawServoMaxPos = 0.5;
+    public static double specimenClawServoMinPos = 0.18;
+    public static double specimenClawServoMaxPos = 0.5; // closed
 
     public static double specimenReleaseWait = 0.1;
 
     public static int lowRungPos = 200; // Currently used for sample drop too, NOTE
     public static int highRungPos = 500;
     public static int lowRungScorePos = 40;
-    public static int highRungScorePos = 370;
+    public static int highRungScorePos = 380;
     public static int specimenHungThreshold = 10;
     public static int hangThreshold = 20;
 
