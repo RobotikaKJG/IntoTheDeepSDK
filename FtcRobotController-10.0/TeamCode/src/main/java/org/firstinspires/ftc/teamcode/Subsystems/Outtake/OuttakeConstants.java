@@ -10,7 +10,7 @@ public class OuttakeConstants {
     public static final double outtakeArmCloseWait = 0.5;//0.65;
     public static final int lowBasketPos = 425;
     public static final int highBasketPos = 720;
-    public static final int hangBar = 500;
+    public static final int hangBar = 300;
     public static final int slideTargetThreshold = 20;
 
 
