@@ -22,10 +22,11 @@ public class SelectStartVariables {
         this.telemetry = telemetry;
         currentGamepad1.copy(this.gamepad1);
         edgeDetection = new EdgeDetection();
+        selectAuton();
         selectAlliance();
     }
 
-    private void selectAlliance() {
+    private void selectAuton() {
         while (!risingTriangleEdge && !risingSquareEdge) {
             calculateGamepadValues();
 
@@ -33,9 +34,24 @@ public class SelectStartVariables {
             telemetry.update();
             if (risingTriangleEdge)
                 GlobalVariables.autonomousMode = AutonomousMode.sampleAuton;
-                GlobalVariables.alliance = Alliance.Red;
             if (risingSquareEdge)
                 GlobalVariables.autonomousMode = AutonomousMode.specimenAuton;
+
+        }
+    }
+
+    private void selectAlliance() {
+        risingTriangleEdge = false;
+        risingSquareEdge = false;
+        while (!risingTriangleEdge && !risingSquareEdge) {
+            calculateGamepadValues();
+
+            telemetry.addLine("Press triangle for RED, press square for BLUE");
+            telemetry.update();
+            if (risingTriangleEdge)
+                GlobalVariables.alliance = Alliance.Red;
+            if (risingSquareEdge)
+                GlobalVariables.alliance = Alliance.Blue;
 
         }
     }
