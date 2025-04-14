@@ -1,26 +1,21 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.extendOuttakeAndIntakeAndFlipArm;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setArmState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleLockState;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SampleTrajectories;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
@@ -172,7 +167,7 @@ public class SampleAuton implements Auton {
                         drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
                                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), 13.5))
                                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80, 50))
-                                .lineToSplineHeading(new Pose2d(-34, -8, Math.toRadians(0)))
+                                .lineToSplineHeading(new Pose2d(-32, -8, Math.toRadians(0)))
                                 .build();
 
                 IntakeStates.setMotorState(IntakeMotorStates.idle);
@@ -186,7 +181,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waiting:
-                if (checkSamplePickup(SampleAutonState.fifthSampleOuttakePath)) return;
+                checkSamplePickup(SampleAutonState.fifthSampleOuttakePath);
 
                 break;
 
@@ -290,21 +285,20 @@ public class SampleAuton implements Auton {
         setSampleClawState(SampleClawStates.fullyOpen);
         IntakeStates.setExtendoState(ExtendoStates.fullyExtend);
         IntakeStates.setMotorState(IntakeMotorStates.forward);
-        OuttakeStates.setSampleLockState(SampleLockStates.open); // change, NOTE
+        OuttakeStates.setSampleLockState(SampleLockStates.closed);
         IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor);
         sampleAutonState = next;
         return true;
     }
 
-    private boolean checkSamplePickup(SampleAutonState next) {
-        if (drive.isBusy()) return false;
+    private void checkSamplePickup(SampleAutonState next) {
+        if (drive.isBusy()) return;
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
-        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.idle) return false;
+        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.closeSampleClaw) return;
         IntakeStates.setMotorState(IntakeMotorStates.idle);
-        OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        OuttakeStates.setSampleLockState(SampleLockStates.open);
         sampleAutonState = next;
-        return true;
     }
 
     private boolean samplePickup(SampleAutonState next) {
@@ -360,7 +354,7 @@ public class SampleAuton implements Auton {
             wasIfCalled = true;
         }
 
-        System.out.println(OuttakeStates.getVerticalSlideState());
+//        System.out.println(OuttakeStates.getVerticalSlideState());
         if (OuttakeStates.getVerticalSlideState() != VerticalSlideStates.closed) return false;
 
         if(IntakeStates.getExtendoState() != ExtendoStates.retracted) return false;

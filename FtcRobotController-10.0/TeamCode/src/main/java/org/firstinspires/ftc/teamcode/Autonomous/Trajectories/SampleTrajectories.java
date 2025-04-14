@@ -42,7 +42,7 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-            .lineToLinearHeading(new Pose2d(-58, -52, Math.toRadians(88)))
+            .lineToLinearHeading(new Pose2d(-60, -52, Math.toRadians(88)))
 //            .waitSeconds(0.5)
             .build();
 
@@ -51,11 +51,11 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-                .lineToLinearHeading(new Pose2d(-60.5, -54, Math.toRadians(105)))
+                .lineToLinearHeading(new Pose2d(-60.5, -54, Math.toRadians(110)))
 //                .waitSeconds(0.5)
                 .build();
 
-        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -54, Math.toRadians(105)))
+        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -54, Math.toRadians(110)))
                 .lineToLinearHeading(new Pose2d(-58, -54, Math.toRadians(88)))
 //                .waitSeconds(0.5)
                 .build();
@@ -63,10 +63,10 @@ public class SampleTrajectories {
         fiveSampleIntakePath1 = drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), 13.5))
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80,50))
-                .lineToSplineHeading(new Pose2d(-34, -8, Math.toRadians(0)))
+                .lineToSplineHeading(new Pose2d(-32, -8, Math.toRadians(0)))
                 .build();
 
-        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-34, -8, Math.toRadians(0)))
+        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-32, -8, Math.toRadians(0)))
                 .lineToSplineHeading(new Pose2d(-48, -56, Math.toRadians(35)))
                 .build();
 

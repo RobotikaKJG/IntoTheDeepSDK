@@ -48,7 +48,10 @@ public class AutoCloseLogic {
     private void checkColor() {
         if(!isSampleDetected()) return;
         IntakeStates.setAutoCloseStates(AutoCloseStates.secureGoodSample);
-        addWaitTime(IntakeConstants.secureSampleTime);
+        if(GlobalVariables.isAutonomous)
+            addWaitTime(IntakeConstants.secureSampleAutonTime);
+        else
+            addWaitTime(IntakeConstants.secureSampleTime);
     }
     private void secureGoodSample() {
         if(currentWait > getSeconds()) return;

@@ -20,8 +20,8 @@ public class SampleEjectionLogic {
 
     public void update(){
         if(shouldOpen()) {
-            if(!GlobalVariables.isAutonomous)
-                OuttakeStates.setSampleLockState(SampleLockStates.open);
+//            if(!GlobalVariables.isAutonomous)
+            OuttakeStates.setSampleLockState(SampleLockStates.open);
             wasShouldOpen = true;
         }
         if(!ejectionServoClosed() && shouldClose())
