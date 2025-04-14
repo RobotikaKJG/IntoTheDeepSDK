@@ -5,8 +5,6 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
-import java.util.concurrent.CountDownLatch;
-
 public class ArmControl {
     private final ServoControl servoControl;
     private ArmStates prevArmState;
@@ -73,7 +71,7 @@ public class ArmControl {
 //            Thread.currentThread().interrupt();
 //        }
         servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoSamplePos);
-        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMinPos);
+        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoSamplePos);
     }
 
 
@@ -85,5 +83,6 @@ public class ArmControl {
 
     private void drop() {
         servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
+        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMinPos);
     }
 }
