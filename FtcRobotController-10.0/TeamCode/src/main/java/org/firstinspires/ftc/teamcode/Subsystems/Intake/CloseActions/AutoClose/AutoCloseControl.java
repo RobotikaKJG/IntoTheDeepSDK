@@ -56,7 +56,7 @@ public class AutoCloseControl {
 
     private void checkColor() {
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
-        if(!GlobalVariables.isAutonomous)
+        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
@@ -67,7 +67,8 @@ public class AutoCloseControl {
 
     private void ejectExtraSamples() {
         gamepad1.rumble(200);
-        IntakeStates.setMotorState(IntakeMotorStates.backward);
+        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
+            IntakeStates.setMotorState(IntakeMotorStates.backward);
     }
 
     private void waitForCommand() {
@@ -77,7 +78,7 @@ public class AutoCloseControl {
 
     private static void waitToRetract() {
         IntakeStates.setExtendoState(ExtendoStates.retracting);
-        if(GlobalVariables.autonomousMode != AutonomousMode.sampleAuton)
+        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
 //        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
@@ -85,7 +86,7 @@ public class AutoCloseControl {
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
-        if(!GlobalVariables.isAutonomous) {
+        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
         }

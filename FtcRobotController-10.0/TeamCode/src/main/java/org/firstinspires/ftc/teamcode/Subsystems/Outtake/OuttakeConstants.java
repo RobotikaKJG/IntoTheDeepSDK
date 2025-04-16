@@ -4,9 +4,10 @@ public class OuttakeConstants {
     public static  double outtakeLeftServoMaxPos = 0.837;//0.82;//0.88;//0.965;//+0.0?     // Taking position, starting position
     public static  double outtakeLeftServoSamplePos = 0.257;
     public static  double outtakeLeftServoMinPos = 0.1;//0.065;//1675;//0.2;     // Placing position,
-    public static final double releaseServoMaxPos = 0.70;     // Maximum rotational position, claw open
-    public static final double releaseServoReleasePos = 0.65;     // used for upOpen
-    public static final double releaseServoMinPos = 0.48;     // Minimum rotational position, claw closed position
+    public static final double releaseServoMaxPos = 0.68;     // Maximum rotational position, claw open
+    public static final double releaseServoReleasePos = 0.63;     // used for upOpen
+    public static final double releaseServoFreeMovePos = 0.48;     // Minimum rotational position, claw closed position
+    public static final double releaseServoMinPos = 0.46;     // Minimum rotational position, claw closed position
     public static final double outtakeArmWait = 0.6;
     public static final double outtakeArmCloseWait = 0.5;//0.65;
     public static final int lowBasketPos = 425;
@@ -27,7 +28,7 @@ public class OuttakeConstants {
     public static double specimenReleaseWait = 0.1;
 
     public static int lowRungPos = 200; // Currently used for sample drop too, NOTE
-    public static int highRungPos = 500;
+    public static int highRungPos = 485;
     public static int lowRungScorePos = 40;
     public static int highRungScorePos = 380;
     public static int specimenHungThreshold = 10;

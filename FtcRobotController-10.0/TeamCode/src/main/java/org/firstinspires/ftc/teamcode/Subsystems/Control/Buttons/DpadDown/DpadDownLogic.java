@@ -12,6 +12,7 @@ public class DpadDownLogic {
 
     public void update() {
         if(toggleEjectionServo()) return;
+        if(toggleClawFreeMove()) return;
     }
 
     private void completeAction(){
@@ -22,6 +23,13 @@ public class DpadDownLogic {
     private boolean toggleEjectionServo() {
         if(outtakeActive() || extendoRetracted()) return false;
         ButtonStates.setDpadDownState(DpadDownStates.toggleEjectionServo);
+        completeAction();
+        return true;
+    }
+
+    private boolean toggleClawFreeMove() {
+        if(!outtakeActive()) return false;
+        ButtonStates.setDpadDownState(DpadDownStates.toggleClawFreeMove);
         completeAction();
         return true;
     }

@@ -15,6 +15,7 @@ public class GeneralRedTeleOp extends LinearOpMode {
         List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
 
         GlobalVariables.isAutonomous = false;
+        GlobalVariables.subCycles = false;
         GlobalVariables.alliance = Alliance.Red;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
         IterativeController iterativeController = new IterativeController(dependencies);
@@ -32,9 +33,9 @@ public class GeneralRedTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
-//            telemetry.addData("Red", dependencies.sensorControl.isRed());
-//            telemetry.addData("Yellow", dependencies.sensorControl.isYellow());
-//            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
+            telemetry.addData("Red", dependencies.sensorControl.isRed());
+            telemetry.addData("Yellow", dependencies.sensorControl.isYellow());
+            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
             calculateLoopTime();
             telemetry.update();
         }

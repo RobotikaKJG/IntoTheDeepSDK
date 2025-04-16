@@ -55,7 +55,10 @@ public class AutoCloseLogic {
     }
     private void secureGoodSample() {
         if(currentWait > getSeconds()) return;
-        addWaitTime(IntakeConstants.intakePushoutTime);
+        if(GlobalVariables.isAutonomous)
+            addWaitTime(IntakeConstants.intakePushoutTime);
+        else
+            addWaitTime(IntakeConstants.intakePushoutAutoTime);
         //if(GlobalVariables.isAutonomous)
         //    IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
         //else

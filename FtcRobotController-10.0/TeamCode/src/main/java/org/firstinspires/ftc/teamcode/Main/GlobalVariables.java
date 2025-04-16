@@ -8,4 +8,5 @@ public class GlobalVariables {
     public static boolean isAutonomous;
     public static boolean slowMode = false;
     public static AutonomousMode autonomousMode;
+    public static boolean subCycles;
 }

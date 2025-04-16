@@ -39,8 +39,8 @@ public class SpecimenReleaseButtonLogic {
     }
 
     private void waitToRelease() {
-//        if(Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.specimenHungThreshold) return;
-        if(currentWait > getSeconds()) return;
+        if(Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) > OuttakeConstants.specimenHungThreshold) return;
+//        if(currentWait > getSeconds()) return;
         OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.release);
         addWaitTime(OuttakeConstants.specimenReleaseWait);
     }

@@ -17,6 +17,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
 
         GlobalVariables.isAutonomous = false;
+        GlobalVariables.subCycles = false;
         GlobalVariables.alliance = Alliance.Blue;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
         IterativeController iterativeController = new IterativeController(dependencies);

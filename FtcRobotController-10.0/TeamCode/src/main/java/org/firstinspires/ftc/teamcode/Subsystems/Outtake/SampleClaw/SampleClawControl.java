@@ -25,6 +25,9 @@ public class SampleClawControl {
             case closed:
                 servoControl.setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
                 break;
+            case freeMove:
+                servoControl.setServoPos(ServoConstants.release,OuttakeConstants.releaseServoFreeMovePos);
+                break;
             case halfOpen:
                 servoControl.setServoPos(ServoConstants.release, OuttakeConstants.releaseServoReleasePos);
                 break;

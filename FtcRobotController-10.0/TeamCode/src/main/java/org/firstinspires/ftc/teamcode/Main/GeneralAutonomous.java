@@ -45,6 +45,7 @@ public class GeneralAutonomous extends LinearOpMode {
         //Needs to be set to false for SensorControl initialisation through AutonomousDependencies
         GlobalVariables.wasAutonomous = false;
         GlobalVariables.isAutonomous = true;
+        GlobalVariables.subCycles = false;
 
         AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
 
@@ -56,6 +57,7 @@ public class GeneralAutonomous extends LinearOpMode {
 
     private void updateAutonData() {
         telemetry.addData("Auton:", GlobalVariables.autonomousMode);
+        telemetry.addData("Alliance:", GlobalVariables.alliance);
         //telemetry.addData("Current position: ",aprilTagCameraControl.getCurrentPosition());
         telemetry.update();
         // Slow down CPU cycles

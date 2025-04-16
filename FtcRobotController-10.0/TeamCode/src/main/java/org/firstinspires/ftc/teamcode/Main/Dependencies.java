@@ -109,7 +109,7 @@ public class Dependencies {
         return new IntakeMotorControl(motorControl);
     }
 
-    private IntakeMotorLogic createIntakeMotorLogic() {
+    IntakeMotorLogic createIntakeMotorLogic() {
         return new IntakeMotorLogic(motorControl);
     }
 

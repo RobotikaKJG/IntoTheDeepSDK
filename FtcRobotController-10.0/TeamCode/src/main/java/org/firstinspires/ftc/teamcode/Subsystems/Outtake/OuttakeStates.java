@@ -160,40 +160,23 @@ public class OuttakeStates {
     }
 
 
-    // ✅ Execute sample release in a separate thread
-    public static void releaseSample() {
-//        // Ensure the arm is fully flipped before releasing the sample
-//        if (isArmFlipped()) {
-//            setSampleClawState(SampleClawStates.halfOpen);
+    public static void extendOuttakeAndFlipArm() {
+//        // Step 1: Extend outtake slides immediately
+//        CompletableFuture.runAsync(() -> {
+//            setVerticalSlideState(VerticalSlideStates.highBasket);
+//        }, executor);
 //
-//            // Wait for 0.2 seconds to let the sample fully drop
+//        // Step 2: Delay the intake & flip arm execution by 0.2s
+//        CompletableFuture.runAsync(() -> {
 //            try {
-//                Thread.sleep(1000); // 200 ms wait
+//                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
 //            } catch (InterruptedException e) {
 //                Thread.currentThread().interrupt();
 //            }
-//
-//        }
-    }
-
-    public static void extendOuttakeAndFlipArm() {
-
-//        setSampleClawState(SampleClawStates.closed);
-
-        // Step 1: Extend outtake slides immediately
-        CompletableFuture.runAsync(() -> {
-            setVerticalSlideState(VerticalSlideStates.highBasket);
-        }, executor);
-
-        // Step 2: Delay the intake & flip arm execution by 0.2s
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            setArmState(ArmStates.up);
-        }, executor);
+//            setArmState(ArmStates.up);
+//        }, executor);
+        setVerticalSlideState(VerticalSlideStates.highBasket);
+        setArmState(ArmStates.up);
     }
 
     // ✅ Shutdown executor when not needed

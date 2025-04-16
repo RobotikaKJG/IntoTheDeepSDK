@@ -26,7 +26,7 @@ public class AutonomousDependencies extends Dependencies {
     }
 
     public SampleAuton createSampleAuton() {
-        return new SampleAuton(drive);
+        return new SampleAuton(drive,createIntakeMotorLogic());
     }
 
     public SpecimenAuton createSpecimenAuton() {

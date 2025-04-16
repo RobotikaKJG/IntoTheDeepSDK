@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.Autonomous.Trajectories;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 
+import org.firstinspires.ftc.teamcode.Autonomous.SampleAuton;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.Autonomous.SampleAuton;
 
 public class SampleTrajectories {
 
@@ -21,7 +23,7 @@ public class SampleTrajectories {
 
 
     private final Pose2d startPose = new Pose2d(-38, -65, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
-    private final Pose2d basketPose = new Pose2d(-57.5, -49, Math.toRadians(69));
+    private final Pose2d basketPose = new Pose2d(-58.5, -49, Math.toRadians(69));
     public SampleTrajectories(SampleMecanumDrive drive) {
         this.drive = drive;
         fillVariables();
@@ -36,8 +38,15 @@ public class SampleTrajectories {
 //                .waitSeconds(0.5)
                 .build();
 
+        follow2ndSamplePath = drive.trajectorySequenceBuilder(basketPose)
+                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
+                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-        thirdSampleIntakePath = drive.trajectorySequenceBuilder(basketPose)
+                .lineToLinearHeading(new Pose2d(-57.5, -54, Math.toRadians(69)))
+                .build();
+
+
+        thirdSampleIntakePath = drive.trajectorySequenceBuilder(new Pose2d(-57.5, -54, Math.toRadians(69)))
             // third sample intake
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
@@ -51,12 +60,12 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-                .lineToLinearHeading(new Pose2d(-60.5, -54, Math.toRadians(110)))
+                .lineToLinearHeading(new Pose2d(-60.5, -54, Math.toRadians(115)))
 //                .waitSeconds(0.5)
                 .build();
 
-        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -54, Math.toRadians(110)))
-                .lineToLinearHeading(new Pose2d(-58, -54, Math.toRadians(88)))
+        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -54, Math.toRadians(115)))
+                .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(70)))
 //                .waitSeconds(0.5)
                 .build();
 
@@ -66,8 +75,8 @@ public class SampleTrajectories {
                 .lineToSplineHeading(new Pose2d(-32, -8, Math.toRadians(0)))
                 .build();
 
-        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-32, -8, Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(-48, -56, Math.toRadians(35)))
+        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(SampleAuton.getFifthIntakePose())
+                .lineToSplineHeading(new Pose2d(-53, -56, Math.toRadians(35)))
                 .build();
 
         moveToSub = drive.trajectorySequenceBuilder(new Pose2d(-38, -8, Math.toRadians(0)))
