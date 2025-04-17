@@ -48,7 +48,7 @@ public class ArmControl {
     }
 
     private void drop() {
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
-        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMinPos);
+        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoSamplePos);
+        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoSamplePos);
     }
 }

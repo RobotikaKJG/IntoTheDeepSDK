@@ -124,11 +124,11 @@ public class SpecimenAuton implements Auton{
                 break;
             case thirdSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangThirdSpecimen());
-                addWaitTime(1.9);
+                addWaitTime(2.1);
                 break;
             case fourthSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangFourthSpecimen());
-                addWaitTime(1.8);
+                addWaitTime(2.1);
                 break;
             case fifthSpecimen:
                 drive.followTrajectorySequenceAsync(trajectories.hangFifthSpecimen());

@@ -60,7 +60,7 @@ public class SampleAuton implements Auton {
     public void run() {
         switch (sampleAutonState) {
             case waitForFlip:
-                if (!waitForFlipThen(SampleAutonState.releaseSample,0.9)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseSample,1.2)) return;
                 break;
 
             case releaseSample:
@@ -89,7 +89,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipSecondSample:
-                if (!waitForFlipThen(SampleAutonState.releaseSecondSample,0.8)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseSecondSample,1.1)) return;
                 break;
 
             case releaseSecondSample:
@@ -118,7 +118,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipThirdSample:
-                if (!waitForFlipThen(SampleAutonState.releaseThirdSample,0.8)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseThirdSample,1.1)) return;
                 break;
 
             case releaseThirdSample:
@@ -147,7 +147,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipForthSample:
-                if (!waitForFlipThen(SampleAutonState.releaseForthSample,1.0)) return;
+                if (!waitForFlipThen(SampleAutonState.releaseForthSample,1.3)) return;
                 break;
 
             case releaseForthSample:

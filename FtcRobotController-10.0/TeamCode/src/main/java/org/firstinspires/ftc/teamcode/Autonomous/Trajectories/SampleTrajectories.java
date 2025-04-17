@@ -42,7 +42,7 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-                .lineToLinearHeading(new Pose2d(-57.5, -54, Math.toRadians(69)))
+                .lineToLinearHeading(new Pose2d(-57.5, -52, Math.toRadians(69)))
                 .build();
 
 
@@ -76,7 +76,7 @@ public class SampleTrajectories {
                 .build();
 
         fiveSampleOuttakePath = drive.trajectorySequenceBuilder(SampleAuton.getFifthIntakePose())
-                .lineToSplineHeading(new Pose2d(-53, -56, Math.toRadians(35)))
+                .lineToSplineHeading(new Pose2d(-55, -58, Math.toRadians(35)))
                 .build();
 
         moveToSub = drive.trajectorySequenceBuilder(new Pose2d(-38, -8, Math.toRadians(0)))

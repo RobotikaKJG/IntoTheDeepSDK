@@ -35,7 +35,7 @@ public class SpecimenReleaseButtonLogic {
 
     private void clipOn() {
         OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.waitToRelease);
-        addWaitTime(0.4);
+//        addWaitTime(0.4);
     }
 
     private void waitToRelease() {
