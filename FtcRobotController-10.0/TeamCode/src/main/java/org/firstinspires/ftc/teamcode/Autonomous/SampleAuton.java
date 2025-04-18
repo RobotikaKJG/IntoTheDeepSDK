@@ -209,10 +209,10 @@ public class SampleAuton implements Auton {
 
 
             case fifthSampleOuttakePath:
-//                if (rotateCommandIssued) {
-//                    drive.turnAsync(Math.toRadians(-15));
-//                    rotateCommandIssued = false;
-//                }
+                if (rotateCommandIssued) {
+                    drive.turnAsync(Math.toRadians(-15));
+                    rotateCommandIssued = false;
+                }
                 if (currentWait > getSeconds()) return;
 
                 OuttakeStates.extendOuttakeAndFlipArm();
@@ -291,17 +291,49 @@ public class SampleAuton implements Auton {
         return true;
     }
 
+    private double retractWaitStartTime = -1;
+
     private boolean checkSamplePickup(SampleAutonState next) {
         if (drive.isBusy() && !wasIfCalled) return false;
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
-//        intakeMotorLogic.update();
-        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.waitToRetract && !wasIfCalled) return false;
-        if(!wasIfCalled) {
+
+        if (!wasIfCalled && retractWaitStartTime == -1) {
+            retractWaitStartTime = getSeconds();
+        }
+
+        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.waitToRetract && !wasIfCalled) {
+            // Waited long enough?
+            if (getSeconds() - retractWaitStartTime >= 2.0 && !rotateCommandIssued) {
+                drive.turn(Math.toRadians(30));
+                rotateCommandIssued = true;
+            }
+            return false; // Still waiting
+        }
+
+        if (!wasIfCalled) {
             drive.followTrajectorySequenceAsync(trajectories.followFiveSampleOuttakePath());
             addWaitTime(0.5);
             wasIfCalled = true;
+            retractWaitStartTime = -1; // Reset for future use
+            rotateCommandIssued = false;
         }
+
+////        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.waitToRetract && !wasIfCalled) return false;
+//
+//        double startTime = getSeconds();
+//        if (IntakeStates.getAutoCloseStates() != AutoCloseStates.waitToRetract && !wasIfCalled) {
+//            if (getSeconds() - startTime >= 2.0) {
+//                drive.turn(Math.toRadians(15));
+//                rotateCommandIssued = true;
+//            }
+//            return false;
+//        }
+//        if(!wasIfCalled) {
+//            drive.followTrajectorySequenceAsync(trajectories.followFiveSampleOuttakePath());
+//            addWaitTime(0.5);
+//            wasIfCalled = true;
+//        }
         if (currentWait > getSeconds()) return false;
 
         IntakeStates.setMotorState(IntakeMotorStates.idle);

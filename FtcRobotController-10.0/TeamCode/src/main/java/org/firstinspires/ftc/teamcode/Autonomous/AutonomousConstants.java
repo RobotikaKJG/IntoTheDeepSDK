@@ -7,7 +7,7 @@ public class AutonomousConstants {
     public static final double flipArmFirstWait = 0.8;
     public static final double flipSubArmWait = 1.8;
     public static final double intakeSampleWait = 1.0;
-    public static final double flipArmWait = 1;
+    public static final double flipArmWait = 0.9;
     public static final double sampleReleaseWait = 1;
     public static final double slideRetractWait = 1;
     public static final double takeSampleMaxWait = 2.5;
@@ -22,7 +22,7 @@ public class AutonomousConstants {
     public static final double releaseSampleWait = 0.7;
     public static final double goToPlaceWait = 2.4;
 
-    public static final double placeFirstWait = 1;
+    public static final double placeFirstWait = 1.2;
 
     public static final double takeSpecimenWait = 0.5;
     public static final double goToTakeSecondSpecimenWait = 4;

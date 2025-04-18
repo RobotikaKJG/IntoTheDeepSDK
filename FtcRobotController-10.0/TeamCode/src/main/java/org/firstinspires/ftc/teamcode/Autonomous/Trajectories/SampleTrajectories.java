@@ -22,8 +22,8 @@ public class SampleTrajectories {
     TrajectorySequence moveToSub;
 
 
-    private final Pose2d startPose = new Pose2d(-38, -65, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
-    private final Pose2d basketPose = new Pose2d(-58.5, -49, Math.toRadians(69));
+    private final Pose2d startPose = new Pose2d(-38, -64, Math.toRadians(0)); // new Pose2d(-55, -52, Math.toRadians(35))
+    private final Pose2d basketPose = new Pose2d(-58.5, -51, Math.toRadians(69));
     public SampleTrajectories(SampleMecanumDrive drive) {
         this.drive = drive;
         fillVariables();
@@ -60,11 +60,11 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-                .lineToLinearHeading(new Pose2d(-60.5, -54, Math.toRadians(115)))
+                .lineToLinearHeading(new Pose2d(-60.5, -52, Math.toRadians(115)))
 //                .waitSeconds(0.5)
                 .build();
 
-        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -54, Math.toRadians(115)))
+        forthSampleOuttakePath = drive.trajectorySequenceBuilder(new Pose2d(-60.5, -52, Math.toRadians(115)))
                 .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(70)))
 //                .waitSeconds(0.5)
                 .build();

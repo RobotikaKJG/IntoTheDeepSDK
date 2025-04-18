@@ -135,7 +135,7 @@ public class SpecimenTrajectories {
                 .build();
 
         goToTakeFifthSpecimen = drive.trajectorySequenceBuilder(hangFourthSpecimen.end())
-                .lineToLinearHeading(new Pose2d(38,-59,Math.toRadians(90)),
+                .lineToLinearHeading(new Pose2d(38,-52,Math.toRadians(90)),
                         SampleMecanumDrive.getVelocityConstraint(100, 6, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(50,80)
                 )
