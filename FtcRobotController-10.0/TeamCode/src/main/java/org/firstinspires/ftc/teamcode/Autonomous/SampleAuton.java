@@ -298,15 +298,21 @@ public class SampleAuton implements Auton {
         setArmState(ArmStates.down);
         setSampleClawState(SampleClawStates.fullyOpen);
 
+        // Starts timer
         if (!wasIfCalled && retractWaitStartTime == -1) {
             retractWaitStartTime = getSeconds();
         }
 
         if (IntakeStates.getAutoCloseStates() != AutoCloseStates.waitToRetract && !wasIfCalled) {
             // Waited long enough?
-            if (getSeconds() - retractWaitStartTime >= 2.0 && !rotateCommandIssued) {
-                drive.turn(Math.toRadians(30));
+            if (getSeconds() - retractWaitStartTime >= 1.5 && !rotateCommandIssued) {
+                // Rotate and try to eject sample
+                IntakeStates.setMotorState(IntakeMotorStates.backward);
+                OuttakeStates.setSampleLockState(SampleLockStates.open);
+                drive.turn(Math.toRadians(30)); // rotate 30 degrees
                 rotateCommandIssued = true;
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
+                OuttakeStates.setSampleLockState(SampleLockStates.closed);
             }
             return false; // Still waiting
         }
