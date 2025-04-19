@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 //import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class DpadDownControl {
 
@@ -14,8 +14,8 @@ public class DpadDownControl {
             case toggleEjectionServo:
                 toggleEjectionServo();
                 break;
-            case toggleClawFreeMove:
-                toggleClawFreeMove();
+            case slideStepDown:
+                slideStepDown();
                 break;
             case idle:
                 break;
@@ -29,10 +29,9 @@ public class DpadDownControl {
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
     }
 
-    private void toggleClawFreeMove(){
+    private void slideStepDown(){
         if(OuttakeStates.getSampleClawState() == SampleClawStates.closed)
             OuttakeStates.setSampleClawState(SampleClawStates.freeMove);
-        else if(OuttakeStates.getSampleClawState() == SampleClawStates.freeMove)
-            OuttakeStates.setSampleClawState(SampleClawStates.closed);
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.stepDown);
     }
 }

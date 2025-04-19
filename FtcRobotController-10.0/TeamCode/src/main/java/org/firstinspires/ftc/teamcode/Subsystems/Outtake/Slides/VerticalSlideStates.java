@@ -12,6 +12,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
         highRungScore,
         highRung,
         hang,
-        highBasket
+        highBasket,
+        stepUp,
+        stepDown
     }
 

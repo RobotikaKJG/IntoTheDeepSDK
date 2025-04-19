@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
@@ -12,7 +13,7 @@ public class DpadDownLogic {
 
     public void update() {
         if(toggleEjectionServo()) return;
-        if(toggleClawFreeMove()) return;
+        if(slideStepDown()) return;
     }
 
     private void completeAction(){
@@ -27,9 +28,9 @@ public class DpadDownLogic {
         return true;
     }
 
-    private boolean toggleClawFreeMove() {
-        if(!outtakeActive()) return false;
-        ButtonStates.setDpadDownState(DpadDownStates.toggleClawFreeMove);
+    private boolean slideStepDown() {
+        if(!sampleTaken()) return false;
+        ButtonStates.setDpadDownState(DpadDownStates.slideStepDown);
         completeAction();
         return true;
     }
@@ -42,4 +43,7 @@ public class DpadDownLogic {
         return IntakeStates.getExtendoState() == ExtendoStates.retracted;
     }
 
+    private boolean sampleTaken(){
+        return OuttakeStates.getSampleClawState() == SampleClawStates.closed || OuttakeStates.getSampleClawState() == SampleClawStates.freeMove;
+    }
 }

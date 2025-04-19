@@ -63,6 +63,14 @@ public class VerticalSlideControl {
             case highRungScore:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungScorePos);
                 break;
+            case stepUp:
+                slideLogic.stepUp();
+                OuttakeStates.setVerticalSlideState(prevVerticalSlideStates);
+                break;
+            case stepDown:
+                slideLogic.stepDown();
+                OuttakeStates.setVerticalSlideState(prevVerticalSlideStates);
+                break;
         }
     }
     private void profileRetractionSpeed(){
