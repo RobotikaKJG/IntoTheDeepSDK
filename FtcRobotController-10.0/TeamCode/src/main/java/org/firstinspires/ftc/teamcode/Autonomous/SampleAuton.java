@@ -35,7 +35,7 @@ public class SampleAuton implements Auton {
     private long samplePickupWaitStartTime = -1;
     private boolean rotateCommandIssued = false;
     private IntakeMotorLogic intakeMotorLogic;
-    private static double subPathYcoordinate = -8;
+    private static double subPathYcoordinate = -2;
     private static Pose2d fifthIntakePose = new Pose2d(-30, subPathYcoordinate, Math.toRadians(0));
     TrajectorySequence fiveSampleIntakePath;
 //    private ElapsedTime time = new ElapsedTime();
@@ -307,12 +307,8 @@ public class SampleAuton implements Auton {
             // Waited long enough?
             if (getSeconds() - retractWaitStartTime >= 1.5 && !rotateCommandIssued) {
                 // Rotate and try to eject sample
-                IntakeStates.setMotorState(IntakeMotorStates.backward);
-                OuttakeStates.setSampleLockState(SampleLockStates.open);
                 drive.turn(Math.toRadians(30)); // rotate 30 degrees
                 rotateCommandIssued = true;
-                IntakeStates.setMotorState(IntakeMotorStates.forward);
-                OuttakeStates.setSampleLockState(SampleLockStates.closed);
             }
             return false; // Still waiting
         }

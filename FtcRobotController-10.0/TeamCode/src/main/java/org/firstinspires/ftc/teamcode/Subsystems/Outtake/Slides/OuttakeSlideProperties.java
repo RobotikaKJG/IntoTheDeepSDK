@@ -27,7 +27,7 @@ public class OuttakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideExtensionStep() {
-        return 10;
+        return 20;
     }
 
     @Override
