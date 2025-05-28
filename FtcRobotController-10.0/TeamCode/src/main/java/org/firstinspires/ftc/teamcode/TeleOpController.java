@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 @TeleOp
@@ -18,12 +17,9 @@ public class TeleOpController extends LinearOpMode {
     public static boolean wasDown = false;
     public static boolean sample = false;
 
-    private SampleMecanumDrive driveBase;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // Initialize the SampleMecanumDrive (RoadRunner Drive)
-        driveBase = new SampleMecanumDrive(hardwareMap);
 
         // Optional: Initialize other necessary controllers
         GoBildaPinpointDriver pinpointDriver = hardwareMap.get(GoBildaPinpointDriver.class, "pinpointIMU");
@@ -74,32 +70,9 @@ public class TeleOpController extends LinearOpMode {
                 armExtentionController.angleIncrement = 6;
             }
 
-            // Handle motion profiling
-            Pose2d currentPose = driveBase.getPoseEstimate();
-
             double drivePower = -gamepad1.left_stick_y; // Forward/Backward
             double strafePower = -gamepad1.left_stick_x; // Strafing
             double turnPower = -gamepad1.right_stick_x; // Rotation
-
-            if (Math.abs(drivePower) > 0.1 || Math.abs(strafePower) > 0.1 || Math.abs(turnPower) > 0.1) {
-                // Calculate the target pose
-                Pose2d targetPose = new Pose2d(
-                        currentPose.getX() + drivePower * 10,  // Adjust distance factor
-                        currentPose.getY() + strafePower * 10,
-                        currentPose.getHeading() + turnPower * Math.toRadians(30)
-                );
-
-                // Create a trajectory to the target position
-                Trajectory trajectory = driveBase.trajectoryBuilder(currentPose)
-                        .lineToLinearHeading(targetPose)
-                        .build();
-
-                // Follow the trajectory
-                driveBase.followTrajectoryAsync(trajectory);
-            }
-
-            // Update Road Runner's pose estimation
-            driveBase.update();
 
             // Controller updates
             prevGamepad1.copy(currentGamepad1);
