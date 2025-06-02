@@ -5,18 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
+
 
 @TeleOp
 public class TeleOpController extends LinearOpMode {
-    private boolean longer = true;
-    private int sleep = 80;
     public static boolean isUp = false;
     public static boolean wasDown = false;
     public static boolean sample = false;
 
+    DcMotor frontLeftMotor;
+    DcMotor frontRightMotor;
+    DcMotor backLeftMotor;
+    DcMotor backRightMotor;
+
+    GoBildaPinpointDriver pinpointDriver;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,16 +31,16 @@ public class TeleOpController extends LinearOpMode {
         // Initialize other controllers here...
         EdgeDetection edgeDetection = new EdgeDetection();
         OuttakeController outtakeController = new OuttakeController(edgeDetection, hardwareMap);
-        IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap, outtakeController);
-        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, intakeController, hardwareMap, outtakeController);
+        IntakeController intakeController = new IntakeController(edgeDetection, hardwareMap);
+//        ArmExtentionController armExtentionController = new ArmExtentionController(edgeDetection, intakeController, hardwareMap, outtakeController);
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
 
         // Define the motors
-        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
+        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRight");
+        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeft");
+        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRight");
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -54,20 +56,13 @@ public class TeleOpController extends LinearOpMode {
             // Update Pinpoint data
             pinpointDriver.update();
 
+            if (gamepad1.options) {
+                pinpointDriver.resetPosAndIMU();
+            }
+
             // Exit condition
             if (gamepad1.triangle) {
                 break;
-            }
-
-            // Toggle movement speed
-            if (edgeDetection.rising(GamepadIndexValues.share)) {
-                longer = !longer;
-            }
-            if (longer) {
-                Thread.sleep(sleep);
-                armExtentionController.angleIncrement = 30;
-            } else {
-                armExtentionController.angleIncrement = 6;
             }
 
             double drivePower = -gamepad1.left_stick_y; // Forward/Backward
@@ -79,22 +74,44 @@ public class TeleOpController extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             edgeDetection.refreshGamepadIndex(currentGamepad1, prevGamepad1);
 
-            armExtentionController.updateState();
+            double y = -gamepad1.left_stick_y; // Forward/backward
+            double x = gamepad1.left_stick_x;  // Strafe
+            double rx = gamepad1.right_stick_x; // Rotation
+
+            double botHeading = pinpointDriver.getHeading();
+
+            // Field-centric transformation
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+            rotX = rotX * 1.1; // Compensate for imperfect strafing
+
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
+
+            frontLeftMotor.setPower(frontLeftPower);
+            backLeftMotor.setPower(backLeftPower);
+            frontRightMotor.setPower(frontRightPower);
+            backRightMotor.setPower(backRightPower);
+
+//            armExtentionController.updateState();
             intakeController.updateState();
             outtakeController.updateState();
 
-            isUp = intakeController.isUp;
-            wasDown = intakeController.wasDown;
-            sample = intakeController.sample;
+//            isUp = intakeController.isUp;
+//            wasDown = intakeController.wasDown;
+//            sample = intakeController.sample;
 
             // Print out loop time
             double loopTime = (System.nanoTime() - startStopwatch) / 1000000;
-            if (longer) telemetry.addData("Loop time;", loopTime - sleep);
-            else telemetry.addData("Loop time:", loopTime);
 
             telemetry.addData("Yaw (Degrees)", Math.toDegrees(pinpointDriver.getHeading()));
             telemetry.update();
         }
 
     }
+
 }
