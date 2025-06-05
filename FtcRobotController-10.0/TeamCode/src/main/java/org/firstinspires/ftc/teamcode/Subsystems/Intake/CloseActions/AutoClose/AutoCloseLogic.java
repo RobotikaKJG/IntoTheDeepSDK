@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
-import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
@@ -57,9 +53,9 @@ public class AutoCloseLogic {
         if(currentWait > getSeconds()) return;
 //        if(!isSampleDetected()) return;
         if(GlobalVariables.isAutonomous)
-            addWaitTime(IntakeConstants.intakePushoutTime);
+            addWaitTime(IntakeConstants.intakeAutonomousPushoutTime);
         else
-            addWaitTime(IntakeConstants.intakePushoutAutoTime);
+            addWaitTime(IntakeConstants.intakePushoutTime);
         //if(GlobalVariables.isAutonomous)
         //    IntakeStates.setAutoCloseStates(AutoCloseStates.waitForCommand);
         //else

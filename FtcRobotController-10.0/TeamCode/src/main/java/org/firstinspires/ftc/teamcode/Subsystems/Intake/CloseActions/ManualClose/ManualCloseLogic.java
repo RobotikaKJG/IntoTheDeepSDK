@@ -30,7 +30,7 @@ public class ManualCloseLogic {
     }
 
     private void activate() {
-        addWaitTime(IntakeConstants.intakePushoutTime);
+        addWaitTime(IntakeConstants.intakeAutonomousPushoutTime);
         IntakeStates.setManualCloseStates(ManualCloseStates.close);
     }
 
