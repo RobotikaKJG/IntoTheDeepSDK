@@ -10,16 +10,21 @@ import java.util.List;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Point;
-class BlueTrackingPipeline extends OpenCvPipeline {
+class BlueDetectionPipeline extends OpenCvPipeline {
     private volatile double objectX = -1;
+    private volatile double objectY = -1;
     private final int frameWidth;
 
-    public BlueTrackingPipeline(int frameWidth) {
+    public BlueDetectionPipeline(int frameWidth) {
         this.frameWidth = frameWidth;
     }
 
     public double getObjectX() {
         return objectX;
+    }
+
+    public double getObjectY() {
+        return  objectY;
     }
 
     @Override
@@ -39,19 +44,22 @@ class BlueTrackingPipeline extends OpenCvPipeline {
 
         double maxArea = 0;
         objectX = -1;  // Default: not found
+        objectY = -1;
 
         for (MatOfPoint contour : contours) {
             double area = Imgproc.contourArea(contour);
             if (area > 500) {
                 Rect boundingRect = Imgproc.boundingRect(contour);
-                double cy = boundingRect.y + boundingRect.width / 2.0;
+                double cy = boundingRect.y + boundingRect.height / 2.0;
+                double cx = boundingRect.x + boundingRect.width / 2.0;
 
                 if (area > maxArea) {
                     maxArea = area;
-                    objectX = cy;
+                    objectX = cx;
+                    objectY = cy;
 
                     // Draw a dot for debugging
-                    Point center = new Point(cy, boundingRect.y + boundingRect.height / 2.0);
+                    Point center = new Point(cx, cy);
                     Imgproc.circle(input, center, 5, new Scalar(255, 0, 0), -1);
                 }
             }
