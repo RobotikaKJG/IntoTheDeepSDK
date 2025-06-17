@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 @TeleOp
 public class WebcamXAutoAlignIMU extends LinearOpMode {
     OpenCvWebcam webcam;
-    BlueDetectionPipeline pipeline;
+    ColorDetectionPipeline pipeline;
 
     DcMotor frontLeft, frontRight, backLeft, backRight;
     GoBildaPinpointDriver pinpointDriver;
@@ -51,7 +51,8 @@ public class WebcamXAutoAlignIMU extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance()
                 .createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        pipeline = new BlueDetectionPipeline(320);
+        pipeline = new ColorDetectionPipeline(320);
+        pipeline.setTargetColor(ColorDetectionPipeline.TargetColor.RED);
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {

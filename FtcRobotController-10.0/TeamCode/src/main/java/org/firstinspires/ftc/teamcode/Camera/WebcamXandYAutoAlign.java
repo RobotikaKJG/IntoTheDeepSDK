@@ -20,7 +20,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 @TeleOp
 public class WebcamXandYAutoAlign extends LinearOpMode {
     OpenCvWebcam webcam;
-    BlueDetectionPipeline pipeline;
+    ColorDetectionPipeline pipeline;
 
     Gamepad currentGamepad1 = new Gamepad();
     Gamepad prevGamepad1 = new Gamepad();
@@ -36,6 +36,9 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
     double headingLock = 0;
     final double kHeading = 0.25;
     double headingError = 0;
+
+    // test variables
+    int color = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -58,7 +61,8 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance()
                 .createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        pipeline = new BlueDetectionPipeline(320);
+        pipeline = new ColorDetectionPipeline(320);
+        pipeline.setTargetColor(ColorDetectionPipeline.TargetColor.RED);
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -93,6 +97,19 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
                 track = !track;
                 if (track) {
                     headingLock = pinpointDriver.getHeading(); // lock heading when tracking starts
+                }
+            }
+
+            if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
+                if (color == 0) {
+                    color += 1;
+                    pipeline.setTargetColor(ColorDetectionPipeline.TargetColor.RED);
+                } else if (color == 1) {
+                    color += 1;
+                    pipeline.setTargetColor(ColorDetectionPipeline.TargetColor.BLUE);
+                } else if (color == 2) {
+                    color = 0;
+                    pipeline.setTargetColor(ColorDetectionPipeline.TargetColor.YELLOW);
                 }
             }
 
