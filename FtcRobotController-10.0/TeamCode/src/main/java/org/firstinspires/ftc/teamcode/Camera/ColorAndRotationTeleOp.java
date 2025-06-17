@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
-
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.EdgeDetection;
@@ -18,7 +18,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 @TeleOp
-public class WebcamXandYAutoAlign extends LinearOpMode {
+public class ColorAndRotationTeleOp extends LinearOpMode {
     OpenCvWebcam webcam;
     ColorAndRotationPipeline pipeline;
 
@@ -27,26 +27,26 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
 
     DcMotor frontLeft, frontRight, backLeft, backRight;
     GoBildaPinpointDriver pinpointDriver;
+    Servo rotateServo;
 
     final double centerY = 120;
     final double centerX = 160;
-    final double kp = 0.002; // Tune this!
-    final double tolerance = 5; // Pixels
+    final double kp = 0.002;
+    final double tolerance = 5;
     private boolean track = false;
     double headingLock = 0;
     final double kHeading = 0.25;
     double headingError = 0;
 
-    // test variables
     int color = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // Initialize motors
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backLeft = hardwareMap.dcMotor.get("backLeft");
         backRight = hardwareMap.dcMotor.get("backRight");
+        rotateServo = hardwareMap.servo.get("rotateServo");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,7 +55,6 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
         pinpointDriver.initialize();
         pinpointDriver.resetPosAndIMU();
 
-        // Setup webcam
         int cameraMonitorViewId = hardwareMap.appContext
                 .getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance()
@@ -79,8 +78,6 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
         });
 
         EdgeDetection edgeDetection = new EdgeDetection();
-        Gamepad current = new Gamepad();
-        Gamepad previous = new Gamepad();
 
         waitForStart();
 
@@ -95,42 +92,35 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
 
             if (edgeDetection.rising(GamepadIndexValues.circle)) {
                 track = !track;
-                if (track) {
-                    headingLock = pinpointDriver.getHeading(); // lock heading when tracking starts
-                }
+                if (track) headingLock = pinpointDriver.getHeading();
             }
 
             if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
-                if (color == 0) {
-                    color += 1;
-                    pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.RED);
-                } else if (color == 1) {
-                    color += 1;
-                    pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.BLUE);
-                } else if (color == 2) {
-                    color = 0;
-                    pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.YELLOW);
+                color = (color + 1) % 3;
+                switch (color) {
+                    case 0: pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.RED); break;
+                    case 1: pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.BLUE); break;
+                    case 2: pipeline.setTargetColor(ColorAndRotationPipeline.TargetColor.YELLOW); break;
                 }
             }
 
-            double objectX = pipeline.getObjectX(); // left-right on screen
-            double objectY = pipeline.getObjectY(); // top-bottom on screen
+            double objectX = pipeline.getObjectX();
+            double objectY = pipeline.getObjectY();
+            int angle = pipeline.getRotationAngle();
 
-            double strafe = 0; // X axis correction
-            double forward = 0; // Y axis correction
+            double strafe = 0, forward = 0;
+            double rx = gamepad1.right_stick_x;
 
-            // Auto-centering logic (when tracking is enabled)
             if (track) {
+                // turn servo to match the rotation of the sample
+                double servoPosition = 1.0 - (angle / 270.0);
+                rotateServo.setPosition(Math.max(0.0, Math.min(1.0, servoPosition)));
+
                 double currentHeading = pinpointDriver.getHeading();
-                headingError = currentHeading - headingLock;
-                headingError = Math.atan2(Math.sin(headingError), Math.cos(headingError)); // normalize
+                headingError = Math.atan2(Math.sin(currentHeading - headingLock), Math.cos(currentHeading - headingLock));
 
-                double rx = gamepad1.right_stick_x;
-                if (Math.abs(rx) < 0.05) {
-                    rx += kHeading * headingError;
-                }
+                if (Math.abs(rx) < 0.05) rx += kHeading * headingError;
 
-                // X (strafe) correction
                 if (objectX != -1) {
                     double errorX = objectX - centerX;
                     if (Math.abs(errorX) > tolerance) {
@@ -139,7 +129,6 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
                     }
                 }
 
-                // Y (forward) correction
                 if (objectY != -1) {
                     double errorY = objectY - centerY;
                     if (Math.abs(errorY) > tolerance) {
@@ -147,24 +136,12 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
                         strafe = Math.max(Math.min(strafe, 0.4), -0.4);
                     }
                 }
-
-                // Apply movement
-                double fl = forward + strafe + rx;
-                double bl = forward - strafe + rx;
-                double fr = forward - strafe - rx;
-                double br = forward + strafe - rx;
-
-                double max = Math.max(1.0, Math.max(Math.abs(fl), Math.max(Math.abs(bl), Math.max(Math.abs(fr), Math.abs(br)))));
-                frontLeft.setPower(fl / max);
-                backLeft.setPower(bl / max);
-                frontRight.setPower(fr / max);
-                backRight.setPower(br / max);
             } else {
-                // Manual driver-oriented control using pinpoint IMU
+                rotateServo.setPosition(0.7);
                 double stickY = -gamepad1.left_stick_y;
                 double stickX = gamepad1.left_stick_x;
 
-                double heading = -pinpointDriver.getHeading(); // negative for correct field rotation
+                double heading = -pinpointDriver.getHeading();
                 double rotatedX = stickX * Math.cos(heading) - stickY * Math.sin(heading);
                 double rotatedY = stickX * Math.sin(heading) + stickY * Math.cos(heading);
 
@@ -172,9 +149,6 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
                 strafe = rotatedX;
             }
 
-            double rx = gamepad1.right_stick_x; // rotation
-
-            // Apply movement
             double fl = forward + strafe + rx;
             double bl = forward - strafe + rx;
             double fr = forward - strafe - rx;
@@ -186,13 +160,12 @@ public class WebcamXandYAutoAlign extends LinearOpMode {
             frontRight.setPower(fr / max);
             backRight.setPower(br / max);
 
-            telemetry.addData("Tracking", track ? "ON" : "OFF");
+            telemetry.addData("Tracking", track);
             telemetry.addData("Strafe Power", strafe);
             telemetry.addData("Forward Power", forward);
-            telemetry.addData("Heading (°)", Math.toDegrees(pinpointDriver.getHeading()));
-            telemetry.addData("Heading Error", headingError);
+            telemetry.addData("Rotation Angle", angle);
+            telemetry.addData("Servo Pos", rotateServo.getPosition());
             telemetry.update();
         }
-
     }
 }
