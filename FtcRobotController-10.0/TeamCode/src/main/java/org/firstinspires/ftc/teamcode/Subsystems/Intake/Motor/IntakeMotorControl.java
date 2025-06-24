@@ -47,13 +47,13 @@ public class IntakeMotorControl {
                 case forward:
                     IntakeConstants.setIntakeSpeed(0.8);
                     motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.getIntakeSpeed());
-                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    motorControl.setMotorSpeed(MotorConstants.extendo, 0.8);
+//                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                    motorControl.setMotorSpeed(MotorConstants.extendo, 0.8);
                     break;
                 case backward:
                     motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.getIntakeSpeed());
-                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    motorControl.setMotorSpeed(MotorConstants.extendo, -0.8);
+//                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                    motorControl.setMotorSpeed(MotorConstants.extendo, -0.8);
                     break;
                 case idle:
                 case idleWasForward:
