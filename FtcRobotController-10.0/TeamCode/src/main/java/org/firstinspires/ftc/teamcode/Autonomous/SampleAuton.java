@@ -89,7 +89,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case waitForFlipSecondSample:
-                if (!waitForFlipThen(SampleAutonState.releaseSecondSample,0.7)) return; //DO NOT REDUCE FURTHER (0.475-0.55 for catapult)
+                if (!waitForFlipThen(SampleAutonState.releaseSecondSample,0.8)) return; //DO NOT REDUCE FURTHER (0.475-0.55 for catapult)
                 break;
 
             case releaseSecondSample:

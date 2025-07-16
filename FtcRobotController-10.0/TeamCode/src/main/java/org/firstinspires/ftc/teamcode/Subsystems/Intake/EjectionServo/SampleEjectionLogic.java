@@ -27,7 +27,7 @@ public class SampleEjectionLogic {
         if(!ejectionServoClosed() && shouldClose())
         {
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
-            addWaitTime(2);
+            addWaitTime(1);
         }
 
         if(correctColor())
@@ -36,7 +36,7 @@ public class SampleEjectionLogic {
 
     private boolean shouldOpen() {
         if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed() && getSeconds() > currentWait) {
-            addWaitTime(0.4);
+            addWaitTime(0.3);
             return  true;
         }
         return false;

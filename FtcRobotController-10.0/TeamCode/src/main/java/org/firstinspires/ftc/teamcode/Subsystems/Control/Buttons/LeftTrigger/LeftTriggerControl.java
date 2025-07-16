@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -14,9 +15,6 @@ public class LeftTriggerControl {
 
     public void update() {
         switch(ButtonStates.getLeftTriggerState()){
-            case activateIntakeMotor:
-                activateIntakeMotor();
-                break;
             case toggleIntakeMotor:
                 toggleIntakeMotor();
                 break;
@@ -28,21 +26,18 @@ public class LeftTriggerControl {
         }
     }
 
-    private void activateIntakeMotor() {
-        IntakeStates.setMotorState(IntakeMotorStates.forward);
-        IntakeStates.setIntakeState(SubsystemState.Run);
-    }
-
     private void toggleIntakeMotor() {
         switch(IntakeStates.getMotorState()){
             case forward:
                 IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
+//                IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor); // REMOVE LATER, NOTE
                 break;
             case backward:
                 IntakeStates.setMotorState(IntakeMotorStates.idleWasBackward);
                 break;
             case idleWasForward:
                 IntakeStates.setMotorState(IntakeMotorStates.forward);
+//                IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor); // REMOVE LATER, NOTE
                 break;
             case idleWasBackward:
                 IntakeStates.setMotorState(IntakeMotorStates.backward);
