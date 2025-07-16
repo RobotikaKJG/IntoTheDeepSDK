@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
@@ -45,9 +47,13 @@ public class IntakeMotorControl {
                 case forward:
                     IntakeConstants.setIntakeSpeed(0.8);
                     motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.getIntakeSpeed());
+//                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                    motorControl.setMotorSpeed(MotorConstants.extendo, 0.8);
                     break;
                 case backward:
                     motorControl.setMotorSpeed(MotorConstants.intake, -IntakeConstants.getIntakeSpeed());
+//                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                    motorControl.setMotorSpeed(MotorConstants.extendo, -0.8);
                     break;
                 case idle:
                 case idleWasForward:
