@@ -5,14 +5,11 @@ import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 
 public class OuttakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = 1;
-    private double getSlideMaxSpeed() {
-        return GlobalVariables.slowMode ? slideMaxSpeed / 2 : slideMaxSpeed;
-    }
+    private double slideMaxSpeed = 0.5;
 
     @Override
     public int getSlideMaxExtension() {
-        return 720;
+        return 2100;
     }
 
     @Override
@@ -22,12 +19,12 @@ public class OuttakeSlideProperties implements SlideProperties {
 
     @Override
     public double getSlideMovementMaxSpeed() {
-        return getSlideMaxSpeed();
+        return slideMaxSpeed;
     }
 
     @Override
     public int getSlideExtensionStep() {
-        return 20;
+        return 100;
     }
 
     @Override

@@ -4,6 +4,9 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+
 import java.util.List;
 
 
@@ -34,6 +37,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             iterativeController.TeleOp();
+
+            telemetry.addData("Angle", OuttakeStates.getPivotState());
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

@@ -25,9 +25,9 @@ public class LimitSwitchTest extends LinearOpMode {
 
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
-            telemetry.addData("LeftSlide", sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
-            telemetry.addData("RightSlide", sensorControl.isLimitSwitchPressed(LimitSwitches.slideRight));
-            telemetry.addData("Extendo", sensorControl.isLimitSwitchPressed(LimitSwitches.extendo));
+//            telemetry.addData("LeftSlide", sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
+//            telemetry.addData("RightSlide", sensorControl.isLimitSwitchPressed(LimitSwitches.slideRight));
+//            telemetry.addData("Extendo", sensorControl.isLimitSwitchPressed(LimitSwitches.extendo));
             telemetry.addData("Test", limitSwitch.getValue());
 
             telemetry.update();

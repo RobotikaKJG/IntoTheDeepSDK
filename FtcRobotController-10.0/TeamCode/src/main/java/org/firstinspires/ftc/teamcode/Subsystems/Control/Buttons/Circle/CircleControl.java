@@ -1,21 +1,21 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class CircleControl {
     public void update() {
         switch (ButtonStates.getCircleState()) {
-            case dropSample:
-                dropSample();
+            case stepDown:
+                stepDown();
                 break;
             case idle:
                 break;
         }
     }
-
-    private void dropSample() {
-        OuttakeStates.setDropSampleState(DropSampleStates.activate);
+    private void stepDown() {
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.stepDown);
+        return;
     }
 }

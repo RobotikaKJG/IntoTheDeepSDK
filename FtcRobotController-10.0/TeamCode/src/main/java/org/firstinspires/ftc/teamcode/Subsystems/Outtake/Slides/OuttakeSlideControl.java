@@ -67,12 +67,12 @@ public class OuttakeSlideControl implements SlideControl {
     }
 
     private boolean retractSlide(int slide, LimitSwitches limitSwitch) {
-        if(sensorControl.isLimitSwitchPressed(limitSwitch)){//||motorControl.isOverCurrent(MotorConstants.extendo)) {
-            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motorControl.setMotorSpeed(slide, 0);
-            motorControl.setMotors(slide);
-            return true;
-        }
+//        if(sensorControl.isLimitSwitchPressed(limitSwitch)){//||motorControl.isOverCurrent(MotorConstants.extendo)) {
+//            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            motorControl.setMotorSpeed(slide, 0);
+//            motorControl.setMotors(slide);
+//            return true;
+//        }
 
         if(currentPosition > OuttakeConstants.limitSwitchThreshold)
             return false;
