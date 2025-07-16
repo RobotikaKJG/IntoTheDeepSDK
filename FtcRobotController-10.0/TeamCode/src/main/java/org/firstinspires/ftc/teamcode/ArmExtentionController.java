@@ -2,22 +2,20 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import java.lang.Math;
 
 public class ArmExtentionController implements RobotSubsystemController {
     private final EdgeDetection edgeDetection;
     private final HardwareMap hardwareMap;
-    private final MotorControl motorMotorControl;
+    private final MotorControl rightMotorControl;
+    private final MotorControl leftMotorControl;
     private SubsystemState intakeState = SubsystemState.Idle;
-    private double voltageStep = 0.01;  // Increment step
-    private double maxVoltage = 1.0;    // Maximum motor power
-    private double minVoltage = 0.0;    // Minimum motor power
-    public double voltage = 0.0;
+    public int angle = 0;
 
     public ArmExtentionController(EdgeDetection edgeDetection, HardwareMap hardwareMap) {
         this.edgeDetection = edgeDetection;
         this.hardwareMap = hardwareMap;
-        this.motorMotorControl = new MotorControl(hardwareMap, "Motor", true);
+        this.rightMotorControl = new MotorControl(hardwareMap, "rightMotor", true);
+        this.leftMotorControl = new MotorControl(hardwareMap, "leftMotor", false);
     }
 
     @Override
@@ -45,30 +43,23 @@ public class ArmExtentionController implements RobotSubsystemController {
     }
 
     public void run() {
-        // Check button presses using edge detection
-        if (edgeDetection.rising(GamepadIndexValues.dpadUp)) {
-            voltage = Math.min(voltage + voltageStep, maxVoltage);
-        }
-        if (edgeDetection.rising(GamepadIndexValues.dpadDown)) {
-            voltage = Math.max(voltage - voltageStep, minVoltage);
+        if (edgeDetection.rising(GamepadIndexValues.square)) {
+            rightMotorControl.runToAngle(710, 0.4, 1140, 1, DcMotorSimple.Direction.REVERSE);
+            leftMotorControl.runToAngle(710, 0.4, 1140, 1, DcMotorSimple.Direction.FORWARD);
+            angle = 500;
+            // 2250 ticks for the slides
         }
 
-        // Apply the voltage to the motor
-        motorMotorControl.setMotorPower(voltage);
+        if (edgeDetection.rising(GamepadIndexValues.cross)) {
+            rightMotorControl.addMotorAngle(5, 1, 1140, 1);
+            leftMotorControl.addMotorAngle(5, 1, 1140, 1);
+            angle += 5;
+        }
 
         // Stop when pressing circle
         if (edgeDetection.rising(GamepadIndexValues.circle)) {
             intakeState = SubsystemState.Stop;
         }
-    }
-
-    // Getter methods for telemetry in TeleOpController
-    public int getMotorPosition() {
-        return motorMotorControl.getMotorCurrentPosition();
-    }
-
-    public boolean isMotorBusy() {
-        return motorMotorControl.isMotorBusy();
     }
 
     @Override
@@ -81,5 +72,16 @@ public class ArmExtentionController implements RobotSubsystemController {
         if (edgeDetection.rising(GamepadIndexValues.circle)) {
             intakeState = SubsystemState.Start;
         }
+    }
+
+
+
+    // Getter methods for telemetry in TeleOpController
+    public int getMotorPosition() {
+        return rightMotorControl.getMotorCurrentPosition();
+    }
+
+    public boolean isMotorBusy() {
+        return rightMotorControl.isMotorBusy();
     }
 }

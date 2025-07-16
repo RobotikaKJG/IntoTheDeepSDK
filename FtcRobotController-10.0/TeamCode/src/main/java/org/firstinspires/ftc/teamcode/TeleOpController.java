@@ -52,12 +52,10 @@ public class TeleOpController extends LinearOpMode {
 
             armExtentionController.updateState();
 
-            // Print telemetry in TeleOpController
-            telemetry.addData("Motor Voltage", armExtentionController.voltage);
-
             // 312rpm = 0.04
             // 435rpm = 0.03
 
+            telemetry.addData("Angle", armExtentionController.angle);
             telemetry.addData("Motor Position", armExtentionController.getMotorPosition());
             telemetry.addData("Motor Busy", armExtentionController.isMotorBusy());
             telemetry.update();
