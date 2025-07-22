@@ -46,7 +46,7 @@ public class SampleAuton implements Auton {
         drive.setPoseEstimate(trajectories.getStartPose());
         drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
 
-        extendOuttakeAndIntakeAndFlipArm();
+        extendOuttakeAndIntakeAndFlipArm(1); //MOST LIKELY TOO LONG, NOTE
         setSampleClawState(SampleClawStates.closed);
         sampleAutonState = SampleAutonState.waitForFlip;
     }
@@ -96,7 +96,7 @@ public class SampleAuton implements Auton {
                 if (!waitThenRelease(SampleAutonState.thirdSampleIntakePath)) return;
                 break;
 
-            case thirdSampleIntakePath:
+            case thirdSampleIntakePath: //START MOVING EARLIER, NOTE
                 if (!startTrajectoryAndContinue(trajectories.followThirdSampleIntakePath(), SampleAutonState.startIntakeForThirdSample)) return;
                 addWaitTime(0.4); // DO NOT REDUCE FURTHER
                 break;
@@ -349,7 +349,7 @@ public class SampleAuton implements Auton {
 
     private boolean samplePickup(SampleAutonState next) {
         // If the drive is busy, reset the timer and exit.
-        if (drive.isBusy()) {
+        if (drive.isBusy()) { // This probably slows second sample, NOTE
             samplePickupWaitStartTime = -1;
             return false;
         }
@@ -431,7 +431,7 @@ public class SampleAuton implements Auton {
             Thread.currentThread().interrupt();
         }
 
-        extendOuttakeAndIntakeAndFlipArm();
+        extendOuttakeAndIntakeAndFlipArm(1); // MAY NEED TO BE CHANGED, NOTE
         sampleAutonState = next;
         return true;
     }

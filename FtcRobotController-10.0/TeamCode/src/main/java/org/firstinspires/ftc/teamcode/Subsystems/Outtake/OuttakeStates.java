@@ -138,7 +138,7 @@ public class OuttakeStates {
 
 
     // Execute outtake extension and arm flip in parallel
-    public static void extendOuttakeAndIntakeAndFlipArm() {
+    public static void extendOuttakeAndIntakeAndFlipArm(long waitTime) {
 
         setSampleClawState(SampleClawStates.closed);
 
@@ -150,7 +150,7 @@ public class OuttakeStates {
         // Step 2: Delay the intake & flip arm execution by 0.2s
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
+                Thread.sleep(waitTime * 1000);  //??? NOTE THIS IS DEFINITELY SLOWING EVERYTHING DOWN Wait 0.2 seconds before extending intake and flipping the arm
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
