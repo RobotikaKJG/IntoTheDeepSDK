@@ -84,7 +84,7 @@ public class IterativeController {
         if(!colorSensorActive)
             sensorControl.resetDistance();
 
-        if(sensorControl.getDistance() < 70)
+        if(sensorControl.getDistance() < 60)
             sensorControl.updateColor();
 
 

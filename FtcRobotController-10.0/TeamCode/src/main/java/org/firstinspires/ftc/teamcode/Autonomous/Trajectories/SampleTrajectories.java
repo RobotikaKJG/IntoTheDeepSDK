@@ -55,7 +55,7 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), 13.5)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-            .lineToLinearHeading(new Pose2d(-61.5, -51.5, Math.toRadians(83)))
+            .lineToLinearHeading(new Pose2d(-62, -52, Math.toRadians(83)))
 //            .waitSeconds(0.5)
             .build();
 

@@ -87,7 +87,7 @@ public class AutoCloseLogic {
     }
 
     private boolean isSampleDetected(){
-        if(sensorControl.getDistance() > 70)
+        if(sensorControl.getDistance() > 60) // add to constants, NOTE
             return false;
         return sensorControl.isYellow() || sensorControl.isAllianceColor();
     }
