@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 //import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
@@ -57,7 +56,7 @@ public class AutoCloseControl {
     private void checkColor() {
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
-            OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+            OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 
     private void secureGoodSample() {
@@ -81,13 +80,13 @@ public class AutoCloseControl {
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
 //        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
-        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+        OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
-            OuttakeStates.setSampleClawState(SampleClawStates.closed);
+            OuttakeStates.setClawState(ClawStates.closed);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
     }

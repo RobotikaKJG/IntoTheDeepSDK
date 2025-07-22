@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -35,13 +37,10 @@ public class LeftTriggerControl {
             IntakeStates.setPivotState(PivotStates.down);
         }
     }
+
     private void moveSlidesDown() {
-        switch(OuttakeStates.getVerticalSlideState()){
-            case lowBasket:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
-                break;
-            case highBasket:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowBasket);
-        }
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.close);
+        OuttakeStates.setArmState(ArmStates.down);
+        OuttakeStates.setPivotState(OuttakePivotStates.down);
     }
 }

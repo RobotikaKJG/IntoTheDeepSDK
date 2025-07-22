@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 
@@ -34,7 +34,7 @@ public class CircleLogic {
     }
 
     private boolean clawClosed() {
-        return OuttakeStates.getSampleClawState() == SampleClawStates.closed;
+        return OuttakeStates.getClawState() == ClawStates.closed;
     }
 
     private boolean sampleInIntake(){

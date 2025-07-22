@@ -44,14 +44,12 @@ public class SensorControl {
     private LimitSwitch[] getLimitSwitches(HardwareMap hardwareMap) {
         final LimitSwitch[] limitSwitches;
         limitSwitches = new LimitSwitch[]{
-                hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch"),
-                hardwareMap.get(LimitSwitch.class, "rightSlideLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "slideLimitSwitch"),
                 hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
         };
 
         limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
         limitSwitches[1].setMode(LimitSwitch.SwitchConfig.NC);
-        limitSwitches[2].setMode(LimitSwitch.SwitchConfig.NC);
         return limitSwitches;
     }
 
@@ -77,12 +75,10 @@ public class SensorControl {
 
     public boolean isLimitSwitchPressed(LimitSwitches state) {
         switch (state) {
-            case slideLeft:
+            case slide:
                 return limitSwitches[0].getIsPressed();
-            case slideRight:
-                return limitSwitches[1].getIsPressed();
             case extendo:
-                return limitSwitches[2].getIsPressed();
+                return limitSwitches[1].getIsPressed();
             default:
                 return false; // Or throw an exception
         }

@@ -4,10 +4,10 @@ public class OuttakeConstants {
     public static  double outtakeServoMaxPos = 0.805;//0.82;//0.88;//0.965;//+0.0?     // Taking position, starting position
     public static  double outtakeLeftServoSamplePos = 0.257;
     public static  double outtakeServoMinPos = 0.1;//0.065;//1675;//0.2;     // Placing position,
-    public static final double releaseServoMaxPos = 0.73;     // Maximum rotational position, claw open
+    public static final double releaseServoMaxPos = 0.3;     // Maximum rotational position, claw open
     public static final double releaseServoReleasePos = 0.68;     // used for upOpen
     public static final double releaseServoFreeMovePos = 0.55;     // Minimum rotational position, claw closed position
-    public static final double releaseServoMinPos = 0.50;     // Minimum rotational position, claw closed position
+    public static final double releaseServoMinPos = 0.1;     // Minimum rotational position, claw closed position
     public static final double outtakeArmWait = 0.6;
     public static final double outtakeArmCloseWait = 0.5;//0.65;
     public static final int lowBasketPos = 200;

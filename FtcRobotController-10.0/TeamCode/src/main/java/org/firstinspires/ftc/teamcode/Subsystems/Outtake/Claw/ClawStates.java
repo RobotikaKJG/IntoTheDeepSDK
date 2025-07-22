@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw;
 
-public enum SampleClawStates {
+public enum ClawStates {
     closed, //when sample is taken
     freeMove, // closed but sample can slide around
     halfOpen, //when releasing sample

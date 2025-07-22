@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -21,7 +22,8 @@ public class RightTriggerLogic {
 
 
     private boolean closeIntake() {
-        if(IntakeStates.getAutoCloseStates() != AutoCloseStates.waitForCommand) return false;
+        if(IntakeStates.getCloseStates() != CloseStates.waitForCommand ||
+                IntakeStates.getCloseStates() != CloseStates.checkColor) return false; //temporary?, NIGHTNOTE
 
         ButtonStates.setRightTriggerState(RightTriggerStates.closeIntake);
         completeAction();

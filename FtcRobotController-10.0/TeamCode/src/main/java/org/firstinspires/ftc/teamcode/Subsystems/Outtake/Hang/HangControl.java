@@ -53,7 +53,7 @@ public class HangControl {
                 break;
             case retracting:
                 // Command the slides to retract (target position set to 20).
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
+//                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
                 //IntakeStates.setExtendoState(ExtendoStates.hold);
                 break;
             default:

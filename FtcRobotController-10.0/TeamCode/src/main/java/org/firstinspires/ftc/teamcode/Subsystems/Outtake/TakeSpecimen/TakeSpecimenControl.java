@@ -21,7 +21,7 @@ public class TakeSpecimenControl {
                 OuttakeStates.setSpecimenClawState(SpecimenClawStates.closed);
                 break;
             case raiseClaw:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
+//                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
                 break;
             case idle:
                 break;

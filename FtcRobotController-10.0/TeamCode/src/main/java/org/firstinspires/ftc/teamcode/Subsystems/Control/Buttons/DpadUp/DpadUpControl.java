@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class DpadUpControl {
@@ -14,9 +14,9 @@ public class DpadUpControl {
             case toggleMotor:
                 toggleMotor();
                 break;
-            case slideStepUp:
-                slideStepUp();
-                break;
+//            case slideStepUp:
+//                slideStepUp();
+//                break;
             case idle:
                 break;
         }
@@ -39,9 +39,9 @@ public class DpadUpControl {
         }
     }
 
-    private void slideStepUp(){
-        if(OuttakeStates.getSampleClawState() == SampleClawStates.closed)
-            OuttakeStates.setSampleClawState(SampleClawStates.freeMove);
-        OuttakeStates.setVerticalSlideState(VerticalSlideStates.stepUp);
-    }
+//    private void slideStepUp(){
+//        if(OuttakeStates.getClawState() == ClawStates.closed)
+//            OuttakeStates.setClawState(ClawStates.freeMove);
+//        OuttakeStates.setVerticalSlideState(VerticalSlideStates.stepUp);
+//    }
 }

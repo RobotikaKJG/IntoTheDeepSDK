@@ -35,14 +35,14 @@ public class SpecimenReleaseButtonControl {
     }
 
     private void clipOn() {
-        switch (OuttakeStates.getVerticalSlideState()) {
-            case lowRung:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRungScore);
-                break;
-            case highRung:
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRungScore);
-                break;
-        }
+//        switch (OuttakeStates.getVerticalSlideState()) {
+//            case lowRung:
+//                OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRungScore);
+//                break;
+//            case highRung:
+//                OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRungScore);
+//                break;
+//        }
     }
 
     private void release() {

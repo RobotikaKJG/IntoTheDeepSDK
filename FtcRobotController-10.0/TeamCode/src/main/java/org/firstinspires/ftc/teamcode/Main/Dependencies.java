@@ -27,8 +27,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
@@ -141,7 +142,11 @@ public class Dependencies {
     public OuttakeControl createOuttakeControl() {
         return new OuttakeControl(createArmControl(), createSampleClawControl(),
                 createSpecimenClawControl(),createVerticalSlideControl(),
-                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic());
+                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic(), createOuttakePivotControl());
+    }
+
+    private OuttakePivotControl createOuttakePivotControl(){
+        return new OuttakePivotControl(servoControl);
     }
 
     private DropSampleLogic createDropSampleLogic() {
@@ -160,8 +165,8 @@ public class Dependencies {
         return new ArmControl(servoControl);
     }
 
-    private SampleClawControl createSampleClawControl() {
-        return new SampleClawControl(servoControl);
+    private ClawControl createSampleClawControl() {
+        return new ClawControl(servoControl);
     }
 
     private SpecimenClawControl createSpecimenClawControl() {

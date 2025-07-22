@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 
 @TeleOp
@@ -40,7 +39,7 @@ public class ManualSlideControl extends LinearOpMode {
             telemetry.addLine("Press square to extend, press circle to retract");
             telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
             telemetry.addData("Retracting", retracting);
-            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
+            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slide));
             telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.bothSlides));
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))

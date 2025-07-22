@@ -1,18 +1,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SpecimenTrajectories;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
@@ -87,7 +79,7 @@ public class SpecimenAuton implements Auton{
         if(!initialised)
         {
             OuttakeStates.setSpecimenReleaseButtonState(SpecimenReleaseButtonStates.clipOn);
-            OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+            OuttakeStates.setClawState(ClawStates.fullyOpen);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
             initialised = true;
         }

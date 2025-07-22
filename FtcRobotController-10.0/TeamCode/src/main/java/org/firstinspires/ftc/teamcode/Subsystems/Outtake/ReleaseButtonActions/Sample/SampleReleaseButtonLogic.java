@@ -40,8 +40,8 @@ public class SampleReleaseButtonLogic {
     }
 
     private void idle(){
-        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.highBasket)
-            OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
+//        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.highBasket)
+//            OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.flipArm);
     }
 
     private void flipArm() {
@@ -64,8 +64,8 @@ public class SampleReleaseButtonLogic {
 
     private void waitToRelease(){
         if(currentWait > getSeconds()) return;
-        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.lowBasket)
-            addWaitTime(OuttakeConstants.outtakeArmCloseWait);
+//        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.lowBasket)
+//            addWaitTime(OuttakeConstants.outtakeArmCloseWait);
         OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.retractArm);
     }
 

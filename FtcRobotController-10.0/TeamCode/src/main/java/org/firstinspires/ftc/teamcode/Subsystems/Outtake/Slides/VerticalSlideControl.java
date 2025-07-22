@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 
 public class VerticalSlideControl {
@@ -32,44 +33,16 @@ public class VerticalSlideControl {
         switch(OuttakeStates.getVerticalSlideState()){
             case close:
                 slideLogic.setMaxSpeed(0.8);
-                slideLogic.setSlideExtensionTarget(50);
+                slideLogic.setSlideExtensionTarget(20);
                 slideLogic.setMaxSpeed(0.8);
                 OuttakeStates.setArmState(ArmStates.down);
-
+                OuttakeStates.setPivotState(OuttakePivotStates.down);
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
-                break;
-            case dropSample:
-//                slideLogic.setSlideExtensionTarget(OuttakeConstants.dropSampleHeight);
-                break;
-            case lowBasket:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowBasketPos);
-                break;
-            case highBasket:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.highBasketPos);
-                break;
-            case lowRung:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowRungPos);
-                break;
-            case lowRungScore:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.lowRungScorePos);
                 break;
             case highRung:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungPos);
-                break;
-            case hang:
-                slideLogic.setMaxSpeed(1);
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.hangBar);
-                break;
-            case highRungScore:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungScorePos);
-                break;
-            case stepUp:
-                slideLogic.stepUp();
-                OuttakeStates.setVerticalSlideState(prevVerticalSlideStates);
-                break;
-            case stepDown:
-                slideLogic.stepDown();
-                OuttakeStates.setVerticalSlideState(prevVerticalSlideStates);
+                OuttakeStates.setArmState(ArmStates.up);
+                OuttakeStates.setPivotState(OuttakePivotStates.up);
                 break;
         }
     }

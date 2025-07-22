@@ -61,9 +61,7 @@ public class OuttakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        boolean leftDown = retractSlide(MotorConstants.slideLeft, LimitSwitches.slideLeft);
-        boolean rightDown = retractSlide(MotorConstants.slideRight, LimitSwitches.slideRight);
-        return (leftDown && rightDown);
+        return retractSlide(MotorConstants.bothSlides, LimitSwitches.slide);
     }
 
     private boolean retractSlide(int slide, LimitSwitches limitSwitch) {

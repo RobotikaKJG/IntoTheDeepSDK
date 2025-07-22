@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class CloseControl {
@@ -56,7 +56,7 @@ public class CloseControl {
     private void checkColor() {
         OuttakeStates.setSampleLockState(SampleLockStates.closed);
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
-            OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+            OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 
     private void secureGoodSample() {
@@ -71,6 +71,7 @@ public class CloseControl {
 
     private void pivot() {
         IntakeStates.setPivotState(PivotStates.up);
+        IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); //temporary? NIGHTNOTE
     }
 
     private static void waitToRetract() {
@@ -78,13 +79,13 @@ public class CloseControl {
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
 //        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
-        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+        OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
-            OuttakeStates.setSampleClawState(SampleClawStates.closed);
+            OuttakeStates.setClawState(ClawStates.closed);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
     }

@@ -1,14 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
@@ -17,14 +10,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenCl
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class OuttakeStates {
     private static SubsystemState outtakeState = SubsystemState.Idle;
     private static VerticalSlideStates verticalSlideStates = VerticalSlideStates.closed;
-    private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
+    private static ClawStates ClawState = ClawStates.fullyOpen;
     private static ArmStates armState = ArmStates.down;
     private static SampleReleaseButtonStates sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
     private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
@@ -33,20 +26,18 @@ public class OuttakeStates {
     private static SampleLockStates sampleLockState = SampleLockStates.closed;
     private static TakeSpecimenStates takeSpecimenStates = TakeSpecimenStates.idle;
     private static DropSampleStates dropSampleState = DropSampleStates.idle;
+    private static OuttakePivotStates outtakePivotStates = OuttakePivotStates.down;
 
-
-    // ExecutorService for Multithreading
-    private static final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public static void setInitialStates() {
         outtakeState = SubsystemState.Idle;
         verticalSlideStates = VerticalSlideStates.closed;
         if(GlobalVariables.isAutonomous) {
-            sampleClawState = SampleClawStates.closed;
+            ClawState = ClawStates.closed;
             sampleLockState = SampleLockStates.open;
         }
         else {
-            sampleClawState = SampleClawStates.fullyOpen;
+            ClawState = ClawStates.fullyOpen;
             sampleLockState = SampleLockStates.closed;
         }
         armState = ArmStates.down;
@@ -56,6 +47,7 @@ public class OuttakeStates {
         hangState = HangStates.retracted;
         takeSpecimenStates = TakeSpecimenStates.idle;
         dropSampleState = DropSampleStates.idle;
+        outtakePivotStates = OuttakePivotStates.down;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -74,12 +66,12 @@ public class OuttakeStates {
         verticalSlideStates = state;
     }
 
-    public static SampleClawStates getSampleClawState() {
-        return sampleClawState;
+    public static ClawStates getClawState() {
+        return ClawState;
     }
 
-    public static void setSampleClawState(SampleClawStates state) {
-        sampleClawState = state;
+    public static void setClawState(ClawStates state) {
+        ClawState = state;
     }
 
     public static ArmStates getArmState() {
@@ -137,52 +129,6 @@ public class OuttakeStates {
 
 
 
-    // Execute outtake extension and arm flip in parallel
-    public static void extendOuttakeAndIntakeAndFlipArm(long waitTime) {
-
-        setSampleClawState(SampleClawStates.closed);
-
-        // Step 1: Extend outtake slides immediately
-        CompletableFuture.runAsync(() -> {
-            setVerticalSlideState(VerticalSlideStates.highBasket);
-        }, executor);
-
-        // Step 2: Delay the intake & flip arm execution by 0.2s
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(waitTime * 1000);  //??? NOTE THIS IS DEFINITELY SLOWING EVERYTHING DOWN Wait 0.2 seconds before extending intake and flipping the arm
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            setArmState(ArmStates.up);
-            IntakeStates.setExtendoState(ExtendoStates.sampleExtend);
-        }, executor);
-    }
-
-
-    public static void extendOuttakeAndFlipArm() {
-//        // Step 1: Extend outtake slides immediately
-//        CompletableFuture.runAsync(() -> {
-//            setVerticalSlideState(VerticalSlideStates.highBasket);
-//        }, executor);
-//
-//        // Step 2: Delay the intake & flip arm execution by 0.2s
-//        CompletableFuture.runAsync(() -> {
-//            try {
-//                Thread.sleep(1000);  // Wait 0.2 seconds before extending intake and flipping the arm
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//            setArmState(ArmStates.up);
-//        }, executor);
-        setVerticalSlideState(VerticalSlideStates.highBasket);
-        setArmState(ArmStates.up);
-    }
-
-    // ✅ Shutdown executor when not needed
-    public static void shutdownExecutor() {
-        executor.shutdown();
-    }
 
     public static TakeSpecimenStates getTakeSpecimenStates() {
         return takeSpecimenStates;
@@ -198,5 +144,14 @@ public class OuttakeStates {
 
     public static void setDropSampleState(DropSampleStates state) {
         dropSampleState = state;
+    }
+
+
+    public static OuttakePivotStates getPivotState() {
+        return outtakePivotStates;
+    }
+
+    public static void setPivotState(OuttakePivotStates state) {
+        outtakePivotStates = state;
     }
 }

@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecim
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
@@ -23,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideSta
 
 public class OuttakeControl {
     private final ArmControl armControl;
-    private final SampleClawControl sampleClawControl;
+    private final ClawControl clawControl;
     private final SpecimenClawControl specimenClawControl;
     private final VerticalSlideControl verticalSlideControl;
     private final SampleReleaseButtonLogic sampleReleaseButtonLogic = new SampleReleaseButtonLogic();
@@ -35,22 +36,25 @@ public class OuttakeControl {
     private final DropSampleControl dropSampleControl = new DropSampleControl();
     private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
     private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
+    private final OuttakePivotControl outtakePivotControl;
 
 
-    public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
-                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl, DropSampleLogic dropSampleLogic) {
+    public OuttakeControl(ArmControl armControl, ClawControl clawControl, SpecimenClawControl specimenClawControl,
+                          VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl,
+                          DropSampleLogic dropSampleLogic, OuttakePivotControl outtakePivotControl) {
         this.armControl = armControl;
-        this.sampleClawControl = sampleClawControl;
+        this.clawControl = clawControl;
         this.specimenClawControl = specimenClawControl;
         this.verticalSlideControl = verticalSlideControl;
         this.specimenReleaseButtonLogic = specimenReleaseButtonLogic;
         this.hangControl = hangControl;
         this.dropSampleLogic = dropSampleLogic;
+        this.outtakePivotControl = outtakePivotControl;
     }
 
     public void update() {
         armControl.update();
-        sampleClawControl.update();
+        clawControl.update();
         verticalSlideControl.update();
         sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
         sampleReleaseButtonLogic.update();
@@ -62,6 +66,7 @@ public class OuttakeControl {
         dropSampleLogic.update();
         takeSpecimenControl.update();
         takeSpecimenLogic.update();
+        outtakePivotControl.update();
 
 
         updateOuttakeState();

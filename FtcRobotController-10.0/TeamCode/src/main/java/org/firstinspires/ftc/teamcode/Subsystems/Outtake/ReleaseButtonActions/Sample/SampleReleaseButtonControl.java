@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
@@ -39,11 +39,11 @@ public class SampleReleaseButtonControl {
 
     private void flipArm() {
         OuttakeStates.setArmState(ArmStates.up);
-        OuttakeStates.setSampleClawState(SampleClawStates.closed);
+        OuttakeStates.setClawState(ClawStates.closed);
     }
 
     private void releaseSample() {
-        OuttakeStates.setSampleClawState(SampleClawStates.halfOpen);
+        OuttakeStates.setClawState(ClawStates.halfOpen);
     }
 
     private void waitToRelease() {
@@ -51,7 +51,7 @@ public class SampleReleaseButtonControl {
     } //Bad names, NOTE
 
     private void openSampleClaw() {
-        OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
+        OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 
     private void retractSlides() {

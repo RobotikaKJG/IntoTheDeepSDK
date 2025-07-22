@@ -3,5 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 public enum LeftBumperStates {
     toggleIntakeMotorBackward,
     moveSlidesUp,
+    openClaw,
     idle
 }

@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp;
 
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -39,6 +38,6 @@ public class DpadUpLogic {
     }
 
     private boolean sampleTaken(){
-        return OuttakeStates.getSampleClawState() == SampleClawStates.closed || OuttakeStates.getSampleClawState() == SampleClawStates.freeMove;
+        return OuttakeStates.getClawState() == ClawStates.closed || OuttakeStates.getClawState() == ClawStates.freeMove;
     }
 }

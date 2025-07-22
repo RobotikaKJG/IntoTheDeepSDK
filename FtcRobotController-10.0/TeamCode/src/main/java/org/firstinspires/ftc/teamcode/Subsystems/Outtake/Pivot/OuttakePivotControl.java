@@ -1,27 +1,27 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm;
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
-public class ArmControl {
+public class OuttakePivotControl {
     private final ServoControl servoControl;
-    private ArmStates prevArmState;
+    private OuttakePivotStates prevPivotState;
 
-    public ArmControl(ServoControl servoControl) {
+    public OuttakePivotControl(ServoControl servoControl) {
         this.servoControl = servoControl;
     }
 
     public void update() {
-        if (prevArmState != OuttakeStates.getArmState()) {
+        if (prevPivotState != OuttakeStates.getPivotState()) {
             updateStates();
-            prevArmState = OuttakeStates.getArmState();
+            prevPivotState = OuttakeStates.getPivotState();
         }
     }
 
     private void updateStates() {
-        switch (OuttakeStates.getArmState()) {
+        switch (OuttakeStates.getPivotState()) {
             case up:
                 up();
                 break;
@@ -33,13 +33,13 @@ public class ArmControl {
 
 
     private void up() {
-        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeLeftServoSamplePos); //idk, NIGHTNOTE
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakeRightServoSamplePos);
     }
 
 
 
     private void down() {
-        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos); // idk, NIGHTNOTE
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMaxPos);
     }
 
 

@@ -4,9 +4,12 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
+
+import java.util.Objects;
 
 public class LeftBumperControl {
     public LeftBumperControl() {
@@ -19,6 +22,9 @@ public class LeftBumperControl {
                 break;
             case moveSlidesUp:
                 moveSlidesUp();
+                break;
+            case openClaw:
+                openClaw();
                 break;
             case idle:
                 break;
@@ -33,21 +39,10 @@ public class LeftBumperControl {
     }
 
     private void moveSlidesUp() {
-        if(OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed)
-            switch(OuttakeStates.getVerticalSlideState()) {
-                case closed:
-                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
-                    break;
-                case lowRung:
-                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
-                    break;
-            }
-        else
-            switch(OuttakeStates.getVerticalSlideState()){
-                case closed:
-                case lowBasket:
-                    OuttakeStates.setVerticalSlideState(VerticalSlideStates.highBasket);
-                    break;
-            }
+        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
+    }
+
+    private void openClaw() {
+        OuttakeStates.setClawState(ClawStates.fullyOpen);
     }
 }

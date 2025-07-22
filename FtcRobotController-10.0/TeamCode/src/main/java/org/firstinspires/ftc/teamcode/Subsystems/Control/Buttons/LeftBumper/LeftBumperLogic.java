@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -14,6 +15,7 @@ public class LeftBumperLogic {
     {
         if(toggleIntakeMotorBackward()) return;
         if(moveSlidesUp()) return;
+        if(releaseClaw()) return;
     }
 
     private void completeAction(){
@@ -29,15 +31,18 @@ public class LeftBumperLogic {
         return true;
     }
 
-    private boolean intakeActive(){
-        return IntakeStates.getIntakeState() != SubsystemState.Idle;
-    }
-
-
     private boolean moveSlidesUp() {
-        if(intakeActive()) return false;
+        if(intakeActive() || outtakeActive()) return false;
 
         ButtonStates.setLeftBumperState(LeftBumperStates.moveSlidesUp);
+        completeAction();
+        return true;
+    }
+
+    private boolean releaseClaw() {
+        if (!outtakeActive()) return false;
+
+        ButtonStates.setLeftBumperState(LeftBumperStates.openClaw);
         completeAction();
         return true;
     }
@@ -53,5 +58,9 @@ public class LeftBumperLogic {
 
     private boolean outtakeActive(){
         return OuttakeStates.getOuttakeState() != SubsystemState.Idle;
+    }
+
+    private boolean intakeActive(){
+        return IntakeStates.getIntakeState() != SubsystemState.Idle;
     }
 }
