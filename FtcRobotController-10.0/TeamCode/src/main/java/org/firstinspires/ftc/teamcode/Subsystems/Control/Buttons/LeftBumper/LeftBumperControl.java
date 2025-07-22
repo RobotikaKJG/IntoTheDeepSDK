@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
@@ -13,11 +14,8 @@ public class LeftBumperControl {
 
     public void update() {
         switch(ButtonStates.getLeftBumperState()){
-            case manualIntakeClose:
-                manualIntakeClose();
-                break;
-            case autoIntakeCloseConfirmation:
-                autoIntakeCloseConfirmation();
+            case toggleIntakeMotorBackward:
+                toggleIntakeMotorBackward();
                 break;
             case moveSlidesUp:
                 moveSlidesUp();
@@ -27,13 +25,11 @@ public class LeftBumperControl {
         }
     }
 
-    private void manualIntakeClose() {
-        //IntakeStates.setManualCloseStates(ManualCloseStates.activate);
-        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
-    }
-
-    private void autoIntakeCloseConfirmation() {
-        IntakeStates.setAutoCloseStates(AutoCloseStates.waitToRetract);
+    private void toggleIntakeMotorBackward() {
+        if(IntakeStates.getMotorState() == IntakeMotorStates.backward)
+            IntakeStates.setMotorState(IntakeMotorStates.idleWasBackward);
+        else
+            IntakeStates.setMotorState(IntakeMotorStates.backward);
     }
 
     private void moveSlidesUp() {

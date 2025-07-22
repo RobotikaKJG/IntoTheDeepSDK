@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -89,6 +90,7 @@ public class ExtendoControl {
         {
             IntakeStates.setExtendoState(ExtendoStates.extended);
             slideLogic.setSlideExtensionTarget(IntakeConstants.extendoMinExtension);
+            IntakeStates.setPivotState(PivotStates.overSub);
             return;
         }
         IntakeStates.setExtendoState(ExtendoStates.extended);

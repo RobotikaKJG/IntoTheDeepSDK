@@ -36,19 +36,19 @@ public class ArmControl {
 
 
     private void up() {
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoSamplePos);
-        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoSamplePos);
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakeRightServoSamplePos);
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeLeftServoSamplePos);
     }
 
 
 
     private void down() {
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
-        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMaxPos);
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos);
     }
 
     private void drop() {
-        servoControl.setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoSamplePos);
-        servoControl.setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoSamplePos);
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakeRightServoSamplePos);
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeLeftServoSamplePos);
     }
 }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -27,21 +28,11 @@ public class LeftTriggerControl {
     }
 
     private void toggleIntakeMotor() {
-        switch(IntakeStates.getMotorState()){
-            case forward:
-                IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
-//                IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor); // REMOVE LATER, NOTE
-                break;
-            case backward:
-                IntakeStates.setMotorState(IntakeMotorStates.idleWasBackward);
-                break;
-            case idleWasForward:
-                IntakeStates.setMotorState(IntakeMotorStates.forward);
-//                IntakeStates.setAutoCloseStates(AutoCloseStates.checkColor); // REMOVE LATER, NOTE
-                break;
-            case idleWasBackward:
-                IntakeStates.setMotorState(IntakeMotorStates.backward);
-                break;
+        if(IntakeStates.getMotorState() == IntakeMotorStates.forward)
+            IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
+        else {
+            IntakeStates.setMotorState(IntakeMotorStates.forward);
+            IntakeStates.setPivotState(PivotStates.down);
         }
     }
     private void moveSlidesDown() {

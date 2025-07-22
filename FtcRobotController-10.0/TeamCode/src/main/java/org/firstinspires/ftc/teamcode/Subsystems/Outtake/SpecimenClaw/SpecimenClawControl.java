@@ -23,10 +23,10 @@ public class SpecimenClawControl {
     private void updateStates() {
         switch (OuttakeStates.getSpecimenClawState()) {
             case closed:
-                servoControl.setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
+                servoControl.setServoPos(ServoConstants.intake, OuttakeConstants.specimenClawServoMaxPos);
                 break;
             case open:
-                servoControl.setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
+                servoControl.setServoPos(ServoConstants.intake, OuttakeConstants.specimenClawServoMinPos);
                 break;
         }
     }

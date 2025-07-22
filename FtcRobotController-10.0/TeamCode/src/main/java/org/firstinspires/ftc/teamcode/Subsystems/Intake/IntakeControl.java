@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjectionLogic;
@@ -18,34 +19,37 @@ public class IntakeControl {
     private final IntakeMotorControl intakeMotorControl;
     private final IntakeMotorLogic intakeMotorLogic;
     private final ExtendoControl extendoControl;
-    private final AutoCloseControl autoCloseControl;
+    private final CloseControl closeControl;
     private final ManualCloseControl manualCloseControl = new ManualCloseControl();
-    private final AutoCloseLogic autoCloseLogic;
+    private final CloseLogic closeLogic;
     private final EjectionServoControl ejectionServoControl;
     private final SampleEjectionLogic sampleEjectionLogic;
+    private final PivotControl pivotControl;
 
     public IntakeControl(IntakeMotorControl intakeMotorControl, IntakeMotorLogic intakeMotorLogic,
-                         ExtendoControl extendoControl, AutoCloseControl autoCloseControl,
-                         AutoCloseLogic autoCloseLogic, EjectionServoControl ejectionServoControl,
-                         SampleEjectionLogic sampleEjectionLogic) {
+                         ExtendoControl extendoControl, CloseControl closeControl,
+                         CloseLogic closeLogic, EjectionServoControl ejectionServoControl,
+                         SampleEjectionLogic sampleEjectionLogic, PivotControl pivotControl) {
         this.intakeMotorControl = intakeMotorControl;
         this.intakeMotorLogic = intakeMotorLogic;
         this.extendoControl = extendoControl;
-        this.autoCloseControl = autoCloseControl;
-        this.autoCloseLogic =  autoCloseLogic;
+        this.closeControl = closeControl;
+        this.closeLogic =  closeLogic;
         this.ejectionServoControl = ejectionServoControl;
         this.sampleEjectionLogic = sampleEjectionLogic;
+        this.pivotControl = pivotControl;
     }
 
     public void update(){
-        autoCloseLogic.update();
-        autoCloseControl.update();
-        manualCloseControl.update();
+        closeLogic.update();
+        closeControl.update();
+//        manualCloseControl.update();
         intakeMotorControl.update();
 //        intakeMotorLogic.update();
         extendoControl.update();
-        ejectionServoControl.update();
+//        ejectionServoControl.update();
         sampleEjectionLogic.update();
+        pivotControl.update();
 
         updateIntakeState();
         updateColorState();
@@ -72,6 +76,6 @@ public class IntakeControl {
     }
 
     private boolean closingActive(){
-        return IntakeStates.getAutoCloseStates() != AutoCloseStates.idle && IntakeStates.getAutoCloseStates() != AutoCloseStates.checkColor;
+        return IntakeStates.getCloseStates() != CloseStates.idle && IntakeStates.getCloseStates() != CloseStates.checkColor;
     }
 }

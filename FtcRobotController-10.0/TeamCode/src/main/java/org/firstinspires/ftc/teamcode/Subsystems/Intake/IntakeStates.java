@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseStates;
@@ -13,6 +15,8 @@ public class IntakeStates {
     private static ExtendoStates extendoState = ExtendoStates.retracted;
     private static AutoCloseStates autoCloseStates = AutoCloseStates.idle;
     private static ManualCloseStates manualCloseStates = ManualCloseStates.idle;
+    private static PivotStates pivotState = PivotStates.up;
+    private static CloseStates closeStates = CloseStates.idle;
 //    private static EjectionServoStates ejectionServoStates = EjectionServoStates.closed;
 
     public static void setInitialStates(){
@@ -21,6 +25,8 @@ public class IntakeStates {
         extendoState = ExtendoStates.retracted;
         autoCloseStates = AutoCloseStates.idle;
         manualCloseStates = ManualCloseStates.idle;
+        pivotState = PivotStates.up;
+        closeStates = CloseStates.idle;
 //        ejectionServoStates = EjectionServoStates.closed;
     }
 
@@ -56,6 +62,23 @@ public class IntakeStates {
 
     public static void setManualCloseStates(ManualCloseStates state) { manualCloseStates = state; }
 
+
+    public static PivotStates getPivotState() {
+        return pivotState;
+    }
+
+    public static void setPivotState(PivotStates state) {
+        pivotState = state;
+    }
+
+
+    public static CloseStates getCloseStates() {
+        return closeStates;
+    }
+
+    public static void setCloseStates(CloseStates state) {
+        closeStates = state;
+    }
 
 //    public static EjectionServoStates getEjectionServoState() {
 //        return ejectionServoStates;

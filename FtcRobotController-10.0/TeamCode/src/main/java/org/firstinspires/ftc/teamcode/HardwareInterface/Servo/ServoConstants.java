@@ -5,30 +5,24 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoConstants {
     // Servo indexes
-    public static final int outtakeLeft = 0;
-    public static final int outtakeRight = 1;
+    public static final int outtake = 0;
+    public static final int outtakePivot = 1;
     public static final int release = 2;
-    public static final int specimenClaw = 3;
-    public static final int intake = 4;
-    public static final int lock = 5; // Sample Lock Servo
+    public static final int intake = 3;
 
 
     public static final double[] servoMinPos =
             {
-                    OuttakeConstants.outtakeLeftServoMinPos,
-                    OuttakeConstants.outtakeRightServoMinPos,
+                    OuttakeConstants.outtakeServoMinPos,
+                    OuttakeConstants.outtakePivotServoMinPos,
                     OuttakeConstants.releaseServoMinPos,
-                    OuttakeConstants.specimenClawServoMinPos,
-                    IntakeConstants.intakeServoMinPos,
-                    IntakeConstants.lockServoMinPos
+                    IntakeConstants.intakeServoMinPos
             };
     public static final double[] servoMaxPos =
             {
-                    OuttakeConstants.outtakeLeftServoMaxPos,
-                    OuttakeConstants.outtakeRightServoMaxPos,
+                    OuttakeConstants.outtakeServoMaxPos,
+                    OuttakeConstants.outtakePivotServoMaxPos,
                     OuttakeConstants.releaseServoMaxPos,
-                    OuttakeConstants.specimenClawServoMaxPos,
-                    IntakeConstants.intakeServoMaxPos,
-                    IntakeConstants.lockServoMaxPos
+                    IntakeConstants.intakeServoMaxPos
             };
 }

@@ -20,31 +20,26 @@ public class ServoControl {
     private void getServos() {
 
         servos = new Servo[]{
-                hardwareMap.get(Servo.class, "outtakeLeftServo"),
-                hardwareMap.get(Servo.class, "outtakeRightServo"),
+                hardwareMap.get(Servo.class, "outtakeServo"),
+                hardwareMap.get(Servo.class, "outtakePivotServo"),
                 hardwareMap.get(Servo.class, "releaseServo"),
-                hardwareMap.get(Servo.class, "specimenClawServo"),
-                hardwareMap.get(Servo.class, "intakeServo"),
-                hardwareMap.get(Servo.class,"lockServo")
+                hardwareMap.get(Servo.class, "pivotServo")
         };
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
-        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
+        setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos); // idk for now, NIGHTNOTE
+        setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
-            setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
-            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
+            setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMinPos);
+
         }
         else {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
-            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
-            setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
+            setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMaxPos);
         }
-
-        setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
     }
 
     public void setServoPos(int index, double position) {

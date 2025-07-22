@@ -14,14 +14,15 @@ import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjectionLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
@@ -100,9 +101,13 @@ public class Dependencies {
 
     public IntakeControl createIntakeControl() {
         return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
-                createIntakeExtendoControl(), createAutoCloseControl(),
-                createAutoCloseLogic(),createEjectionServoControl(),
-                createSampleEjectionLogic());
+                createIntakeExtendoControl(), createCloseControl(),
+                createCloseLogic(),createEjectionServoControl(),
+                createSampleEjectionLogic(), createPivotControl());
+    }
+
+    private PivotControl createPivotControl() {
+        return new PivotControl(servoControl);
     }
 
     private IntakeMotorControl createIntakeMotorControl() {
@@ -121,16 +126,16 @@ public class Dependencies {
         return new EjectionServoControl(servoControl);
     }
 
-    private AutoCloseLogic createAutoCloseLogic() {
-        return new AutoCloseLogic(sensorControl);
+    private CloseLogic createCloseLogic() {
+        return new CloseLogic(sensorControl);
     }
 
     private ExtendoControl createIntakeExtendoControl() {
         return new ExtendoControl(createIntakeSlideLogic());
     }
 
-    private AutoCloseControl createAutoCloseControl() {
-        return new AutoCloseControl(gamepad1);
+    private CloseControl createCloseControl() {
+        return new CloseControl(gamepad1);
     }
 
     public OuttakeControl createOuttakeControl() {

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
@@ -10,8 +12,7 @@ public class LeftBumperLogic {
     
     public void update()
     {
-        if(manualIntakeClose()) return;
-        if(autoIntakeCloseConfirmation()) return;
+        if(toggleIntakeMotorBackward()) return;
         if(moveSlidesUp()) return;
     }
 
@@ -20,10 +21,10 @@ public class LeftBumperLogic {
         ButtonStates.setLeftBumperState(LeftBumperStates.idle);
     }
 
-    private boolean manualIntakeClose() {
+    private boolean toggleIntakeMotorBackward() {
         if(intakeClosing()) return false;
 
-        ButtonStates.setLeftBumperState(LeftBumperStates.manualIntakeClose);
+        ButtonStates.setLeftBumperState(LeftBumperStates.toggleIntakeMotorBackward);
         completeAction();
         return true;
     }
@@ -32,13 +33,6 @@ public class LeftBumperLogic {
         return IntakeStates.getIntakeState() != SubsystemState.Idle;
     }
 
-    private boolean autoIntakeCloseConfirmation() {
-        if(IntakeStates.getAutoCloseStates() != AutoCloseStates.waitForCommand) return false;
-
-        ButtonStates.setLeftBumperState(LeftBumperStates.autoIntakeCloseConfirmation);
-        completeAction();
-        return true;
-    }
 
     private boolean moveSlidesUp() {
         if(intakeActive()) return false;
@@ -49,9 +43,15 @@ public class LeftBumperLogic {
     }
 
     private boolean intakeClosing(){
-        return IntakeStates.getAutoCloseStates() == AutoCloseStates.waitForCommand ||
-                IntakeStates.getAutoCloseStates() == AutoCloseStates.waitToRetract ||
-                IntakeStates.getAutoCloseStates() == AutoCloseStates.closeSampleClaw ||
-                IntakeStates.getAutoCloseStates() == AutoCloseStates.idle;
+        return IntakeStates.getCloseStates() == CloseStates.waitForCommand ||
+                IntakeStates.getCloseStates() == CloseStates.pivot ||
+                IntakeStates.getCloseStates() == CloseStates.waitToPivot ||
+                IntakeStates.getCloseStates() == CloseStates.waitToRetract ||
+                IntakeStates.getCloseStates() == CloseStates.closeSampleClaw ||
+                IntakeStates.getCloseStates() == CloseStates.idle;
+    }
+
+    private boolean outtakeActive(){
+        return OuttakeStates.getOuttakeState() != SubsystemState.Idle;
     }
 }

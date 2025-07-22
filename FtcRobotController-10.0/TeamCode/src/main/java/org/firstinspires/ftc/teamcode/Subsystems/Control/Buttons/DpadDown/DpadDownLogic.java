@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
@@ -12,8 +13,9 @@ public class DpadDownLogic {
     private final DpadDownControl dpadDownControl = new DpadDownControl();
 
     public void update() {
-        if(toggleEjectionServo()) return;
-        if(slideStepDown()) return;
+//        if(toggleEjectionServo()) return;
+//        if(slideStepDown()) return;
+        if(moveExtendoBack()) return;
     }
 
     private void completeAction(){
@@ -21,26 +23,24 @@ public class DpadDownLogic {
         ButtonStates.setDpadDownState(DpadDownStates.idle);
     }
 
-    private boolean toggleEjectionServo() {
-        if(outtakeActive() || extendoRetracted()) return false;
-        ButtonStates.setDpadDownState(DpadDownStates.toggleEjectionServo);
-        completeAction();
-        return true;
-    }
 
-    private boolean slideStepDown() {
-        if(!sampleTaken()) return false;
-        ButtonStates.setDpadDownState(DpadDownStates.slideStepDown);
+//    private boolean slideStepDown() {
+//        if(!sampleTaken()) return false;
+//        ButtonStates.setDpadDownState(DpadDownStates.slideStepDown);
+//        completeAction();
+//        return true;
+//    }
+
+    private boolean moveExtendoBack() {
+        if(outtakeActive()) return false;
+
+        ButtonStates.setDpadDownState(DpadDownStates.moveExtendoBack);
         completeAction();
         return true;
     }
 
     private boolean outtakeActive() {
         return OuttakeStates.getOuttakeState() == SubsystemState.Run;
-    }
-
-    private boolean extendoRetracted() {
-        return IntakeStates.getExtendoState() == ExtendoStates.retracted;
     }
 
     private boolean sampleTaken(){

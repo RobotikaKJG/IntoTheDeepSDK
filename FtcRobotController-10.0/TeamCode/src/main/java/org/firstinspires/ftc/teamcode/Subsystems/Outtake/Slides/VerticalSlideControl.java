@@ -24,7 +24,7 @@ public class VerticalSlideControl {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
                 OuttakeStates.setSampleReleaseButtonState(SampleReleaseButtonStates.idle);
             }
-            profileRetractionSpeed();
+//            profileRetractionSpeed();
         }
     }
 
@@ -73,15 +73,15 @@ public class VerticalSlideControl {
                 break;
         }
     }
-    private void profileRetractionSpeed(){
-        int position = OuttakeSlideControl.currentPosition;
-        //System.out.println("Pos: " + slideLogic.getSlidePosition());
-        if(position < OuttakeConstants.profilingThreshold && position > OuttakeConstants.limitSwitchThreshold) {
-            //System.out.println("profiling active");
-            double slideSpeed = position * OuttakeConstants.speedProfileMultiplier + OuttakeConstants.verticalOffset;
-            if(slideSpeed < 0)
-                slideSpeed = 0;
-            slideLogic.limitSpeed(slideSpeed);
-        }
-    }
+//    private void profileRetractionSpeed(){
+//        int position = OuttakeSlideControl.currentPosition;
+//        //System.out.println("Pos: " + slideLogic.getSlidePosition());
+//        if(position < OuttakeConstants.profilingThreshold && position > OuttakeConstants.limitSwitchThreshold) {
+//            //System.out.println("profiling active");
+//            double slideSpeed = position * OuttakeConstants.speedProfileMultiplier + OuttakeConstants.verticalOffset;
+//            if(slideSpeed < 0)
+//                slideSpeed = 0;
+//            slideLogic.limitSpeed(slideSpeed);
+//        }
+//    }
 }
