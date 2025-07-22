@@ -11,6 +11,12 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValu
 
 import java.util.List;
 
+/*
+Claw: 0.1 closed, 0.3 open?
+Intake pivot: 0.15 down,  clears sub, 0.7 up
+claw pivot: 0.8-0.9 take, 0.63 place
+
+ */
 
 @TeleOp
 public class SingleServo extends LinearOpMode {
@@ -21,7 +27,7 @@ public class SingleServo extends LinearOpMode {
     private double currentWait = 0;
     private boolean wasIfCalled = false;
     private Servo servo;
-    private final double servoMinPos = 0;
+    private final double servoMinPos = 0.62;
     private final double servoClosedPos = 0.6;
     private final double servoMaxPos = 1;
 
