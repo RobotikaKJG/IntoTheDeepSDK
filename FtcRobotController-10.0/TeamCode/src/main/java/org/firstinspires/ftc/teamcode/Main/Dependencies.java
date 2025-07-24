@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.ActivateIntakeActions.ActivateIntakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjectionLogic;
@@ -23,6 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseContro
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ActivateOuttakeActions.ActivateOuttakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
@@ -52,6 +54,7 @@ public class Dependencies {
     private final SlideLogic outtakeSlideLogic;
     public SlideControl intakeSlideControl;
     public SlideControl outtakeSlideControl;
+    public SlideLogic intakeSlideLogic;
 
     public Dependencies(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Telemetry telemetry) {
 
@@ -64,6 +67,7 @@ public class Dependencies {
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
         outtakeSlideLogic = createOuttakeSlideLogic();
+        intakeSlideLogic = createIntakeSlideLogic();
         intakeSlideControl = createIntakeSlideControl();
         outtakeSlideControl = createOuttakeSlideControl();
     }
@@ -104,7 +108,11 @@ public class Dependencies {
         return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
                 createIntakeExtendoControl(), createCloseControl(),
                 createCloseLogic(),createEjectionServoControl(),
-                createSampleEjectionLogic(), createPivotControl());
+                createSampleEjectionLogic(), createPivotControl(), createActivateIntakeLogic());
+    }
+
+    private ActivateIntakeLogic createActivateIntakeLogic() {
+        return new ActivateIntakeLogic(intakeSlideLogic);
     }
 
     private PivotControl createPivotControl() {
@@ -132,7 +140,7 @@ public class Dependencies {
     }
 
     private ExtendoControl createIntakeExtendoControl() {
-        return new ExtendoControl(createIntakeSlideLogic());
+        return new ExtendoControl(intakeSlideLogic);
     }
 
     private CloseControl createCloseControl() {
@@ -142,7 +150,12 @@ public class Dependencies {
     public OuttakeControl createOuttakeControl() {
         return new OuttakeControl(createArmControl(), createSampleClawControl(),
                 createSpecimenClawControl(),createVerticalSlideControl(),
-                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic(), createOuttakePivotControl());
+                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic(),
+                createOuttakePivotControl(), createActivateOuttakeLogic());
+    }
+
+    private ActivateOuttakeLogic createActivateOuttakeLogic() {
+        return new ActivateOuttakeLogic(outtakeSlideLogic);
     }
 
     private OuttakePivotControl createOuttakePivotControl(){

@@ -12,7 +12,7 @@ public class OuttakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 720;
+        return 950;
     }
 
     @Override

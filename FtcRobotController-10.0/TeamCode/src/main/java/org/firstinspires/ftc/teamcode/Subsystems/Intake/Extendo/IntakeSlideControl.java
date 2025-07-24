@@ -13,15 +13,16 @@ public class IntakeSlideControl implements SlideControl {
     private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
     private final SensorControl sensorControl; //keep this for when limit switches exist
     private int targetPosition = 0;
-    private int currentPosition = 0;
+    public static int currentPosition = 0; //me don't like this a lot, NOTE
 
     public IntakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
         this.sensorControl = sensorControl;
+        currentPosition = 0;
     }
     @Override
     public void updateSlidePosition() {
-        currentPosition = motorControl.getMotorPosition(MotorConstants.bothSlides);
+        currentPosition = motorControl.getMotorPosition(MotorConstants.extendo);
     }
 
     @Override
@@ -54,23 +55,23 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        return retractSlide();
+        return retractSlide(); // disabled, NOTE
     }
 
     private boolean retractSlide() {
-        if(sensorControl.isLimitSwitchPressed(LimitSwitches.extendo) || motorControl.isOverCurrent(MotorConstants.extendo)) {
+//        if(sensorControl.isLimitSwitchPressed(LimitSwitches.extendo) || motorControl.isOverCurrent(MotorConstants.extendo)) {
             motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_TO_POSITION);
             motorControl.setMotorSpeed(MotorConstants.extendo, 0);//0.1);
             motorControl.setMotors(MotorConstants.extendo);
             return true;
-        }
+//        }
 
-        if(motorControl.getMotorPosition(MotorConstants.extendo) > 25)
-            return false;
-
-        targetPosition -= 15;
-        motorControl.setMotorPos(MotorConstants.extendo, targetPosition);
-        return false;
+//        if(motorControl.getMotorPosition(MotorConstants.extendo) > 25)
+//            return false;
+//
+//        targetPosition -= 15;
+//        motorControl.setMotorPos(MotorConstants.extendo, targetPosition);
+//        return false;
     }
 }

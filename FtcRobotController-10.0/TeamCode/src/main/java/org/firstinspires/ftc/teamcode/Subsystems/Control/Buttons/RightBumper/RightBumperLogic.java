@@ -19,6 +19,7 @@ public class RightBumperLogic {
 
     public void update() {
         if(extendExtendo()) return;
+        if(moveExtendoForward()) return;
     }
 
     private void completeAction(){
@@ -26,8 +27,17 @@ public class RightBumperLogic {
         ButtonStates.setRightBumperState(RightBumperStates.idle);
     }
 
+
     private boolean extendExtendo() {
-        if((clawClosed() && !outtakeClosing())) return false;
+        if(clawClosed() && !outtakeClosing() && intakeActive()) return false;
+
+        ButtonStates.setRightBumperState(RightBumperStates.extendExtendo);
+        completeAction();
+        return true;
+    }
+
+    private boolean moveExtendoForward() {
+        if(clawClosed() && !outtakeClosing() && !intakeActive()) return false;
 
         ButtonStates.setRightBumperState(RightBumperStates.moveExtendoForward);
         completeAction();
@@ -52,5 +62,9 @@ public class RightBumperLogic {
 
     private boolean outtakeActive() {
         return OuttakeStates.getOuttakeState() == SubsystemState.Run;
+    }
+
+    private boolean intakeActive() {
+        return IntakeStates.getIntakeState() == SubsystemState.Run;
     }
 }

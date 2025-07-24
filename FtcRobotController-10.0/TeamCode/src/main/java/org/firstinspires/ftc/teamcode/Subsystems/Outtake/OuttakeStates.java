@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ActivateOuttakeActions.ActivateOuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.OuttakePivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
@@ -26,7 +27,8 @@ public class OuttakeStates {
     private static SampleLockStates sampleLockState = SampleLockStates.closed;
     private static TakeSpecimenStates takeSpecimenStates = TakeSpecimenStates.idle;
     private static DropSampleStates dropSampleState = DropSampleStates.idle;
-    private static OuttakePivotStates outtakePivotStates = OuttakePivotStates.down;
+    private static OuttakePivotStates outtakePivotStates = OuttakePivotStates.idle;
+    private static ActivateOuttakeStates activateOuttakeStates = ActivateOuttakeStates.idle;
 
 
     public static void setInitialStates() {
@@ -47,7 +49,8 @@ public class OuttakeStates {
         hangState = HangStates.retracted;
         takeSpecimenStates = TakeSpecimenStates.idle;
         dropSampleState = DropSampleStates.idle;
-        outtakePivotStates = OuttakePivotStates.down;
+        outtakePivotStates = OuttakePivotStates.idle;
+        activateOuttakeStates = ActivateOuttakeStates.idle;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -153,5 +156,14 @@ public class OuttakeStates {
 
     public static void setPivotState(OuttakePivotStates state) {
         outtakePivotStates = state;
+    }
+
+
+    public static ActivateOuttakeStates getActivateOuttakeState() {
+        return activateOuttakeStates;
+    }
+
+    public static void setActivateOuttakeState(ActivateOuttakeStates activateOuttakeStates) {
+        OuttakeStates.activateOuttakeStates = activateOuttakeStates;
     }
 }

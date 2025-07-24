@@ -29,10 +29,10 @@ public class IntakeMotorControl {
         if (GlobalVariables.autonomousMode == AutonomousMode.sampleAuton) {
             switch (IntakeStates.getMotorState()) {
                 case forward:
-                    motorControl.setMotorSpeed(MotorConstants.intake, 1.0);
+                    motorControl.setMotorSpeed(MotorConstants.intake, -1.0);
                     break;
                 case backward:
-                    motorControl.setMotorSpeed(MotorConstants.intake, -1.0);
+                    motorControl.setMotorSpeed(MotorConstants.intake, 1.0);
                     break;
                 case idle:
                 case idleWasForward:
@@ -45,7 +45,7 @@ public class IntakeMotorControl {
         else {
             switch (IntakeStates.getMotorState()) {
                 case forward:
-                    IntakeConstants.setIntakeSpeed(0.8);
+                    IntakeConstants.setIntakeSpeed(-1);
                     motorControl.setMotorSpeed(MotorConstants.intake, IntakeConstants.getIntakeSpeed());
 //                    motorControl.setMotorMode(MotorConstants.extendo, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //                    motorControl.setMotorSpeed(MotorConstants.extendo, 0.8);

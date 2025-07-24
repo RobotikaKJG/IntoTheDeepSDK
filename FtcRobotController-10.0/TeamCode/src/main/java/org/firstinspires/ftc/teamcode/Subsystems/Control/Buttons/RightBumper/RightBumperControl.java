@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.ActivateIntakeActions.ActivateIntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
@@ -13,12 +14,19 @@ public class RightBumperControl {
 
     public void update() {
         switch(ButtonStates.getRightBumperState()){
+            case extendExtendo:
+                extendExtendo();
+                break;
             case moveExtendoForward:
                 moveExtendoForward();
                 break;
             case idle:
                 break;
         }
+    }
+
+    private void extendExtendo() {
+        IntakeStates.setActivateIntakeState(ActivateIntakeStates.rotateArmUp);
     }
 
     private void moveExtendoForward() {

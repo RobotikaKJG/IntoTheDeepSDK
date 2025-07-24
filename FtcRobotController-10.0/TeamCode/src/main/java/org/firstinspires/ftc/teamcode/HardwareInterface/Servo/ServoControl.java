@@ -28,8 +28,8 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos); // idk for now, NIGHTNOTE
-        setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMaxPos);
+        setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMinPos); // idk for now, NIGHTNOTE
+        setServoPos(ServoConstants.intake, IntakeConstants.intakeServoSubPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);

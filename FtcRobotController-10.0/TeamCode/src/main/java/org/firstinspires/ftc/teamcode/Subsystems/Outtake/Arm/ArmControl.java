@@ -25,21 +25,29 @@ public class ArmControl {
             case up:
                 up();
                 break;
+            case aBitUp:
+                aBitUp();
+                break;
             case down:
                 down();
                 break;
         }
     }
 
+    private void aBitUp() {
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoOverIntakePos);
+
+    }
+
 
     private void up() {
-        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeLeftServoSamplePos); //idk, NIGHTNOTE
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos);
     }
 
 
 
     private void down() {
-        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMaxPos); // idk, NIGHTNOTE
+        servoControl.setServoPos(ServoConstants.outtake, OuttakeConstants.outtakeServoMinPos);
     }
 
 

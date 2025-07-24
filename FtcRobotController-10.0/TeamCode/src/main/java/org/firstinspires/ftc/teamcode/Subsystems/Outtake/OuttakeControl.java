@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ActivateOuttakeActions.ActivateOuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ActivateOuttakeActions.ActivateOuttakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
@@ -37,11 +39,13 @@ public class OuttakeControl {
     private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
     private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
     private final OuttakePivotControl outtakePivotControl;
+    private final ActivateOuttakeControl activateOuttakeControl = new ActivateOuttakeControl();
+    private final ActivateOuttakeLogic activateOuttakeLogic;
 
 
     public OuttakeControl(ArmControl armControl, ClawControl clawControl, SpecimenClawControl specimenClawControl,
                           VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic, HangControl hangControl,
-                          DropSampleLogic dropSampleLogic, OuttakePivotControl outtakePivotControl) {
+                          DropSampleLogic dropSampleLogic, OuttakePivotControl outtakePivotControl, ActivateOuttakeLogic activateOuttakeLogic) {
         this.armControl = armControl;
         this.clawControl = clawControl;
         this.specimenClawControl = specimenClawControl;
@@ -50,6 +54,7 @@ public class OuttakeControl {
         this.hangControl = hangControl;
         this.dropSampleLogic = dropSampleLogic;
         this.outtakePivotControl = outtakePivotControl;
+        this.activateOuttakeLogic = activateOuttakeLogic;
     }
 
     public void update() {
@@ -58,7 +63,7 @@ public class OuttakeControl {
         verticalSlideControl.update();
         sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
         sampleReleaseButtonLogic.update();
-        specimenClawControl.update();
+//        specimenClawControl.update();
         specimenReleaseButtonControl.update();
         specimenReleaseButtonLogic.update();
         hangControl.update();
@@ -67,13 +72,15 @@ public class OuttakeControl {
         takeSpecimenControl.update();
         takeSpecimenLogic.update();
         outtakePivotControl.update();
+        activateOuttakeControl.update();
+        activateOuttakeLogic.update();
 
 
         updateOuttakeState();
     }
 
     private void updateOuttakeState(){
-        if(slidesActive() || specimenTaken())
+        if(slidesActive())// || specimenTaken())
             OuttakeStates.setOuttakeState(SubsystemState.Run);
         else
             OuttakeStates.setOuttakeState(SubsystemState.Idle);

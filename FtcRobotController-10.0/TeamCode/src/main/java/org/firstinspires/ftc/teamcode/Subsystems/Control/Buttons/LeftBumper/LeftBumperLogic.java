@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.CloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
@@ -24,11 +26,15 @@ public class LeftBumperLogic {
     }
 
     private boolean toggleIntakeMotorBackward() {
-        if(intakeClosing()) return false;
+        if(!intakeActive()) return false;
 
         ButtonStates.setLeftBumperState(LeftBumperStates.toggleIntakeMotorBackward);
         completeAction();
         return true;
+    }
+
+    private boolean ejectionReady() {
+        return IntakeStates.getExtendoState() == ExtendoStates.extended && IntakeStates.getPivotState() == PivotStates.overSub;
     }
 
     private boolean moveSlidesUp() {

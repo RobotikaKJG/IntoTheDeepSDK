@@ -22,7 +22,7 @@ public class RightTriggerLogic {
 
 
     private boolean closeIntake() {
-        if(IntakeStates.getCloseStates() != CloseStates.waitForCommand ||
+        if(IntakeStates.getCloseStates() != CloseStates.waitForCommand &&
                 IntakeStates.getCloseStates() != CloseStates.checkColor) return false; //temporary?, NIGHTNOTE
 
         ButtonStates.setRightTriggerState(RightTriggerStates.closeIntake);

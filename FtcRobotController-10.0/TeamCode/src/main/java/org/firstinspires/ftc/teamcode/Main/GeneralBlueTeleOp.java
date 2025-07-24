@@ -4,6 +4,8 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+
 import java.util.List;
 
 
@@ -36,9 +38,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
             calculateLoopTime();
-            telemetry.addData("Red", dependencies.sensorControl.isRed());
-            telemetry.addData("Yellow", dependencies.sensorControl.isYellow());
-            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
+            telemetry.addData("intake", IntakeStates.getIntakeState());
+            telemetry.addData("extendo pos",dependencies.intakeSlideLogic.getSlideExtensionTarget());
             telemetry.update();
         }
     }

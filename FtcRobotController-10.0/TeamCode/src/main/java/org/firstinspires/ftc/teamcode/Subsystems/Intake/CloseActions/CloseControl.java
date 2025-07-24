@@ -39,7 +39,7 @@ public class CloseControl {
             case waitForCommand:
                 waitForCommand();
                 break;
-            case pivot:
+            case waitToPivot:
                 pivot();
                 break;
             case waitToRetract:
@@ -70,8 +70,9 @@ public class CloseControl {
     }
 
     private void pivot() {
-        IntakeStates.setPivotState(PivotStates.up);
+        IntakeStates.setPivotState(PivotStates.overSub);
         IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); //temporary? NIGHTNOTE
+        OuttakeStates.setArmState(ArmStates.aBitUp);
     }
 
     private static void waitToRetract() {
@@ -84,10 +85,10 @@ public class CloseControl {
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
-        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
-            OuttakeStates.setClawState(ClawStates.closed);
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
-        }
+//        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
+//            OuttakeStates.setClawState(ClawStates.closed);
+//            OuttakeStates.setSampleLockState(SampleLockStates.open);
+//        }
     }
 
 }

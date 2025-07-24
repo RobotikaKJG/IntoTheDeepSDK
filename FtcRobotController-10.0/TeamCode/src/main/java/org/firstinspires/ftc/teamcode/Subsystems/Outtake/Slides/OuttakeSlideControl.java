@@ -20,6 +20,7 @@ public class OuttakeSlideControl implements SlideControl {
     public OuttakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
         this.sensorControl = sensorControl;
+        currentPosition = 0;
     }
 
     @Override

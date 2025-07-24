@@ -18,7 +18,7 @@ public class LimitSwitchTest extends LinearOpMode {
         // Get the color sensor from hardwareMap
 
         SensorControl sensorControl = new SensorControl(hardwareMap,edgeDetection, new StandardTrackingWheelLocalizer(hardwareMap));
-        LimitSwitch limitSwitch = hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch");
+//        LimitSwitch limitSwitch = hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch");
 
         // Wait for the Play button to be pressed
         waitForStart();
@@ -28,7 +28,7 @@ public class LimitSwitchTest extends LinearOpMode {
             telemetry.addData("Slide", sensorControl.isLimitSwitchPressed(LimitSwitches.slide));
 //            telemetry.addData("RightSlide", sensorControl.isLimitSwitchPressed(LimitSwitches.slideRight));
             telemetry.addData("Extendo", sensorControl.isLimitSwitchPressed(LimitSwitches.extendo));
-            telemetry.addData("Test", limitSwitch.getValue());
+//            telemetry.addData("Test", limitSwitch.getValue());
 
             telemetry.update();
         }

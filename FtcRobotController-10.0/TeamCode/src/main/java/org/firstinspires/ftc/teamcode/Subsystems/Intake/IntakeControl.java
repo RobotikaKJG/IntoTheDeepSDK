@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.ActivateIntakeActions.ActivateIntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.ActivateIntakeActions.ActivateIntakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -25,11 +27,13 @@ public class IntakeControl {
     private final EjectionServoControl ejectionServoControl;
     private final SampleEjectionLogic sampleEjectionLogic;
     private final PivotControl pivotControl;
+    private final ActivateIntakeControl activateIntakeControl = new ActivateIntakeControl();
+    private final ActivateIntakeLogic activateIntakeLogic;
 
     public IntakeControl(IntakeMotorControl intakeMotorControl, IntakeMotorLogic intakeMotorLogic,
                          ExtendoControl extendoControl, CloseControl closeControl,
                          CloseLogic closeLogic, EjectionServoControl ejectionServoControl,
-                         SampleEjectionLogic sampleEjectionLogic, PivotControl pivotControl) {
+                         SampleEjectionLogic sampleEjectionLogic, PivotControl pivotControl, ActivateIntakeLogic activateIntakeLogic) {
         this.intakeMotorControl = intakeMotorControl;
         this.intakeMotorLogic = intakeMotorLogic;
         this.extendoControl = extendoControl;
@@ -38,6 +42,7 @@ public class IntakeControl {
         this.ejectionServoControl = ejectionServoControl;
         this.sampleEjectionLogic = sampleEjectionLogic;
         this.pivotControl = pivotControl;
+        this.activateIntakeLogic = activateIntakeLogic;
     }
 
     public void update(){
@@ -50,6 +55,8 @@ public class IntakeControl {
 //        ejectionServoControl.update();
         sampleEjectionLogic.update();
         pivotControl.update();
+        activateIntakeControl.update();
+        activateIntakeLogic.update();
 
         updateIntakeState();
         updateColorState();

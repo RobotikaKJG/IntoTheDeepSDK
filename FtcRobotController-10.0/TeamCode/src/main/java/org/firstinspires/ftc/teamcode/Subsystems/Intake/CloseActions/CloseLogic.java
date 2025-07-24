@@ -46,12 +46,12 @@ public class CloseLogic {
 
 
     private void checkColor() {
-        if(!isSampleDetected()) return;
-        IntakeStates.setCloseStates(CloseStates.secureGoodSample);
-        if(GlobalVariables.isAutonomous)
-            addWaitTime(IntakeConstants.secureSampleAutonTime);
-        else
-            addWaitTime(IntakeConstants.secureSampleTime);
+//        if(!isSampleDetected()) return;
+//        IntakeStates.setCloseStates(CloseStates.secureGoodSample);
+//        if(GlobalVariables.isAutonomous)
+//            addWaitTime(IntakeConstants.secureSampleAutonTime);
+//        else
+//            addWaitTime(IntakeConstants.secureSampleTime);
     }
     private void secureGoodSample() {
         if(currentWait > getSeconds()) return;
@@ -73,6 +73,7 @@ public class CloseLogic {
 
     private void pivot(){
         addWaitTime(IntakeConstants.pivotWaitTime);
+        IntakeStates.setCloseStates(CloseStates.waitToPivot);
     }
 
     private void waitToPivot() {

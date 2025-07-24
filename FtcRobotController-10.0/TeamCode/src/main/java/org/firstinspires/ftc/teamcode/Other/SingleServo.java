@@ -16,6 +16,8 @@ Claw: 0.1 closed, 0.3 open?
 Intake pivot: 0.15 down,  clears sub, 0.7 up
 claw pivot: 0.8-0.9 take, 0.63 place
 
+main robot PTO extendo drag chain side: 0.05-0.99
+main robot PTO other side: 0.06-1
  */
 
 @TeleOp
@@ -27,9 +29,9 @@ public class SingleServo extends LinearOpMode {
     private double currentWait = 0;
     private boolean wasIfCalled = false;
     private Servo servo;
-    private final double servoMinPos = 0.62;
+    private final double servoMinPos = 0.05;
     private final double servoClosedPos = 0.6;
-    private final double servoMaxPos = 1;
+    private final double servoMaxPos = 0.99;
 
     @Override
     public void runOpMode() throws InterruptedException {

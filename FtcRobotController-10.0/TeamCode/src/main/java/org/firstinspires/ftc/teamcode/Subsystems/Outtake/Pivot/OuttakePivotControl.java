@@ -22,24 +22,31 @@ public class OuttakePivotControl {
 
     private void updateStates() {
         switch (OuttakeStates.getPivotState()) {
-            case up:
-                up();
+            case idle:
+                idle();
                 break;
-            case down:
-                down();
+            case take:
+                take();
+                break;
+            case place:
+                place();
                 break;
         }
     }
 
+    private void idle() {
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMaxPos);
+    }
 
-    private void up() {
-        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakeRightServoSamplePos);
+
+    private void take() {
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoTakePos);
     }
 
 
 
-    private void down() {
-        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMaxPos);
+    private void place() {
+        servoControl.setServoPos(ServoConstants.outtakePivot, OuttakeConstants.outtakePivotServoMinPos);
     }
 
 

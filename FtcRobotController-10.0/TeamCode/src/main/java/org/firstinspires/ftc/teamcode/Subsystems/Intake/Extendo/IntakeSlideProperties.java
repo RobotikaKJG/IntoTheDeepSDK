@@ -13,7 +13,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 550; // change, NIGHTNOTE
+        return 1700;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class IntakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideExtensionStep() {
         //return 2400;
-        return 125; // change, NIGHTNOTE
+        return 400;
     }
 
     @Override

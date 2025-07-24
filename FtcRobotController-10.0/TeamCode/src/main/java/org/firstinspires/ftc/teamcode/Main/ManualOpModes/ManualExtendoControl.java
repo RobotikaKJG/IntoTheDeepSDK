@@ -36,6 +36,7 @@ public class ManualExtendoControl extends LinearOpMode {
             prevGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
             if(gamepad1.triangle) break;
+
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
             telemetry.addData("Slide position", intakeSlideControl.getSlidePosition());
@@ -56,8 +57,8 @@ public class ManualExtendoControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                intakeSlideControl.setSlidePosition(600);//1740 max physical 1650 before Jonas changed
-                slidePosition = 600;
+                intakeSlideControl.setSlidePosition(1700);//1740 max physical 1650 before Jonas changed
+                slidePosition = 1700;
                 startTime = System.currentTimeMillis();
                 wasIf = false;
             }
@@ -78,6 +79,7 @@ public class ManualExtendoControl extends LinearOpMode {
                 duration = System.currentTimeMillis() - startTime;
                 wasIf = true;
             }
+            intakeSlideControl.updateSlidePosition();
         }
     }
 

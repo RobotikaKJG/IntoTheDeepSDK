@@ -22,8 +22,12 @@ public class ExtendoControl {
             prevExtendoState = IntakeStates.getExtendoState();
         }
         if(IntakeStates.getExtendoState() == ExtendoStates.retracting) {
-            if(slideLogic.slidesBottomReached()) {
+//            if(slideLogic.slidesBottomReached()) {
+//                IntakeStates.setExtendoState(ExtendoStates.retracted);
+//            }
+            if(slideLogic.getSlidePosition()  < 5) {
                 IntakeStates.setExtendoState(ExtendoStates.retracted);
+                slideLogic.slidesBottomReached();
             }
         }
     }
@@ -88,7 +92,7 @@ public class ExtendoControl {
         {
             IntakeStates.setExtendoState(ExtendoStates.extended);
             slideLogic.setSlideExtensionTarget(IntakeConstants.extendoMinExtension);
-            IntakeStates.setPivotState(PivotStates.overSub); // may need extension sequence, NIGHTNOTE
+//            IntakeStates.setPivotState(PivotStates.overSub); // may need extension sequence, NIGHTNOTE
             return;
         }
         IntakeStates.setExtendoState(ExtendoStates.extended);

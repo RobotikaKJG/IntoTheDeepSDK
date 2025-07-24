@@ -55,7 +55,7 @@ public class ManualSlideControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                outtakeSlideControl.setSlidePosition(850);
+                outtakeSlideControl.setSlidePosition(900);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {

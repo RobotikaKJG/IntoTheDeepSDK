@@ -37,7 +37,7 @@ public class IterativeController {
     private final SensorControl sensorControl;
     private final SlideControl intakeSlideControl;
     private final SlideControl outakeSlideControl;
-    private boolean colorSensorActive = true;
+    private boolean colorSensorActive = false;
 
     public IterativeController(Dependencies dependencies) {
         drivebaseController = dependencies.createDrivebaseController();
@@ -81,11 +81,11 @@ public class IterativeController {
 
         updateHardwareValues();
 
-        if(!colorSensorActive)
-            sensorControl.resetDistance();
-
-        if(sensorControl.getDistance() < 60)
-            sensorControl.updateColor();
+//        if(!colorSensorActive)
+//            sensorControl.resetDistance();
+//
+//        if(sensorControl.getDistance() < 60)
+//            sensorControl.updateColor();
 
 
         intakeControl.update();
@@ -93,10 +93,12 @@ public class IterativeController {
     }
 
     private void updateHardwareValues() {
-        sensorControl.updateDistance();
+//        sensorControl.updateDistance();
 //        intakeSlideControl.updateSlidePosition();
         if(OuttakeStates.getOuttakeState() == SubsystemState.Run)
             outakeSlideControl.updateSlidePosition();
+        if(IntakeStates.getIntakeState() == SubsystemState.Run)
+            intakeSlideControl.updateSlidePosition();
     }
 
 

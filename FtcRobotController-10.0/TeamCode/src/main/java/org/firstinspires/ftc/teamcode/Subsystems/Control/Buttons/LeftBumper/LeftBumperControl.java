@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ActivateOuttakeActions.ActivateOuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Claw.ClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
-
-import java.util.Objects;
 
 public class LeftBumperControl {
     public LeftBumperControl() {
@@ -39,7 +35,8 @@ public class LeftBumperControl {
     }
 
     private void moveSlidesUp() {
-        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
+//        OuttakeStates.setVerticalSlideState(VerticalSlideStates.highRung);
+        OuttakeStates.setActivateOuttakeState(ActivateOuttakeStates.rotateArmUp);
     }
 
     private void openClaw() {

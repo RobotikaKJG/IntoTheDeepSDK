@@ -36,13 +36,13 @@ public class VerticalSlideControl {
                 slideLogic.setSlideExtensionTarget(20);
                 slideLogic.setMaxSpeed(0.8);
                 OuttakeStates.setArmState(ArmStates.down);
-                OuttakeStates.setPivotState(OuttakePivotStates.down);
+                OuttakeStates.setPivotState(OuttakePivotStates.idle);
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;
             case highRung:
                 slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungPos);
                 OuttakeStates.setArmState(ArmStates.up);
-                OuttakeStates.setPivotState(OuttakePivotStates.up);
+                OuttakeStates.setPivotState(OuttakePivotStates.take);
                 break;
         }
     }
