@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
@@ -25,7 +24,6 @@ public class ManualHangControl extends LinearOpMode {
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
         waitForStart();
-        boolean retracting = true;
 
         if (isStopRequested()) return;
 
@@ -59,7 +57,6 @@ public class ManualHangControl extends LinearOpMode {
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
                 outtakeSlideControl.setSlidePosition(0);
-                retracting = true;
             }
 
             if(gamepad1.right_trigger > 0) {
