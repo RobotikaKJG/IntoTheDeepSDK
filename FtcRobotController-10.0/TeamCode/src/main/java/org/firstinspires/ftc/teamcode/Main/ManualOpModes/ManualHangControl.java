@@ -63,12 +63,12 @@ public class ManualHangControl extends LinearOpMode {
             }
 
             if(gamepad1.right_trigger > 0) {
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, HangConstants.motorSpeed);
+                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, -HangConstants.motorSpeed);
                 dependencies.motorControl.setMotorSpeed(MotorConstants.frontRight, HangConstants.motorSpeed);
 
             }
             else if(gamepad1.left_trigger > 0) {
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, -HangConstants.motorSpeed);
+                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, HangConstants.motorSpeed);
                 dependencies.motorControl.setMotorSpeed(MotorConstants.frontRight, -HangConstants.motorSpeed);
             }
         }
