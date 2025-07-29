@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 //import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
@@ -136,7 +137,12 @@ public class Dependencies {
     public OuttakeControl createOuttakeControl() {
         return new OuttakeControl(createArmControl(), createSampleClawControl(),
                 createSpecimenClawControl(),createVerticalSlideControl(),
-                createSpecimenReleaseButtonLogic(), createHangControl(), createDropSampleLogic());
+                createSpecimenReleaseButtonLogic(), createHangControl(),
+                createDropSampleLogic(), createHangLogic());
+    }
+
+    private HangLogic createHangLogic() {
+        return new HangLogic(outtakeSlideLogic);
     }
 
     private DropSampleLogic createDropSampleLogic() {
@@ -144,7 +150,7 @@ public class Dependencies {
     }
 
     private HangControl createHangControl() {
-        return new HangControl(outtakeSlideLogic);
+        return new HangControl(outtakeSlideLogic,motorControl);
     }
 
     private SpecimenReleaseButtonLogic createSpecimenReleaseButtonLogic() {

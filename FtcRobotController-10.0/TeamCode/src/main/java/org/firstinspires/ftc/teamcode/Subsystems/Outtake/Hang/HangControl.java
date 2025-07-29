@@ -1,64 +1,61 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Main.ManualOpModes.HangConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class HangControl {
     private final SlideLogic slideLogic;
+    private final MotorControl motorControl;
     private HangStates prevHangState = OuttakeStates.getHangState();
 
-    public HangControl(SlideLogic slideLogic) {
+    public HangControl(SlideLogic slideLogic, MotorControl motorControl) {
         this.slideLogic = slideLogic;
+        this.motorControl = motorControl;
     }
 
     public void update() {
-        // If the hang state has changed, update the slide target accordingly.
         if (OuttakeStates.getHangState() != prevHangState) {
             updateStates();
             prevHangState = OuttakeStates.getHangState();
         }
-
-        // Check if the slide has reached its target position for extending.
-        if (OuttakeStates.getHangState() == HangStates.extending) {
-            if (isAtTarget()) {
-                // When close enough to the target (e.g. within the threshold),
-                // update the state to EXTENDED.
-                OuttakeStates.setHangState(HangStates.extended);
-            }
-        }
-
-        // Check if the slide has reached its target position for retracting.
-        if (OuttakeStates.getHangState() == HangStates.retracting) {
-
-            if (isAtTarget()) {
-                OuttakeStates.setHangState(HangStates.retracted);
-            }
-        }
     }
 
-
-    private boolean isAtTarget() {
-        return Math.abs(slideLogic.getSlidePosition() - slideLogic.getSlideExtensionTarget()) < OuttakeConstants.hangThreshold;
-    }
 
     private void updateStates() {
         switch (OuttakeStates.getHangState()) {
-            case extending:
-                // Command the slides to extend to high basket.
-
+            case extendSlides:
+                extendSlides();
                 break;
-            case retracting:
-                // Command the slides to retract (target position set to 20).
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.hang);
-                //IntakeStates.setExtendoState(ExtendoStates.hold);
+            case retractSlides:
+                retractSlides();
                 break;
-            default:
-                // For EXTENDED and RETRACTED, no change is needed.
+            case hangOnHooks:
+                hangOnHooks();
                 break;
         }
     }
+
+    private void extendSlides() {
+        slideLogic.setSlideExtensionTarget(HangConstants.slidesUpHeight);
+    }
+
+    private void retractSlides() {
+        slideLogic.setSlideExtensionTarget(HangConstants.slidesDownHeight);
+    }
+
+    private void hangOnHooks() {
+        motorControl.setMotorPos(MotorConstants.frontLeft, HangConstants.leftHookPos);
+        motorControl.setMotorPos(MotorConstants.frontRight, HangConstants.rightHookPos);
+
+        motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
+        motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
+    }
+
 }

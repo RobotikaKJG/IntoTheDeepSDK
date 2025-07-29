@@ -28,7 +28,8 @@ public class MotorConstants {
             {slideLeft, slideRight},
             {frontLeft, backLeft, frontRight, backRight, intake, slideLeft, slideRight, extendo},
             {intake, slideLeft, slideRight, extendo},
-            {frontLeft, backLeft, frontRight, backRight, intake}
+            {frontLeft, backLeft, frontRight, backRight, intake},
+            {frontLeft, frontRight}
     };
     // motorConfig combined value names
     public static final int allDrive = 8;
@@ -40,4 +41,5 @@ public class MotorConstants {
     public static final int all = 14;
     public static final int notDrive = 15;
     public static final int notSlide = 16;
+    public static final int frontWheels = 17;
 }
