@@ -60,11 +60,11 @@ public class ManualHangControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                outtakeSlideControl.setSlidePosition(900);
+                outtakeSlideControl.setSlidePosition(HangConstants.slidesUpHeight);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {
-                outtakeSlideControl.setSlidePosition(0);
+                outtakeSlideControl.setSlidePosition(HangConstants.slidesDownHeight);
             }
 
             if(gamepad1.right_trigger > 0) {
