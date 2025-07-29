@@ -33,11 +33,19 @@ public class ManualHangControl extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
-            telemetry.addLine("Press square to extend, press circle to retract");
-            telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
-            telemetry.addData("Retracting", retracting);
-            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slide));
-            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.bothSlides));
+            telemetry.addLine("Press DPAD UP to fully extend the slides");
+            telemetry.addLine("Press DPAD DOWN to fully retract the slides");
+            telemetry.addLine();
+            telemetry.addLine("Press RIGHT TRIGGER to move the front wheels forward");
+            telemetry.addLine("Press LEFT TRIGGER to move the front wheels backward");
+            telemetry.addLine();
+            telemetry.addData("Left (looking from back) motor pos", dependencies.motorControl.getMotorPosition(MotorConstants.frontLeft));
+            telemetry.addData("Right (looking from back) motor pos", dependencies.motorControl.getMotorPosition(MotorConstants.frontRight));
+            telemetry.addLine();
+            telemetry.addLine("Press CIRCLE to move slides down a bit");
+            telemetry.addLine("Press CIRCLE to move slides up a bit");
+
+
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
