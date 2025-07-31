@@ -41,7 +41,7 @@ public class ManualSlideControl extends LinearOpMode {
             telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
             telemetry.addData("Retracting", retracting);
 //            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
-            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.bothSlides));
+            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.pivot));
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -56,7 +56,7 @@ public class ManualSlideControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadUp))
             {
-                outtakeSlideControl.setSlidePosition(2100);
+                outtakeSlideControl.setSlidePosition(10);
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.dpadDown))
             {

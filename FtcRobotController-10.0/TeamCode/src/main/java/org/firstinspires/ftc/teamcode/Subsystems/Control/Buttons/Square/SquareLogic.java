@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.PivotStates;
 
@@ -20,7 +18,7 @@ public class SquareLogic {
     }
 
     private boolean up() {
-        if (OuttakeStates.getPivotState() == PivotStates.up) return false;
+        if (OuttakeStates.getPivotState() == PivotStates.upFast || OuttakeStates.getPivotState() == PivotStates.up) return false;
         ButtonStates.setSquareState(SquareStates.up);
         completeAction();
         return true;

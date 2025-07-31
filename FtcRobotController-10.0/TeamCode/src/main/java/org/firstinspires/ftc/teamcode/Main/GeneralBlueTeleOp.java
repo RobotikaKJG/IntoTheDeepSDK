@@ -38,7 +38,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
 
-            telemetry.addData("Angle", OuttakeStates.getPivotState());
+            telemetry.addData("Outtake state", OuttakeStates.getPivotState());
+            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.pivot));
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

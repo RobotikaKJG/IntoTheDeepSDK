@@ -1,35 +1,35 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Circle.CircleStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Cross.CrossStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareStates;
 
 public class ButtonStates {
-    private static CrossStates crossStates = CrossStates.idle;
-    private static CircleStates circleStates = CircleStates.idle;
+    private static RightBumperStates rightBumperStates = RightBumperStates.idle;
+    private static RightTriggerStates rightTriggerStates = RightTriggerStates.idle;
     private static SquareStates squareStates = SquareStates.idle;
 
     public static void setInitialStates(){
-        crossStates = CrossStates.idle;
-        circleStates = CircleStates.idle;
+        rightBumperStates = RightBumperStates.idle;
+        rightTriggerStates = RightTriggerStates.idle;
         squareStates = SquareStates.idle;
     }
 
-    public static CrossStates getCrossState() {
-        return crossStates;
+    public static RightBumperStates getRightBumperState() {
+        return rightBumperStates;
     }
 
-    public static void setCrossState(CrossStates crossStates) {
-        ButtonStates.crossStates = crossStates;
+    public static void setRightBumperState(RightBumperStates crossStates) {
+        ButtonStates.rightBumperStates = crossStates;
     }
 
 
-    public static CircleStates getCircleState() {
-        return circleStates;
+    public static RightTriggerStates getRightTriggerState() {
+        return rightTriggerStates;
     }
 
-    public static void setCircleState(CircleStates circleStates) {
-        ButtonStates.circleStates = circleStates;
+    public static void setRightTriggerState(RightTriggerStates rightTriggerStates) {
+        ButtonStates.rightTriggerStates = rightTriggerStates;
     }
 
     public static SquareStates getSquareState() {

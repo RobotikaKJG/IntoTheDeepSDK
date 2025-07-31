@@ -1,15 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 
 public class PivotControl {
     private PivotStates prevPivotState;
@@ -24,19 +19,29 @@ public class PivotControl {
             updateStates();
             prevPivotState = OuttakeStates.getPivotState();
         }
+        if (OuttakeStates.getPivotState() == PivotStates.upFast) {
+            if (motorControl.getMotorPosition(MotorConstants.pivot) > 150) {
+                OuttakeStates.setPivotStates(PivotStates.up);
+            }
+        }
     }
 
     private void updateStates() {
         switch (OuttakeStates.getPivotState()) {
+            case upFast:
+//                motorControl.setMotorPos(MotorConstants.pivot, 200);
+//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                break;
             case up:
-                motorControl.setMotorPos(MotorConstants.pivot, 145);
-                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-                motorControl.setMotorSpeed(MotorConstants.pivot, 0.5);
+//                motorControl.setMotorPos(MotorConstants.pivot, 550);
+//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
                 break;
             case down:
-                motorControl.setMotorPos(MotorConstants.pivot, 0);
-                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-                motorControl.setMotorSpeed(MotorConstants.pivot, 0.5);
+//                motorControl.setMotorPos(MotorConstants.pivot, 0);
+//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
                 break;
             case idle:
                 break;
