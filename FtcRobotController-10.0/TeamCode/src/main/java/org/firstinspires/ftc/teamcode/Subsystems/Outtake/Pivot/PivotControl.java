@@ -29,19 +29,19 @@ public class PivotControl {
     private void updateStates() {
         switch (OuttakeStates.getPivotState()) {
             case upFast:
-//                motorControl.setMotorPos(MotorConstants.pivot, 200);
-//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                motorControl.setMotorPos(MotorConstants.pivot, 200);
+                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
                 break;
             case up:
-//                motorControl.setMotorPos(MotorConstants.pivot, 550);
-//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
+                motorControl.setMotorPos(MotorConstants.pivot, 550);
+                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
                 break;
             case down:
-//                motorControl.setMotorPos(MotorConstants.pivot, 0);
-//                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-//                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
+                motorControl.setMotorPos(MotorConstants.pivot, 0);
+                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 0.3);
                 break;
             case idle:
                 break;
