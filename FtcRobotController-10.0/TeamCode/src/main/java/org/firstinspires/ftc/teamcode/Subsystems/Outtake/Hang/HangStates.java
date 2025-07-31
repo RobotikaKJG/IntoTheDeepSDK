@@ -5,5 +5,6 @@ public enum HangStates {
     waitForButton,
     retractSlides,
     hangOnHooks,
+    retracted,
     idle
 }

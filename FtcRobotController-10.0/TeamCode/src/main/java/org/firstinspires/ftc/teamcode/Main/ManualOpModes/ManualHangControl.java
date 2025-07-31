@@ -2,12 +2,16 @@ package org.firstinspires.ftc.teamcode.Main.ManualOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.LockServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
 
 @TeleOp
@@ -17,13 +21,22 @@ public class ManualHangControl extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
+        ServoControl servoControl = new ServoControl(hardwareMap);
         OuttakeSlideControl outtakeSlideControl = new OuttakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
         int slidePosition = 0;
+        int wheelPosition = 0;
+        LockServoStates lockServoState = LockServoStates.down;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();
         prevGamepad1.copy(currentGamepad1);
         currentGamepad1.copy(gamepad1);
         waitForStart();
+
+        servoControl.setServoPos(ServoConstants.PTORight, 0.06);
+        servoControl.setServoPos(ServoConstants.PTOLeft, 0.99);
+        dependencies.motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
+        dependencies.motorControl.setMotors(MotorConstants.frontWheels);
+        dependencies.motorControl.setZeroPowerBehavior(MotorConstants.frontWheels, DcMotor.ZeroPowerBehavior.BRAKE);
 
         if (isStopRequested()) return;
 
@@ -44,9 +57,34 @@ public class ManualHangControl extends LinearOpMode {
             telemetry.addLine();
             telemetry.addLine("Press CIRCLE to move slides down a bit");
             telemetry.addLine("Press CIRCLE to move slides up a bit");
+            telemetry.addLine();
+            telemetry.addLine("Press CROSS to lock/unlock servos");
+            telemetry.addData("Servos locked", lockServoState);
+            telemetry.addData("wheel pos", wheelPosition);
+
 
 
             telemetry.update();
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.cross))
+            {
+                if(lockServoState == LockServoStates.down) {
+                    servoControl.setServoPos(ServoConstants.PTORight, 1);
+                    servoControl.setServoPos(ServoConstants.PTOLeft, 0.05);
+                    lockServoState = LockServoStates.up;
+                }
+                else if(lockServoState == LockServoStates.up){
+                    servoControl.setServoPos(ServoConstants.PTORight, 0.53);
+                    servoControl.setServoPos(ServoConstants.PTOLeft, 0.52);
+                    lockServoState = LockServoStates.half;
+                }
+                else if(lockServoState == LockServoStates.half){
+                    servoControl.setServoPos(ServoConstants.PTORight, 0.06);
+                    servoControl.setServoPos(ServoConstants.PTOLeft, 0.99);
+                    lockServoState = LockServoStates.down;
+                }
+            }
+
+
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
                 slidePosition -= 50;
@@ -67,15 +105,15 @@ public class ManualHangControl extends LinearOpMode {
                 outtakeSlideControl.setSlidePosition(HangConstants.slidesDownHeight);
             }
 
-            if(gamepad1.right_trigger > 0) {
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, -HangConstants.motorSpeed);
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontRight, HangConstants.motorSpeed);
+            if(dependencies.edgeDetection.rising(GamepadIndexValues.rightTrigger)) {
+                wheelPosition += 200;
+            }
+            else if(dependencies.edgeDetection.rising(GamepadIndexValues.leftTrigger)) {
+                wheelPosition -= 200;
+            }
 
-            }
-            else if(gamepad1.left_trigger > 0) {
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontLeft, HangConstants.motorSpeed);
-                dependencies.motorControl.setMotorSpeed(MotorConstants.frontRight, -HangConstants.motorSpeed);
-            }
+            dependencies.motorControl.setMotorPos(MotorConstants.frontWheels, wheelPosition);
+            dependencies.motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 }

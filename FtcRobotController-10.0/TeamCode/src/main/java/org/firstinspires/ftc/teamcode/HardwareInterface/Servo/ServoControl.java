@@ -25,7 +25,9 @@ public class ServoControl {
                 hardwareMap.get(Servo.class, "releaseServo"),
                 hardwareMap.get(Servo.class, "specimenClawServo"),
                 hardwareMap.get(Servo.class, "intakeServo"),
-                hardwareMap.get(Servo.class,"lockServo")
+                hardwareMap.get(Servo.class,"lockServo"),
+                hardwareMap.get(Servo.class, "PTORight"),
+                hardwareMap.get(Servo.class, "PTOLeft")
         };
     }
 

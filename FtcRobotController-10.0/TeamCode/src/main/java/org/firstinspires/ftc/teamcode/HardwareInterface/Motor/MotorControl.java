@@ -53,10 +53,10 @@ public class MotorControl {
         motors[MotorConstants.backLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[MotorConstants.slideLeft].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[MotorConstants.extendo].setDirection(DcMotorSimple.Direction.REVERSE);
-        setZeroPowerBehavior(MotorConstants.all, DcMotor.ZeroPowerBehavior.BRAKE);
-        setZeroPowerBehavior(MotorConstants.intake, DcMotor.ZeroPowerBehavior.FLOAT);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setZeroPowerBehavior(MotorConstants.all, DcMotor.ZeroPowerBehavior.BRAKE);
+        setZeroPowerBehavior(MotorConstants.intake, DcMotor.ZeroPowerBehavior.FLOAT);
         setMotorCurrentAlert(MotorConstants.intake, IntakeConstants.currentLimit);
     }
 
