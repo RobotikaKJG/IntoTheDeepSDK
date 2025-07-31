@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.EdgeDetection;
 
@@ -56,8 +58,8 @@ public class TeleOpController extends LinearOpMode {
             // 435rpm = 0.03
 
             telemetry.addData("Angle", armExtentionController.angle);
-            telemetry.addData("Motor Position", armExtentionController.getMotorPosition());
-            telemetry.addData("Motor Busy", armExtentionController.isMotorBusy());
+//            telemetry.addData("Motor Position", armExtentionController.getMotorPosition());
+//            telemetry.addData("Motor Busy", armExtentionController.isMotorBusy());
             telemetry.update();
 
             // Print out loop time
