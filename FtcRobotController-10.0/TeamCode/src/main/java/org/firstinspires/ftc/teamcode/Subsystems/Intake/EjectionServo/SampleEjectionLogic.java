@@ -33,9 +33,6 @@ public class SampleEjectionLogic {
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
             addWaitTime(1);
         }
-
-        if(correctColor())
-            wasWrongColor = false;
     }
 
     private boolean shouldOpen() {
