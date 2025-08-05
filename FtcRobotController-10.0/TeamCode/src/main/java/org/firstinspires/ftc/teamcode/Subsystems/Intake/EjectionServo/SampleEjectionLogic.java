@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
-import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -11,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockSt
 
 public class SampleEjectionLogic {
     private final SensorControl sensorControl;
-    private boolean wasShouldOpen = false;
+    private boolean wasWrongColor = false;
     private double currentWait = 0;
 
     public SampleEjectionLogic(SensorControl sensorControl) {
@@ -19,11 +18,16 @@ public class SampleEjectionLogic {
     }
 
     public void update(){
-        if(shouldOpen()) {
+        if(wrongColor()) {
+            if (shouldOpen()) {
 //            if(!GlobalVariables.isAutonomous)
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
-            wasShouldOpen = true;
+                OuttakeStates.setSampleLockState(SampleLockStates.open);
+            }
+            wasWrongColor = true;
         }
+        else
+            wasWrongColor = false;
+
         if(!ejectionServoClosed() && shouldClose())
         {
             OuttakeStates.setSampleLockState(SampleLockStates.closed);
@@ -31,12 +35,12 @@ public class SampleEjectionLogic {
         }
 
         if(correctColor())
-            wasShouldOpen = false;
+            wasWrongColor = false;
     }
 
     private boolean shouldOpen() {
-        if(wrongColor() && extendoExtended() && motorForward() && ejectionServoClosed() && getSeconds() > currentWait) {
-            addWaitTime(0.5);
+        if(!wasWrongColor && extendoExtended() && motorForward() && ejectionServoClosed() && getSeconds() > currentWait) {
+            addWaitTime(0.3);
             return  true;
         }
         return false;
