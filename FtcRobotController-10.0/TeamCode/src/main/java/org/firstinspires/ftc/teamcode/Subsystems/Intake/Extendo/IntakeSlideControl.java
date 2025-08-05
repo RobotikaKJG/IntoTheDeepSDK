@@ -13,7 +13,7 @@ public class IntakeSlideControl implements SlideControl {
     private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
     private final SensorControl sensorControl; //keep this for when limit switches exist
     private int targetPosition = 0;
-    private int currentPosition = 0;
+    public static int currentPosition = 0; //me don't like this a lot, NOTE
 
     public IntakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
@@ -21,7 +21,7 @@ public class IntakeSlideControl implements SlideControl {
     }
     @Override
     public void updateSlidePosition() {
-        currentPosition = motorControl.getMotorPosition(MotorConstants.bothSlides);
+        currentPosition = motorControl.getMotorPosition(MotorConstants.extendo);
     }
 
     @Override
