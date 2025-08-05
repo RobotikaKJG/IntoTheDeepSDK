@@ -66,10 +66,6 @@ public class SampleEjectionLogic {
             return OuttakeStates.getSampleLockState() == SampleLockStates.closed;
     }
 
-    private boolean correctColor(){
-        return sensorControl.isAllianceColor() ||sensorControl.isYellow();
-    }
-
     private void addWaitTime(double waitTime) {
         currentWait = getSeconds() + waitTime;
     }
