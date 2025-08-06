@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw;
 
 public enum SampleClawStates {
     closed, //when sample is taken

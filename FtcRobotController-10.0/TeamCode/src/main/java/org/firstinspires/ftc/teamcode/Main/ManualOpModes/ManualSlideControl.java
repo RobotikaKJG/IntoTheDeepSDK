@@ -6,11 +6,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
-import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideControl;
 
 @TeleOp
 public class ManualSlideControl extends LinearOpMode {

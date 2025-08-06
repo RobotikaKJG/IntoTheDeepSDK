@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot;
 
 public enum PivotStates {
     upFast,

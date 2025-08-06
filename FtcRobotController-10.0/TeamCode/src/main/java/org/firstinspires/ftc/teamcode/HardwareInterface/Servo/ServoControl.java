@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Servo;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 public class ServoControl {
 
@@ -29,16 +28,16 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
-        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
+        setServoPos(ServoConstants.outtakeLeft, IntakeConstants.outtakeLeftServoMaxPos);
+        setServoPos(ServoConstants.outtakeRight, IntakeConstants.outtakeRightServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
-            setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
-            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
+            setServoPos(ServoConstants.release, IntakeConstants.releaseServoMinPos);
+            setServoPos(ServoConstants.specimenClaw, IntakeConstants.specimenClawServoMaxPos);
         }
         else {
-            setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
-            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
+            setServoPos(ServoConstants.release, IntakeConstants.releaseServoMaxPos);
+            setServoPos(ServoConstants.specimenClaw, IntakeConstants.specimenClawServoMinPos);
         }
     }
 

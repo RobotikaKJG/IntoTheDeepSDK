@@ -1,24 +1,19 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideStates;
 
-public class OuttakeStates {
-    private static SubsystemState outtakeState = SubsystemState.Idle;
+public class IntakeStates {
+    private static SubsystemState intakeState = SubsystemState.Idle;
     private static VerticalSlideStates verticalSlideStates = VerticalSlideStates.closed;
     private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
     private static PivotStates pivotStates = PivotStates.down;
 
     public static void setInitialStates() {
-        outtakeState = SubsystemState.Idle;
+        intakeState = SubsystemState.Idle;
         verticalSlideStates = VerticalSlideStates.closed;
         pivotStates = PivotStates.down;
         if(GlobalVariables.isAutonomous) {
@@ -29,12 +24,12 @@ public class OuttakeStates {
         }
     }
 
-    public static SubsystemState getOuttakeState() {
-        return outtakeState;
+    public static SubsystemState getIntakeState() {
+        return intakeState;
     }
 
-    public static void setOuttakeState(SubsystemState state) {
-        outtakeState = state;
+    public static void setIntakeState(SubsystemState state) {
+        intakeState = state;
     }
 
     public static VerticalSlideStates getVerticalSlideState() {

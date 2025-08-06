@@ -14,12 +14,12 @@ import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot.PivotControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.OuttakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw.SampleClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideControl;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -74,8 +74,8 @@ public class Dependencies {
         return new ButtonControl(gamepad2EdgeDetection, sensorControl);
     }
 
-    public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createSampleClawControl(), createVerticalSlideControl(), createPivotControl());
+    public IntakeControl createOuttakeControl() {
+        return new IntakeControl(createSampleClawControl(), createVerticalSlideControl(), createPivotControl());
     }
 
     private PivotControl createPivotControl() {

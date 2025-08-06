@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class VerticalSlideControl {
     private final SlideLogic slideLogic;
@@ -13,9 +13,9 @@ public class VerticalSlideControl {
     }
 
     public void update() {
-        if(OuttakeStates.getVerticalSlideState() != prevVerticalSlideStates) {
+        if(IntakeStates.getVerticalSlideState() != prevVerticalSlideStates) {
             updateStates();
-            prevVerticalSlideStates = OuttakeStates.getVerticalSlideState();
+            prevVerticalSlideStates = IntakeStates.getVerticalSlideState();
         }
 //        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
 //            if(slideLogic.slidesBottomReached()) {
@@ -26,17 +26,17 @@ public class VerticalSlideControl {
     }
 
     private void updateStates() {
-        switch(OuttakeStates.getVerticalSlideState()){
+        switch(IntakeStates.getVerticalSlideState()){
             case stepUp:
                 slideLogic.stepUp();
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.extended);
+                IntakeStates.setVerticalSlideState(VerticalSlideStates.extended);
                 break;
             case stepDown:
                 slideLogic.stepDown();
-                OuttakeStates.setVerticalSlideState(VerticalSlideStates.extended);
+                IntakeStates.setVerticalSlideState(VerticalSlideStates.extended);
                 break;
             case highChamber:
-                slideLogic.setSlideExtensionTarget(OuttakeConstants.highRungPos);
+                slideLogic.setSlideExtensionTarget(IntakeConstants.highRungPos);
                 break;
         }
     }

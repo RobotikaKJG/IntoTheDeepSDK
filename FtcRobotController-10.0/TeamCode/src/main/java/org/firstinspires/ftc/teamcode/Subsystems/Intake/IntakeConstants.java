@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-public class OuttakeConstants {
+public class IntakeConstants {
     public static  double outtakeLeftServoMaxPos = 0.805;//0.82;//0.88;//0.965;//+0.0?     // Taking position, starting position
     public static  double outtakeLeftServoSamplePos = 0.257;
     public static  double outtakeLeftServoMinPos = 0.1;//0.065;//1675;//0.2;     // Placing position,

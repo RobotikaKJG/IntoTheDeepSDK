@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 public class OuttakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
@@ -74,10 +74,10 @@ public class OuttakeSlideControl implements SlideControl {
 //            return true;
 //        }
 
-        if(currentPosition > OuttakeConstants.limitSwitchThreshold)
+        if(currentPosition > IntakeConstants.limitSwitchThreshold)
             return false;
 
-        targetPosition -= OuttakeConstants.limitSwitchRetractionStep;
+        targetPosition -= IntakeConstants.limitSwitchRetractionStep;
         limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotorPos(slide, targetPosition);
         return false;

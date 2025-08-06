@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
 
 
     public enum VerticalSlideStates {

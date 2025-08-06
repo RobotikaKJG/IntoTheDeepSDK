@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Pivot;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 
 public class PivotControl {
     private PivotStates prevPivotState;
@@ -15,19 +15,19 @@ public class PivotControl {
     }
 
     public void update() {
-        if (prevPivotState != OuttakeStates.getPivotState()) {
+        if (prevPivotState != IntakeStates.getPivotState()) {
             updateStates();
-            prevPivotState = OuttakeStates.getPivotState();
+            prevPivotState = IntakeStates.getPivotState();
         }
-        if (OuttakeStates.getPivotState() == PivotStates.upFast) {
+        if (IntakeStates.getPivotState() == PivotStates.upFast) {
             if (motorControl.getMotorPosition(MotorConstants.pivot) > 150) {
-                OuttakeStates.setPivotStates(PivotStates.up);
+                IntakeStates.setPivotStates(PivotStates.up);
             }
         }
     }
 
     private void updateStates() {
-        switch (OuttakeStates.getPivotState()) {
+        switch (IntakeStates.getPivotState()) {
             case upFast:
                 motorControl.setMotorPos(MotorConstants.pivot, 200);
                 motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
