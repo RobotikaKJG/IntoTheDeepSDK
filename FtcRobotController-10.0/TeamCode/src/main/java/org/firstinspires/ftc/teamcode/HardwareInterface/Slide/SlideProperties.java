@@ -5,6 +5,7 @@ public interface SlideProperties {
     int getSlideMinExtension();
     double getSlideMovementMaxSpeed();
     int getSlideExtensionStep();
+    int getSlideFirstExtensionStep();
 
     void setSlideMaxSpeed(double slideMaxSpeed);
 }

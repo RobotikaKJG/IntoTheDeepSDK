@@ -9,15 +9,15 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
-public class OuttakeSlideControl implements SlideControl {
+public class IntakeSlideControl implements SlideControl {
     private final MotorControl motorControl;
-    private final OuttakeSlideProperties outtakeSlideProperties = new OuttakeSlideProperties();
+    private final IntakeSlideProperties intakeSlideProperties = new IntakeSlideProperties();
     private final SensorControl sensorControl;
     private int targetPosition = 0;
     public static int currentPosition = 0; //me don't like this a lot, NOTE
     public double maxSpeed = 0;
 
-    public OuttakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
+    public IntakeSlideControl(MotorControl motorControl, SensorControl sensorControl) {
         this.motorControl = motorControl;
         this.sensorControl = sensorControl;
     }
@@ -38,7 +38,7 @@ public class OuttakeSlideControl implements SlideControl {
         targetPosition = position;
         motorControl.setMotorPos(MotorConstants.bothSlides, position);
         setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
-        limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
+        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class OuttakeSlideControl implements SlideControl {
             return false;
 
         targetPosition -= IntakeConstants.limitSwitchRetractionStep;
-        limitSpeed(outtakeSlideProperties.getSlideMovementMaxSpeed());
+        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotorPos(slide, targetPosition);
         return false;
     }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideControl;
 
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             iterativeController.TeleOp();
 
             telemetry.addData("Outtake state", IntakeStates.getPivotState());
-            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.pivot));
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

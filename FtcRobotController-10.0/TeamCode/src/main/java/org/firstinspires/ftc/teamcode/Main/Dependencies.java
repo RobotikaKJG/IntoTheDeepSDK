@@ -15,11 +15,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw.SampleClawControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideProperties;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideControl;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -59,11 +59,11 @@ public class Dependencies {
     }
 
     private SlideLogic createOuttakeSlideLogic() {
-        return new SlideLogic(createOuttakeSlideControl(), new OuttakeSlideProperties());
+        return new SlideLogic(createOuttakeSlideControl(), new IntakeSlideProperties());
     }
 
     private SlideControl createOuttakeSlideControl() {
-        return new OuttakeSlideControl(motorControl,sensorControl);
+        return new IntakeSlideControl(motorControl,sensorControl);
     }
 
     ButtonControl createSubsystemControl() {
@@ -82,11 +82,11 @@ public class Dependencies {
         return new PivotControl(motorControl);
     }
 
-    private SampleClawControl createSampleClawControl() {
-        return new SampleClawControl(servoControl);
+    private SpecimenClawControl createSampleClawControl() {
+        return new SpecimenClawControl(servoControl);
     }
 
-    private VerticalSlideControl createVerticalSlideControl() {
-        return new VerticalSlideControl(outtakeSlideLogic);
+    private ArmSlideControl createVerticalSlideControl() {
+        return new ArmSlideControl(outtakeSlideLogic);
     }
 }

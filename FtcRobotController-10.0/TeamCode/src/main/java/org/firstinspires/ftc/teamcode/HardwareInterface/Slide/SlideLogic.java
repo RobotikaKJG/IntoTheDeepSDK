@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Slide;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+
 public class SlideLogic {
 
 
@@ -9,6 +11,7 @@ public class SlideLogic {
     private int slideMaxExtension;
     private int slideMinExtension;
     private int slideExtensionStep;
+    private int slideFirstExtentionStep;
 
     public SlideLogic(SlideControl slideControl, SlideProperties slideProperties) {
         this.slideControl = slideControl;
@@ -22,6 +25,7 @@ public class SlideLogic {
         this.slideMaxExtension = slideProperties.getSlideMaxExtension();
         this.slideMinExtension = slideProperties.getSlideMinExtension();
         this.slideExtensionStep = slideProperties.getSlideExtensionStep();
+        this.slideFirstExtentionStep = slideProperties.getSlideFirstExtensionStep();
     }
 
     public boolean slidesBottomReached() {
@@ -49,9 +53,17 @@ public class SlideLogic {
         addSlideExtension(slideExtensionStep);
     }
 
+    public void stepUpMore() {
+        addSlideExtension(slideFirstExtentionStep);
+    }
+
     public void stepDown()
     {
         addSlideExtension(-slideExtensionStep);
+    }
+
+    public void stepDownMore() {
+        addSlideExtension(-slideFirstExtentionStep);
     }
 
     public boolean isExtensionTargetNotInBounds(int slideExtensionTarget) {

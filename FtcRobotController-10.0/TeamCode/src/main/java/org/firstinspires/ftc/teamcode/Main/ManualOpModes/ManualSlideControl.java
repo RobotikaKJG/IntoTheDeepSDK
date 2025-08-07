@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValu
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.OuttakeSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideControl;
 
 @TeleOp
 public class ManualSlideControl extends LinearOpMode {
@@ -18,7 +18,7 @@ public class ManualSlideControl extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1,gamepad2, telemetry);
-        OuttakeSlideControl outtakeSlideControl = new OuttakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
+        IntakeSlideControl outtakeSlideControl = new IntakeSlideControl(dependencies.motorControl,dependencies.sensorControl);
         int slidePosition = 0;
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad prevGamepad1 = new Gamepad();

@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideProperties;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
-public class OuttakeSlideProperties implements SlideProperties {
+public class IntakeSlideProperties implements SlideProperties {
 
     private double slideMaxSpeed = 0.5;
 
     @Override
     public int getSlideMaxExtension() {
-        return 2100;
+        return IntakeConstants.slideMaxExtention;
     }
 
     @Override
     public int getSlideMinExtension() {
-        return 0;
+        return IntakeConstants.slideMinExtention;
     }
 
     @Override
@@ -23,7 +24,11 @@ public class OuttakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideExtensionStep() {
-        return 100;
+        return IntakeConstants.slideExtentionStep;
+    }
+
+    public int getSlideFirstExtensionStep() {
+        return IntakeConstants.slideFirstExtentionStep;
     }
 
     @Override

@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Servo;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoControl {
 
     private final HardwareMap hardwareMap;
-//    private Servo[] servos;
+    private Servo[] servos;
 
     public ServoControl(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -17,33 +19,29 @@ public class ServoControl {
 
     private void getServos() {
 
-//        servos = new Servo[]{
-//                hardwareMap.get(Servo.class, "outtakeLeftServo"),
-//                hardwareMap.get(Servo.class, "outtakeRightServo"),
-//                hardwareMap.get(Servo.class, "releaseServo"),
-//                hardwareMap.get(Servo.class, "specimenClawServo"),
-//                hardwareMap.get(Servo.class, "intakeServo"),
-//                hardwareMap.get(Servo.class,"lockServo")
-//        };
+        servos = new Servo[]{
+                hardwareMap.get(Servo.class, "outtakeArmServo"),
+                hardwareMap.get(Servo.class, "outtakeClawTurnServo"),
+                hardwareMap.get(Servo.class, "specimenClawServo"),
+                hardwareMap.get(Servo.class, "intakeServo")
+        };
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, IntakeConstants.outtakeLeftServoMaxPos);
-        setServoPos(ServoConstants.outtakeRight, IntakeConstants.outtakeRightServoMaxPos);
+        setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoMaxPos);
+        setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
-            setServoPos(ServoConstants.release, IntakeConstants.releaseServoMinPos);
-            setServoPos(ServoConstants.specimenClaw, IntakeConstants.specimenClawServoMaxPos);
+            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
         }
         else {
-            setServoPos(ServoConstants.release, IntakeConstants.releaseServoMaxPos);
-            setServoPos(ServoConstants.specimenClaw, IntakeConstants.specimenClawServoMinPos);
+            setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
         }
     }
 
     public void setServoPos(int index, double position) {
-//        if (isInBounds(index, position))
-//            servos[index].setPosition(position);
+        if (isInBounds(index, position))
+            servos[index].setPosition(position);
     }
 
     private boolean isInBounds(int index, double position) {

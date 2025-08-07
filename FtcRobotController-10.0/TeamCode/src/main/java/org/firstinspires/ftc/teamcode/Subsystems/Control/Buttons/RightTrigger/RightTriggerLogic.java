@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw.SampleClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class RightTriggerLogic {
     private final RightTriggerControl rightTriggerControl = new RightTriggerControl();
@@ -30,6 +30,6 @@ public class RightTriggerLogic {
     }
 
     private boolean clawClosed() {
-        return IntakeStates.getSampleClawState() == SampleClawStates.closed;
+        return OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed;
     }
 }

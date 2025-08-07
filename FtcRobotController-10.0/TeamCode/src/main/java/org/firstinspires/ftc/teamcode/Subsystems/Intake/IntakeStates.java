@@ -1,27 +1,18 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleClaw.SampleClawStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 
 public class IntakeStates {
     private static SubsystemState intakeState = SubsystemState.Idle;
-    private static VerticalSlideStates verticalSlideStates = VerticalSlideStates.closed;
-    private static SampleClawStates sampleClawState = SampleClawStates.fullyOpen;
+    private static ArmSlideStates verticalSlideStates = ArmSlideStates.closed;
     private static PivotStates pivotStates = PivotStates.down;
 
     public static void setInitialStates() {
         intakeState = SubsystemState.Idle;
-        verticalSlideStates = VerticalSlideStates.closed;
+        verticalSlideStates = ArmSlideStates.closed;
         pivotStates = PivotStates.down;
-        if(GlobalVariables.isAutonomous) {
-            sampleClawState = SampleClawStates.closed;
-        }
-        else {
-            sampleClawState = SampleClawStates.fullyOpen;
-        }
     }
 
     public static SubsystemState getIntakeState() {
@@ -32,20 +23,12 @@ public class IntakeStates {
         intakeState = state;
     }
 
-    public static VerticalSlideStates getVerticalSlideState() {
+    public static ArmSlideStates getVerticalSlideState() {
         return verticalSlideStates;
     }
 
-    public static void setVerticalSlideState(VerticalSlideStates state) {
+    public static void setVerticalSlideState(ArmSlideStates state) {
         verticalSlideStates = state;
-    }
-
-    public static SampleClawStates getSampleClawState() {
-        return sampleClawState;
-    }
-
-    public static void setSampleClawState(SampleClawStates state) {
-        sampleClawState = state;
     }
 
     public static PivotStates getPivotState() {

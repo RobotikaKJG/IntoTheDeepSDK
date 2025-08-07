@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 
 public class RightBumperControl {
     public void update() {
@@ -15,7 +15,7 @@ public class RightBumperControl {
         }
     }
     private void stepUp() {
-        IntakeStates.setVerticalSlideState(VerticalSlideStates.stepUp);
+        IntakeStates.setVerticalSlideState(ArmSlideStates.stepUp);
         return;
     }
 }

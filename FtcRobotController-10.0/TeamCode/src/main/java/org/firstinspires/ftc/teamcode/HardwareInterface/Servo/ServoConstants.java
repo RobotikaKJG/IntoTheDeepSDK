@@ -1,29 +1,28 @@
 package org.firstinspires.ftc.teamcode.HardwareInterface.Servo;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 public class ServoConstants {
     // Servo indexes
-    public static final int outtakeLeft = 0;
-    public static final int outtakeRight = 1;
-    public static final int release = 2;
-    public static final int specimenClaw = 3;
-    public static final int intake = 4;
-    public static final int lock = 5; // Sample Lock Servo
+    public static final int outtakeArm = 0;
+    public static final int outtakeClawTurn = 1;
+    public static final int specimenClaw = 2;
+    public static final int intake = 3;
 
 
     public static final double[] servoMinPos =
             {
-                    IntakeConstants.outtakeLeftServoMinPos,
-                    IntakeConstants.outtakeRightServoMinPos,
-                    IntakeConstants.releaseServoMinPos,
-                    IntakeConstants.specimenClawServoMinPos,
+                    OuttakeConstants.outtakeArmServoMinPos,
+                    OuttakeConstants.outtakeClawTurnServoMinPos,
+                    OuttakeConstants.specimenClawServoMinPos,
+                    IntakeConstants.intakeServoMinPos,
             };
     public static final double[] servoMaxPos =
             {
-                    IntakeConstants.outtakeLeftServoMaxPos,
-                    IntakeConstants.outtakeRightServoMaxPos,
-                    IntakeConstants.releaseServoMaxPos,
-                    IntakeConstants.specimenClawServoMaxPos,
+                    OuttakeConstants.outtakeArmServoMaxPos,
+                    OuttakeConstants.outtakeClawTurnServoMaxPos,
+                    OuttakeConstants.specimenClawServoMaxPos,
+                    IntakeConstants.intakeServoMaxPos,
             };
 }

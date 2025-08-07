@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.VerticalSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 
 public class RightTriggerControl {
     public void update() {
@@ -15,7 +15,7 @@ public class RightTriggerControl {
         }
     }
     private void stepDown() {
-        IntakeStates.setVerticalSlideState(VerticalSlideStates.stepDown);
+        IntakeStates.setVerticalSlideState(ArmSlideStates.stepDown);
         return;
     }
 }
