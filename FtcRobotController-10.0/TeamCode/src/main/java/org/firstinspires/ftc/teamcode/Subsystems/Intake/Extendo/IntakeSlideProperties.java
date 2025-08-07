@@ -13,7 +13,7 @@ public class IntakeSlideProperties implements SlideProperties {
 
     @Override
     public int getSlideMaxExtension() {
-        return 550; // max is 1740, reduced for safety, 1650 was before Jonas changed
+        return 420; // max is 1740, reduced for safety, 1650 was before Jonas changed //should be 550
     }
 
     @Override
@@ -29,7 +29,7 @@ public class IntakeSlideProperties implements SlideProperties {
     @Override
     public int getSlideExtensionStep() {
         //return 2400;
-        return 125;
+        return 110; //should be 125
     }
 
     @Override

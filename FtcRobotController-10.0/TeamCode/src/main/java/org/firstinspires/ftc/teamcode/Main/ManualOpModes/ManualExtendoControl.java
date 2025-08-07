@@ -78,7 +78,7 @@ public class ManualExtendoControl extends LinearOpMode {
                 duration = System.currentTimeMillis() - startTime;
                 wasIf = true;
             }
+            intakeSlideControl.updateSlidePosition();
         }
     }
-
 }

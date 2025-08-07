@@ -55,7 +55,7 @@ public class OuttakeControl {
     public void update() {
         armControl.update();
         sampleClawControl.update();
-        verticalSlideControl.update();
+//        verticalSlideControl.update();
         sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
         sampleReleaseButtonLogic.update();
         specimenClawControl.update();
