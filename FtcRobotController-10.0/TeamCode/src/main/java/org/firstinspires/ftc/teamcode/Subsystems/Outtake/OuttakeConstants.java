@@ -16,9 +16,9 @@ public class OuttakeConstants {
     public static final int slideTargetThreshold = 20;
 
 
-    public static double outtakeRightServoMaxPos = 0.793;     // Taking position,Maximum rotational position 0,84
+    public static double outtakeRightServoMaxPos = 1;//0.793;     // Taking position,Maximum rotational position 0,84
     public static double outtakeRightServoSamplePos = 0.241;
-    public static double outtakeRightServoMinPos = 0.082;     //  ending position 0,246
+    public static double outtakeRightServoMinPos = 0;//.082;     //  ending position 0,246
 
     public static double releaseServoWait = 0.3;
 
