@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class ArmControl {
@@ -26,10 +23,13 @@ public class ArmControl {
     private void updateStates() {
         switch (OuttakeStates.getArmState()) {
             case takeSpecimen:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoTakePos);
                 break;
-            case putSpecimen:
+            case placeSpecimen:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoPlacePos);
                 break;
             case down:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoIdlePos);
                 break;
             case idle:
                 break;

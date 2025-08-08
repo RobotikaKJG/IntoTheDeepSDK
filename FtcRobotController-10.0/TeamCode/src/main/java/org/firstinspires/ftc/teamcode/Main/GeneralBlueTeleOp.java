@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideControl;
 
@@ -23,6 +25,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         GlobalVariables.isAutonomous = false;
         GlobalVariables.subCycles = false;
         GlobalVariables.alliance = Alliance.Blue;
+        MotorControl motorControl = new MotorControl(hardwareMap);
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
         IterativeController iterativeController = new IterativeController(dependencies);
 
@@ -39,7 +42,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
 
-            telemetry.addData("Outtake state", IntakeStates.getPivotState());
+            telemetry.addData("LeftTrigger state", motorControl.getMotorPosition(MotorConstants.slideRight));
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

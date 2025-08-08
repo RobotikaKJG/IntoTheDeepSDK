@@ -41,4 +41,9 @@ public class OuttakeStates {
     public static ArmStates getArmState() {
         return armState;
     }
+
+    public static void setArmState(ArmStates state) {
+        armState = state;
+    }
+
 }

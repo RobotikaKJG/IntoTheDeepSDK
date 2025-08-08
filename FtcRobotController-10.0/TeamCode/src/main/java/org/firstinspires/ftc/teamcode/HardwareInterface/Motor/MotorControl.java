@@ -17,6 +17,7 @@ public class MotorControl {
         public static final String pivot = "pivotMotor";
         public static final String slideLeft = "slideLeftMotor";
         public static final String slideRight = "slideRightMotor";
+        public static final String intake = "intakeMotor";
     }
 
     private final HardwareMap hardwareMap;
@@ -39,7 +40,8 @@ public class MotorControl {
                 hardwareMap.get(DcMotorEx.class, MotorNames.backRight),
                 hardwareMap.get(DcMotorEx.class, MotorNames.pivot),
                 hardwareMap.get(DcMotorEx.class, MotorNames.slideLeft),
-                hardwareMap.get(DcMotorEx.class, MotorNames.slideRight)
+                hardwareMap.get(DcMotorEx.class, MotorNames.slideRight),
+                hardwareMap.get(DcMotorEx.class, MotorNames.intake)
         };
 
         setMotorProperties();
@@ -51,7 +53,7 @@ public class MotorControl {
         motors[MotorConstants.slideRight].setDirection(DcMotorSimple.Direction.REVERSE);
         motors[MotorConstants.pivot].setDirection(DcMotorSimple.Direction.REVERSE);
         setZeroPowerBehavior(MotorConstants.all, DcMotor.ZeroPowerBehavior.BRAKE);
-        setZeroPowerBehavior(MotorConstants.pivot, DcMotor.ZeroPowerBehavior.FLOAT);
+        setZeroPowerBehavior(MotorConstants.intake, DcMotor.ZeroPowerBehavior.FLOAT);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorMode(MotorConstants.all, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }

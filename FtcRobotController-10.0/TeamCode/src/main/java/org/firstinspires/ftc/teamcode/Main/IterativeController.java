@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 
 public class IterativeController {
@@ -30,7 +31,8 @@ public class IterativeController {
     private final StandardTrackingWheelLocalizer localizer;
     private final ButtonControl buttonControl;
     private final ButtonControl subsystemControl2;
-    private final IntakeControl outtakeControl;
+    private final IntakeControl intakeControl;
+    private final OuttakeControl outtakeControl;
     private final SensorControl sensorControl;
     private final SlideControl intakeSlideControl;
     private final SlideControl outakeSlideControl;
@@ -48,6 +50,7 @@ public class IterativeController {
         localizer = dependencies.localizer;
         buttonControl = dependencies.createSubsystemControl();
         subsystemControl2 = dependencies.createSubsystemControl2();
+        intakeControl = dependencies.createIntakeControl();
         outtakeControl = dependencies.createOuttakeControl();
         sensorControl = dependencies.sensorControl;
         intakeSlideControl = dependencies.intakeSlideControl;
@@ -83,6 +86,7 @@ public class IterativeController {
             sensorControl.updateColor();
 
 
+        intakeControl.update();
         outtakeControl.update();
     }
 

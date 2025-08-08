@@ -17,11 +17,11 @@ import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 
 public class SensorControl {
 
-//    private final LimitSwitch[] limitSwitches;
+    private final LimitSwitch[] limitSwitches;
     private final EdgeDetection edgeDetection;
     private final StandardTrackingWheelLocalizer localizer;
-//    public final NormalizedColorSensor colorSensor;
-//    public final LynxI2cColorRangeSensor rangeSensor;
+    public final NormalizedColorSensor colorSensor;
+    public final LynxI2cColorRangeSensor rangeSensor;
     public int currentColor;
     public int currentRed;
     public int currentGreen;
@@ -29,11 +29,11 @@ public class SensorControl {
     private double currentDistance;
 
     public SensorControl(HardwareMap hardwareMap, EdgeDetection edgeDetection,  StandardTrackingWheelLocalizer localizer) {
-//        limitSwitches = getLimitSwitches(hardwareMap);
+        limitSwitches = getLimitSwitches(hardwareMap);
 
-//        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
-//        rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
-//        colorSensor.setGain(5);//2);
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
+        rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
+        colorSensor.setGain(5);//2);
 
         this.localizer = localizer;
         setInitialLocalisationAngle();
@@ -44,14 +44,12 @@ public class SensorControl {
     private LimitSwitch[] getLimitSwitches(HardwareMap hardwareMap) {
         final LimitSwitch[] limitSwitches;
         limitSwitches = new LimitSwitch[]{
-//                hardwareMap.get(LimitSwitch.class, "leftSlideLimitSwitch"),
-//                hardwareMap.get(LimitSwitch.class, "rightSlideLimitSwitch"),
-//                hardwareMap.get(LimitSwitch.class, "extendoLimitSwitch")
+                hardwareMap.get(LimitSwitch.class, "slidesLimitSwitch"),
+                hardwareMap.get(LimitSwitch.class, "pivotLimitSwitch")
         };
 
         limitSwitches[0].setMode(LimitSwitch.SwitchConfig.NC);
         limitSwitches[1].setMode(LimitSwitch.SwitchConfig.NC);
-        limitSwitches[2].setMode(LimitSwitch.SwitchConfig.NC);
         return limitSwitches;
     }
 
@@ -75,21 +73,19 @@ public class SensorControl {
             localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
     }
 
-//    public boolean isLimitSwitchPressed(LimitSwitches state) {
-//        switch (state) {
-//            case slideLeft:
-//                return limitSwitches[0].getIsPressed();
-//            case slideRight:
-//                return limitSwitches[1].getIsPressed();
-//            case extendo:
-//                return limitSwitches[2].getIsPressed();
-//            default:
-//                return false; // Or throw an exception
-//        }
-//    }
+    public boolean isLimitSwitchPressed(LimitSwitches state) {
+        switch (state) {
+            case slides:
+                return limitSwitches[0].getIsPressed();
+            case pivot:
+                return limitSwitches[1].getIsPressed();
+            default:
+                return false; // Or throw an exception
+        }
+    }
 
     public void updateColor(){
-//        currentColor = colorSensor.getNormalizedColors().toColor();
+        currentColor = colorSensor.getNormalizedColors().toColor();
         currentRed = Color.red(currentColor);
         currentGreen = Color.green(currentColor);
         currentBlue = Color.blue(currentColor);
@@ -102,9 +98,9 @@ public class SensorControl {
         currentBlue = 0;
     }
 
-//    public void updateDistance(){
-//        currentDistance = rangeSensor.getDistance(DistanceUnit.MM);
-//    }
+    public void updateDistance(){
+        currentDistance = rangeSensor.getDistance(DistanceUnit.MM);
+    }
 
     public void resetDistance(){
         currentDistance = 100;

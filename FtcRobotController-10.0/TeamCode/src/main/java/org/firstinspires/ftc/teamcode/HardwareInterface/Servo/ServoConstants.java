@@ -13,14 +13,14 @@ public class ServoConstants {
 
     public static final double[] servoMinPos =
             {
-                    OuttakeConstants.outtakeArmServoMinPos,
+                    OuttakeConstants.outtakeArmServoIdlePos,
                     OuttakeConstants.outtakeClawTurnServoMinPos,
                     OuttakeConstants.specimenClawServoMinPos,
                     IntakeConstants.intakeServoMinPos,
             };
     public static final double[] servoMaxPos =
             {
-                    OuttakeConstants.outtakeArmServoMaxPos,
+                    OuttakeConstants.outtakeArmServoTakePos,
                     OuttakeConstants.outtakeClawTurnServoMaxPos,
                     OuttakeConstants.specimenClawServoMaxPos,
                     IntakeConstants.intakeServoMaxPos,

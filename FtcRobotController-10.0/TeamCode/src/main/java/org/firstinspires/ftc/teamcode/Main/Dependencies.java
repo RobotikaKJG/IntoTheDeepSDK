@@ -14,7 +14,13 @@ import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideControl;
@@ -74,19 +80,43 @@ public class Dependencies {
         return new ButtonControl(gamepad2EdgeDetection, sensorControl);
     }
 
-    public IntakeControl createOuttakeControl() {
-        return new IntakeControl(createSampleClawControl(), createVerticalSlideControl(), createPivotControl());
+    public IntakeControl createIntakeControl() {
+        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl());
+    }
+
+    public OuttakeControl createOuttakeControl() {
+        return new OuttakeControl(createArmControl(), createSpecimenClawControl());
     }
 
     private PivotControl createPivotControl() {
-        return new PivotControl(motorControl);
+        return new PivotControl(motorControl, sensorControl);
     }
 
-    private SpecimenClawControl createSampleClawControl() {
+    private SpecimenClawControl createSpecimenClawControl() {
         return new SpecimenClawControl(servoControl);
     }
 
-    private ArmSlideControl createVerticalSlideControl() {
+    private AutoCloseLogic createAutoCloseLogic() {
+        return new AutoCloseLogic(sensorControl);
+    }
+
+    private AutoCloseControl createAutoCloseControl() {
+        return new AutoCloseControl(gamepad1);
+    }
+
+    private ArmSlideControl createArmSlideControl() {
         return new ArmSlideControl(outtakeSlideLogic);
+    }
+
+    private ArmControl createArmControl() {
+        return new ArmControl(servoControl);
+    }
+
+    private IntakeMotorControl createIntakeMotorControl() {
+        return new IntakeMotorControl(motorControl);
+    }
+
+    private LatchControl createLatchControl() {
+        return new LatchControl(servoControl, sensorControl);
     }
 }

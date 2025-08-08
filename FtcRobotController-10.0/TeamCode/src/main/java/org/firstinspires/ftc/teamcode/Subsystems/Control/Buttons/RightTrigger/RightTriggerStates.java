@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 public enum RightTriggerStates {
-    stepDown,
+    retract,
+    armUp,
+    release,
     idle
 }

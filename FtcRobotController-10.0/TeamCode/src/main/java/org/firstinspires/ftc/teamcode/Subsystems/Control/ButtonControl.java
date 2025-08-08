@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight.DpadRightLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.LeftTriggerLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightBumper.RightBumperLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLogic;
@@ -11,13 +15,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square.SquareLo
 public class ButtonControl {
     private final EdgeDetection edgeDetection;
     private final RightTriggerLogic rightTriggerLogic;
-    private final RightBumperLogic crossLogic = new RightBumperLogic();
+    private final RightBumperLogic rightBumperLogic = new RightBumperLogic();
+    private final LeftTriggerLogic leftTriggerLogic;
+    private final LeftBumperLogic leftBumperLogic = new LeftBumperLogic();
     private final SquareLogic squareLogic = new SquareLogic();
-
+    private final DpadRightLogic dpadRightLogic = new DpadRightLogic();
+    private final DpadDownLogic dpadDownLogic = new DpadDownLogic();
 
     public ButtonControl(EdgeDetection edgeDetection, SensorControl sensorControl) {
         this.edgeDetection = edgeDetection;
         rightTriggerLogic = new RightTriggerLogic(sensorControl);
+        this.leftTriggerLogic = new LeftTriggerLogic(sensorControl);
     }
 
     public void update() {
@@ -26,13 +34,26 @@ public class ButtonControl {
 
     private void updateLogic(){
 
+        if(edgeDetection.rising(GamepadIndexValues.dpadRight))
+            dpadRightLogic.update();
+
+        if(edgeDetection.rising(GamepadIndexValues.dpadDown))
+            dpadDownLogic.update();
+
         if(edgeDetection.rising(GamepadIndexValues.rightTrigger))
             rightTriggerLogic.update();
 
         if(edgeDetection.rising(GamepadIndexValues.rightBumper))
-            crossLogic.update();
+            rightBumperLogic.update();
+
+        if(edgeDetection.rising(GamepadIndexValues.leftTrigger))
+            leftTriggerLogic.update();
+
+        if(edgeDetection.rising(GamepadIndexValues.leftBumper))
+            leftBumperLogic.update();
 
         if(edgeDetection.rising(GamepadIndexValues.square))
             squareLogic.update();
+
     }
 }

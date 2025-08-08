@@ -61,18 +61,16 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public boolean isLimitSwitchPressed() {
-        boolean leftDown = retractSlide(MotorConstants.slideLeft, LimitSwitches.slideLeft);
-        boolean rightDown = retractSlide(MotorConstants.slideRight, LimitSwitches.slideRight);
-        return (leftDown && rightDown);
+        return retractSlide(MotorConstants.bothSlides, LimitSwitches.slides);
     }
 
     private boolean retractSlide(int slide, LimitSwitches limitSwitch) {
-//        if(sensorControl.isLimitSwitchPressed(limitSwitch)){//||motorControl.isOverCurrent(MotorConstants.extendo)) {
-//            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            motorControl.setMotorSpeed(slide, 0);
-//            motorControl.setMotors(slide);
-//            return true;
-//        }
+        if(sensorControl.isLimitSwitchPressed(limitSwitch)){
+            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motorControl.setMotorSpeed(slide, 0);
+            motorControl.setMotors(slide);
+            return true;
+        }
 
         if(currentPosition > IntakeConstants.limitSwitchThreshold)
             return false;

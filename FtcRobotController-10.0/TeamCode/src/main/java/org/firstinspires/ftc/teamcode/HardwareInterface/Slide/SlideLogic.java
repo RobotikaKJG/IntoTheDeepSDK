@@ -53,17 +53,9 @@ public class SlideLogic {
         addSlideExtension(slideExtensionStep);
     }
 
-    public void stepUpMore() {
-        addSlideExtension(slideFirstExtentionStep);
-    }
-
     public void stepDown()
     {
         addSlideExtension(-slideExtensionStep);
-    }
-
-    public void stepDownMore() {
-        addSlideExtension(-slideFirstExtentionStep);
     }
 
     public boolean isExtensionTargetNotInBounds(int slideExtensionTarget) {

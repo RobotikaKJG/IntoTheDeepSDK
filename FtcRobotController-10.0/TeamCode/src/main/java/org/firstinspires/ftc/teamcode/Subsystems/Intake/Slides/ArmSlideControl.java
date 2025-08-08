@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
 
-import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
-import org.firstinspires.ftc.teamcode.Main.Dependencies;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 
 public class ArmSlideControl {
     private final SlideLogic slideLogic;
-    private ArmSlideStates prevVerticalSlideStates = ArmSlideStates.closed;
+    private ArmSlideStates prevVerticalSlideStates = ArmSlideStates.close;
     public int currentExtentionStep = 0;
 
     public ArmSlideControl(SlideLogic slideLogic) {
@@ -15,50 +15,59 @@ public class ArmSlideControl {
     }
 
     public void update() {
-        if(IntakeStates.getVerticalSlideState() != prevVerticalSlideStates) {
+        if(IntakeStates.getArmSlideState() != prevVerticalSlideStates) {
             updateStates();
-            prevVerticalSlideStates = IntakeStates.getVerticalSlideState();
+            prevVerticalSlideStates = IntakeStates.getArmSlideState();
         }
-//        if(OuttakeStates.getVerticalSlideState() == VerticalSlideStates.closing) {
-//            if(slideLogic.slidesBottomReached()) {
-//                OuttakeStates.setVerticalSlideState(VerticalSlideStates.closed);
-//            }
-//            profileRetractionSpeed();
-//        }
+
+        if(IntakeStates.getArmSlideState() == ArmSlideStates.closing) {
+            if(slideLogic.slidesBottomReached()) {
+                IntakeStates.setArmSlideState(ArmSlideStates.closed);
+                IntakeStates.setPivotState(PivotStates.down);
+            }
+        }
     }
 
     private void updateStates() {
-        switch(IntakeStates.getVerticalSlideState()){
+        switch(IntakeStates.getArmSlideState()){
+            case close:
+                currentExtentionStep = 0;
+                slideLogic.setSlideExtensionTarget(50);
+                IntakeStates.setArmSlideState(ArmSlideStates.closing);
+                break;
+            case closing:
+                break;
+            case closed:
+                break;
+            case extended:
+                break;
             case stepUp:
                 stepUp();
                 break;
             case stepDown:
                 stepDown();
                 break;
-            case closed:
-                break;
         }
     }
 
     private void stepUp() {
         if(prevVerticalSlideStates == ArmSlideStates.closed) {
-            slideLogic.stepUpMore();
+            slideLogic.setSlideExtensionTarget(IntakeConstants.slideFirstExtentionStep);
         }
         else {
             slideLogic.stepUp();
         }
-        IntakeStates.setVerticalSlideState(ArmSlideStates.extended);
+        IntakeStates.setArmSlideState(ArmSlideStates.extended);
         currentExtentionStep += 1;
     }
 
     private void stepDown() {
         if(currentExtentionStep <= 1) {
-            slideLogic.stepDownMore();
-            IntakeStates.setVerticalSlideState(ArmSlideStates.closed);
+            IntakeStates.setArmSlideState(ArmSlideStates.close);
         }
         else {
             slideLogic.stepDown();
-            IntakeStates.setVerticalSlideState(ArmSlideStates.extended);
+            IntakeStates.setArmSlideState(ArmSlideStates.extended);
         }
 
         currentExtentionStep -= 1;

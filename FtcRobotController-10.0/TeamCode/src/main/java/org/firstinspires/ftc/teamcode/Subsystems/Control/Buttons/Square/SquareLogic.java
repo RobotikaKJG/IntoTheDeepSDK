@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class SquareLogic {
     private final SquareControl squareControl = new SquareControl();
 
     public void update() {
-        if (up()) return;
-        if (down()) return;
+        if (closeClaw()) return;
+        if (openClaw()) return;
     }
 
     private void completeAction(){
@@ -17,16 +19,16 @@ public class SquareLogic {
         ButtonStates.setSquareState(SquareStates.idle);
     }
 
-    private boolean up() {
-        if (IntakeStates.getPivotState() == PivotStates.upFast || IntakeStates.getPivotState() == PivotStates.up) return false;
-        ButtonStates.setSquareState(SquareStates.up);
+    private boolean closeClaw() {
+        if (OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed) return false;
+        ButtonStates.setSquareState(SquareStates.closeClaw);
         completeAction();
         return true;
     }
 
-    private boolean down() {
-        if (IntakeStates.getPivotState() == PivotStates.down) return false;
-        ButtonStates.setSquareState(SquareStates.down);
+    private boolean openClaw() {
+        if (OuttakeStates.getSpecimenClawState() == SpecimenClawStates.fullyOpen) return false;
+        ButtonStates.setSquareState(SquareStates.openClaw);
         completeAction();
         return true;
     }
