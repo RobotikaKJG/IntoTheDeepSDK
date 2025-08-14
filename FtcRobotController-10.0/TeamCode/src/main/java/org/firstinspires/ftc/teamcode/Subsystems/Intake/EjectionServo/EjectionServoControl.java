@@ -28,6 +28,9 @@ public class EjectionServoControl {
             case closed:
                 servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
                 break;
+            case middle:
+                servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMiddlePos);
+                break;
             case open:
                 servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
                 break;
