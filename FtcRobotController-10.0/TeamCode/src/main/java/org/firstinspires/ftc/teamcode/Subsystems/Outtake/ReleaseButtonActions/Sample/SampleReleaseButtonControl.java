@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -47,7 +48,10 @@ public class SampleReleaseButtonControl {
     }
 
     private void waitToRelease() {
-        OuttakeStates.setArmState(ArmStates.down);
+        if(GlobalVariables.isAutonomous)
+            OuttakeStates.setArmState(ArmStates.intake);
+        else
+            OuttakeStates.setArmState(ArmStates.down);
     } //Bad names, NOTE
 
     private void openSampleClaw() {

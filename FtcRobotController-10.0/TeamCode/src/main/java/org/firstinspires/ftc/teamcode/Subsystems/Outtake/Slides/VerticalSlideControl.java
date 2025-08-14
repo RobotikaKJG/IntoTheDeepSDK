@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -34,7 +35,10 @@ public class VerticalSlideControl {
                 slideLogic.setMaxSpeed(0.8);
                 slideLogic.setSlideExtensionTarget(50);
                 slideLogic.setMaxSpeed(0.8);
-                OuttakeStates.setArmState(ArmStates.down);
+                if(GlobalVariables.isAutonomous)
+                    OuttakeStates.setArmState(ArmStates.intake);
+                else
+                    OuttakeStates.setArmState(ArmStates.down);
 
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.closing);
                 break;

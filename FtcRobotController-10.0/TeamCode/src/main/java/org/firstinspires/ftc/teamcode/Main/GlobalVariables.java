@@ -7,6 +7,6 @@ public class GlobalVariables {
     public static boolean wasAutonomous;
     public static boolean isAutonomous;
     public static boolean slowMode = false;
-    public static AutonomousMode autonomousMode;
+    public static AutonomousMode autonomousMode = AutonomousMode.sampleAuton;
     public static boolean subCycles;
 }

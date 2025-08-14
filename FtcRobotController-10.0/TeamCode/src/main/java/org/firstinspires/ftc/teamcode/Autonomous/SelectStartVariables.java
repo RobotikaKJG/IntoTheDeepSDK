@@ -22,23 +22,23 @@ public class SelectStartVariables {
         this.telemetry = telemetry;
         currentGamepad1.copy(this.gamepad1);
         edgeDetection = new EdgeDetection();
-        selectAuton();
+//        selectAuton();
         selectAlliance();
     }
 
-    private void selectAuton() {
-        while (!risingTriangleEdge && !risingSquareEdge) {
-            calculateGamepadValues();
-
-            telemetry.addLine("Press triangle for SAMPLE, press square for SPECIMEN");
-            telemetry.update();
-            if (risingTriangleEdge)
-                GlobalVariables.autonomousMode = AutonomousMode.sampleAuton;
-            if (risingSquareEdge)
-                GlobalVariables.autonomousMode = AutonomousMode.specimenAuton;
-
-        }
-    }
+//    private void selectAuton() {
+//        while (!risingTriangleEdge && !risingSquareEdge) {
+//            calculateGamepadValues();
+//
+//            telemetry.addLine("Press triangle for SAMPLE, press square for SPECIMEN");
+//            telemetry.update();
+//            if (risingTriangleEdge)
+//                GlobalVariables.autonomousMode = AutonomousMode.sampleAuton;
+//            if (risingSquareEdge)
+//                GlobalVariables.autonomousMode = AutonomousMode.specimenAuton;
+//
+//        }
+//    }
 
     private void selectAlliance() {
         risingTriangleEdge = false;

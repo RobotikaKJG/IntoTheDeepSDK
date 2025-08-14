@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 public class AutonomousConstants {
 
     //sample constants
-    public static final double flipSubArmWait = 1.6;
+    public static final double flipSubArmWait = 0.8;
     public static final double flipArmWait = 0.05;
     public static final double intakeCloseWait = 0.175; //can cause risk, NOTE
 

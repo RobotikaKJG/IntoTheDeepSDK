@@ -140,23 +140,25 @@ public class OuttakeStates {
 
 
     // Execute outtake extension and arm flip in parallel
-    public static void extendOuttakeAndIntakeAndFlipArm(long waitTime) {
+    public static void extendOuttakeAndIntakeAndFlipArm(double waitTime) {
 
         setSampleClawState(SampleClawStates.closed);
 
         // Step 1: Extend outtake slides immediately
         CompletableFuture.runAsync(() -> {
             setVerticalSlideState(VerticalSlideStates.highBasket);
+            setArmState(ArmStates.up);
+
         }, executor);
 
         // Step 2: Delay the intake & flip arm execution by 0.2s
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(waitTime * 1000);  //??? NOTE THIS IS DEFINITELY SLOWING EVERYTHING DOWN Wait 0.2 seconds before extending intake and flipping the arm
+                Thread.sleep((long) (waitTime * 1000));  //??? NOTE THIS IS DEFINITELY SLOWING EVERYTHING DOWN Wait 0.2 seconds before extending intake and flipping the arm
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            setArmState(ArmStates.up);
+
             IntakeStates.setExtendoState(ExtendoStates.sampleExtend);
         }, executor);
     }
