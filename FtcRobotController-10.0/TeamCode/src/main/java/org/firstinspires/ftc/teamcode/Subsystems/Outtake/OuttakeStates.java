@@ -44,12 +44,14 @@ public class OuttakeStates {
         if(GlobalVariables.isAutonomous) {
             sampleClawState = SampleClawStates.closed;
             sampleLockState = SampleLockStates.open;
+            armState = ArmStates.up;
         }
         else {
             sampleClawState = SampleClawStates.fullyOpen;
             sampleLockState = SampleLockStates.closed;
+            armState = ArmStates.down;
         }
-        armState = ArmStates.down;
+
         sampleReleaseButtonStates = SampleReleaseButtonStates.idle;
         specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
         specimenClawState = SpecimenClawStates.open;

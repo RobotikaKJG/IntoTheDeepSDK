@@ -32,18 +32,20 @@ public class ServoControl {
     }
 
     public void setServoStartPos() {
-        setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMaxPos);
-        setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMinPos);
             setServoPos(ServoConstants.lock, IntakeConstants.lockServoMinPos);
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
+            setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoStartPos);
+            setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoStartPos);
         }
         else {
             setServoPos(ServoConstants.release, OuttakeConstants.releaseServoMaxPos);
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
             setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
+            setServoPos(ServoConstants.outtakeLeft, OuttakeConstants.outtakeLeftServoMinPos);
+            setServoPos(ServoConstants.outtakeRight, OuttakeConstants.outtakeRightServoMinPos);
         }
 
         setServoPos(ServoConstants.intake, IntakeConstants.intakeServoMinPos);
