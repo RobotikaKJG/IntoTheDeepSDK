@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Slides.VerticalSlideStates;
 
 public class DropSampleControl {
@@ -25,7 +21,7 @@ public class DropSampleControl {
                 OuttakeStates.setVerticalSlideState(VerticalSlideStates.lowRung);
                 break;
             case flipArm:
-                OuttakeStates.setArmState(ArmStates.drop);
+                OuttakeStates.setArmState(ArmStates.intake);
                 break;
             case release:
                 OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);

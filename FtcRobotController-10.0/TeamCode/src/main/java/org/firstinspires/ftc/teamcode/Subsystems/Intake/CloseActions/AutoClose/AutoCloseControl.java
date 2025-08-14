@@ -73,6 +73,7 @@ public class AutoCloseControl {
 
     private void waitForCommand() {
         IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
+        OuttakeStates.setArmState(ArmStates.intake);
         gamepad1.rumble(400);
     }
 
@@ -86,7 +87,8 @@ public class AutoCloseControl {
 
     private static void closeSampleClaw() {
         OuttakeStates.setArmState(ArmStates.down);
-        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
+//        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
+        if(!GlobalVariables.isAutonomous) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
