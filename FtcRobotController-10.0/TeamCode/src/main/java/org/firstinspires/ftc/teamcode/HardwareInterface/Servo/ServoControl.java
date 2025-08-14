@@ -29,6 +29,8 @@ public class ServoControl {
                 hardwareMap.get(Servo.class, "PTORight"),
                 hardwareMap.get(Servo.class, "PTOLeft")
         };
+        setServoDirection(ServoConstants.release, Servo.Direction.REVERSE);
+
     }
 
     public void setServoStartPos() {
@@ -58,5 +60,9 @@ public class ServoControl {
 
     private boolean isInBounds(int index, double position) {
         return position >= ServoConstants.servoMinPos[index] && position <= ServoConstants.servoMaxPos[index];
+    }
+
+    private void setServoDirection(int index, Servo.Direction direction){
+        servos[index].setDirection(direction);
     }
 }
