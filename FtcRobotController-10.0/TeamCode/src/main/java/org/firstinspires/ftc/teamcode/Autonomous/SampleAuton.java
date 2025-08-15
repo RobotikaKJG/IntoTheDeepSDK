@@ -4,11 +4,13 @@ import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.ex
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setArmState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleClawState;
 import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setSampleLockState;
+import static org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates.setVerticalSlideState;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Trajectories.SampleTrajectories;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
+import org.firstinspires.ftc.teamcode.Roadrunner.DriveConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
@@ -45,7 +47,7 @@ public class SampleAuton implements Auton {
         this.intakeMotorLogic = intakeMotorLogic;
         fiveSampleIntakePath =
                 drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
-                        .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), 13.5))
+                        .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                         .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80, 50))
                         .lineToSplineHeading(fifthIntakePose)
                         .build();
@@ -78,6 +80,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case secondSampleIntakePath:
+                sampleAutonState = SampleAutonState.stop;
                 if(!startTrajectoryAndContinue(trajectories.secondSampleIntakePath(), SampleAutonState.startIntakeForSecondSample)) return;
                 addWaitTime(0.1); // DO NOT REDUCE FURTHER.
                 break;
@@ -197,7 +200,7 @@ public class SampleAuton implements Auton {
                 subPlaceYCoordinate += 1;
                 fiveSampleIntakePath =
                         drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
-                                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), 13.5))
+                                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80, 50))
                                 .lineToSplineHeading(fifthIntakePose)
                                 .build();
@@ -271,6 +274,11 @@ public class SampleAuton implements Auton {
                 wasIfCalled = false;
                 break;
             // Additional sample states can follow same pattern...
+            case stop:
+                setArmState(ArmStates.intake);
+                setVerticalSlideState(VerticalSlideStates.close);
+                IntakeStates.setExtendoState(ExtendoStates.retracting);
+                break;
         }
     }
 
