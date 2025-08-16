@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Main.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.Main.Alliance;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.GamepadIndexValues;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Gamepad.EdgeDetection;
@@ -22,6 +23,7 @@ public class SensorControl {
     private final StandardTrackingWheelLocalizer localizer;
     public final NormalizedColorSensor colorSensor;
     public final LynxI2cColorRangeSensor rangeSensor;
+    public final GoBildaPinpointDriver pinpointImu;
     public int currentColor;
     public int currentRed;
     public int currentGreen;
@@ -33,6 +35,7 @@ public class SensorControl {
 
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
         rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
+        pinpointImu = hardwareMap.get(GoBildaPinpointDriver.class, "pinpointIMU");
         colorSensor.setGain(5);//2);
 
         this.localizer = localizer;
@@ -60,6 +63,20 @@ public class SensorControl {
             GlobalVariables.wasAutonomous = false;
             localizer.setPoseEstimate(new Pose2d(0, 0, Math.toRadians(-45)));
         }
+    }
+
+    public void initPinpoint() {
+        pinpointImu.initialize();
+    }
+
+    public double getPinpointAngle() {
+        pinpointImu.update();
+        return pinpointImu.getHeading();
+    }
+
+    public void resetPinpointAngle() {
+        if (edgeDetection.rising(GamepadIndexValues.options))
+            pinpointImu.resetPosAndIMU();
     }
 
     public double getLocalizerAngle() {

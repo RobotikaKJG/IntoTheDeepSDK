@@ -34,6 +34,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
+        dependencies.sensorControl.initPinpoint();
+
         waitForStart();
 
         dependencies.servoControl.setServoStartPos();
