@@ -4,8 +4,8 @@ public class AutonomousConstants {
 
     //sample constants
     public static final double flipSubArmWait = 0.8;
-    public static final double flipArmWait = 0.05;
-    public static final double intakeCloseWait = 0.175; //can cause risk, NOTE
+    public static final double flipArmWait = 0.1;
+    public static final double intakeCloseWait = 0.2; //reduction can cause risk, NOTE
 
     //specimen constants
     public static final double goToTakeSampleWait = 1.5;

@@ -67,12 +67,19 @@ public class AutoCloseControl {
 
     private void ejectExtraSamples() {
         gamepad1.rumble(200);
-        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
+        if(!GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
             IntakeStates.setMotorState(IntakeMotorStates.backward);
+            System.out.println("MIINNEE EJECTION");
+        }
     }
 
     private void waitForCommand() {
-        IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
+        if(GlobalVariables.isAutonomous && !GlobalVariables.subCycles) {
+//            IntakeStates.setMotorState(IntakeMotorStates.forward);
+            System.out.println("MIINNEE COMMAND");
+        }
+        else
+            IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
         OuttakeStates.setArmState(ArmStates.intake);
         gamepad1.rumble(400);
     }
@@ -82,6 +89,10 @@ public class AutoCloseControl {
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             IntakeStates.setMotorState(IntakeMotorStates.idleWasForward); // for manual retract, NOTE
 //        IntakeStates.setEjectionServoState(EjectionServoStates.closed);
+        else {
+//            IntakeStates.setMotorState(IntakeMotorStates.forward);
+            System.out.println("MIINNEE RETRACT");
+        }
         OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
 
@@ -92,6 +103,8 @@ public class AutoCloseControl {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
             OuttakeStates.setSampleLockState(SampleLockStates.open);
         }
+        else
+            IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);
     }
 
 }

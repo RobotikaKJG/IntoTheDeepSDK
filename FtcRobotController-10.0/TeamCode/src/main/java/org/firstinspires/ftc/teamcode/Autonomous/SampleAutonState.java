@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 public enum SampleAutonState {
     waitForFlip,
     releaseSample,
-    driveToPlaceFirstSample,
+    driveToPlaceSecondSample,
     secondSampleIntakePath,
     startIntakeForSecondSample,
     checkSecondSamplePickup,

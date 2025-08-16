@@ -12,7 +12,6 @@ public class SampleTrajectories {
 
     SampleMecanumDrive drive;
     TrajectorySequence preloadTrajectory;
-    TrajectorySequence secondSampleIntakePath;
     TrajectorySequence secondSampleOuttakePath;
     TrajectorySequence thirdSamplePath;
     TrajectorySequence forthSampleIntakePath;
@@ -33,68 +32,72 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
 
-                .lineToLinearHeading(new Pose2d(-55.5, -57.5, Math.toRadians(69)))
+//                .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(66))) // DO NOT TOUCH THIS IS PAIN
+//                .lineToLinearHeading(new Pose2d(-59, -54, Math.toRadians(69))) // DO NOT TOUCH THIS IS PAIN
+                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(73))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS
+
+
 //                .waitSeconds(0.5)
                 .build();
 
-        secondSampleIntakePath = drive.trajectorySequenceBuilder(preloadTrajectory.end())
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
+//        secondSampleIntakePath = drive.trajectorySequenceBuilder(startPose)//preloadTrajectory.end())
+//                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
+//                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 40))
+//
+//                .lineToLinearHeading(new Pose2d(-65, -50, Math.toRadians(75)))
+//                .build();
+//
+//        secondSampleOuttakePath = drive.trajectorySequenceBuilder(secondSampleIntakePath.end())
+//                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
+//                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
+//
+//                .lineToLinearHeading(new Pose2d(-56, -55, Math.toRadians(69)))
+//                .build();
 
-                .lineToLinearHeading(new Pose2d(-54, -47, Math.toRadians(45)))
-                .build();
-
-        secondSampleOuttakePath = drive.trajectorySequenceBuilder(secondSampleIntakePath.end())
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
-
-                .lineToLinearHeading(new Pose2d(-57, -53, Math.toRadians(69)))
-                .build();
-
-        thirdSamplePath = drive.trajectorySequenceBuilder(secondSampleOuttakePath.end())
+        thirdSamplePath = drive.trajectorySequenceBuilder(preloadTrajectory.end())
             // third sample intake
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
-
-            .lineToLinearHeading(new Pose2d(-59.5, -52.5, Math.toRadians(80)))
+                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
+                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(15, 30))
+//                .waitSeconds(0.4)
+                .lineToLinearHeading(new Pose2d(-59, -53, Math.toRadians(82)))
 //            .waitSeconds(0.5)
-            .build();
+                .build();
 
 
         forthSampleIntakePath = drive.trajectorySequenceBuilder(thirdSamplePath.end())
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(20, 30))
-                .waitSeconds(0.1)
-                .lineToLinearHeading(new Pose2d(-57.5, -53.5, Math.toRadians(110)))//115)))
+                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
+                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(15, 30))
+                .waitSeconds(0.0069)
+                .lineToLinearHeading(new Pose2d(-55, -57.5, Math.toRadians(115)))//115)))
 //                .waitSeconds(0.5)
                 .build();
 
         forthSampleOuttakePath = drive.trajectorySequenceBuilder(forthSampleIntakePath.end())
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(40, Math.toRadians(50), DriveConstants.TRACK_WIDTH))
+                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(40, Math.toRadians(70), DriveConstants.TRACK_WIDTH))
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(10, 20))
-                .waitSeconds(0.05)
-                .lineToLinearHeading(new Pose2d(-58.5, -55.5, Math.toRadians(80)))
+                .waitSeconds(0.0069)
+                .lineToLinearHeading(new Pose2d(-58, -56, Math.toRadians(70)))
 
 //                .waitSeconds(0.3)
 //                .waitSeconds(0.5)
                 .build();
 
-        fiveSampleIntakePath1 = drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80,50))
-                .lineToSplineHeading(new Pose2d(-32, -8, Math.toRadians(0)))
-                .build();
-
-        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(SampleAuton.getFifthIntakePose())
-                .lineToSplineHeading(new Pose2d(-48, -63, Math.toRadians(35)))
-                .build();
-
-        moveToSub = drive.trajectorySequenceBuilder(new Pose2d(-38, -8, Math.toRadians(0)))
-                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
-                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(30, 10))
-
-                .lineTo(new Vector2d(-28, -8))
-                .build();
+//        fiveSampleIntakePath1 = drive.trajectorySequenceBuilder(new Pose2d(-54.5, -50, Math.toRadians(65)))
+//                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(100, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(80,50))
+//                .lineToSplineHeading(new Pose2d(-32, -8, Math.toRadians(0)))
+//                .build();
+//
+//        fiveSampleOuttakePath = drive.trajectorySequenceBuilder(SampleAuton.getFifthIntakePose())
+//                .lineToSplineHeading(new Pose2d(-48, -63, Math.toRadians(35)))
+//                .build();
+//
+//        moveToSub = drive.trajectorySequenceBuilder(new Pose2d(-38, -8, Math.toRadians(0)))
+//                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
+//                .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(30, 10))
+//
+//                .lineTo(new Vector2d(-28, -8))
+//                .build();
     }
 
 
@@ -113,7 +116,7 @@ public class SampleTrajectories {
         return secondSampleOuttakePath;
     }
 
-    public TrajectorySequence followThirdSampleIntakePath() {
+    public TrajectorySequence followThirdSamplePath() {
         return thirdSamplePath;
     }
 
