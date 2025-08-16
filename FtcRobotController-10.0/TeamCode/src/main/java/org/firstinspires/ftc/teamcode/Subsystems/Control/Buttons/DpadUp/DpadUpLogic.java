@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp;
 
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -28,7 +26,7 @@ public class DpadUpLogic {
     }
 
     private boolean slideStepUp() {
-        if(!sampleTaken()) return false;
+        if(!outtakeActive()) return false;
         ButtonStates.setDpadUpState(DpadUpStates.slideStepUp);
         completeAction();
         return true;
@@ -36,9 +34,5 @@ public class DpadUpLogic {
 
     private boolean outtakeActive() {
         return OuttakeStates.getOuttakeState() == SubsystemState.Run;
-    }
-
-    private boolean sampleTaken(){
-        return OuttakeStates.getSampleClawState() == SampleClawStates.closed || OuttakeStates.getSampleClawState() == SampleClawStates.freeMove;
     }
 }
