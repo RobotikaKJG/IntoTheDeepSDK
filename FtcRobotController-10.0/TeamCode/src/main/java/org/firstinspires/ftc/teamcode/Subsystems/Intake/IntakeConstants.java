@@ -25,7 +25,7 @@ public class IntakeConstants {
     public static final double intakeServoMaxPos = 0.15;     // Taking position
     public static final double intakeServoMinPos = 0;     // Minimum rotational position, starting position
 
-    public static final double secureSampleTime = 0.15;//.3;
+    public static final double secureSampleTime = 0.25;//.3;
     public static final double secureSampleAutonTime = 0;//.05;
     public static final double intakeAutonomousPushoutTime = 0;
     public static double intakePushoutTime = 0.15;
