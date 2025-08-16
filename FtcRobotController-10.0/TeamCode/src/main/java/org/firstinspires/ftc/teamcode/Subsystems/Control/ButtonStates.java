@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown.DpadDownStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadRight.DpadRightStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadUp.DpadUpStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper.LeftBumperStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftTrigger.LeftTriggerStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger.RightTriggerStates;
@@ -16,6 +17,7 @@ public class ButtonStates {
     private static SquareStates squareStates = SquareStates.idle;
     private static DpadRightStates dpadRightStates = DpadRightStates.idle;
     private static DpadDownStates dpadDownStates = DpadDownStates.idle;
+    private static DpadUpStates dpadUpStates = DpadUpStates.idle;
 
     public static void setInitialStates(){
         leftBumperStates = LeftBumperStates.idle;
@@ -25,6 +27,7 @@ public class ButtonStates {
         squareStates = SquareStates.idle;
         dpadRightStates = DpadRightStates.idle;
         dpadDownStates = DpadDownStates.idle;
+        dpadUpStates = DpadUpStates.idle;
     }
 
     public static LeftBumperStates getLeftBumperState() {
@@ -82,5 +85,13 @@ public class ButtonStates {
 
     public static void setDpadDownState(DpadDownStates state) {
         ButtonStates.dpadDownStates = state;
+    }
+
+    public static DpadUpStates getDpadUpState() {
+        return dpadUpStates;
+    }
+
+    public static void setDpadUpState(DpadUpStates state) {
+        ButtonStates.dpadUpStates = state;
     }
 }

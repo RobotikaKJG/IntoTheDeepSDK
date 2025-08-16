@@ -8,8 +8,7 @@ public class DpadRightLogic {
     private final DpadRightControl dpadRightControl = new DpadRightControl();
 
     public void update() {
-        if (takeSpecimen()) return;
-        if (placeSpecimen()) return;
+        takeSpecimen();
     }
 
     private void completeAction(){
@@ -17,17 +16,8 @@ public class DpadRightLogic {
         ButtonStates.setDpadRightState(DpadRightStates.idle);
     }
 
-    private boolean takeSpecimen() {
-        if(OuttakeStates.getArmState() == ArmStates.takeSpecimen) return false;
-        ButtonStates.setDpadRightState(DpadRightStates.take);
+    private void takeSpecimen() {
+        ButtonStates.setDpadRightState(DpadRightStates.takeSpecimen);
         completeAction();
-        return true;
-    }
-
-    private boolean placeSpecimen() {
-        if(OuttakeStates.getArmState() == ArmStates.placeSpecimen) return false;
-        ButtonStates.setDpadRightState(DpadRightStates.place);
-        completeAction();
-        return true;
     }
 }

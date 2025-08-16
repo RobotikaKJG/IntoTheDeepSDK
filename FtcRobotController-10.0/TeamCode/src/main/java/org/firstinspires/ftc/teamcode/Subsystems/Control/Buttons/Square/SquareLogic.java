@@ -10,8 +10,7 @@ public class SquareLogic {
     private final SquareControl squareControl = new SquareControl();
 
     public void update() {
-        if (closeClaw()) return;
-        if (openClaw()) return;
+        takeSpecimen();
     }
 
     private void completeAction(){
@@ -19,17 +18,8 @@ public class SquareLogic {
         ButtonStates.setSquareState(SquareStates.idle);
     }
 
-    private boolean closeClaw() {
-        if (OuttakeStates.getSpecimenClawState() == SpecimenClawStates.closed) return false;
-        ButtonStates.setSquareState(SquareStates.closeClaw);
+    private void takeSpecimen() {
+        ButtonStates.setSquareState(SquareStates.takeSpecimen);
         completeAction();
-        return true;
-    }
-
-    private boolean openClaw() {
-        if (OuttakeStates.getSpecimenClawState() == SpecimenClawStates.fullyOpen) return false;
-        ButtonStates.setSquareState(SquareStates.openClaw);
-        completeAction();
-        return true;
     }
 }

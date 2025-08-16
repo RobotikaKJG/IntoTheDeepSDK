@@ -10,4 +10,5 @@ public class OuttakeConstants {
     public static  double outtakeArmServoIdlePos = 0.1;      // Idle position,
     public static double outtakeClawTurnServoMaxPos = 0.793;     // Taking position
     public static double outtakeClawTurnServoMinPos = 0.082;     //  Placing position
+    public static double specimenTakeWait = 0.2;
 }

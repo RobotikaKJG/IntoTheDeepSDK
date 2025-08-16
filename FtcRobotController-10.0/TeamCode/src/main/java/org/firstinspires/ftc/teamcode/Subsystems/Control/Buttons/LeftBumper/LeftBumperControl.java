@@ -5,26 +5,24 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
 public class LeftBumperControl {
     public void update() {
         switch (ButtonStates.getLeftBumperState()) {
-            case pivotDown:
-                IntakeStates.setPivotState(PivotStates.down);
+            case outtakeReady:
+                OuttakeStates.setArmState(ArmStates.takeSpecimen);
                 break;
-            case pivotUp:
-                IntakeStates.setPivotState(PivotStates.upSlightly);
+            case takeSpecimen:
+                OuttakeStates.setSpecimenClawState(SpecimenClawStates.freeMove);
                 break;
-            case takeSample:
-                IntakeStates.setMotorState(IntakeMotorStates.forward);
-                IntakeStates.setPivotState(PivotStates.down);
+            case armUp:
+                OuttakeStates.setArmState(ArmStates.placeSpecimen);
                 break;
-            case sampleTaken:
-                IntakeStates.setMotorState(IntakeMotorStates.idle);
-                IntakeStates.setPivotState(PivotStates.upSlightly);
-                break;
-            case retract:
-                IntakeStates.setArmSlideState(ArmSlideStates.close);
+            case placeSpecimen:
+                OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
                 break;
             case idle:
                 break;

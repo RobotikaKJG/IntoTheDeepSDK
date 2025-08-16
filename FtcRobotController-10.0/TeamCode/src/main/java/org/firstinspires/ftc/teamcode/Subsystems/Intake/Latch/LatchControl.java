@@ -49,11 +49,15 @@ public class LatchControl {
     }
 
     private boolean wrongColor(){
-        return sensorControl.isOtherAllianceColor() || sensorControl.isYellow();
+        if (sensorControl.getDistance() < 70)
+            return sensorControl.isOtherAllianceColor() || sensorControl.isYellow();
+        return false;
     }
 
     private boolean correctColor() {
-        return sensorControl.isAllianceColor();
+        if (sensorControl.getDistance() < 70)
+            return sensorControl.isAllianceColor();
+        return false;
     }
 }
 

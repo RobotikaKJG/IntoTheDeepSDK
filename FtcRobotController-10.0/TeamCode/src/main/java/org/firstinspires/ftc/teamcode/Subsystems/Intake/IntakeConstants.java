@@ -14,4 +14,5 @@ public class IntakeConstants {
 
     public static double secureSampleWait = 0.3;
     public static double pivotDownSpeed = 0.3;
+    public static double sampleEjectWait = 1;
 }

@@ -31,14 +31,14 @@ public class RightTriggerLogic {
 
 
     private boolean retract() {
-        if(IntakeStates.getArmSlideState() == ArmSlideStates.close) return false;
+        if(IntakeStates.getArmSlideState() == ArmSlideStates.closed) return false;
         ButtonStates.setRightTriggerState(RightTriggerStates.retract);
         completeAction();
         return true;
     }
 
     private boolean armUp() {
-        if(IntakeStates.getArmSlideState() != ArmSlideStates.close) return false;
+        if(IntakeStates.getArmSlideState() != ArmSlideStates.closed) return false;
         ButtonStates.setRightTriggerState(RightTriggerStates.armUp);
         completeAction();
         return true;

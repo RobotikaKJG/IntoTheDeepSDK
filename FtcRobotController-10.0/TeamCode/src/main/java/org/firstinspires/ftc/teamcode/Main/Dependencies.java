@@ -16,10 +16,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
@@ -81,11 +85,11 @@ public class Dependencies {
     }
 
     public IntakeControl createIntakeControl() {
-        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl());
+        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createAutoEjectLogic(), createAutoEjectControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl());
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSpecimenClawControl());
+        return new OuttakeControl(createArmControl(), createSpecimenClawControl(), createAutoTakeControl(), createAutoTakeLogic());
     }
 
     private PivotControl createPivotControl() {
@@ -104,6 +108,14 @@ public class Dependencies {
         return new AutoCloseControl(gamepad1);
     }
 
+    private AutoEjectLogic createAutoEjectLogic() {
+        return new AutoEjectLogic(sensorControl);
+    }
+
+    private AutoEjectControl createAutoEjectControl() {
+        return new AutoEjectControl();
+    }
+
     private ArmSlideControl createArmSlideControl() {
         return new ArmSlideControl(outtakeSlideLogic);
     }
@@ -118,5 +130,13 @@ public class Dependencies {
 
     private LatchControl createLatchControl() {
         return new LatchControl(servoControl, sensorControl);
+    }
+
+    private AutoTakeLogic createAutoTakeLogic() {
+        return new AutoTakeLogic();
+    }
+
+    private AutoTakeControl createAutoTakeControl() {
+        return new AutoTakeControl();
     }
 }

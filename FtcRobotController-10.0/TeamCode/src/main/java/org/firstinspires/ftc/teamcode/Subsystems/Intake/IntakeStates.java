@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 
@@ -14,6 +16,8 @@ public class IntakeStates {
     private static ArmSlideStates armSlideStates = ArmSlideStates.closed;
     private static PivotStates pivotStates = PivotStates.down;
     private static AutoCloseStates autoCloseStates = AutoCloseStates.idle;
+    private static AutoEjectStates autoEjectStates = AutoEjectStates.idle;
+    private static AutoTakeStates autoTakeStates = AutoTakeStates.idle;
 
     public static void setInitialStates() {
         intakeState = SubsystemState.Idle;
@@ -22,6 +26,8 @@ public class IntakeStates {
         armSlideStates = ArmSlideStates.closed;
         pivotStates = PivotStates.down;
         autoCloseStates = AutoCloseStates.idle;
+        autoEjectStates = AutoEjectStates.idle;
+        autoTakeStates = AutoTakeStates.idle;
     }
 
     public static SubsystemState getIntakeState() {
@@ -67,4 +73,10 @@ public class IntakeStates {
     }
 
     public static void setAutoCloseState(AutoCloseStates state) {autoCloseStates = state;}
+
+    public static AutoEjectStates getAutoEjectState() {
+        return autoEjectStates;
+    }
+
+    public static void setAutoEjectState(AutoEjectStates state) {autoEjectStates = state;}
 }

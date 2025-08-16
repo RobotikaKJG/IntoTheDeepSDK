@@ -1,25 +1,26 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 
-public class AutoCloseLogic {
+public class AutoEjectLogic {
     private double currentWait = 0;
     private final SensorControl sensorControl;
 
-    public AutoCloseLogic(SensorControl sensorControl) {
+    public AutoEjectLogic(SensorControl sensorControl) {
         this.sensorControl = sensorControl;
     }
 
     public void update() {
-        switch (IntakeStates.getAutoCloseState()) {
-            case checkColor:
-                checkColor();
+        switch (IntakeStates.getAutoEjectState()) {
+            case sampleOut:
+                sampleOut();
                 break;
-            case securedGoodSample:
-                securedGoodSample();
+            case close:
+                close();
                 break;
             case idle:
                 idle();
@@ -27,19 +28,19 @@ public class AutoCloseLogic {
         }
     }
 
-    private void checkColor() {
-        if(!isSampleDetected()) return;
-        IntakeStates.setAutoCloseState(AutoCloseStates.securedGoodSample);
-        addWaitTime(IntakeConstants.secureSampleWait);
+    private void sampleOut() {
+        if(isSampleDetected()) return;
+        IntakeStates.setAutoEjectState(AutoEjectStates.close);
+        addWaitTime(IntakeConstants.sampleEjectWait);
     }
-    private void securedGoodSample() {
+    private void close() {
         if(currentWait > getSeconds()) return;
-        IntakeStates.setAutoCloseState(AutoCloseStates.idle);
+        IntakeStates.setAutoEjectState(AutoEjectStates.idle);
     }
     private void idle() {
-        if(IntakeStates.getMotorState() == IntakeMotorStates.forward) {
+        if(IntakeStates.getMotorState() == IntakeMotorStates.forward && IntakeStates.getPivotState() == PivotStates.up) {
             sensorControl.resetColor();
-            IntakeStates.setAutoCloseState(AutoCloseStates.checkColor);
+            IntakeStates.setAutoEjectState(AutoEjectStates.sampleOut);
         }
     }
 
@@ -57,3 +58,4 @@ public class AutoCloseLogic {
         return System.currentTimeMillis() / 1000.0;
     }
 }
+
