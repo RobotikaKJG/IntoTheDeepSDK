@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
 
-            telemetry.addData("LeftTrigger state", motorControl.getMotorPosition(MotorConstants.slideRight));
+            telemetry.addData("Arm state", OuttakeStates.getArmState());
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

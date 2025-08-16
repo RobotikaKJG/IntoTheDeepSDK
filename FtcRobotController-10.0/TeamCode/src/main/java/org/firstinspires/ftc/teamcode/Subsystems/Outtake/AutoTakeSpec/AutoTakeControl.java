@@ -6,8 +6,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TurnServo.TurnServoStates;
 
 public class AutoTakeControl {
     private AutoTakeStates prevIntakeAutoTakeState = AutoTakeStates.idle;
@@ -29,6 +31,9 @@ public class AutoTakeControl {
             case liftArm:
                 liftArm();
                 break;
+            case turnClaw:
+                turnClaw();
+                break;
             case idle:
                 break;
         }
@@ -40,5 +45,9 @@ public class AutoTakeControl {
 
     private void liftArm() {
         OuttakeStates.setArmState(ArmStates.placeSpecimen);
+    }
+
+    private void turnClaw() {
+        OuttakeStates.setTurnServoState(TurnServoStates.placePos);
     }
 }

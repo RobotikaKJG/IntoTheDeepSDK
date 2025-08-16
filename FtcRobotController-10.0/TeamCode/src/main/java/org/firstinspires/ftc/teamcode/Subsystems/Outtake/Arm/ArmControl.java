@@ -28,6 +28,12 @@ public class ArmControl {
             case placeSpecimen:
                 servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoPlacePos);
                 break;
+            case releaseSpecimen:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoReleasePos);
+                break;
+            case maxPos:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoMaxPos);
+                break;
             case down:
                 servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoIdlePos);
                 break;

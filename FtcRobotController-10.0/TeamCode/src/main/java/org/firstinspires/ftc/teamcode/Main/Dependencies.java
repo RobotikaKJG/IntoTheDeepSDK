@@ -22,6 +22,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlaceControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlaceLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
@@ -30,6 +32,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.IntakeSlideProperties;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TurnServo.TurnServoControl;
 
 public class Dependencies {
     public final HardwareMap hardwareMap;
@@ -89,7 +92,7 @@ public class Dependencies {
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSpecimenClawControl(), createAutoTakeControl(), createAutoTakeLogic());
+        return new OuttakeControl(createArmControl(), createSpecimenClawControl(), createAutoTakeControl(), createAutoTakeLogic(), createAutoPlaceControl(), createAutoPlaceLogic(), createTurnServoControl());
     }
 
     private PivotControl createPivotControl() {
@@ -138,5 +141,17 @@ public class Dependencies {
 
     private AutoTakeControl createAutoTakeControl() {
         return new AutoTakeControl();
+    }
+
+    private AutoPlaceLogic createAutoPlaceLogic() {
+        return new AutoPlaceLogic();
+    }
+
+    private AutoPlaceControl createAutoPlaceControl() {
+        return new AutoPlaceControl();
+    }
+
+    private TurnServoControl createTurnServoControl() {
+        return new TurnServoControl(servoControl);
     }
 }

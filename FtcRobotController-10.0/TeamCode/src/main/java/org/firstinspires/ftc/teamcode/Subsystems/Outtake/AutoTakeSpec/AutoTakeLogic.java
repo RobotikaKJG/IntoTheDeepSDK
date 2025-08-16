@@ -25,7 +25,11 @@ public class AutoTakeLogic {
             case liftArm:
                 liftArm();
                 break;
+            case turnClaw:
+                turnClaw();
+                break;
             case idle:
+                idle();
                 break;
         }
     }
@@ -33,8 +37,14 @@ public class AutoTakeLogic {
     private void activate() {
         if(currentWait > getSeconds()) return;
         OuttakeStates.setAutoTakeState(AutoTakeStates.liftArm);
+        addWaitTime(OuttakeConstants.specimenTurnWait);
     }
     private void liftArm() {
+        if(currentWait > getSeconds()) return;
+        OuttakeStates.setAutoTakeState(AutoTakeStates.turnClaw);
+    }
+
+    private void turnClaw() {
         OuttakeStates.setAutoTakeState(AutoTakeStates.idle);
     }
 

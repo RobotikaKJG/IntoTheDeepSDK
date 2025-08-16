@@ -1,0 +1,40 @@
+package org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec;
+
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
+
+public class AutoPlaceControl {
+    private AutoPlaceStates prevIntakeAutoPlaceState = AutoPlaceStates.idle;
+
+    public AutoPlaceControl() {}
+
+    public void update() {
+        if(OuttakeStates.getAutoPlaceState() != prevIntakeAutoPlaceState) {
+            updateStates();
+            prevIntakeAutoPlaceState = OuttakeStates.getAutoPlaceState();
+        }
+    }
+
+    public void updateStates() {
+        switch (OuttakeStates.getAutoPlaceState()) {
+            case placeSpec:
+                placeSpec();
+                break;
+            case releaseSpec:
+                releaseSpec();
+                break;
+            case idle:
+                break;
+        }
+    }
+
+    private void placeSpec() {
+        OuttakeStates.setArmState(ArmStates.releaseSpecimen);
+    }
+
+    private void releaseSpec() {
+        OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
+        OuttakeStates.setArmState(ArmStates.maxPos);
+    }
+}

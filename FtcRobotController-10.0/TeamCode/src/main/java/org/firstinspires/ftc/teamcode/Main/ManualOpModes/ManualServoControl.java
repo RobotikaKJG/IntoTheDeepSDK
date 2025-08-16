@@ -44,7 +44,7 @@ public class ManualServoControl extends LinearOpMode {
             }
             if(dependencies.edgeDetection.rising(GamepadIndexValues.square))
             {
-                if(currentServo < 5)
+                if(currentServo < 3)
                     currentServo ++;
                 else currentServo = 0;
             }
@@ -52,22 +52,16 @@ public class ManualServoControl extends LinearOpMode {
             telemetry.addLine("Currently selected servo:");
             switch (currentServo) {
                 case 0:
-                    telemetry.addLine("Outtake left");
+                    telemetry.addLine("outtake arm");
                     break;
                 case 1:
-                    telemetry.addLine("Outtake right");
+                    telemetry.addLine("outtake turn");
                     break;
                 case 2:
-                    telemetry.addLine("Release");
+                    telemetry.addLine("outtake claw");
                     break;
                 case 3:
-                    telemetry.addLine("Specimen claw");
-                    break;
-                case 4:
-                    telemetry.addLine("Intake");
-                    break;
-                case 5:
-                    telemetry.addLine("Lock");
+                    telemetry.addLine("intake");
                     break;
             }
             telemetry.update();

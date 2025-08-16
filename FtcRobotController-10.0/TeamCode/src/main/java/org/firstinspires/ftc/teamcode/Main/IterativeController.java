@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 
 public class IterativeController {
@@ -56,6 +57,7 @@ public class IterativeController {
         intakeSlideControl = dependencies.intakeSlideControl;
         outakeSlideControl = dependencies.outtakeSlideControl;
         IntakeStates.setInitialStates();
+        OuttakeStates.setInitialStates();
         ButtonStates.setInitialStates();
     }
 
