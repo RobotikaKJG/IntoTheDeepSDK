@@ -63,7 +63,7 @@ public class SampleAuton implements Auton {
         drive.setPoseEstimate(trajectories.getStartPose());
         drive.followTrajectorySequenceAsync(trajectories.preloadTrajectory());
 
-        extendOuttakeAndIntakeAndFlipArm(1); //MOST LIKELY TOO LONG, NOTE
+        extendOuttakeAndIntakeAndFlipArm(1.1); //MOST LIKELY TOO LONG, NOTE
         setSampleClawState(SampleClawStates.closed);
         sampleAutonState = SampleAutonState.waitForFlip;
         startTime = getSeconds();
@@ -100,7 +100,7 @@ public class SampleAuton implements Auton {
                 break;
 
             case prepareNextCycle:
-                if (!prepareNextCycle(SampleAutonState.driveToPlaceSecondSample,0.8)) return;
+                if (!prepareNextCycle(SampleAutonState.driveToPlaceSecondSample,0.9)) return;
                 break;
 
             case driveToPlaceSecondSample:
@@ -177,7 +177,7 @@ public class SampleAuton implements Auton {
 
             case releaseForthSample:
                 if (!waitThenRelease(SampleAutonState.prepareNextCycleForFifthSample)) return;
-                addWaitTime(0.1);
+//                addWaitTime(0.1);
                 break;
 
             case prepareNextCycleForFifthSample:

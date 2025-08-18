@@ -34,7 +34,7 @@ public class SampleTrajectories {
 
 //                .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(66))) // DO NOT TOUCH THIS IS PAIN
 //                .lineToLinearHeading(new Pose2d(-59, -54, Math.toRadians(69))) // DO NOT TOUCH THIS IS PAIN
-                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(73))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS
+                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
 
 
 //                .waitSeconds(0.5)
@@ -59,7 +59,7 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(15, 30))
 //                .waitSeconds(0.4)
-                .lineToLinearHeading(new Pose2d(-59, -53, Math.toRadians(82)))
+                .lineToLinearHeading(new Pose2d(-59, -53, Math.toRadians(80)))
 //            .waitSeconds(0.5)
                 .build();
 
@@ -69,14 +69,13 @@ public class SampleTrajectories {
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(15, 30))
                 .waitSeconds(0.0069)
                 .lineToLinearHeading(new Pose2d(-55, -57.5, Math.toRadians(115)))//115)))
-//                .waitSeconds(0.5)
                 .build();
 
         forthSampleOuttakePath = drive.trajectorySequenceBuilder(forthSampleIntakePath.end())
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(40, Math.toRadians(70), DriveConstants.TRACK_WIDTH))
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(10, 20))
                 .waitSeconds(0.0069)
-                .lineToLinearHeading(new Pose2d(-58, -56, Math.toRadians(70)))
+                .lineToLinearHeading(new Pose2d(-58, -55, Math.toRadians(70)))
 
 //                .waitSeconds(0.3)
 //                .waitSeconds(0.5)
