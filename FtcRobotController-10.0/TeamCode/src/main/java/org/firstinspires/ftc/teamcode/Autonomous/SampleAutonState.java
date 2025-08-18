@@ -30,22 +30,16 @@ public enum SampleAutonState {
     waitForFlipForthSample,
     releaseForthSample,
 
-    fifthSampleIntakePath,
-    fifthSampleOuttakePath,
     prepareNextCycleForFifthSample,
+    fifthSampleIntakePath,
+    extendExtendoForFifthSample,
     startIntakeForFifthSample,
+    waiting,
+    fifthSampleOuttakePath,
+
     waitForFlipFifthSample,
     releaseFifthSample,
     prepareNextCycleForSubSample,
-    moveToSub,
-    waiting,
-
-    startOuttakeSample,
-    startIntakeSample,
-    startOuttakeSample2,
-
-    searchingForward,
-    returningAfterPickup,
 
     stop            // End of autonomous sequence
 }
