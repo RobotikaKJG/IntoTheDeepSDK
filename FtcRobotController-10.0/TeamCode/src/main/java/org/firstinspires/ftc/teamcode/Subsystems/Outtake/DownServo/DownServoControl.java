@@ -23,10 +23,10 @@ public class DownServoControl {
     private void updateStates() {
         switch (OuttakeStates.getDownServoState()) {
             case active:
-                servoControl.setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMinPos);
+                servoControl.setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMaxPos);
                 break;
             case down:
-                servoControl.setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMaxPos);
+                servoControl.setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMinPos);
                 break;
         }
     }

@@ -39,11 +39,13 @@ public class PivotControl {
                 motorControl.setMotorPos(MotorConstants.pivot, IntakeConstants.pivotMaxAngle);
                 motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
                 motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                motorControl.setMotors(MotorConstants.pivot);
                 break;
             case upSlightly:
                 motorControl.setMotorPos(MotorConstants.pivot, IntakeConstants.pivotSlightlyRaisedAngle);
                 motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-                motorControl.setMotorSpeed(MotorConstants.pivot, 0.5);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                motorControl.setMotors(MotorConstants.pivot);
                 break;
             case down:
                 motorControl.setMotorPos(MotorConstants.pivot, 69);

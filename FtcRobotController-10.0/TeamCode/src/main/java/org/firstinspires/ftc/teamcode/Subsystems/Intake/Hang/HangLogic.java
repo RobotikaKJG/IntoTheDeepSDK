@@ -31,13 +31,13 @@ public class HangLogic {
     private void pivotUp() {
         if (!wasIfCalled)
         {
-            addWaitTime(1);
+            addWaitTime(1.0);
             wasIfCalled = true;
         }
         if(currentWait > getSeconds()) return;
         wasIfCalled = false;
 
-        addWaitTime(1);
+        addWaitTime(1.0);
         IntakeStates.setHangState(HangStates.extendSlides);
     }
 
@@ -50,7 +50,7 @@ public class HangLogic {
     private void retractSlides() {
         if (!wasIfCalled)
         {
-            addWaitTime(1);
+            addWaitTime(1.0);
             wasIfCalled = true;
         }
         if(currentWait > getSeconds()) return;

@@ -9,6 +9,8 @@ public class DpadLeftLogic {
     private final DpadLeftControl dpadLeftControl = new DpadLeftControl();
 
     public void update() {
+        if(hangOn()) return;
+        if(hangOff()) return;
 
     }
 

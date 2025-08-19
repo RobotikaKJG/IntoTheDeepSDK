@@ -30,7 +30,7 @@ public class ServoControl {
     public void setServoStartPos() {
         setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoIdlePos);
         setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
-        setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMinPos);
+        setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMaxPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);

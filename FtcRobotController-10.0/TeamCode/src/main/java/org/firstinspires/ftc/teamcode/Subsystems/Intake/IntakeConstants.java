@@ -12,8 +12,6 @@ public class IntakeConstants {
     public static int pivotMaxAngle = 2690;
     public static int pivotSlightlyRaisedAngle = 269;
 
-    public static int hangThreshold = 50;
-
     public static int limitSwitchThreshold = 69; // motion profiling turns off, the closing finishes with limit switch seeking
     public static int limitSwitchRetractionStep = 10;
 
