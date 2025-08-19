@@ -27,7 +27,7 @@ public class HangLogic {
     }
 
     private void extendSlides() {
-        if(!slidesAtTarget()) return;
+//        if(!slidesAtTarget()) return;
 
         OuttakeStates.setHangState(HangStates.waitForButton);
     }
@@ -35,7 +35,7 @@ public class HangLogic {
     private void retractSlides() {
         if(!slidesAtTarget()) return;
 
-        OuttakeStates.setHangState(HangStates.hangOnHooks);
+//        OuttakeStates.setHangState(HangStates.hangOnHooks);
 
     }
 

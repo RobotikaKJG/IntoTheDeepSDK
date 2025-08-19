@@ -41,8 +41,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.addData("Current", dependencies.motorControl.getMotorCurrent(MotorConstants.intake));
-            telemetry.addData("Auto close", IntakeStates.getAutoCloseStates());
-            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
+            telemetry.addData("hang", OuttakeStates.getHangState());
+            telemetry.addData("intake", IntakeStates.getIntakeState());
             telemetry.update();
         }
     }

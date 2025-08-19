@@ -34,9 +34,9 @@ public class ManualHangControl extends LinearOpMode {
 
         servoControl.setServoPos(ServoConstants.PTORight, 0.06);
         servoControl.setServoPos(ServoConstants.PTOLeft, 0.99);
-        dependencies.motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
-        dependencies.motorControl.setMotors(MotorConstants.frontWheels);
-        dependencies.motorControl.setZeroPowerBehavior(MotorConstants.frontWheels, DcMotor.ZeroPowerBehavior.BRAKE);
+//        dependencies.motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
+//        dependencies.motorControl.setMotors(MotorConstants.frontWheels);
+//        dependencies.motorControl.setZeroPowerBehavior(MotorConstants.frontWheels, DcMotor.ZeroPowerBehavior.BRAKE);
 
         if (isStopRequested()) return;
 
@@ -107,13 +107,20 @@ public class ManualHangControl extends LinearOpMode {
 
             if(dependencies.edgeDetection.rising(GamepadIndexValues.rightTrigger)) {
                 wheelPosition += 200;
+                dependencies.motorControl.setMotorPos(MotorConstants.frontWheels, wheelPosition);
+                dependencies.motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
+                dependencies.motorControl.setMotorSpeed(MotorConstants.frontWheels,0.5);
+                dependencies.motorControl.setMotors(MotorConstants.frontWheels);
             }
             else if(dependencies.edgeDetection.rising(GamepadIndexValues.leftTrigger)) {
                 wheelPosition -= 200;
+                dependencies.motorControl.setMotorPos(MotorConstants.frontWheels, wheelPosition);
+                dependencies.motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
+                dependencies.motorControl.setMotorSpeed(MotorConstants.frontWheels,0.5);
+                dependencies.motorControl.setMotors(MotorConstants.frontWheels);
             }
 
-            dependencies.motorControl.setMotorPos(MotorConstants.frontWheels, wheelPosition);
-            dependencies.motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
+
         }
     }
 }

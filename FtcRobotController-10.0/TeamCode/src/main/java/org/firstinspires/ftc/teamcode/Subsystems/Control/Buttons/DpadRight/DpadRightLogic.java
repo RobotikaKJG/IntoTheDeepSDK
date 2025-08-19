@@ -21,8 +21,9 @@ public class DpadRightLogic {
     }
 
     private boolean iterateHangStates() {
+        System.out.println("stuff");
         if (!intakeIdle()) return false;//|| sampleActive() || specimenActive()) return false;
-
+        System.out.println("iterate");
         ButtonStates.setDpadRightState(DpadRightStates.toggleHang);
         completeAction();
         return true;

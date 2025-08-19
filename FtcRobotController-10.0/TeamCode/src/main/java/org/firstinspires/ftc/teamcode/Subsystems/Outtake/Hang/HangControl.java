@@ -51,11 +51,11 @@ public class HangControl {
     }
 
     private void hangOnHooks() {
-        motorControl.setMotorPos(MotorConstants.frontLeft, HangConstants.leftHookPos);
-        motorControl.setMotorPos(MotorConstants.frontRight, HangConstants.rightHookPos);
-
-        motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
-        motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
+//        motorControl.setMotorPos(MotorConstants.frontLeft, HangConstants.leftHookPos);
+//        motorControl.setMotorPos(MotorConstants.frontRight, HangConstants.rightHookPos);
+//
+//        motorControl.setMotorMode(MotorConstants.frontWheels, DcMotor.RunMode.RUN_TO_POSITION);
+//        motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
     }
 
 }

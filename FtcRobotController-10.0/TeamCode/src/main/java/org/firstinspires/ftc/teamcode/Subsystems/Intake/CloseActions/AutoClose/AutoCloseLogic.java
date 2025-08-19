@@ -16,7 +16,7 @@ public class AutoCloseLogic {
     }
 
     public void update() {
-        System.out.println(IntakeStates.getMotorState());
+//        System.out.println(IntakeStates.getMotorState());
         switch (IntakeStates.getAutoCloseStates()) {
             case checkColor:
                 checkColor();

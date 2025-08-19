@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
 public class DpadRightControl {
     public void update() {
+        System.out.println("3");
         switch (ButtonStates.getDpadRightState()) {
             case toggleHang:
                 toggleHang();
@@ -18,14 +19,16 @@ public class DpadRightControl {
     }
 
     private void toggleHang() {
+        System.out.println("4");
         switch(OuttakeStates.getHangState()){
             case idle:
+            case retracted:
                 OuttakeStates.setHangState(HangStates.extendSlides);
                 break;
             case waitForButton:
+                System.out.println("5");
                 OuttakeStates.setHangState(HangStates.retractSlides);
                 break;
-
         }
     }
 }
