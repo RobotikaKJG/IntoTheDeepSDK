@@ -8,7 +8,8 @@ public class ServoConstants {
     public static final int outtakeArm = 0;
     public static final int outtakeClawTurn = 1;
     public static final int specimenClaw = 2;
-    public static final int intake = 3;
+    public static final int outtakeDown = 3;
+    public static final int intake = 4;
 
 
     public static final double[] servoMinPos =
@@ -16,6 +17,7 @@ public class ServoConstants {
                     OuttakeConstants.outtakeArmServoIdlePos,
                     OuttakeConstants.outtakeClawTurnServoMinPos,
                     OuttakeConstants.specimenClawServoMinPos,
+                    OuttakeConstants.outtakeDownServoMinPos,
                     IntakeConstants.intakeServoMinPos,
             };
     public static final double[] servoMaxPos =
@@ -23,6 +25,7 @@ public class ServoConstants {
                     OuttakeConstants.outtakeArmServoMaxPos,
                     OuttakeConstants.outtakeClawTurnServoMaxPos,
                     OuttakeConstants.specimenClawServoMaxPos,
+                    OuttakeConstants.outtakeDownServoMaxPos,
                     IntakeConstants.intakeServoMaxPos,
             };
 }

@@ -4,6 +4,8 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
+
 import java.util.List;
 
 @TeleOp
@@ -33,9 +35,7 @@ public class GeneralRedTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
-            telemetry.addData("Red", dependencies.sensorControl.isRed());
-            telemetry.addData("Yellow", dependencies.sensorControl.isYellow());
-            telemetry.addData("Blue", dependencies.sensorControl.isBlue());
+            telemetry.addData("Slides angle", dependencies.motorControl.getMotorPosition(MotorConstants.slideLeft));
             calculateLoopTime();
             telemetry.update();
         }

@@ -22,6 +22,7 @@ public class ServoControl {
                 hardwareMap.get(Servo.class, "outtakeArmServo"),
                 hardwareMap.get(Servo.class, "outtakeClawTurnServo"),
                 hardwareMap.get(Servo.class, "specimenClawServo"),
+                hardwareMap.get(Servo.class, "outtakeDownServo"),
                 hardwareMap.get(Servo.class, "intakeServo")
         };
     }
@@ -29,6 +30,7 @@ public class ServoControl {
     public void setServoStartPos() {
         setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoIdlePos);
         setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
+        setServoPos(ServoConstants.outtakeDown, OuttakeConstants.outtakeDownServoMinPos);
 
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);

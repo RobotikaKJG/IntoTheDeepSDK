@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadDown;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -17,7 +19,7 @@ public class DpadDownLogic {
     }
 
     private boolean outtakeIdle() {
-        if(OuttakeStates.getArmState() == ArmStates.placeSpecimen || OuttakeStates.getArmState() == ArmStates.down) return false;
+        if(IntakeStates.getArmSlideState() == ArmSlideStates.extended) return false;
         ButtonStates.setDpadDownState(DpadDownStates.down);
         completeAction();
         return true;

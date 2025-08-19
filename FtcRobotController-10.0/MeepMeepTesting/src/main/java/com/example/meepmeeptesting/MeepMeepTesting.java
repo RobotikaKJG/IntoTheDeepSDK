@@ -1,6 +1,7 @@
 package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 import org.rowlandhall.meepmeep.MeepMeep;
 import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
@@ -12,36 +13,37 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(0.5, 0.5, 6.9, Math.toRadians(180), 11)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-38, -61, Math.toRadians(0)))
-                        .lineToLinearHeading(new Pose2d(-38, -60, Math.toRadians(0)))
+                .setConstraints(70, 50, 3, Math.toRadians(180), 11)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-3, -61, Math.toRadians(90)))
+                        .lineToLinearHeading(new Pose2d(-3.069, -30.69, Math.toRadians(90)))
+                        .waitSeconds(0.3)
+                        .lineToLinearHeading(new Pose2d(30, -40, Math.toRadians(41)))
+                        .waitSeconds(0.6)
+                        .turn(Math.toRadians(-90))
+                        .waitSeconds(0.2)
+                        .lineToLinearHeading(new Pose2d(40, -40, Math.toRadians(43)))
+                        .waitSeconds(0.6)
+                        .turn(Math.toRadians(-100))
+                        .waitSeconds(0.2)
+                        .lineToLinearHeading(new Pose2d(50, -40, Math.toRadians(43)))
+                        .waitSeconds(0.6)
+                        .lineToLinearHeading(new Pose2d(50, -50, Math.toRadians(100)))
                         .waitSeconds(0.5)
-//
-//                        .lineToLinearHeading(new Pose2d(-57, -49, Math.toRadians(70)))
-//                        .waitSeconds(0.5)
-//
-//                        // third sample intake
-//                        .lineToLinearHeading(new Pose2d(-57, -47, Math.toRadians(90)))
-//                        .waitSeconds(0.5)
-//
-//                        // third sample outtake
-//                        .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(65)))
-//                        .waitSeconds(0.5)
-//
-//                        //forth sample intake
-//                        .lineToLinearHeading(new Pose2d(-57, -47, Math.toRadians(115)))
-//                        .waitSeconds(0.5)
-//
-//                        // forth sample outtake
-//                        .lineToLinearHeading(new Pose2d(-57, -50, Math.toRadians(45)))
-//                        .waitSeconds(0.5)
-//
-////                        .lineTo(new Vector2d(-20, -16))
-//                        .lineToSplineHeading(new Pose2d(-38, -8, Math.toRadians(0)))
-//
-//
-//                        .lineToSplineHeading(new Pose2d(-55, -52, Math.toRadians(35)))
+                        .splineToLinearHeading(new Pose2d(40, -60, Math.toRadians(90)), Math.toRadians(0))
+                        .lineToConstantHeading(new Vector2d(45, -60))
+                        .splineToConstantHeading(new Vector2d(-1.5, -30.69), Math.toRadians(90))
 
+                        .lineToConstantHeading(new Vector2d(40, -60))
+                        .lineToConstantHeading(new Vector2d(45, -60))
+                        .splineToConstantHeading(new Vector2d(0, -30.69), Math.toRadians(90))
+
+                        .lineToConstantHeading(new Vector2d(40, -60))
+                        .lineToConstantHeading(new Vector2d(45, -60))
+                        .splineToConstantHeading(new Vector2d(1.5, -30.69), Math.toRadians(90))
+
+                        .lineToConstantHeading(new Vector2d(40, -60))
+                        .lineToConstantHeading(new Vector2d(45, -60))
+                        .splineToConstantHeading(new Vector2d(3, -30.69), Math.toRadians(90))
 
                         .build());
 
