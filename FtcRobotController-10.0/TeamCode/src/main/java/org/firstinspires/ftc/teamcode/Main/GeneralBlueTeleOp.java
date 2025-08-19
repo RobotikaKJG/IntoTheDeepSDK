@@ -4,6 +4,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 
@@ -39,7 +40,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
             calculateLoopTime();
-            telemetry.addData("Lock", OuttakeStates.getSampleLockState());
+            telemetry.addData("Current", dependencies.motorControl.getMotorCurrent(MotorConstants.intake));
             telemetry.addData("Auto close", IntakeStates.getAutoCloseStates());
             telemetry.addData("Blue", dependencies.sensorControl.isBlue());
             telemetry.update();

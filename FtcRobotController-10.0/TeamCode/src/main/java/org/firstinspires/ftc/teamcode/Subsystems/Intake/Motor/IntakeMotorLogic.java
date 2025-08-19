@@ -20,7 +20,7 @@ public class IntakeMotorLogic {
         System.out.println(motorControl.getMotorCurrent(MotorConstants.intake));
         if(isOverCurrent && !wasOverCurrent) {
             IntakeStates.setMotorState(IntakeMotorStates.backward);
-            addWaitTime(0.3);
+            addWaitTime(0.1);
             wasOverCurrent = true;
         }
 
