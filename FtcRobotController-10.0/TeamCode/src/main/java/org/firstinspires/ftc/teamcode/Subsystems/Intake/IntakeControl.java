@@ -4,6 +4,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseContr
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
@@ -21,7 +24,10 @@ public class IntakeControl {
     private final IntakeMotorControl intakeMotorControl;
     private final LatchControl latchControl;
 
-    public IntakeControl(AutoCloseLogic autoCloseControl, AutoCloseControl autoCloseControl1, AutoEjectLogic autoEjectLogic, AutoEjectControl autoEjectControl, ArmSlideControl armSlideControl, PivotControl pivotControl, IntakeMotorControl intakjeMotorControl, LatchControl latchControl) {
+    private final HangControl hangControl;
+    private final HangLogic hangLogic;
+
+    public IntakeControl(AutoCloseLogic autoCloseControl, AutoCloseControl autoCloseControl1, AutoEjectLogic autoEjectLogic, AutoEjectControl autoEjectControl, ArmSlideControl armSlideControl, PivotControl pivotControl, IntakeMotorControl intakjeMotorControl, LatchControl latchControl, HangControl hangControl, HangLogic hangLogic) {
         this.autoCloseLogic = autoCloseControl;
         this.autoCloseControl = autoCloseControl1;
         this.autoEjectLogic = autoEjectLogic;
@@ -30,6 +36,8 @@ public class IntakeControl {
         this.pivotControl = pivotControl;
         this.intakeMotorControl = intakjeMotorControl;
         this.latchControl = latchControl;
+        this.hangControl = hangControl;
+        this.hangLogic = hangLogic;
     }
 
     public void update() {
@@ -41,6 +49,8 @@ public class IntakeControl {
         pivotControl.update();
         intakeMotorControl.update();
         latchControl.update();
+        hangControl.update();
+        hangLogic.update();
 
         updateOuttakeState();
     }

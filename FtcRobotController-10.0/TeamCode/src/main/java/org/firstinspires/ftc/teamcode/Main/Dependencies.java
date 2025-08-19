@@ -18,6 +18,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseContr
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
@@ -26,6 +28,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlace
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlaceLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DownServo.DownServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
@@ -45,7 +48,7 @@ public class Dependencies {
     public ServoControl servoControl;
     public EdgeDetection edgeDetection = new EdgeDetection();
     public EdgeDetection gamepad2EdgeDetection = new EdgeDetection();
-    private final SlideLogic outtakeSlideLogic;
+    private final SlideLogic intakeSlideLogic;
     public SlideControl intakeSlideControl;
     public SlideControl outtakeSlideControl;
 
@@ -59,8 +62,8 @@ public class Dependencies {
         motorControl = new MotorControl(hardwareMap);
         sensorControl = new SensorControl(hardwareMap, edgeDetection, localizer);
         servoControl = new ServoControl(hardwareMap);
-        outtakeSlideLogic = createOuttakeSlideLogic();
-        outtakeSlideControl = createOuttakeSlideControl();
+        intakeSlideLogic = createIntakeSlideLogic();
+        outtakeSlideControl = createIntakeSlideControl();
     }
 
     public Drivebase createDrivebase() {
@@ -71,12 +74,12 @@ public class Dependencies {
         return new DrivebaseController(createDrivebase(), edgeDetection);
     }
 
-    private SlideLogic createOuttakeSlideLogic() {
-        return new SlideLogic(createOuttakeSlideControl(), new IntakeSlideProperties());
+    private SlideLogic createIntakeSlideLogic() {
+        return new SlideLogic(createIntakeSlideControl(), new IntakeSlideProperties());
     }
 
-    private SlideControl createOuttakeSlideControl() {
-        return new IntakeSlideControl(motorControl,sensorControl);
+    private SlideControl createIntakeSlideControl() {
+        return new IntakeSlideControl(motorControl, sensorControl);
     }
 
     ButtonControl createSubsystemControl() {
@@ -88,11 +91,11 @@ public class Dependencies {
     }
 
     public IntakeControl createIntakeControl() {
-        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createAutoEjectLogic(), createAutoEjectControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl());
+        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createAutoEjectLogic(), createAutoEjectControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl(), createHangControl(), createHangLogic());
     }
 
     public OuttakeControl createOuttakeControl() {
-        return new OuttakeControl(createArmControl(), createSpecimenClawControl(), createAutoTakeControl(), createAutoTakeLogic(), createAutoPlaceControl(), createAutoPlaceLogic(), createTurnServoControl());
+        return new OuttakeControl(createArmControl(), createSpecimenClawControl(), createAutoTakeControl(), createAutoTakeLogic(), createAutoPlaceControl(), createAutoPlaceLogic(), createTurnServoControl(), createDownServoControl());
     }
 
     private PivotControl createPivotControl() {
@@ -120,7 +123,7 @@ public class Dependencies {
     }
 
     private ArmSlideControl createArmSlideControl() {
-        return new ArmSlideControl(outtakeSlideLogic);
+        return new ArmSlideControl(intakeSlideLogic);
     }
 
     private ArmControl createArmControl() {
@@ -154,4 +157,10 @@ public class Dependencies {
     private TurnServoControl createTurnServoControl() {
         return new TurnServoControl(servoControl);
     }
+
+    private DownServoControl createDownServoControl() {return new DownServoControl(servoControl);}
+
+    private HangLogic createHangLogic() {return new HangLogic();}
+
+    private HangControl createHangControl() {return new HangControl(intakeSlideLogic, motorControl);}
 }

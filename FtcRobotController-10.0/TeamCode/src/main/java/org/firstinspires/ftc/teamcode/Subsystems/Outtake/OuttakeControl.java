@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlace
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec.AutoTakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DownServo.DownServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TurnServo.TurnServoControl;
@@ -19,8 +20,9 @@ public class OuttakeControl {
     private final AutoPlaceControl autoPlaceControl;
     private final AutoPlaceLogic autoPlaceLogic;
     private final TurnServoControl turnServoControl;
+    private final DownServoControl downServoControl;
 
-    public OuttakeControl(ArmControl armControl, SpecimenClawControl specimenClawControl, AutoTakeControl autoTakeControl, AutoTakeLogic autoTakeLogic, AutoPlaceControl autoPlaceControl, AutoPlaceLogic autoPlaceLogic, TurnServoControl turnServoControl) {
+    public OuttakeControl(ArmControl armControl, SpecimenClawControl specimenClawControl, AutoTakeControl autoTakeControl, AutoTakeLogic autoTakeLogic, AutoPlaceControl autoPlaceControl, AutoPlaceLogic autoPlaceLogic, TurnServoControl turnServoControl, DownServoControl downServoControl) {
         this.armControl = armControl;
         this.specimenClawControl = specimenClawControl;
         this.autoTakeControl = autoTakeControl;
@@ -28,6 +30,7 @@ public class OuttakeControl {
         this.autoPlaceControl = autoPlaceControl;
         this.autoPlaceLogic = autoPlaceLogic;
         this.turnServoControl = turnServoControl;
+        this.downServoControl = downServoControl;
     }
 
     public void update() {
@@ -38,6 +41,7 @@ public class OuttakeControl {
         autoPlaceLogic.update();
         autoPlaceControl.update();
         turnServoControl.update();
+        downServoControl.update();
 
 
         updateOuttakeState();

@@ -5,6 +5,7 @@ public enum ArmStates {
     placeSpecimen,
     releaseSpecimen,
     maxPos,
+    hangPos,
     down,
     idle
 }
