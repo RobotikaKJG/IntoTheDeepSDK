@@ -11,4 +11,9 @@ public class AutonomousConstants {
     public static final double goToTakeSampleWait = 1.5;
 
     public static final double placeFirstWait = 1.2;
+    public static double intakeFirstStartWait = 1;
+    public static double maxIntakeWait = 0.5;
+    public static double goToEjectFirstSampleWait = 1;
+    public static double goToEjectSecondSampleWait = 1;
+    public static double goToEjectThirdSampleWait = 1;
 }

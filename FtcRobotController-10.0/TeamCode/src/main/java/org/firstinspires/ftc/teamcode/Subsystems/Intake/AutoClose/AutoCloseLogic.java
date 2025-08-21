@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
@@ -66,6 +67,8 @@ public class AutoCloseLogic {
     }
 
     private void waitForRetractConfirmation() {
+        if(GlobalVariables.isAutonomous)
+            IntakeStates.setAutoCloseState(AutoCloseStates.idle);
     }
 
     private void waitToRetract() {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.LeftBumper;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec.AutoPlaceStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 
@@ -13,6 +14,7 @@ public class LeftBumperLogic {
         if(outtakeReady()) return;
         if(takeSpecimen()) return;
         if(placeSpecimen()) return;
+        if(releaseSpecimen()) return;
         return;
     }
 
@@ -34,6 +36,13 @@ public class LeftBumperLogic {
     private boolean placeSpecimen() {
         if(OuttakeStates.getArmState() != ArmStates.placeSpecimen) return false;
         ButtonStates.setLeftBumperState(LeftBumperStates.placeSpecimen);
+        completeAction();
+        return true;
+    }
+
+    private boolean releaseSpecimen(){
+        if(OuttakeStates.getAutoPlaceState() != AutoPlaceStates.waitToRelease) return false;
+        ButtonStates.setLeftBumperState(LeftBumperStates.releaseSpecimen);
         completeAction();
         return true;
     }

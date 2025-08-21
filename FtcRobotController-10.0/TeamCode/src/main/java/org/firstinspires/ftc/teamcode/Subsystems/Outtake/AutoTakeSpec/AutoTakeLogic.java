@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoTakeSpec;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectStates;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenCl
 
 public class AutoTakeLogic {
     private double currentWait = 0;
+    private boolean wasIfCalled = false;
 
     public AutoTakeLogic() {}
 
@@ -27,6 +29,15 @@ public class AutoTakeLogic {
                 break;
             case turnClaw:
                 turnClaw();
+                break;
+            case waitForTakeAgain:
+                waitForTakeAgain();
+                break;
+            case turnServoBack:
+                turnServoBack();
+                break;
+            case armTakePos:
+                armTakePos();
                 break;
             case idle:
                 idle();
@@ -45,6 +56,28 @@ public class AutoTakeLogic {
     }
 
     private void turnClaw() {
+        OuttakeStates.setAutoTakeState(AutoTakeStates.waitForTakeAgain);
+    }
+
+    private void waitForTakeAgain() {
+        if (OuttakeStates.getArmState() == ArmStates.placeSpecimen) return;
+        OuttakeStates.setAutoTakeState(AutoTakeStates.idle);
+    }
+
+    private void turnServoBack() {
+        if(!wasIfCalled)
+        {
+            addWaitTime(0.4);
+            wasIfCalled = true;
+        }
+        if(currentWait > getSeconds()) return;
+
+        wasIfCalled = false;
+        OuttakeStates.setAutoTakeState(AutoTakeStates.armTakePos);
+
+    }
+
+    private void armTakePos() {
         OuttakeStates.setAutoTakeState(AutoTakeStates.idle);
     }
 

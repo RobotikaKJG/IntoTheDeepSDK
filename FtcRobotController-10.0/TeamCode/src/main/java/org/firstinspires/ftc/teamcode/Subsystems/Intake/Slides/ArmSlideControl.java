@@ -48,6 +48,9 @@ public class ArmSlideControl {
             case stepDown:
                 stepDown();
                 break;
+            case fullyExtend:
+                fullyExtend();
+                break;
         }
     }
 
@@ -72,5 +75,8 @@ public class ArmSlideControl {
         }
 
         currentExtentionStep -= 1;
+    }
+    private void fullyExtend(){
+        slideLogic.setSlideExtensionTarget(IntakeConstants.slideMaxExtention);
     }
 }

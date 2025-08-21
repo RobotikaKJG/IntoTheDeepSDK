@@ -24,6 +24,8 @@ public class LeftBumperControl {
             case placeSpecimen:
                 OuttakeStates.setAutoPlaceState(AutoPlaceStates.activate);
                 break;
+            case releaseSpecimen:
+                OuttakeStates.setAutoPlaceState(AutoPlaceStates.releaseSpec);
             case idle:
                 break;
         }

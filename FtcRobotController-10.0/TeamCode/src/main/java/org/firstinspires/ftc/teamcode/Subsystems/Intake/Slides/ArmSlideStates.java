@@ -7,6 +7,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides;
         closed,
         extended,
         stepUp,
-        stepDown
+        stepDown,
+        fullyExtend
     }
 

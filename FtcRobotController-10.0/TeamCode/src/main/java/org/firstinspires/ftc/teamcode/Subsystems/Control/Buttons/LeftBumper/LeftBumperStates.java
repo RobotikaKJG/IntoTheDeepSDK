@@ -4,5 +4,6 @@ public enum LeftBumperStates {
     outtakeReady,
     takeSpecimen,
     placeSpecimen,
+    releaseSpecimen,
     idle
 }

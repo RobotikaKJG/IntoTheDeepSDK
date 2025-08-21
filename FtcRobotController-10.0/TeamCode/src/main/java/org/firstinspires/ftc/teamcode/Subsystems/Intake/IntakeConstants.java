@@ -4,7 +4,7 @@ public class IntakeConstants {
     public static final double intakeServoMaxPos = 0.769;     // Maximum rotational position, claw open
     public static final double intakeServoMinPos = 0.469;     // Minimum rotational position, claw closed position
 
-    public static int slideMaxExtention = 1669;
+    public static int slideMaxExtention = 1600;
     public static int slideMinExtention = 0;
     public static int slideExtentionStep = 250;
     public static int slideFirstExtentionStep = 669;

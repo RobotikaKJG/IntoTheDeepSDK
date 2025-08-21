@@ -13,8 +13,8 @@ public class MeepMeepTestingBenas {
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(0.5, 0.5, 6.9, Math.toRadians(180), 11)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(38, -60, Math.toRadians(0)))
-                        .lineToLinearHeading(new Pose2d(38, -60, Math.toRadians(0)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-5, -60, Math.toRadians(90)))
+                        .lineToLinearHeading(new Pose2d(0, -28, Math.toRadians(0)))
                         .waitSeconds(0.5)
 //
 //                        .lineToLinearHeading(new Pose2d(-57, -49, Math.toRadians(70)))

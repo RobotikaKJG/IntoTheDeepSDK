@@ -35,10 +35,10 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public void setSlidePosition(int position) {
-        targetPosition = position;
-        motorControl.setMotorPos(MotorConstants.bothSlides, position);
-        setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
-        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
+//        targetPosition = position;
+//        motorControl.setMotorPos(MotorConstants.bothSlides, position);
+//        setSlideMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
     }
 
     @Override
@@ -48,10 +48,10 @@ public class IntakeSlideControl implements SlideControl {
 
     @Override
     public void limitSpeed(double power) {
-        maxSpeed = power;
-        //System.out.println(power);
-        motorControl.setMotorSpeed(MotorConstants.bothSlides, power);
-        motorControl.setMotors(MotorConstants.bothSlides);
+//        maxSpeed = power;
+//        //System.out.println(power);
+//        motorControl.setMotorSpeed(MotorConstants.bothSlides, power);
+//        motorControl.setMotors(MotorConstants.bothSlides);
     }
 
     @Override
@@ -65,21 +65,22 @@ public class IntakeSlideControl implements SlideControl {
     }
 
     private boolean retractSlide(int slide, LimitSwitches limitSwitch) {
-        if(sensorControl.isLimitSwitchPressed(limitSwitch)){
-            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motorControl.setMotorSpeed(slide, 0);
-            motorControl.setMotors(slide);
-            return true;
-        }
-
-        if(currentPosition > IntakeConstants.limitSwitchThreshold)
-            return false;
-
-        targetPosition -= IntakeConstants.limitSwitchRetractionStep;
-        System.out.println(targetPosition);
-        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
-        motorControl.setMotorPos(slide, targetPosition);
-        motorControl.setMotorMode(MotorConstants.bothSlides, DcMotor.RunMode.RUN_TO_POSITION);
-        return false;
+//        if(sensorControl.isLimitSwitchPressed(limitSwitch)){
+//            motorControl.setMotorMode(slide, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            motorControl.setMotorSpeed(slide, 0);
+//            motorControl.setMotors(slide);
+//            return true;
+//        }
+//
+//        if(currentPosition > IntakeConstants.limitSwitchThreshold)
+//            return false;
+//
+//        targetPosition -= IntakeConstants.limitSwitchRetractionStep;
+//        System.out.println(targetPosition);
+//        limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
+//        motorControl.setMotorPos(slide, targetPosition);
+//        motorControl.setMotorMode(MotorConstants.bothSlides, DcMotor.RunMode.RUN_TO_POSITION);
+//        return false;
+        return true;
     }
 }

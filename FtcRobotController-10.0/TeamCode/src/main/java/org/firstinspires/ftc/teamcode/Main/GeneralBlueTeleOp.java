@@ -49,8 +49,8 @@ public class GeneralBlueTeleOp extends LinearOpMode {
             telemetry.addData("Pivot angle", motorControl.getMotorPosition(MotorConstants.pivot));
             telemetry.addData("Distance", dependencies.sensorControl.getDistance());
             telemetry.addData("MotorState", IntakeStates.getMotorState());
-            telemetry.addData("AutoCloseState", IntakeStates.getAutoCloseState());
-            telemetry.addData("arm", IntakeStates.getArmSlideState());
+            telemetry.addData("AutoTakeState", OuttakeStates.getAutoTakeState());
+            telemetry.addData("arm", OuttakeStates.getArmState());
             telemetry.addData("pivot", IntakeStates.getPivotState());
             if (gamepad1.triangle) break;
             calculateLoopTime();

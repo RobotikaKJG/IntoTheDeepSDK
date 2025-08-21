@@ -35,8 +35,10 @@ public class AutoPlaceLogic {
 
     private void placeSpec() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setAutoPlaceState(AutoPlaceStates.releaseSpec);
+        OuttakeStates.setAutoPlaceState(AutoPlaceStates.waitToRelease);
     }
+
+
 
     private void releaseSpec() {
         OuttakeStates.setAutoPlaceState(AutoPlaceStates.idle);

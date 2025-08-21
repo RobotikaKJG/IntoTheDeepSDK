@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TurnServo.TurnServoStates;
 
 public class AutoPlaceControl {
     private AutoPlaceStates prevIntakeAutoPlaceState = AutoPlaceStates.idle;
@@ -35,6 +37,7 @@ public class AutoPlaceControl {
 
     private void releaseSpec() {
         OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
-        OuttakeStates.setArmState(ArmStates.maxPos);
+        OuttakeStates.setArmState(ArmStates.takeSpecimen);
+        OuttakeStates.setTurnServoState(TurnServoStates.takePos);
     }
 }

@@ -34,6 +34,12 @@ public class AutoTakeControl {
             case turnClaw:
                 turnClaw();
                 break;
+            case waitForTakeAgain:
+                break;
+            case turnServoBack:
+                break;
+            case armTakePos:
+                break;
             case idle:
                 break;
         }

@@ -3,12 +3,27 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 public enum SpecimenAutonState {
     goToHangFirstSpecimen,
     hangFirstSpecimen,
-    goToTakeSample,
-    extendSlides,
-    startIntakeForSample,
-    checkSamplePickup,
-    turnToPlayer,
-    ejectSample,
+
+    goToTakeFirstSample,
+    extendSlidesForFirstSample,
+    startIntakeForFirstSample,
+    checkFirstSamplePickup,
+    goToEjectFirstSample,
+    ejectFirstSample,
+
+    goToTakeSecondSample,
+    extendSlidesForSecondSample,
+    startIntakeForSecondSample,
+    checkSecondSamplePickup,
+    goToEjectSecondSample,
+    ejectSecondSample,
+
+    goToTakeThirdSample,
+    extendSlidesForThirdSample,
+    startIntakeForThirdSample,
+    checkThirdSamplePickup,
+    goToEjectThirdSample,
+    ejectThirdSample,
 
     goToTakeSpecimen,
     takeSpecimen,
