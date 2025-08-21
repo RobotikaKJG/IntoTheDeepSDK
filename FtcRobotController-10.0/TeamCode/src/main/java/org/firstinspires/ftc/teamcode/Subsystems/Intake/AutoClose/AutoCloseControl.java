@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
 
 public class AutoCloseControl {
 
@@ -30,6 +31,24 @@ public class AutoCloseControl {
                 break;
             case securedGoodSample:
                 securedGoodSample();
+                break;
+            case waitToRetract:
+                IntakeStates.setArmSlideState(ArmSlideStates.close);
+                break;
+            case pivot:
+                IntakeStates.setPivotState(PivotStates.up);
+                break;
+            case openLatch:
+                IntakeStates.setLatchState(LatchStates.open);
+                break;
+
+            case release:
+                IntakeStates.setMotorState(IntakeMotorStates.forward);
+                break;
+            case pivotDown:
+                IntakeStates.setMotorState(IntakeMotorStates.idle);
+                IntakeStates.setLatchState(LatchStates.closed);
+                IntakeStates.setPivotState(PivotStates.down);
                 break;
             case idle:
                 break;

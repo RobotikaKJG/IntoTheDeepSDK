@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DownServo.DownServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -49,7 +50,7 @@ public class HangControl {
     private void pivotUp() {
         OuttakeStates.setDownServoState(DownServoStates.down);
         OuttakeStates.setArmState(ArmStates.hangPos);
-        motorControl.setMotorPos(MotorConstants.pivot, HangConstants.pivotUpHeight);
+        IntakeStates.setPivotState(PivotStates.hangPos);
     }
 
     private void extendSlides() {

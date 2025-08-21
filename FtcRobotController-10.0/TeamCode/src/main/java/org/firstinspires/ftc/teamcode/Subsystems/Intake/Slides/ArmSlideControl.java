@@ -23,7 +23,7 @@ public class ArmSlideControl {
         if(IntakeStates.getArmSlideState() == ArmSlideStates.closing) {
             if(slideLogic.slidesBottomReached()) {
                 IntakeStates.setArmSlideState(ArmSlideStates.closed);
-                IntakeStates.setPivotState(PivotStates.down);
+//                IntakeStates.setPivotState(PivotStates.down);
             }
         }
     }
@@ -34,6 +34,7 @@ public class ArmSlideControl {
                 currentExtentionStep = 0;
                 slideLogic.setSlideExtensionTarget(50);
                 IntakeStates.setArmSlideState(ArmSlideStates.closing);
+//                IntakeStates.setPivotState(PivotStates.upSlightly);
                 break;
             case closing:
                 break;

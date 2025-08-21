@@ -36,10 +36,10 @@ public class ManualSlideControl extends LinearOpMode {
             if(gamepad1.triangle) break;
             dependencies.edgeDetection.refreshGamepadIndex(currentGamepad1,prevGamepad1);
             telemetry.addLine("Press square to extend, press circle to retract");
-            telemetry.addData("Slide position", outtakeSlideControl.getSlidePosition());
+            telemetry.addData("Slide position", IntakeSlideControl.currentPosition);
             telemetry.addData("Retracting", retracting);
 //            telemetry.addData("isPressed",dependencies.sensorControl.isLimitSwitchPressed(LimitSwitches.slideLeft));
-            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.pivot));
+            telemetry.addData("position",dependencies.motorControl.getMotorPosition(MotorConstants.bothSlides));
             telemetry.update();
             if(dependencies.edgeDetection.rising(GamepadIndexValues.circle))
             {
@@ -61,7 +61,7 @@ public class ManualSlideControl extends LinearOpMode {
                 outtakeSlideControl.setSlidePosition(0);
                 retracting = true;
             }
-
+            outtakeSlideControl.updateSlidePosition();
 //            if(retracting)
 //            {
 //                telemetry.addLine("Retracting");

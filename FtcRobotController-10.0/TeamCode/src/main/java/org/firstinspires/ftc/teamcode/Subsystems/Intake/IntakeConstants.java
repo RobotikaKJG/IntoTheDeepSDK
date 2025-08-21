@@ -9,13 +9,13 @@ public class IntakeConstants {
     public static int slideExtentionStep = 250;
     public static int slideFirstExtentionStep = 669;
 
-    public static int pivotMaxAngle = 2690;
+    public static int pivotMaxAngle = 2569;
     public static int pivotSlightlyRaisedAngle = 269;
 
     public static int limitSwitchThreshold = 69; // motion profiling turns off, the closing finishes with limit switch seeking
     public static int limitSwitchRetractionStep = 10;
 
     public static double secureSampleWait = 0.3;
-    public static double pivotDownSpeed = 0.3;
+    public static double pivotDownSpeed = 1;
     public static double sampleEjectWait = 1;
 }

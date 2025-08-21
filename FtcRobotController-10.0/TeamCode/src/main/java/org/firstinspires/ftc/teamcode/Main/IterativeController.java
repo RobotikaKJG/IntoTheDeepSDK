@@ -74,8 +74,8 @@ public class IterativeController {
 //            GlobalVariables.slowMode = true;
 //            subsystemControl2.update();
 //        }
-        if(edgeDetection.rising(GamepadIndexValues.dpadLeft))
-            colorSensorActive = !colorSensorActive;
+//        if(edgeDetection.rising(GamepadIndexValues.dpadLeft))
+//            colorSensorActive = !colorSensorActive;
         if(IntakeStates.getIntakeState() == SubsystemState.Run)
             colorSensorActive = true;
 
@@ -84,7 +84,7 @@ public class IterativeController {
         if(!colorSensorActive)
             sensorControl.resetDistance();
 
-        if(sensorControl.getDistance() < 70)
+        if(sensorControl.getDistance() < 90)
             sensorControl.updateColor();
 
 
@@ -93,7 +93,7 @@ public class IterativeController {
     }
 
     private void updateHardwareValues() {
-//        sensorControl.updateDistance();
+        sensorControl.updateDistance();
 //        intakeSlideControl.updateSlidePosition();
         if(IntakeStates.getIntakeState() == SubsystemState.Run)
             outakeSlideControl.updateSlidePosition();

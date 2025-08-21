@@ -25,6 +25,7 @@ public class GeneralBlueTeleOp extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         GlobalVariables.subCycles = false;
+        GlobalVariables.hang = false;
         GlobalVariables.alliance = Alliance.Blue;
         MotorControl motorControl = new MotorControl(hardwareMap);
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
@@ -45,7 +46,12 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
 
-            telemetry.addData("servo state", OuttakeStates.getDownServoState());
+            telemetry.addData("Pivot angle", motorControl.getMotorPosition(MotorConstants.pivot));
+            telemetry.addData("Distance", dependencies.sensorControl.getDistance());
+            telemetry.addData("MotorState", IntakeStates.getMotorState());
+            telemetry.addData("AutoCloseState", IntakeStates.getAutoCloseState());
+            telemetry.addData("arm", IntakeStates.getArmSlideState());
+            telemetry.addData("pivot", IntakeStates.getPivotState());
             if (gamepad1.triangle) break;
             calculateLoopTime();
             telemetry.update();

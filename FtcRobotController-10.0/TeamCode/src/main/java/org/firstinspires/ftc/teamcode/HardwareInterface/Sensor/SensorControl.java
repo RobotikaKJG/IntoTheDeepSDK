@@ -36,7 +36,7 @@ public class SensorControl {
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor");
         rangeSensor = hardwareMap.get(LynxI2cColorRangeSensor.class, "ColorSensor");
         pinpointImu = hardwareMap.get(GoBildaPinpointDriver.class, "pinpointIMU");
-        colorSensor.setGain(5);//2);
+        colorSensor.setGain(15);//2);
 
         this.localizer = localizer;
         setInitialLocalisationAngle();
@@ -67,9 +67,11 @@ public class SensorControl {
 
     public void initPinpoint() {
         pinpointImu.initialize();
+        pinpointImu.resetPosAndIMU();
     }
 
     public double getPinpointAngle() {
+        resetPinpointAngle();
         pinpointImu.update();
         return pinpointImu.getHeading();
     }
@@ -125,16 +127,16 @@ public class SensorControl {
 
     public boolean isRed(){
         //return currentGreen < 5 && currentRed > 7 || (currentBlue == 2 && currentGreen == 2 && currentRed == 5);
-        return currentGreen < 10 && currentRed > 10;
+        return currentRed < 28 && currentRed > 22;
     }
 
     public boolean isYellow(){
-        return currentGreen > 10;
+        return currentGreen > 27;
     }
 
     public boolean isBlue(){
 //        return (currentRed < 5 && currentBlue > 3 && currentGreen < 8) || ( currentRed == 1 && currentBlue == 3 && currentGreen < 4);
-        return  currentRed < 6 && currentBlue >= 6;
+        return  currentRed < 25 && currentBlue > 20;
     }
 
     public double getDistance(){

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.DpadLeft;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
@@ -15,6 +16,7 @@ public class DpadLeftControl {
         switch (ButtonStates.getDpadLeftState()) {
             case hangOn:
                 IntakeStates.setHangState(HangStates.pivotUp);
+                GlobalVariables.hang = true;
                 break;
             case hangOff:
                 IntakeStates.setHangState(HangStates.idle);
@@ -23,6 +25,7 @@ public class DpadLeftControl {
                 OuttakeStates.setDownServoState(DownServoStates.active);
                 OuttakeStates.setArmState(ArmStates.idle);
                 OuttakeStates.setArmState(ArmStates.takeSpecimen);
+                GlobalVariables.hang = false;
                 break;
             case idle:
                 break;

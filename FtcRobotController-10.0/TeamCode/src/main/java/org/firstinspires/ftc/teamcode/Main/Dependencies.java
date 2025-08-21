@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoEject.AutoEjectLogic
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.SampleEjectionLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
@@ -91,7 +92,11 @@ public class Dependencies {
     }
 
     public IntakeControl createIntakeControl() {
-        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createAutoEjectLogic(), createAutoEjectControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl(), createHangControl(), createHangLogic());
+        return new IntakeControl(createAutoCloseLogic(), createAutoCloseControl(), createAutoEjectLogic(), createAutoEjectControl(), createArmSlideControl(), createPivotControl(), createIntakeMotorControl(), createLatchControl(), createHangControl(), createHangLogic(), createSampleEjectionLogic());
+    }
+
+    private SampleEjectionLogic createSampleEjectionLogic() {
+        return new SampleEjectionLogic(sensorControl);
     }
 
     public OuttakeControl createOuttakeControl() {

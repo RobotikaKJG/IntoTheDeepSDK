@@ -76,8 +76,10 @@ public class IntakeSlideControl implements SlideControl {
             return false;
 
         targetPosition -= IntakeConstants.limitSwitchRetractionStep;
+        System.out.println(targetPosition);
         limitSpeed(intakeSlideProperties.getSlideMovementMaxSpeed());
         motorControl.setMotorPos(slide, targetPosition);
+        motorControl.setMotorMode(MotorConstants.bothSlides, DcMotor.RunMode.RUN_TO_POSITION);
         return false;
     }
 }

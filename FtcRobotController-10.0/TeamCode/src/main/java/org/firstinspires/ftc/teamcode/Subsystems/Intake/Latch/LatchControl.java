@@ -24,16 +24,16 @@ public class LatchControl {
             updateStates();
             prevLatchStates = IntakeStates.getLatchState();
         }
-        if(IntakeStates.getLatchState() == LatchStates.closed) {
-            if (wrongColor()) {
-                IntakeStates.setLatchState(LatchStates.open);
-                updateStates();
-            }
-        }
-        else if(correctColor()) {
-            IntakeStates.setLatchState(LatchStates.closed);
-            updateStates();
-        }
+//        if(IntakeStates.getLatchState() == LatchStates.closed) {
+//            if (wrongColor()) {
+//                IntakeStates.setLatchState(LatchStates.open);
+//                updateStates();
+//            }
+//        }
+//        else if(correctColor()) {
+//            IntakeStates.setLatchState(LatchStates.closed);
+//            updateStates();
+//        }
     }
 
     public void updateStates() {
@@ -49,13 +49,13 @@ public class LatchControl {
     }
 
     private boolean wrongColor(){
-        if (sensorControl.getDistance() < 70)
+        if (sensorControl.getDistance() < 90)
             return sensorControl.isOtherAllianceColor() || sensorControl.isYellow();
         return false;
     }
 
     private boolean correctColor() {
-        if (sensorControl.getDistance() < 70)
+        if (sensorControl.getDistance() < 90)
             return sensorControl.isAllianceColor();
         return false;
     }

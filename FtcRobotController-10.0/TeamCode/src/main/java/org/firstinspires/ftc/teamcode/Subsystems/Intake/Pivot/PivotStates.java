@@ -6,5 +6,6 @@ public enum PivotStates {
     down,
     goingDown,
     isDown,
+    hangPos,
     idle
 }

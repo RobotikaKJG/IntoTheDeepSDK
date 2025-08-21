@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.RightTrigger;
 
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Pivot.PivotStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
@@ -18,10 +20,24 @@ public class RightTriggerLogic {
     }
 
     public void update() {
-        if (retract()) return;
-        if (armUp()) return;
-        if (release()) return;
+//        if (armUp()) return;
+//        if (release()) return;
+        if(cycleAutoCLoseStates()) return;
+        if (manualRetract()) return;
         return;
+    }
+
+    private boolean cycleAutoCLoseStates() {
+        if(!waitingForConfirmation()) return false;
+        ButtonStates.setRightTriggerState(RightTriggerStates.cycleAutoCloseStates);
+
+        completeAction();
+        return true;
+    }
+
+    private boolean waitingForConfirmation() {
+        return IntakeStates.getAutoCloseState() == AutoCloseStates.waitForRetractConfirmation ||
+                IntakeStates.getAutoCloseState() == AutoCloseStates.waitForReleaseConfirmation;
     }
 
     private void completeAction(){
@@ -30,15 +46,25 @@ public class RightTriggerLogic {
     }
 
 
-    private boolean retract() {
-        if(IntakeStates.getArmSlideState() == ArmSlideStates.closed) return false;
-        ButtonStates.setRightTriggerState(RightTriggerStates.retract);
+    private boolean manualRetract() {
+        System.out.println("start");
+        System.out.println(sensorControl.isLimitSwitchPressed(LimitSwitches.slides));
+        System.out.println(closingActive());
+        if(sensorControl.isLimitSwitchPressed(LimitSwitches.slides) || closingActive()) return false;
+        System.out.println("active");
+        ButtonStates.setRightTriggerState(RightTriggerStates.manualRetract);
         completeAction();
         return true;
     }
 
+    private boolean closingActive() {
+        return IntakeStates.getAutoCloseState() != AutoCloseStates.idle &&
+                IntakeStates.getAutoCloseState() != AutoCloseStates.checkColor;
+    }
+
     private boolean armUp() {
-        if(IntakeStates.getArmSlideState() != ArmSlideStates.closed) return false;
+        if(IntakeStates.getArmSlideState() != ArmSlideStates.closed && IntakeStates.getPivotState() == PivotStates.up) return false;
+        System.out.println("a");
         ButtonStates.setRightTriggerState(RightTriggerStates.armUp);
         completeAction();
         return true;
@@ -46,6 +72,7 @@ public class RightTriggerLogic {
 
     private boolean release() {
         if(IntakeStates.getPivotState() != PivotStates.up) return false;
+        System.out.println("r");
         ButtonStates.setRightTriggerState(RightTriggerStates.release);
         completeAction();
         return true;

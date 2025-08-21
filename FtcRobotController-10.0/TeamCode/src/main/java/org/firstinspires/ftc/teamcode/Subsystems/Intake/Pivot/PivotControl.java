@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Hang.HangConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Slides.ArmSlideStates;
@@ -38,13 +39,13 @@ public class PivotControl {
             case up:
                 motorControl.setMotorPos(MotorConstants.pivot, IntakeConstants.pivotMaxAngle);
                 motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 1);
                 motorControl.setMotors(MotorConstants.pivot);
                 break;
             case upSlightly:
                 motorControl.setMotorPos(MotorConstants.pivot, IntakeConstants.pivotSlightlyRaisedAngle);
                 motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
-                motorControl.setMotorSpeed(MotorConstants.pivot, 0.7);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 1);
                 motorControl.setMotors(MotorConstants.pivot);
                 break;
             case down:
@@ -56,6 +57,12 @@ public class PivotControl {
             case goingDown:
                 break;
             case isDown:
+                break;
+            case hangPos:
+                motorControl.setMotorPos(MotorConstants.pivot, HangConstants.pivotUpHeight);
+                motorControl.setMotorMode(MotorConstants.pivot, DcMotor.RunMode.RUN_TO_POSITION);
+                motorControl.setMotorSpeed(MotorConstants.pivot, 1);
+                motorControl.setMotors(MotorConstants.pivot);
                 break;
             case idle:
                 break;

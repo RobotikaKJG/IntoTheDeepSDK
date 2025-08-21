@@ -10,4 +10,5 @@ public class GlobalVariables {
     public static boolean isAutonomous;
     public static boolean slowMode = false;
     public static boolean subCycles;
+    public static boolean hang = false;
 }

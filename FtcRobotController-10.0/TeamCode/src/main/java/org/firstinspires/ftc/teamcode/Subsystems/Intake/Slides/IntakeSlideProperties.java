@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 
 public class IntakeSlideProperties implements SlideProperties {
 
-    private double slideMaxSpeed = 0.5;
+    private double slideMaxSpeed = 1;
 
     @Override
     public int getSlideMaxExtension() {
