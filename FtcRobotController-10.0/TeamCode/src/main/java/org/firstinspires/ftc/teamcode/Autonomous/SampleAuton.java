@@ -36,7 +36,7 @@ public class SampleAuton implements Auton {
     private IntakeMotorLogic intakeMotorLogic;
     private static double subPathYcoordinate = -13;
     private static double subRotation = -10;
-    private static double subPlaceYCoordinate = -60;
+    private static double subPlaceYCoordinate = -58;
 //    private static Pose2d fifthIntakePose = new Pose2d(-31, subPathYcoordinate, Math.toRadians(subRotation));
     TrajectorySequence fiveSampleIntakePath;
     TrajectorySequence fiveSampleOuttakePath;

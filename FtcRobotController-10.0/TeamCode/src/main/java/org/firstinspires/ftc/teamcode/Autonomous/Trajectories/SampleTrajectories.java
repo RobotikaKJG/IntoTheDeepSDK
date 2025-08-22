@@ -34,7 +34,9 @@ public class SampleTrajectories {
 
 //                .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(66))) // DO NOT TOUCH THIS IS PAIN
 //                .lineToLinearHeading(new Pose2d(-59, -54, Math.toRadians(69))) // DO NOT TOUCH THIS IS PAIN
-                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
+//                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
+                .lineToLinearHeading(new Pose2d(-58, -53, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
+
 
 
 //                .waitSeconds(0.5)
@@ -88,7 +90,7 @@ public class SampleTrajectories {
 //                .build();
 //
         fiveSampleOuttakePath = drive.trajectorySequenceBuilder(SampleAuton.getFifthIntakePose())
-                .lineToSplineHeading(new Pose2d(-47, -64, Math.toRadians(35)))
+                .lineToSplineHeading(new Pose2d(-49, -62, Math.toRadians(35)))
                 .build();
 //
 //        moveToSub = drive.trajectorySequenceBuilder(new Pose2d(-38, -8, Math.toRadians(0)))
