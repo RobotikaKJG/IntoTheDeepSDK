@@ -40,9 +40,10 @@ public class RightTriggerControl {
     }
 
     private void manualRetract() {
-        IntakeStates.setPivotState(PivotStates.upSlightly);
-        IntakeStates.setArmSlideState(ArmSlideStates.close);
-        IntakeStates.setMotorState(IntakeMotorStates.idle);
+//        IntakeStates.setPivotState(PivotStates.upSlightly);
+//        IntakeStates.setArmSlideState(ArmSlideStates.close);
+//        IntakeStates.setMotorState(IntakeMotorStates.idle);
+        IntakeStates.setAutoCloseState(AutoCloseStates.waitToRetract);
     }
 
     private void armUp() {

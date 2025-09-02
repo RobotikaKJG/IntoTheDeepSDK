@@ -34,6 +34,9 @@ public class ArmControl {
             case maxPos:
                 servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoMaxPos);
                 break;
+            case movePos:
+                servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoMovePos);
+                break;
             case hangPos:
                 servoControl.setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoHangPos);
                 break;

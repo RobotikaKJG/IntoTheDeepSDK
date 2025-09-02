@@ -33,12 +33,12 @@ public class ServoControl {
         if (GlobalVariables.isAutonomous) {
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMinPos);
             setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoPlacePos);
-            setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMaxPos);
+            setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
         }
         else {
             setServoPos(ServoConstants.specimenClaw, OuttakeConstants.specimenClawServoMaxPos);
             setServoPos(ServoConstants.outtakeArm, OuttakeConstants.outtakeArmServoIdlePos);
-            setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
+            setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMaxPos);
         }
     }
 

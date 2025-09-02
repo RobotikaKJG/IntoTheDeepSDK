@@ -51,6 +51,9 @@ public class ArmSlideControl {
             case fullyExtend:
                 fullyExtend();
                 break;
+            case halfExtend:
+                halfExtend();
+                break;
         }
     }
 
@@ -78,5 +81,10 @@ public class ArmSlideControl {
     }
     private void fullyExtend(){
         slideLogic.setSlideExtensionTarget(IntakeConstants.slideMaxExtention);
+        IntakeStates.setArmSlideState(ArmSlideStates.extended);
+    }
+    private void halfExtend(){
+        slideLogic.setSlideExtensionTarget(IntakeConstants.slideHalfExtention);
+        IntakeStates.setArmSlideState(ArmSlideStates.extended);
     }
 }

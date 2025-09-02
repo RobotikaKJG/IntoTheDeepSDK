@@ -6,12 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 //import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.SelectStartVariables;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Main.Dependencies;
 
 
 @Autonomous
 public class GeneralAutonomous extends LinearOpMode {
 
+    AutonomousDependencies dependencies;
     private SampleMecanumDrive drive;
     private AutonomousControl autonomousControl;
 
@@ -19,6 +22,10 @@ public class GeneralAutonomous extends LinearOpMode {
     public void runOpMode() {
 
         initialise();
+
+//        Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
+//
+//        dependencies.sensorControl.initPinpoint();
 
         while (!isStarted() && !isStopRequested()) {
             updateAutonData();
@@ -47,7 +54,7 @@ public class GeneralAutonomous extends LinearOpMode {
         GlobalVariables.isAutonomous = true;
         GlobalVariables.subCycles = false;
 
-        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
+        dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
 
         drive = dependencies.drive;
         autonomousControl = dependencies.autonomousControl;
@@ -58,6 +65,11 @@ public class GeneralAutonomous extends LinearOpMode {
     private void updateAutonData() {
         telemetry.addData("Auton:", GlobalVariables.autonomousMode);
         telemetry.addData("Alliance:", GlobalVariables.alliance);
+        System.out.println("angle " + dependencies.motorControl.getMotorPosition(MotorConstants.slideLeft));
+
+        telemetry.addLine(" ");
+        telemetry.addData("yaw", dependencies.sensorControl.getPinpointAngle());
+
         //telemetry.addData("Current position: ",aprilTagCameraControl.getCurrentPosition());
         telemetry.update();
         // Slow down CPU cycles

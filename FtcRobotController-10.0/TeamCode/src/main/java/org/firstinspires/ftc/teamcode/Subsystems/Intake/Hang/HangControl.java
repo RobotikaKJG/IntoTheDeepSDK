@@ -59,6 +59,7 @@ public class HangControl {
 
     private void retractSlides() {
         slideLogic.setSlideExtensionTarget(HangConstants.slidesDownHeight);
+//        motorControl.setMotorPos(MotorConstants.pivot, IntakeConstants.pivotHangAngle);
     }
 
     private void pivotUpFully() {

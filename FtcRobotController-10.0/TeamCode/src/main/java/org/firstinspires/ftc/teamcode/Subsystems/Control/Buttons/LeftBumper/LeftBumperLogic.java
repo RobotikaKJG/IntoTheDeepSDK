@@ -41,7 +41,7 @@ public class LeftBumperLogic {
     }
 
     private boolean releaseSpecimen(){
-        if(OuttakeStates.getAutoPlaceState() != AutoPlaceStates.waitToRelease) return false;
+        if(OuttakeStates.getAutoPlaceState() != AutoPlaceStates.releaseSpec) return false;
         ButtonStates.setLeftBumperState(LeftBumperStates.releaseSpecimen);
         completeAction();
         return true;

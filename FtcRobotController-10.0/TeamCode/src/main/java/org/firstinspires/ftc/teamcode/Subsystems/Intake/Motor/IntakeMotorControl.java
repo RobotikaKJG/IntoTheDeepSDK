@@ -31,6 +31,9 @@ public class IntakeMotorControl {
             case backward:
                 motorControl.setMotorSpeed(MotorConstants.intake, 1.0);
                 break;
+            case extraSamples:
+                motorControl.setMotorSpeed(MotorConstants.intake, 0.7);
+                break;
             case idle:
                 motorControl.setMotorSpeed(MotorConstants.intake, 0);
                 break;

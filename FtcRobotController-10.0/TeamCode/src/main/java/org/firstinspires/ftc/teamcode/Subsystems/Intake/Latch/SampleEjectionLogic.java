@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -17,6 +18,7 @@ public class SampleEjectionLogic {
     }
 
     public void update(){
+        if(GlobalVariables.isAutonomous) return;
 //        if(wrongColor()) {
             if (shouldOpen()) {
 //            if(!GlobalVariables.isAutonomous)

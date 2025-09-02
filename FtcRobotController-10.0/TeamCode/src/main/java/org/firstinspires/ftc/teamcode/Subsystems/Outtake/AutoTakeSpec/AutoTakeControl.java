@@ -37,8 +37,10 @@ public class AutoTakeControl {
             case waitForTakeAgain:
                 break;
             case turnServoBack:
+                turnServoBack();
                 break;
             case armTakePos:
+                armTakePos();
                 break;
             case idle:
                 break;
@@ -55,5 +57,14 @@ public class AutoTakeControl {
 
     private void turnClaw() {
         OuttakeStates.setTurnServoState(TurnServoStates.placePos);
+    }
+
+    private void turnServoBack() {
+        OuttakeStates.setTurnServoState(TurnServoStates.takePos);
+    }
+
+    private void armTakePos() {
+        OuttakeStates.setArmState(ArmStates.takeSpecimen);
+        OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
     }
 }

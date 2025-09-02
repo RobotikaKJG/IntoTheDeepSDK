@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
@@ -32,8 +33,15 @@ public class AutoCloseControl {
             case securedGoodSample:
                 securedGoodSample();
                 break;
+            case ejectExtraSamples:
+                ejectExtraSamples();
+                break;
+            case waitForRetractConfirmation:
+                waitForRetractConfirmation();
+                break;
             case waitToRetract:
                 IntakeStates.setArmSlideState(ArmSlideStates.close);
+                IntakeStates.setMotorState(IntakeMotorStates.idle);
                 break;
             case pivot:
                 IntakeStates.setPivotState(PivotStates.up);
@@ -55,6 +63,9 @@ public class AutoCloseControl {
         }
     }
 
+
+
+
     private void checkColor() {
         IntakeStates.setLatchState(LatchStates.closed);
     }
@@ -62,8 +73,20 @@ public class AutoCloseControl {
     private void securedGoodSample() {
         gamepad1.rumble(200);
         IntakeStates.setLatchState(LatchStates.closed);
-        IntakeStates.setMotorState(IntakeMotorStates.idle);
         IntakeStates.setPivotState(PivotStates.upSlightly);
     }
+
+    private void ejectExtraSamples() {
+        if(!GlobalVariables.isAutonomous)
+            IntakeStates.setMotorState(IntakeMotorStates.extraSamples);
+    }
+
+    private void waitForRetractConfirmation() {
+        IntakeStates.setMotorState(IntakeMotorStates.idle);
+    }
+
+
+
+
 
 }

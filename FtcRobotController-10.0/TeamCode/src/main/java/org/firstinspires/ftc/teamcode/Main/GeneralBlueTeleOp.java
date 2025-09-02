@@ -46,6 +46,9 @@ public class GeneralBlueTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
 
+            telemetry.addData("yaw", dependencies.sensorControl.getPinpointAngle());
+            telemetry.addLine(" ");
+
             telemetry.addData("Pivot angle", motorControl.getMotorPosition(MotorConstants.pivot));
             telemetry.addData("Distance", dependencies.sensorControl.getDistance());
             telemetry.addData("MotorState", IntakeStates.getMotorState());

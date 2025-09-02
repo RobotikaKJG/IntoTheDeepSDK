@@ -36,6 +36,10 @@ public class GeneralRedTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             iterativeController.TeleOp();
             if (gamepad1.triangle) break;
+
+            telemetry.addData("yaw", dependencies.sensorControl.getPinpointAngle());
+            telemetry.addLine(" ");
+
             telemetry.addData("Slides angle", dependencies.motorControl.getMotorPosition(MotorConstants.slideLeft));
             calculateLoopTime();
             telemetry.update();

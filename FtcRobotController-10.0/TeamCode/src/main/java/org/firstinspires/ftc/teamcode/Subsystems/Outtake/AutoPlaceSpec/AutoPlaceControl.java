@@ -26,6 +26,9 @@ public class AutoPlaceControl {
             case releaseSpec:
                 releaseSpec();
                 break;
+            case moveBack:
+                moveBack();
+                break;
             case idle:
                 break;
         }
@@ -37,7 +40,11 @@ public class AutoPlaceControl {
 
     private void releaseSpec() {
         OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
-        OuttakeStates.setArmState(ArmStates.takeSpecimen);
+        OuttakeStates.setArmState(ArmStates.movePos);
         OuttakeStates.setTurnServoState(TurnServoStates.takePos);
+    }
+
+    private void moveBack() {
+        OuttakeStates.setArmState(ArmStates.takeSpecimen);
     }
 }

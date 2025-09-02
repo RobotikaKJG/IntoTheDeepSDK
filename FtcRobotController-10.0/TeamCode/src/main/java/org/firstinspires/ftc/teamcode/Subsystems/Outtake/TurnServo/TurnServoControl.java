@@ -23,10 +23,10 @@ public class TurnServoControl {
     private void updateStates() {
         switch (OuttakeStates.getTurnServoState()) {
             case takePos:
-                servoControl.setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
+                servoControl.setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMaxPos);
                 break;
             case placePos:
-                servoControl.setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMaxPos);
+                servoControl.setServoPos(ServoConstants.outtakeClawTurn, OuttakeConstants.outtakeClawTurnServoMinPos);
                 break;
             case idle:
                 break;

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake.AutoClose;
 
+import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.LimitSwitches;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
@@ -17,12 +18,16 @@ public class AutoCloseLogic {
     }
 
     public void update() {
+        System.out.println("limit slides switch " + sensorControl.isLimitSwitchPressed(LimitSwitches.slides));
         switch (IntakeStates.getAutoCloseState()) {
             case checkColor:
                 checkColor();
                 break;
             case securedGoodSample:
                 securedGoodSample();
+                break;
+            case ejectExtraSamples:
+                ejectExtraSamples();
                 break;
             case waitForRetractConfirmation:
                 waitForRetractConfirmation();
@@ -54,16 +59,21 @@ public class AutoCloseLogic {
         }
     }
 
-    private void openLatch() {
-        if(!wasIfCalled)
-        {
-            addWaitTime(0.3);
-            wasIfCalled = true;
-        }
-        if(currentWait > getSeconds()) return;
+    private void checkColor() {
+        if(!isSampleDetected()) return;
+        IntakeStates.setAutoCloseState(AutoCloseStates.securedGoodSample);
+        addWaitTime(IntakeConstants.secureSampleWait);
+    }
 
-        wasIfCalled = false;
-        IntakeStates.setAutoCloseState(AutoCloseStates.release);
+    private void securedGoodSample() {
+        if(currentWait > getSeconds()) return;
+        IntakeStates.setAutoCloseState(AutoCloseStates.ejectExtraSamples);
+        addWaitTime(0.05);
+    }
+
+    private void ejectExtraSamples() {
+        if(currentWait > getSeconds()) return;
+        IntakeStates.setAutoCloseState(AutoCloseStates.waitForRetractConfirmation);
     }
 
     private void waitForRetractConfirmation() {
@@ -74,7 +84,7 @@ public class AutoCloseLogic {
     private void waitToRetract() {
         if(!wasIfCalled)
         {
-            addWaitTime(0.4);
+            addWaitTime(0.3);
             wasIfCalled = true;
         }
         if(currentWait > getSeconds()) return;
@@ -90,7 +100,7 @@ public class AutoCloseLogic {
     private void pivot() {
         if(!wasIfCalled)
         {
-            addWaitTime(1);
+            addWaitTime(0.6);
             wasIfCalled = true;
         }
         if(currentWait > getSeconds()) return;
@@ -100,6 +110,20 @@ public class AutoCloseLogic {
     }
 
     private void waitForReleaseConfirmation() {
+    }
+
+    private void openLatch() {
+        if(!wasIfCalled)
+        {
+            addWaitTime(0.3);
+            wasIfCalled = true;
+        }
+        if(currentWait > getSeconds()) return;
+
+        System.out.println("Latch should open");
+
+        wasIfCalled = false;
+        IntakeStates.setAutoCloseState(AutoCloseStates.release);
     }
 
     private void release() {
@@ -122,20 +146,13 @@ public class AutoCloseLogic {
         }
         if(currentWait > getSeconds()) return;
 
+        System.out.println("Latch should open");
+
+
         wasIfCalled = false;
         IntakeStates.setAutoCloseState(AutoCloseStates.idle);
     }
 
-    private void checkColor() {
-        if(!isSampleDetected()) return;
-        IntakeStates.setAutoCloseState(AutoCloseStates.securedGoodSample);
-        addWaitTime(IntakeConstants.secureSampleWait);
-    }
-
-    private void securedGoodSample() {
-        if(currentWait > getSeconds()) return;
-        IntakeStates.setAutoCloseState(AutoCloseStates.waitForRetractConfirmation);
-    }
     private void idle() {
         if(IntakeStates.getMotorState() == IntakeMotorStates.forward && IntakeStates.getArmSlideState() == ArmSlideStates.extended) {
             sensorControl.resetColor();

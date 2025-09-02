@@ -13,9 +13,7 @@ public class SquareControl {
     public void update() {
         switch (ButtonStates.getSquareState()) {
             case takeSpecimen:
-                OuttakeStates.setTurnServoState(TurnServoStates.takePos);
-                OuttakeStates.setArmState(ArmStates.takeSpecimen);
-                OuttakeStates.setSpecimenClawState(SpecimenClawStates.fullyOpen);
+                OuttakeStates.setAutoTakeState(AutoTakeStates.turnServoBack);
                 break;
             case idle:
                 break;

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.AutoPlaceSpec;
 
+import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
@@ -21,6 +22,9 @@ public class AutoPlaceLogic {
             case releaseSpec:
                 releaseSpec();
                 break;
+            case moveBack:
+                moveBack();
+                break;
             case idle:
                 break;
         }
@@ -29,18 +33,25 @@ public class AutoPlaceLogic {
     private void activate() {
         if(isClawClosed() && OuttakeStates.getArmState() == ArmStates.placeSpecimen) {
             OuttakeStates.setAutoPlaceState(AutoPlaceStates.placeSpec);
-            addWaitTime(OuttakeConstants.specimenPlaceWait);
+            if(!GlobalVariables.isAutonomous)
+                addWaitTime(OuttakeConstants.specimenPlaceWait);
+            else
+                addWaitTime(OuttakeConstants.specimenPlaceWait - 0.15);
         }
     }
 
     private void placeSpec() {
         if(currentWait > getSeconds()) return;
-        OuttakeStates.setAutoPlaceState(AutoPlaceStates.waitToRelease);
+        OuttakeStates.setAutoPlaceState(AutoPlaceStates.releaseSpec);
     }
 
-
-
     private void releaseSpec() {
+        if(GlobalVariables.isAutonomous) {
+            OuttakeStates.setAutoPlaceState(AutoPlaceStates.moveBack);
+        }
+    }
+
+    private void moveBack() {
         OuttakeStates.setAutoPlaceState(AutoPlaceStates.idle);
     }
 

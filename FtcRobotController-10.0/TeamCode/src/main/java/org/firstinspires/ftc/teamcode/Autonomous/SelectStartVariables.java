@@ -23,7 +23,7 @@ public class SelectStartVariables {
         currentGamepad1.copy(this.gamepad1);
         edgeDetection = new EdgeDetection();
 //        selectAuton();
-//        selectAlliance();
+        selectAlliance();
     }
 
 //    private void selectAuton() {
