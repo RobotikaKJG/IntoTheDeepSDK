@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.PTO.PTOStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.TakeSpecimen.TakeSpecimenStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
@@ -30,9 +30,9 @@ public class OuttakeStates {
     private static SpecimenReleaseButtonStates specimenReleaseButtonStates = SpecimenReleaseButtonStates.idle;
     private static SpecimenClawStates specimenClawState = SpecimenClawStates.open;
     private static HangStates hangState = HangStates.retracted;
-    private static SampleLockStates sampleLockState = SampleLockStates.closed;
     private static TakeSpecimenStates takeSpecimenStates = TakeSpecimenStates.idle;
     private static DropSampleStates dropSampleState = DropSampleStates.idle;
+    private static PTOStates ptoState = PTOStates.closed;
 
 
     // ExecutorService for Multithreading
@@ -43,12 +43,10 @@ public class OuttakeStates {
         verticalSlideStates = VerticalSlideStates.closed;
         if(GlobalVariables.isAutonomous) {
             sampleClawState = SampleClawStates.closed;
-            sampleLockState = SampleLockStates.open;
             armState = ArmStates.up;
         }
         else {
             sampleClawState = SampleClawStates.fullyOpen;
-            sampleLockState = SampleLockStates.closed;
             armState = ArmStates.down;
         }
 
@@ -58,6 +56,7 @@ public class OuttakeStates {
         hangState = HangStates.retracted;
         takeSpecimenStates = TakeSpecimenStates.idle;
         dropSampleState = DropSampleStates.idle;
+        ptoState = PTOStates.closed;
     }
 
     public static SubsystemState getOuttakeState() {
@@ -129,13 +128,7 @@ public class OuttakeStates {
 //        return getVerticalSlideState() == VerticalSlideStates.highBasket && getSeconds() > currentWait;
 //    }
 
-    public static SampleLockStates getSampleLockState() {
-        return sampleLockState;
-    }
 
-    public static void setSampleLockState(SampleLockStates state) {
-        sampleLockState = state;
-    }
 
 
 
@@ -202,5 +195,13 @@ public class OuttakeStates {
 
     public static void setDropSampleState(DropSampleStates state) {
         dropSampleState = state;
+    }
+
+    public static PTOStates getPtoState() {
+        return ptoState;
+    }
+
+    public static void setPtoState(PTOStates state) {
+        ptoState = state;
     }
 }

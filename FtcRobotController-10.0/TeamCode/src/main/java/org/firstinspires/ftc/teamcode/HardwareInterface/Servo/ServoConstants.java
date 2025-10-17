@@ -23,8 +23,8 @@ public class ServoConstants {
                     OuttakeConstants.specimenClawServoMinPos,
                     IntakeConstants.intakeServoMinPos,
                     IntakeConstants.lockServoMinPos,
-                    0.06,
-                    0.05
+                    OuttakeConstants.ptoRightMinPos,
+                    OuttakeConstants.ptoLeftMinPos
             };
     public static final double[] servoMaxPos =
             {
@@ -34,7 +34,7 @@ public class ServoConstants {
                     OuttakeConstants.specimenClawServoMaxPos,
                     IntakeConstants.intakeServoMaxPos,
                     IntakeConstants.lockServoMaxPos,
-                    1.0,
-                    0.99
+                    OuttakeConstants.ptoRightMaxPos,
+                    OuttakeConstants.ptoLeftMaxPos
             };
 }

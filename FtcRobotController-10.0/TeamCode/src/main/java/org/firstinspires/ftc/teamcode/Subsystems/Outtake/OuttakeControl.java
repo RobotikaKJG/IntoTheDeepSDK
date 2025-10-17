@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropS
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.PTO.PTOControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SpecimenClaw.SpecimenClawControl;
@@ -37,11 +38,12 @@ public class OuttakeControl {
     private final TakeSpecimenLogic takeSpecimenLogic = new TakeSpecimenLogic();
     private final TakeSpecimenControl takeSpecimenControl = new TakeSpecimenControl();
     private final HangLogic hangLogic;
+    private final PTOControl ptoControl;
 
 
     public OuttakeControl(ArmControl armControl, SampleClawControl sampleClawControl, SpecimenClawControl specimenClawControl,
                           VerticalSlideControl verticalSlideControl, SpecimenReleaseButtonLogic specimenReleaseButtonLogic,
-                          HangControl hangControl, DropSampleLogic dropSampleLogic, HangLogic hangLogic) {
+                          HangControl hangControl, DropSampleLogic dropSampleLogic, HangLogic hangLogic, PTOControl ptoControl) {
         this.armControl = armControl;
         this.sampleClawControl = sampleClawControl;
         this.specimenClawControl = specimenClawControl;
@@ -50,6 +52,7 @@ public class OuttakeControl {
         this.hangControl = hangControl;
         this.dropSampleLogic = dropSampleLogic;
         this.hangLogic = hangLogic;
+        this.ptoControl = ptoControl;
     }
 
     public void update() {
@@ -58,15 +61,16 @@ public class OuttakeControl {
         verticalSlideControl.update();
         sampleReleaseButtonControl.update(); // order important, should go before logic to get state to update, NOTE
         sampleReleaseButtonLogic.update();
-        specimenClawControl.update();
-        specimenReleaseButtonControl.update();
-        specimenReleaseButtonLogic.update();
+//        specimenClawControl.update();
+//        specimenReleaseButtonControl.update();
+//        specimenReleaseButtonLogic.update();
         hangControl.update();
         hangLogic.update();
-        dropSampleControl.update();
-        dropSampleLogic.update();
-        takeSpecimenControl.update();
-        takeSpecimenLogic.update();
+        ptoControl.update();
+//        dropSampleControl.update();
+//        dropSampleLogic.update();
+//        takeSpecimenControl.update();
+//        takeSpecimenLogic.update();
 
 
         updateOuttakeState();

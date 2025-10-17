@@ -21,7 +21,7 @@ public class DpadDownLogic {
     }
 
     private boolean toggleEjectionServo() {
-        if(outtakeActive() || extendoRetracted()) return false;
+        if(outtakeActive()) return false;
         ButtonStates.setDpadDownState(DpadDownStates.toggleEjectionServo);
         completeAction();
         return true;

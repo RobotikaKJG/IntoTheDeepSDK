@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Motor.MotorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Sensor.SensorControl;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Slide.SlideControl;
+import org.firstinspires.ftc.teamcode.Main.ManualOpModes.HangConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
@@ -108,8 +109,13 @@ public class IterativeController {
 //        prevGamepad2.copy(currentGamepad2);
 //        currentGamepad2.copy(gamepad2);
 //        gamepad2EdgeDetection.refreshGamepadIndex(currentGamepad2, prevGamepad2);
+        if(!GlobalVariables.hangActive)
+            motorControl.setMotors(MotorConstants.notSlide);
+        else {
+            motorControl.setMotorSpeed(MotorConstants.frontWheels, HangConstants.motorSpeed);
+            motorControl.setMotors(MotorConstants.frontWheels);
+        }
 
-        motorControl.setMotors(MotorConstants.notSlide);
         localizer.update();
     }
 

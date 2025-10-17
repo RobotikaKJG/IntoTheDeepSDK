@@ -16,6 +16,7 @@ public class GeneralRedTeleOp extends LinearOpMode {
 
         GlobalVariables.isAutonomous = false;
         GlobalVariables.subCycles = false;
+        GlobalVariables.hangActive = false;
         GlobalVariables.alliance = Alliance.Red;
         Dependencies dependencies = new Dependencies(hardwareMap, gamepad1, gamepad2, telemetry);
         IterativeController iterativeController = new IterativeController(dependencies);

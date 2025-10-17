@@ -14,6 +14,12 @@ public class HangLogic {
 
     public void update(){
         switch (OuttakeStates.getHangState()) {
+            case releasePTO:
+                releasePTO();
+                break;
+            case lockPTO:
+                lockPTO();
+                break;
             case extendSlides:
                 extendSlides();
                 break;
@@ -23,24 +29,32 @@ public class HangLogic {
             case hangOnHooks:
                 hangOnHooks();
                 break;
+            case retracted:
+                break;
+            case idle:
+                break;
         }
+    }
+
+    private void releasePTO() {
+    }
+
+    private void lockPTO() {
     }
 
     private void extendSlides() {
 //        if(!slidesAtTarget()) return;
 
-        OuttakeStates.setHangState(HangStates.waitForButton);
     }
 
     private void retractSlides() {
-        if(!slidesAtTarget()) return;
-
+//        if(!slidesAtTarget()) return;
+//
 //        OuttakeStates.setHangState(HangStates.hangOnHooks);
 
     }
 
     private void hangOnHooks() {
-        OuttakeStates.setHangState(HangStates.idle);
     }
 
 

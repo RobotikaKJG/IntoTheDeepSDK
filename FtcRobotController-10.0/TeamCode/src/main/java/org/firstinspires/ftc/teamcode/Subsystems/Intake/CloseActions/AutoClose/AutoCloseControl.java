@@ -2,16 +2,14 @@ package org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousMode;
 import org.firstinspires.ftc.teamcode.Main.GlobalVariables;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class AutoCloseControl {
 
@@ -55,7 +53,7 @@ public class AutoCloseControl {
     }
 
     private void checkColor() {
-        OuttakeStates.setSampleLockState(SampleLockStates.closed);
+        IntakeStates.setLatchState(LatchStates.closed);
         if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous)
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
     }
@@ -101,7 +99,7 @@ public class AutoCloseControl {
 //        if(GlobalVariables.subCycles || !GlobalVariables.isAutonomous) {
         if(!GlobalVariables.isAutonomous) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
+            IntakeStates.setLatchState(LatchStates.open);
         }
         else
             IntakeStates.setMotorState(IntakeMotorStates.idleWasForward);

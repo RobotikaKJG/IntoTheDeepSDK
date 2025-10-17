@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.Drivebase;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivebase.DrivebaseController;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseLogic;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoControl;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.SampleEjectionLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchControl;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleEjection.SampleEjectionLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseControl;
@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Arm.ArmControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.DropSampleActions.DropSampleLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang.HangLogic;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.PTO.PTOControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonLogic;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeControl;
@@ -102,8 +103,7 @@ public class Dependencies {
     public IntakeControl createIntakeControl() {
         return new IntakeControl(createIntakeMotorControl(), createIntakeMotorLogic(),
                 createIntakeExtendoControl(), createAutoCloseControl(),
-                createAutoCloseLogic(),createEjectionServoControl(),
-                createSampleEjectionLogic());
+                createAutoCloseLogic(),createEjectionServoControl());
     }
 
     private IntakeMotorControl createIntakeMotorControl() {
@@ -114,16 +114,13 @@ public class Dependencies {
         return new IntakeMotorLogic(motorControl);
     }
 
-    private SampleEjectionLogic createSampleEjectionLogic() {
-        return new SampleEjectionLogic(sensorControl);
-    }
 
-    private EjectionServoControl createEjectionServoControl() {
-        return new EjectionServoControl(servoControl);
+    private LatchControl createEjectionServoControl() {
+        return new LatchControl(servoControl);
     }
 
     private AutoCloseLogic createAutoCloseLogic() {
-        return new AutoCloseLogic(sensorControl);
+        return new AutoCloseLogic(sensorControl,motorControl);
     }
 
     private ExtendoControl createIntakeExtendoControl() {
@@ -138,7 +135,11 @@ public class Dependencies {
         return new OuttakeControl(createArmControl(), createSampleClawControl(),
                 createSpecimenClawControl(),createVerticalSlideControl(),
                 createSpecimenReleaseButtonLogic(), createHangControl(),
-                createDropSampleLogic(), createHangLogic());
+                createDropSampleLogic(), createHangLogic(), createPTOControl());
+    }
+
+    private PTOControl createPTOControl() {
+        return new PTOControl(servoControl);
     }
 
     private HangLogic createHangLogic() {

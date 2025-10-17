@@ -12,7 +12,7 @@ public class DpadRightLogic {
     private final DpadRightControl dpadRightControl = new DpadRightControl();
 
     public void update() {
-        iterateHangStates();
+        if(iterateHangStates()) return;
     }
 
     private void completeAction(){

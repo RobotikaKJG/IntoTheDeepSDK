@@ -23,11 +23,24 @@ public class DpadRightControl {
         switch(OuttakeStates.getHangState()){
             case idle:
             case retracted:
+                OuttakeStates.setHangState(HangStates.releasePTO);
+                break;
+
+            case releasePTO:
                 OuttakeStates.setHangState(HangStates.extendSlides);
                 break;
-            case waitForButton:
+
+            case extendSlides:
                 System.out.println("5");
                 OuttakeStates.setHangState(HangStates.retractSlides);
+                break;
+
+            case retractSlides:
+                OuttakeStates.setHangState(HangStates.lockPTO);
+                break;
+
+            case lockPTO:
+                OuttakeStates.setHangState(HangStates.hangOnHooks);
                 break;
         }
     }

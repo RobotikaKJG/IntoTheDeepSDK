@@ -44,4 +44,14 @@ public class OuttakeConstants {
     
     public static double takeSpecimenWait = 0.2;
     public static double ejectWait = 0.5;
+
+    public static double ptoRightMinPos = 0.06;
+    public static double ptoLeftMinPos = 0.05;
+
+    public static double ptoRightMidPos = 0.53;
+    public static double ptoLeftMidPos = 0.52;
+
+    public static double ptoRightMaxPos = 1.0;
+    public static double ptoLeftMaxPos = 0.99;
+
 }

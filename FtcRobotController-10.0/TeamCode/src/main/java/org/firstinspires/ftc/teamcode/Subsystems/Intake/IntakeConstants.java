@@ -12,7 +12,7 @@ public class IntakeConstants {
     public static void setIntakeSpeed(double speed){
         intakeSpeed = speed;
     }
-    public static final double currentLimit = 5;//3.35;
+    public static final double currentLimit = 8;//3.35;
 
     public static final int extendoMaxExtension = 610; // should be 550
     public static final int extendoSampleExtension = 610;

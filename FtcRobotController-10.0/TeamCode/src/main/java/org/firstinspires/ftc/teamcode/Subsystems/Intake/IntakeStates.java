@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.SampleEjection.SampleEjectionStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Stall.StallStates;
 import org.firstinspires.ftc.teamcode.Subsystems.SubsystemState;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.AutoClose.AutoCloseStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.CloseActions.ManualClose.ManualCloseStates;
-//import org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo.EjectionServoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Extendo.ExtendoStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.Motor.IntakeMotorStates;
 
@@ -13,7 +15,9 @@ public class IntakeStates {
     private static ExtendoStates extendoState = ExtendoStates.retracted;
     private static AutoCloseStates autoCloseStates = AutoCloseStates.idle;
     private static ManualCloseStates manualCloseStates = ManualCloseStates.idle;
-//    private static EjectionServoStates ejectionServoStates = EjectionServoStates.closed;
+    private static LatchStates latchState = LatchStates.closed;
+    private static SampleEjectionStates sampleEjectionState = SampleEjectionStates.idle;
+    private static StallStates stallState = StallStates.idle;
 
     public static void setInitialStates(){
         intakeState = SubsystemState.Idle;
@@ -21,7 +25,8 @@ public class IntakeStates {
         extendoState = ExtendoStates.retracted;
         autoCloseStates = AutoCloseStates.idle;
         manualCloseStates = ManualCloseStates.idle;
-//        ejectionServoStates = EjectionServoStates.closed;
+        latchState = LatchStates.closed;
+        sampleEjectionState = SampleEjectionStates.idle;
     }
 
     public static SubsystemState getIntakeState() {
@@ -56,12 +61,27 @@ public class IntakeStates {
 
     public static void setManualCloseStates(ManualCloseStates state) { manualCloseStates = state; }
 
+    public static LatchStates getLatchState () {
+        return latchState;
+    }
 
-//    public static EjectionServoStates getEjectionServoState() {
-//        return ejectionServoStates;
-//    }
+    public static void setLatchState (LatchStates state) {
+        latchState = state;
+    }
 
-//    public static void setEjectionServoState(EjectionServoStates state){
-//        ejectionServoStates = state;
-//    }
+    public static SampleEjectionStates getSampleEjectionState() {
+        return sampleEjectionState;
+    }
+
+    public static void setSampleEjectionState(SampleEjectionStates state) {
+        sampleEjectionState = state;
+    }
+
+    public static StallStates getStallState() {
+        return stallState;
+    }
+
+    public static void setStallState(StallStates state) {
+        IntakeStates.stallState = state;
+    }
 }

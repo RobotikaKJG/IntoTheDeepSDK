@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 //import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousControl;
 import org.firstinspires.ftc.teamcode.Autonomous.SelectStartVariables;
+import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.Roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
 
 
 @Autonomous
@@ -14,6 +16,7 @@ public class GeneralAutonomous extends LinearOpMode {
 
     private SampleMecanumDrive drive;
     private AutonomousControl autonomousControl;
+    private AutonomousDependencies dependencies;
 
     @Override
     public void runOpMode() {
@@ -47,12 +50,15 @@ public class GeneralAutonomous extends LinearOpMode {
         GlobalVariables.isAutonomous = true;
         GlobalVariables.subCycles = false;
 
-        AutonomousDependencies dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
+        dependencies = new AutonomousDependencies(hardwareMap, gamepad1,gamepad2, telemetry);
 
         drive = dependencies.drive;
         autonomousControl = dependencies.autonomousControl;
 
         dependencies.servoControl.setServoStartPos();
+//        dependencies.servoControl.setServoPos(ServoConstants.PTOLeft, OuttakeConstants.ptoLeftMinPos);
+//        dependencies.servoControl.setServoPos(ServoConstants.PTORight, OuttakeConstants.ptoRightMaxPos);
+
     }
 
     private void updateAutonData() {
@@ -70,6 +76,9 @@ public class GeneralAutonomous extends LinearOpMode {
 
         //Update variable that autonomous happened for the driver oriented rotation after it
         GlobalVariables.wasAutonomous = true;
+        dependencies.servoControl.setServoPos(ServoConstants.PTOLeft, OuttakeConstants.ptoLeftMinPos);
+        dependencies.servoControl.setServoPos(ServoConstants.PTORight, OuttakeConstants.ptoRightMaxPos);
+        sleep(200);
     }
 }
 

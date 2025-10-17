@@ -1,30 +1,27 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Intake.EjectionServo;
+package org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch;
 
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoConstants;
 import org.firstinspires.ftc.teamcode.HardwareInterface.Servo.ServoControl;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeConstants;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
-public class EjectionServoControl {
-    private SampleLockStates prevEjectionServoState = SampleLockStates.closed;
+public class LatchControl {
+    private LatchStates prevLatchState;
     private final ServoControl servoControl;
 
-    public EjectionServoControl(ServoControl servoControl) {
+    public LatchControl(ServoControl servoControl) {
         this.servoControl = servoControl;
     }
 
     public void update(){
-        if(OuttakeStates.getSampleLockState() != prevEjectionServoState) {
+        if(IntakeStates.getLatchState() != prevLatchState) {
             updateStates();
-            prevEjectionServoState = OuttakeStates.getSampleLockState();
+            prevLatchState = IntakeStates.getLatchState();
         }
     }
 
     private void updateStates() {
-        switch (OuttakeStates.getSampleLockState()){
+        switch (IntakeStates.getLatchState()){
             case closed:
                 servoControl.setServoPos(ServoConstants.lock, IntakeConstants.lockServoMaxPos);
                 break;

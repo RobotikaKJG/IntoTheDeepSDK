@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Control.Buttons.Square;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control.ButtonStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeStates;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake.Latch.LatchStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Specimen.SpecimenReleaseButtonStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleClaw.SampleClawStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.OuttakeStates;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake.ReleaseButtonActions.Sample.SampleReleaseButtonStates;
-import org.firstinspires.ftc.teamcode.Subsystems.Outtake.SampleLock.SampleLockStates;
 
 public class SquareControl {
     public void update() {
@@ -41,11 +42,11 @@ public class SquareControl {
     private void manualToggleSampleClaw() {
         if(OuttakeStates.getSampleClawState() != SampleClawStates.closed) {
             OuttakeStates.setSampleClawState(SampleClawStates.closed);
-            OuttakeStates.setSampleLockState(SampleLockStates.open);
+            IntakeStates.setLatchState(LatchStates.open);
         }
         else {
             OuttakeStates.setSampleClawState(SampleClawStates.fullyOpen);
-            OuttakeStates.setSampleLockState(SampleLockStates.closed);
+            IntakeStates.setLatchState(LatchStates.closed);
         }
     }
 

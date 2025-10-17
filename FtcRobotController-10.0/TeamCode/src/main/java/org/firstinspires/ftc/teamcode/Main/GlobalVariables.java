@@ -9,4 +9,5 @@ public class GlobalVariables {
     public static boolean slowMode = false;
     public static AutonomousMode autonomousMode = AutonomousMode.sampleAuton;
     public static boolean subCycles;
+    public static boolean hangActive;
 }

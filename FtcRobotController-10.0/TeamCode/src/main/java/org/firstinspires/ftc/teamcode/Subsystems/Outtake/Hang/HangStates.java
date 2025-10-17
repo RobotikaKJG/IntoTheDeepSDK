@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Outtake.Hang;
 
 public enum HangStates {
+    releasePTO,
     extendSlides,
-    waitForButton,
     retractSlides,
+    lockPTO,
     hangOnHooks,
     retracted,
     idle

@@ -35,7 +35,7 @@ public class SampleTrajectories {
 //                .lineToLinearHeading(new Pose2d(-60, -54, Math.toRadians(66))) // DO NOT TOUCH THIS IS PAIN
 //                .lineToLinearHeading(new Pose2d(-59, -54, Math.toRadians(69))) // DO NOT TOUCH THIS IS PAIN
 //                .lineToLinearHeading(new Pose2d(-57.5, -52.5, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
-                .lineToLinearHeading(new Pose2d(-58, -53, Math.toRadians(71))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
+                .lineToLinearHeading(new Pose2d(-59.5, -54.5, Math.toRadians(69))) // DO NOT TOUCH THIS IS PAIN AND IT WORKS USUALLY
 
 
 
@@ -61,7 +61,7 @@ public class SampleTrajectories {
                 .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(180), DriveConstants.TRACK_WIDTH)) // Increase max speed
                 .setAccelConstraint(SampleMecanumDrive.getAccelerationConstraint(15, 30))
 //                .waitSeconds(0.4)
-                .lineToLinearHeading(new Pose2d(-59, -53, Math.toRadians(81)))
+                .lineToLinearHeading(new Pose2d(-59, -53, Math.toRadians(83)))
 //            .waitSeconds(0.5)
                 .build();
 
